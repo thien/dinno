@@ -1,3 +1,18 @@
-Project scope <Specify the exact project scope indicating project boundaries. This can also include the purpose of the software project, its benefits and overall goals. In the case of a software product, this should contain product vision and should indicate the exact user base for the product. If you are aware of features that should go into a future version, list them here or add a new section on “Features for Future Releases”.>
+# Project scope
 
-Development approach: <You should briefly but clearly discuss the development approach and consider alternative approaches that you decided to ignore. You should also include the hardware, software, version control systems, testing strategy, etc., in this section. (max one pages)>
+<!-- Specify the exact project scope indicating project boundaries. This can also include the purpose of the software project, its benefits and overall goals. In the case of a software product, this should contain product vision and should indicate the exact user base for the product. If you are aware of features that should go into a future version, list them here or add a new section on “Features for Future Releases” -->
+
+Purpose of Software Project
+Benefits
+Overall Goals
+
+Product Vision
+Exact user base for the product.
+
+# Development approach
+<!--  You should briefly but clearly discuss the development approach and consider alternative approaches that you decided to ignore. You should also include the hardware, software, version control systems, testing strategy, etc., in this section. (max one pages) -->
+
+We will be using this set of web technologies:
+MEAN Stack
+
+Alternatives to this would include the LAMP stack
