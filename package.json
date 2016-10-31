@@ -28,7 +28,8 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "jstransformer-markdown-it": "^2.0.0",
-    "pug": "^2.0.0-beta6"
+    "pug": "^2.0.0-beta6",
+    "socketio": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^2.2.4",
