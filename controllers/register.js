@@ -23,6 +23,7 @@ router.get('/', function(req, res) {
 router.post('/', function (req, res) {
 	//validate the shit
 	console.log(req.body.name);
-    res.render('render', { name: req.body.name });
+	console.log(req.body.email);
+    res.render('render', { email: req.body.email, name: req.body.name });
 });
 module.exports = router

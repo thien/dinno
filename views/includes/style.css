@@ -1,5 +1,9 @@
 <style>
   body {
+  	font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif !important;
+	text-rendering: optimizeLegibility;
+    font-weight: 100;
+
     padding: 50px;
   }
 </style>
