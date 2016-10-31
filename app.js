@@ -3,6 +3,8 @@ var express = require('express')
   , app = express()
   , bodyParser = require('body-parser')
   , port = process.env.PORT || 3000
+  , MarkdownIt = require('markdown-it')
+  , md = new MarkdownIt();
 
 app.set('views', __dirname + '/views')
 app.engine('pug', require('pug').__express)

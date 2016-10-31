@@ -1,11 +1,33 @@
-doctype html
-html
-  head
-    title Register here
-  body
-    h1 This is a registration page
-    p
-      | check this shit out
-    p
-      | Here is an example url
-    a(href="/comments/10") Comment with id 10
+extends layout
+
+block container
+	h1 this is dinno
+	form(method="post")
+		fieldset
+			legend General
+			p
+				label(for="name") Username:
+					input(type="text", name="name", value=name)
+			p
+				label(for="email") Email:
+					input(type='email', placeholder='name@email.com' name='email')
+					.tip.
+						Enter a valid
+						email address
+						such as <em>tj@vision-media.ca</em>.
+		fieldset
+			legend Location
+			p
+				label(for="city") City:
+					input(type="text", name="city", value=mail)
+			p
+				select(name="user[province]")
+					option(value="") -- Select Province --
+					option(value="AB") Alberta
+					option(value="BC") British Columbia
+					option(value="SK") Saskatchewan
+					option(value="MB") Manitoba
+					option(value="ON") Ontario
+					option(value="QC") Quebec
+		p.buttons
+			input(type="submit", value="Save")

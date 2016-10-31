@@ -1,12 +1,13 @@
-doctype html
-html
-  head
-    title Your basic web app structure
-  body
-    h1 Welcome to your basic web app structure
-    a(href="/register") Register
-    p
-      | Checkout the files to see how it is organized.
-    p
-      | Here is an example url
-    a(href="/comments/10") Comment with id 10
+extends layout
+
+block container
+	h1 this is dinno
+	#container
+			:markdown-it()
+				dinno is a _food sharing_ service running on [node](http://nodejs.org).
+	a(href="/register") Register
+	p
+		| Checkout the files to see how it is organized.
+	p
+		| Here is an example url
+	a(href="/comments/10") Comment with id 10
