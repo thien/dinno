@@ -7,7 +7,7 @@
 | User registration   |  @jj97 🌚           |
 | Messaging           |  @jj97 🌚           |
 | Search functions    |  @SimeonC96 🔥 |
-| Search swapping     |  @shippers96 👽 |
+| Search swapping     |  @rs96 👽 |
 
 ## Intermediate Deliverables
 
