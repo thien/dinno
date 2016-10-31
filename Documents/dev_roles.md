@@ -3,10 +3,11 @@
 ## Basic Deliverables
 | Deliverable         | Assigned to |
 | ------------------  | ----------- |
-| User registration   |             |
-| Messaging           |             |
-| Search functions    |             |
-| Search swapping     |             |
+| Core Setup          | @tnguyen 💩 |
+| User registration   |  @jj97 🌚           |
+| Messaging           |  @jj97 🌚           |
+| Search functions    |  @SimeonC96 🔥 |
+| Search swapping     |  @shippers96 👽 |
 
 ## Intermediate Deliverables
 
