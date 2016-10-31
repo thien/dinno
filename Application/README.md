@@ -1,3 +1,0 @@
-# Dinno
-
-	node app.js
