@@ -1,4 +1,4 @@
-Template
+# Functional Requirements
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -63,3 +63,21 @@ Template
 | Dependencies  | Database |
 | Expected results  | More reliable communication between users through the website  |
 | Exception handling  | No messages found, Invalid message content |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0008 - Profile  |
+| Description  | Page dedicated to show a users details  |
+| Priority  | Medium  |
+| Dependencies  | Database  |
+| Expected results  | A user's details will be able to be accessed conveniently.  |
+| Exception handling  | Not Applicable |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0009 - Rating System  |
+| Description  | Allows users to rate others in order to simulate a trust system.  |
+| Priority  | Medium  |
+| Dependencies  | Database  |
+| Expected results  | Users will be able to rate others.  |
+| Exception handling  | User doesn't rate, Rating higher or under a range. |
