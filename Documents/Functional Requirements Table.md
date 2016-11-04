@@ -45,3 +45,21 @@ Template
 | Dependencies  | Database  |
 | Expected results  | User will be able to create an account  |
 | Exception handling  | User enters incorrect information e.g. email. User times out from website |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0005 - Send message |
+| Description  | Send a text message from one user to another  |
+| Priority  | High  |
+| Dependencies  | Database, Socket  |
+| Expected results  | Users will be able to communicate through the website  |
+| Exception handling  | Invalid recipient/sender, Invalid message content, Connection loss |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0006 - Message History |
+| Description  | Allows user to see previous messages sent to and from another user  |
+| Priority  | Medium  |
+| Dependencies  | Database |
+| Expected results  | More reliable communication between users through the website  |
+| Exception handling  | No messages found, Invalid message content |
