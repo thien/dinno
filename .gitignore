@@ -1,4 +1,6 @@
 node_modules/*
+db_key.js
+
 <<<<<<< HEAD
 /Application/node_modules/*
 =======
@@ -38,4 +40,4 @@ node_modules/*
 .Trashes
 ehthumbs.db
 Thumbs.db
->>>>>>> origin/master
+

@@ -4,7 +4,15 @@ var express = require('express')
   , bodyParser = require('body-parser')
   , port = process.env.PORT || 3000
   , MarkdownIt = require('markdown-it')
-  , md = new MarkdownIt();
+  , md = new MarkdownIt()
+  , mysql = require('node-mysql')
+  , DB = mysql.DB;
+
+//database key
+var st = require('./db_key.js');
+
+//initiate database connection
+var db = new DB(st.s());
 
 app.set('views', __dirname + '/views')
 app.engine('pug', require('pug').__express)
