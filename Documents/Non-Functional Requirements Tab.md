@@ -48,7 +48,6 @@
 |------------------|-------------|
 |Usability|The system should be intuitive and easy to use for all users, even those who are inexperienced in using computers. It must be ensured that any language is clear and unambiguous, and that no overtly technical terms are used.|
 |Usability|The website should provide tutorials/a help page on how to use the site, aimed towards less experienced computer users.|
-|Usability|...|
 |Accessibility|The system should provide the ability to adjust size of text & images so that they are readable.|
 |Accessibility|The system should have support for screen readers so as to make the site usable by visually impaired/blind persons|
 |Accessibility|The system should be accessible on all major desktop & mobile operating systems.|
