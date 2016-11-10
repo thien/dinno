@@ -84,8 +84,8 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0010 - Basic database search  |
-| Description  | Allows users to search for foods, by location and by quantity  |
+| ID, type and title  | 0010 - Query database  |
+| Description  | Sends a query to the database and returns results based on the query|
 | Priority  | High |
 | Dependencies  | Database  |
 | Expected results  | Return a list of foods which fit the query |
@@ -139,30 +139,30 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0016 - Add single item to available food list|
-| Description  | user can add a single Item to the database |
+| ID, type and title  | 0016 - Add single item to available food list |
+| Description  | User can add a single Item to the database |
 | Priority  | High  |
-| Dependencies  | database |
-| Expected results  | user will update the database with a single item of food |
+| Dependencies  | Database |
+| Expected results  | User will update the database with a single item of food |
+| Exception handling | |
+
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0017 - Claim Food |
+| Description  | Function in chat to agree to collect food. Must be sent through private message|
+| Priority  | Medium |
+| Dependencies  | Socket, Database  |
+| Expected results  | User will be able to claim food but only when both parties agree |
 | Exception handling  | |
 
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0017 - claim food |
-| Description  | function in chat to agree to collect food. Must be sent through private message|
-| Priority  | medium|
+| ID, type and title  | 0018 - Report food|
+| Description  | Function will allow users to report food which doesn't match description |
+| Priority  | Low  |
 | Dependencies  |  |
-| Expected results  | user will be able to claim food but only when both parties agree|
-| Exception handling  | |
-
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | 0018 - report food|
-| Description  | function will allow users to report food which doesn't match description |
-| Priority  | High  |
-| Dependencies  |  |
-| Expected results  | will notify admins  |
+| Expected results  | Will notify admins, and will be marked as reported food, the user who reported the food will receive a rating on accuracy|
 | Exception handling  | |
 
