@@ -30,9 +30,27 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0003 - Adding item to "basket" |
-| Description  | Add item to "basket" or available food list |
+| ID, type and title  | 0008 - Profile  |
+| Description  | Page dedicated to show a users details  |
+| Priority  | Medium  |
+| Dependencies  | Database  |
+| Expected results  | A user's details will be able to be accessed conveniently.  |
+| Exception handling  | Not Applicable |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0003 - Add single item to available food list |
+| Description  | User can add a single Item to the database |
 | Priority  | High  |
+| Dependencies  | Database |
+| Expected results  | User will update the database with a single item of food |
+| Exception handling | |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0004 - Bulk item add |
+| Description  | Add item to "basket" or available food list |
+| Priority  | Medium  |
 | Dependencies  | Database |
 | Expected results  | User add food onto a available food list |
 | Exception handling  | User times out from website |
@@ -45,6 +63,15 @@
 | Dependencies  | N/A  |
 | Expected results  | Out of date food is rejected  |
 | Exception handling  | User enters incorrect information e.g. email. User times out from website |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0018 - Report food |
+| Description  | Function will allow users to report food which doesn't match description |
+| Priority  | Low  |
+| Dependencies  |  |
+| Expected results  | Will notify admins, and will be marked as reported food, the user who reported the food will receive a rating on accuracy|
+| Exception handling  | |
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -66,12 +93,12 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0008 - Profile  |
-| Description  | Page dedicated to show a users details  |
-| Priority  | Medium  |
-| Dependencies  | Database  |
-| Expected results  | A user's details will be able to be accessed conveniently.  |
-| Exception handling  | Not Applicable |
+| ID, type and title  | 0017 - Claim Food |
+| Description  | Function in chat to agree to collect food. Must be sent through private message|
+| Priority  | Medium |
+| Dependencies  | Socket, Database  |
+| Expected results  | User will be able to claim food but only when both parties agree |
+| Exception handling  | |
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -90,6 +117,15 @@
 | Dependencies  | Database  |
 | Expected results  | Return a list of foods which fit the query |
 | Exception handling  | User inputs a invalid word e.g. any keyword in SQL will be rejected |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0015 - Query builder |
+| Description  | Function will build a query from parameter given from a user|
+| Priority  | High  |
+| Dependencies  |  |
+| Expected results  | Function will return a query in SQL |
+| Exception handling  | User uses SQL keywords|
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -126,43 +162,3 @@
 | Dependencies  | Database  |
 | Expected results  | Users will receive a notification when food is available either by an email, or by mobile push notifications |
 | Exception handling  | N/A |
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | 0015 - Query builder|
-| Description  | function will build a query from parameter given from a user|
-| Priority  | High  |
-| Dependencies  |  |
-| Expected results  | Function will return a query in SQL |
-| Exception handling  | User uses SQL keywords|
-
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | 0016 - Add single item to available food list |
-| Description  | User can add a single Item to the database |
-| Priority  | High  |
-| Dependencies  | Database |
-| Expected results  | User will update the database with a single item of food |
-| Exception handling | |
-
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | 0017 - Claim Food |
-| Description  | Function in chat to agree to collect food. Must be sent through private message|
-| Priority  | Medium |
-| Dependencies  | Socket, Database  |
-| Expected results  | User will be able to claim food but only when both parties agree |
-| Exception handling  | |
-
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | 0018 - Report food|
-| Description  | Function will allow users to report food which doesn't match description |
-| Priority  | Low  |
-| Dependencies  |  |
-| Expected results  | Will notify admins, and will be marked as reported food, the user who reported the food will receive a rating on accuracy|
-| Exception handling  | |
-
