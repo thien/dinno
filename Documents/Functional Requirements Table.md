@@ -12,7 +12,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0001 - Account registration  |
+| ID, type and title  | B2.01 - Account registration  |
 | Description  | Form to submit to create an account  |
 | Priority  | High  |
 | Dependencies  | Database  |
@@ -21,7 +21,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0002 - Account changes |
+| ID, type and title  | B2.02 - Account changes |
 | Description  | Form to change details on account e.g. passwords and emails |
 | Priority  | Medium |
 | Dependencies  | Database  |
@@ -30,7 +30,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0003 - Profile  |
+| ID, type and title  | B2.03 - Profile  |
 | Description  | Page dedicated to show a users details  |
 | Priority  | Medium  |
 | Dependencies  | Database  |
@@ -39,7 +39,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0004 - Add single item to available food list |
+| ID, type and title  | B4.01 - Add single item to available food list |
 | Description  | User can add a single Item to the database |
 | Priority  | High  |
 | Dependencies  | Database |
@@ -48,7 +48,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0005 - Bulk item add |
+| ID, type and title  | B4.02 - Bulk item add |
 | Description  | Add item to "basket" or available food list |
 | Priority  | Medium  |
 | Dependencies  | Database |
@@ -57,7 +57,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0006 - Food checking |
+| ID, type and title  | B4.03 - Food checking |
 | Description  | Reject foods which are out of date |
 | Priority  | High  |
 | Dependencies  | N/A  |
@@ -66,7 +66,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0007 - Report food |
+| ID, type and title  | B4.04 - Report food |
 | Description  | Function will allow users to report food which doesn't match description |
 | Priority  | Low  |
 | Dependencies  |  |
@@ -75,7 +75,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0008 - Send message |
+| ID, type and title  | B3.01 - Send message |
 | Description  | Send a text message from one user to another  |
 | Priority  | High  |
 | Dependencies  | Database, Socket  |
@@ -84,7 +84,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0009 - Message History |
+| ID, type and title  | B3.02 - Message History |
 | Description  | Allows user to see previous messages sent to and from another user  |
 | Priority  | Medium  |
 | Dependencies  | Database |
@@ -93,7 +93,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0010 - Claim Food |
+| ID, type and title  | B3.03 - Claim Food |
 | Description  | Function in chat to agree to collect food. Must be sent through private message|
 | Priority  | Medium |
 | Dependencies  | Socket, Database  |
@@ -102,7 +102,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0011 - Rating System  |
+| ID, type and title  | B2.04 - Rating System  |
 | Description  | Allows users to rate others in order to simulate a trust system.  |
 | Priority  | Medium  |
 | Dependencies  | Database  |
@@ -111,7 +111,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0012 - Query database  |
+| ID, type and title  | B4.05 - Query database  |
 | Description  | Sends a query to the database and returns results based on the query|
 | Priority  | High |
 | Dependencies  | Database  |
@@ -120,7 +120,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0013 - Query builder |
+| ID, type and title  | B4.06 - Query builder |
 | Description  | Function will build a query from parameter given from a user|
 | Priority  | High  |
 | Dependencies  |  |
@@ -129,7 +129,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0014 - View current/past offers  |
+| ID, type and title  | B4.07 - View current/past offers  |
 | Description  | Allows users to see what they currently offer and what they offered in the past. |
 | Priority  | High  |
 | Dependencies  | Database  |
@@ -138,7 +138,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0015 - Interactive search sorting  |
+| ID, type and title  | B5.01 - Interactive search sorting  |
 | Description  | Allows for user to sort the results without having to reload the webpage |
 | Priority  | High  |
 | Dependencies  | Database  |
@@ -147,7 +147,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0016 - Intermediate search functionality  |
+| ID, type and title  | I1.01 - Intermediate search functionality  |
 | Description  | Filtering on the search results based on location, radius, item type etc |
 | Priority  | Medium  |
 | Dependencies  | Database |
@@ -156,7 +156,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0017 - Notifications  |
+| ID, type and title  | I2.01 - Notifications  |
 | Description  | Users receive a notification when food they are looking for becomes available |
 | Priority  | Medium  |
 | Dependencies  | Database  |
