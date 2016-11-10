@@ -24,3 +24,6 @@
 | A2 | Advanced search functions |             |
 | A3 | Recommendations           |             |
 | A4 | Predictions               |             |
+
+
+https://raw.githubusercontent.com/tnugyen/dino/tree/master/Documents/gantt.jpg
