@@ -13,17 +13,17 @@
 
 | ID | Deliverable            | Assigned to  |
 | ----- | :--------------------: | :----------- |
-| I1 | Extra search functions |              |
-| I2 | Notifications          |              |
+| I1 | Extra search functions |@SimeonC96       |
+| I2 | Notifications          |@shippers96      |
 
 ## Advanced Deliverables
 
 | ID | Deliverable               | Assigned to |
 | ---- | :-----------------------: | :---------- |
-| A1 | Barcode Scanner           |             |
-| A2 | Advanced search functions |             |
-| A3 | Recommendations           |             |
-| A4 | Predictions               |             |
+| A1 | Barcode Scanner           | @SimeonC96|
+| A2 | Advanced search functions | @jj97       |
+| A3 | Recommendations           | @tnguyen    |
+| A4 | Predictions               | @jgbremner  |
 
 
 ![Gantt chart](/Documents/gantt.jpg)
