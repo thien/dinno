@@ -26,4 +26,4 @@
 | A4 | Predictions               |             |
 
 
-[!Gantt chart](/Documents/gantt.jpg)
+![Gantt chart](/Documents/gantt.jpg)
