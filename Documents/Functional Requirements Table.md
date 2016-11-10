@@ -129,9 +129,40 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | 0015 -   |
-| Description  | Allows users to rate others in order to simulate a trust system.  |
-| Priority  | Low  |
-| Dependencies  | Database  |
-| Expected results  | Users will be able to rate others.  |
-| Exception handling  | User doesn't rate, Rating higher or under a range. |
+| ID, type and title  | 0015 - Query builder|
+| Description  | function will build a query from parameter given from a user|
+| Priority  | High  |
+| Dependencies  |  |
+| Expected results  | Function will return a query in SQL |
+| Exception handling  | User uses SQL keywords|
+
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0016 - Add single item to available food list|
+| Description  | user can add a single Item to the database |
+| Priority  | High  |
+| Dependencies  | database |
+| Expected results  | user will update the database with a single item of food |
+| Exception handling  | |
+
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0017 - claim food |
+| Description  | function in chat to agree to collect food. Must be sent through private message|
+| Priority  | medium|
+| Dependencies  |  |
+| Expected results  | user will be able to claim food but only when both parties agree|
+| Exception handling  | |
+
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | 0018 - report food|
+| Description  | function will allow users to report food which doesn't match description |
+| Priority  | High  |
+| Dependencies  |  |
+| Expected results  | will notify admins  |
+| Exception handling  | |
+
