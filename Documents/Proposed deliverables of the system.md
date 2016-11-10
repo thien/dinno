@@ -26,4 +26,4 @@
 | A4 | Predictions               |             |
 
 
-https://raw.githubusercontent.com/tnugyen/dino/tree/master/Documents/gantt.jpg
+[!Gantt chart](/Documents/gantt.jpg)
