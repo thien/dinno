@@ -1,0 +1,64 @@
+<html>
+<head>
+<!-- <script src="/socket.io/socket.io.js"></script> -->
+<script>
+
+    function initMap() {
+        const DURHAM_LAT_LNG = {lat: 54.7762235, lng: -1.5864418};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: DURHAM_LAT_LNG
+        });
+
+        createMarker({lat: 54.766866, lng: -1.5749834}, 'Billy B');
+        createMarker({lat: 54.778665, lng: -1.5588949}, 'Castle Jennings');
+        createUserMarker(DURHAM_LAT_LNG);
+
+        function createMarker(pos, t) {
+            var marker = new google.maps.Marker({       
+                position: pos, 
+                map: map,
+                title: t      
+            }); 
+            google.maps.event.addListener(marker, 'click', function() { 
+                var coordInfoWindow = new google.maps.InfoWindow({
+                    content: marker.title,
+                    position: marker.position
+                });
+                coordInfoWindow.open(map);
+             }); 
+            return marker;  
+        }
+
+        function createUserMarker(pos){
+            var userMarker = new google.maps.Marker({       
+                position: pos, 
+                map: map,
+                title: 'Your Location',
+                draggable: true,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'     
+            }); 
+            google.maps.event.addListener(userMarker, 'dragend', function(event) {
+                document.getElementById('lat').innerHTML = event.latLng.lat();
+                document.getElementById('lng').innerHTML = event.latLng.lng();
+            })
+            return userMarker;
+        }
+    }
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap"></script>
+<style> #map{ height: 90%; } </style>
+</head>
+<body>
+<div id="formHolder">
+    <h1>Dinno</h1>
+    <p>This is dinno lol</p>
+    <p>Lat: <span id="lat"></span></p>
+    <p>Lng: <span id="lng"></span></p>
+</div>
+<div id="map"></div>
+
+</body>
+</html>
