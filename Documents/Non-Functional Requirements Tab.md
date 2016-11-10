@@ -1,6 +1,6 @@
-#Non-Functional Requirements
+# Non-Functional Requirements
 
-##Appearance/Feel Requirements
+## Appearance/Feel Requirements
 
 | Requirement Type | Description |
 |------------------|-------------|
@@ -13,7 +13,7 @@
 |Style|The logo will be visible on all pages the website.|
 |Layout|The site will have a navigation system that is easy to understand.|
 
-##Security/Access Requirements
+## Security/Access Requirements
 
 | Requirement Type | Description |
 |------------------|-------------|
@@ -24,7 +24,7 @@
 |Security|The system should provide logs on all visitor requests to the site in order to monitor potentially malicious behaviour.|
 |Access|The admin login section of the site should have features in place to restrict access from malicious users, by for example only allowing access for trusted I.Ps/domains.|
 
-##Performance
+## Performance
 
 | Requirement Type | Description |
 |------------------|-------------|
@@ -42,7 +42,7 @@
 |Robustness|There should be limits on what size image files should be uploaded to the system to prevent excessively large files being uploaded which slow down the system.|
 |Robustness|There should be limits on what size image files should be uploaded to the system to prevent excessively large files being uploaded which slow down the system.|
 
-##Usability/Ease of Access
+## Usability/Ease of Access
 
 | Requirement Type | Description |
 |------------------|-------------|
@@ -52,7 +52,7 @@
 |Accessibility|The system should have support for screen readers so as to make the site usable by visually impaired/blind persons|
 |Accessibility|The system should be accessible on all major desktop & mobile operating systems.|
 
-##Maintainability
+## €Maintainability
 
 | Requirement Type | Description |
 |------------------|-------------|

@@ -1,6 +1,6 @@
-#Risks, Assumptions, Constraints & Dependencies
+# Risks, Assumptions, Constraints & Dependencies
 
-##Project Risks
+## Project Risks
 
 **Communication:**
 
@@ -24,7 +24,7 @@
 
 - Lack of focus on mobile version of site vs. desktop version – both are equally important, should be worked on simultaneously.
 
-##Assumptions
+## Assumptions
 
 **Skills:**
 
@@ -44,7 +44,7 @@
 
 - It is assumed the client will give accurate and detailed feedback to any parts of the system they are asked to comment on.
 
-##Dependencies
+## Dependencies
 
 1. The project requirements need to be fully completed and checked before any design work or implementation is started.
 
@@ -54,7 +54,7 @@
 
 4. Testing cannot be completed until all implementation/extra features have been added to the system.
 
-##System Constraints
+## System Constraints
 
 - Only 3 hours a week have been allocated for group meetings, which must be shared with other projects such as the CEP and LSEPI presentation. This limits the amount of time that can be spend on collaborative design & evaluation.
 
@@ -62,7 +62,7 @@
 
 - Contact between team members as well as direct collaboration will be limited over both the winter and spring holiday periods due to separation as well as varying availability.
 
-##Additional Open Issues
+## Additional Open Issues
 
 - What are exact attributes associated with each food item?
 

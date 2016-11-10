@@ -1,4 +1,4 @@
-#Roles
+# Roles
 
 ## Basic Deliverables
 | Deliverable         | Assigned to |
@@ -25,7 +25,7 @@
 | Recommendations | |
 | Predictions | |
 
-## Other Jobs 
+## Other Jobs
 
 | Job | Assigned to |
 | -------------------------- | ------- |
