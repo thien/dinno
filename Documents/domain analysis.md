@@ -2,7 +2,7 @@
 
 ##Background
 
-There are charities which supply a food sharing experience in events, by catering for events using only spare food. These act usually as a small group of committed individuals who collect the food, prepare it and then give it out whilst collecting some donations. This method means that there is a quality control at the charity collection level, meaning that the users of the prepared food have a greater confidence in the food. Not having this and having a more peer to peer approach to food sharing will get rid of this confidence - this is a problem to tackle.
+There are charities which supply a food sharing experience at events, by catering for events using only spare food. These act usually as a small group of committed individuals who collect the food, prepare it and then give it out whilst collecting some donations. This method means that there is a quality control at the charity collection level, meaning that the users of the prepared food have a greater confidence in the food. Not having this and having a more peer to peer approach to food sharing will get rid of this confidence - this is a problem to tackle.
 
 An example of this method of food sharing is “REfUSE” a pop up cafe in Durham. They run on a “pay as you feel” basis in order for the cafe to keep running. Another way is to have a “community fridge” where a village has a shop-like place which is stocked and taken from by villagers for free.
 
