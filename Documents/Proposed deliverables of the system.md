@@ -7,7 +7,7 @@
 | B2 | Database creation   | @jgbremner      |
 | B3 | User registration   | @jj97         |
 | B4 | Messaging           | @jj97         |
-| B5 | Add, remove and edit food available to pick up          | @tnguyen      |
+| B5 | Add, remove and edit food available to pick up          | @tnguyen & rs96     |
 | B6 | Basic database search    | @SimeonC96    |
 | B7 | Interactive sorting     | @rs96   |
 
