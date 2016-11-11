@@ -1,6 +1,4 @@
-# Functional Requirements
-
-## Basic Deliverables
+# Key
 | ID | Deliverable         |
 | --- | ----------------- |
 | B1 | Core setup          |
@@ -10,23 +8,10 @@
 | B5 | Add, remove and edit food available to pick up |
 | B6 | Basic database search  |
 | B7 | Interactive sorting   |
-
-## Intermediate Deliverables
-
-| ID | Deliverable            |
-| ----- | :--------------------: | :----------- |
 | I1 | Search filtering(Done before user receives results back) |
 | I2 | Notifications          |
 
-## Advanced Deliverables
-
-| ID | Deliverable               |
-| ---- | :-----------------------: |
-| A1 | Barcode Scanner           |
-| A2 | Search results appear on interactive map |
-| A3 | Recommend how to reduce food waste based on users past food offers|
-| A4 | Unused food predictions based off past offers|
-
+# Function Requirements
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -35,7 +20,7 @@
 | Priority  | High  |
 | Dependencies  | Database  |
 | Expected results  | User will be able to create an account  |
-| Exception handling  | User enters incorrect information e.g. email. User times out from website |
+| Exception handling  | User enters incorrect information - reject incorrect information, ask to try again|
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -44,7 +29,7 @@
 | Priority  | Medium |
 | Dependencies  | Database  |
 | Expected results  | User will be able to modify details on their account |
-| Exception handling  | User enters incorrect information e.g. email. User times out from website |
+| Exception handling  | User enters incorrect information - reject incorrect information, ask to try again|
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -62,7 +47,7 @@
 | Priority  | High  |
 | Dependencies  | Database, Socket  |
 | Expected results  | Users will be able to communicate through the website  |
-| Exception handling  | Invalid recipient/sender, Invalid message content, Connection loss |
+| Exception handling  | Invalid recipient/sender (ask user to try again), Invalid message content(ask user to try again), Connection loss(attempt reconnection, if it fails again terminate)|
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -71,7 +56,7 @@
 | Priority  | Medium  |
 | Dependencies  | Database |
 | Expected results  | More reliable communication between users through the website  |
-| Exception handling  | No messages found, Invalid message content |
+| Exception handling  | No messages found, Invalid message content, give error message to user if either happens |
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -80,7 +65,7 @@
 | Priority  | Medium |
 | Dependencies  | Socket, Database  |
 | Expected results  | User will be able to claim food but only when both parties agree |
-| Exception handling  | |
+| Exception handling  | Invalid recipient/sender (ask user to try again), Connection loss(attempt reconnection, if it fails again terminate)|
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -89,7 +74,7 @@
 | Priority  | High  |
 | Dependencies  | Database |
 | Expected results  | User will update the database with a single item of food |
-| Exception handling | |
+| Exception handling | Connection loss with database, make user try again |
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -98,16 +83,16 @@
 | Priority  | Medium  |
 | Dependencies  | Database |
 | Expected results  | User add food onto a available food list |
-| Exception handling  | User times out from website |
+| Exception handling  | Connection loss with database, make user try again |
 
 | Section  | Description |
 | ------------- | ------------- |
 | ID, type and title  | B5.03 - Report food |
 | Description  | Function will allow users to report food which doesn't match description |
 | Priority  | Low  |
-| Dependencies  |  |
+| Dependencies  | Database |
 | Expected results  | Will notify admins, and will be marked as reported food, the user who reported the food will receive a rating on accuracy|
-| Exception handling  | |
+| Exception handling  | Connection loss with database, make user try again |
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -116,7 +101,7 @@
 | Priority  | Medium  |
 | Dependencies  | Database  |
 | Expected results  | Users will be able to rate others.  |
-| Exception handling  | User doesn't rate, Rating higher or under a range. |
+| Exception handling  | User doesn't rate, Rating higher or under a range. reject users input and try again |
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -132,9 +117,9 @@
 | ID, type and title  | B6.06 - Query builder |
 | Description  | Function will build a query from parameter given from a user|
 | Priority  | High  |
-| Dependencies  |  |
+| Dependencies  | Not applicable |
 | Expected results  | Function will return a query in SQL |
-| Exception handling  | User uses SQL keywords|
+| Exception handling  | User inputs a invalid word e.g. any keyword in SQL will be rejected|
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -143,7 +128,7 @@
 | Priority  | High  |
 | Dependencies  | Database  |
 | Expected results  | Returns a list of past and current offers  |
-| Exception handling  | N/A |
+| Exception handling  | Connection loss with database, make user try again |
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -161,6 +146,15 @@
 | Priority  | Medium  |
 | Dependencies  | Database |
 | Expected results  | Server will provide a list of foods available, presorted based on location, radius, or item type etc  |
+| Exception handling  | Connection loss with database, make user try again |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | I2.01 - Notifications  |
+| Description  | Users receive a notification when food they are looking for becomes available |
+| Priority  | Medium  |
+| Dependencies  | Database  |
+| Expected results  | Users will receive a notification when food is available either by an email, or by mobile push notifications |
 | Exception handling  | N/A |
 
 | Section  | Description |
