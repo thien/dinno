@@ -23,7 +23,7 @@
 | ID | Deliverable               | Assigned to |
 | ---- | :-----------------------: | :---------- |
 | A1 | Barcode Scanner           | @SimeonC96|
-| A2 | Results appear on interactive map | @jj97       |
+| A2 | Search results appear on interactive map | @jj97       |
 | A3 | Recommend how to reduce food waste based on users past food offers            | @tnguyen    |
 | A4 | Unused food predictions based off past offers               | @jgbremner  |
 
