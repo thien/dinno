@@ -1,6 +1,6 @@
-# Development approach
+# Development Approach
 
-## Hardware:
+## Hardware
 In terms of hardware, our program will be running on a server that is:
 
 - capable of having a dedicated connection to the internet
@@ -13,7 +13,7 @@ This hardware can be either virtually connected or, but at either case they will
 
 The program will be accessed on any device with web browser support.
 
-## Software:
+## Software
 In terms of software we will be using Node.JS as our preference of backend languages, as this allows us to be expendable in terms of programming potentially useful features, such as engineering mobile apps.
 
 We'll be using a variety of Node.JS packages that will assist with the features we wish to implement, which are not restricted to:
@@ -29,7 +29,7 @@ Our team will have their own preference of text editors and IDE's.
 
 Live testing will be performed on modern web browsers (which include HTML5 Support) and the program must be able to run on at least IE 11+.
 
-## Version Control Systems:
+## Version Control System
 Our choice of a version control system is Git, where a private repository is set up on GitHub. This allows us to collaborate with ease and allows us to see who is responsible for certain sections of code on the system. This also helps with publishing the product source code online in order to fulfill the open source aspect of our mission.
 
 ## Testing Strategy
