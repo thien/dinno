@@ -28,4 +28,4 @@
 | A4 | Unused food predictions based off past offers               | @jgbremner  |
 
 
-![Gantt chart](/Documents/gantt.jpg)
+![Gantt chart](/Documents/gantt.png)
