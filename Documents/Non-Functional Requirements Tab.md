@@ -29,7 +29,6 @@
 
 | Requirement Type | Description |
 |------------------|-------------|
-
 |Reliability|The system should store backups of all customer and admin data whic can be loaded as needed so as to ensure the website can still run if the database is corrupted.|
 |Reliability|The system should use defensive programming tactics to detect potential errors and provide warnings to users/admins.|
 |Efficiency|Searches should take no more than 4 seconds for for at least 95% of users.|
