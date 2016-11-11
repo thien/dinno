@@ -3,7 +3,7 @@
 ## Basic Deliverables
 | ID | Deliverable         | Assigned to   |
 | --- | ----------------- | ------------ |
-| B1 | Core Setup          | @tnguyen      |
+| B1 | Core setup          | @tnguyen      |
 | B2 | Database creation   | @jgbremner      |
 | B3 | User registration   | @jj97         |
 | B4 | Messaging           | @jj97         |
