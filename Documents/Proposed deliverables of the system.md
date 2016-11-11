@@ -7,14 +7,14 @@
 | B2 | User registration   | @jj97         |
 | B3 | Messaging           | @jj97         |
 | B4 | Search functions    | @SimeonC96    |
-| B5 | Search swapping     | @shippers96   |
+| B5 | Search swapping     | @rs96   |
 
 ## Intermediate Deliverables
 
 | ID | Deliverable            | Assigned to  |
 | ----- | :--------------------: | :----------- |
 | I1 | Extra search functions |@SimeonC96       |
-| I2 | Notifications          |@shippers96      |
+| I2 | Notifications          |@rs96      |
 
 ## Advanced Deliverables
 

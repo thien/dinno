@@ -8,17 +8,17 @@ The purpose of this project is to provide a internet based solution that allows 
 
 There are many benefits that this software project will provide, which are not limited to:
 
-- The project will allow users to give away unwanted food items.
-- The project will allow users to advertise unwanted food items.
-- The project will help spread goodwill among users.
-- The project will provides a good experience in what software engineering in a group entails.
-- The project will provide experience in a new programming paradigm.
-- reduce household spending bills
+- The project will allow users to give away unwanted food items. Food is an abundance and, as mentioned in the introduction a lot of edible food is discarded. Our SOOC can help ensure that food can go to people who need it.
+
+- The project will allow users to advertise unwanted food items. Many people find it inconvenient to go out of their way in making sure that their surplus food can be put into good use.
+
+- The project will help spread goodwill among users. Allowing users the opportunity to give away allows them to see first hand where their food is going, which helps in making them feel that they are helping out others.
+
+- Reduce household spending bills. Due to the nature of this software, users will intuitively spend less on groceries.
 
 ## Project Boundaries
 
 For the moment we will not be producing a native mobile application from scratch, as our group collectively have little to zero experience in this particular environment, adding to the timespan needed to produced such a program. Additionally, the performance that this app will provide as opposed to a web-container style app isn't enough to justify the program to be made.
-
 
 ## Product Vision
 
@@ -33,7 +33,7 @@ For the moment we will not be producing a native mobile application from scratch
 - both users rate each other's experience.
 
 ## User Base
-
+- users short on food resources
 - users wishing to give away food
 - users wishing to find free food
 - users with a full pantry
