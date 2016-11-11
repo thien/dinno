@@ -29,15 +29,15 @@
 
 | Requirement Type | Description |
 |------------------|-------------|
-|Reliability|The system should store backups of all customer and admin data whic can be loaded as needed so as to ensure the website can still run if the database is corrupted.|
+|Reliability|The system should store backups of all customer and admin data which can be loaded as needed so as to ensure the website can still run if the database is corrupted.|
 |Reliability|The system should use defensive programming tactics to detect potential errors and provide warnings to users/admins.|
-|Efficiency|Searches should take no more than 4 seconds for for at least 95% of users.|
+|Efficiency|Searches should take no more than 4 seconds for at least 95% of users.|
 |Responsiveness|Response time on mobile should match or at least be no more than a second greater than on desktop for 95% of users.|
 |Responsiveness|It should be the case that for normal users the response time for loading new pages should not exceed 4 seconds for at least 95% of pages.|
-|Responsiveness|Private messages sent between users should be recieved within 1 second.|
+|Responsiveness|Private messages sent between users should be received within 1 second.|
 |Responsiveness|The system should have animation/feedback on all input buttons/links to indicate to a user that the site is responding to mouse input correctly.|
 |Scalability|Ensure the site has a modular design to ensure that any extra site features/pages can be implemented when needed.|
-|Scalability|New database tables/records should be able to be added easility using site admin tools.|
+|Scalability|New database tables/records should be able to be added easily using site admin tools.|
 |Robustness|The site should be able to cope with a sudden influx of requests (eg. on login page) without going down, for example by using cloud mitigation services.|
 |Robustness|The site should be able to deal with invalid login details by performing validation and give appropriate error messages.|
 |Robustness|There should be limits on what size image files should be uploaded to the system to prevent excessively large files being uploaded which slow down the system.|
@@ -51,7 +51,7 @@
 |Usability|It must be ensured that any language used is clear and unambiguous, and that no overtly technical terms are used.|
 |Usability|The website should provide tutorials/a help page on how to use the site, aimed towards less experienced computer users.|
 |Usability|The site should include a troubleshooting form or contact email so that users can contact anyone if they are having a problem with the site.|
-|Usability|Any error messages given to the user for things such as incorrect input should be as specific and clear as possible so as to prevent confusion as to what has occured, and should provide a possible solution depending on the error|
+|Usability|Any error messages given to the user for things such as incorrect input should be as specific and clear as possible so as to prevent confusion as to what has occurred, and should provide a possible solution depending on the error|
 |Accessibility|The system should provide the ability to adjust size of text & images so that they are readable.|
 |Accessibility|The system should provide text alternatives for any visual/diagrammatic contact eg. maps so as to make the site usable by visually impaired/blind persons with software such as screen readers.|
 |Accessibility|The system should have colour schemes which make text/images easy to read and which do not cause problems for people with colour blindness.|
@@ -66,6 +66,6 @@
 |Maintainability|All the site code should be well commented and documented.|
 |Maintainability|The code should have low complexity with average method length not exceeding 100 lines.|
 |Maintainability|The site should use modular, organised architectures which are easily modifiable and maintainable.|
-|Maintainability|Installation or removal of site features should leave all database contents and all
-personal settings unchanged.|
+|Maintainability|Installation or removal of site features should leave all database contents and all personal settings unchanged.|
+|Maintainability|The site should use architectures which are easily modifiable and maintainable.|
 
