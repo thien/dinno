@@ -2,11 +2,13 @@
 
 ## Hardware:
 In terms of hardware, our program will be running on a server that is:
-	- capable of having a dedicated connection to the internet
-	- capable of handling potentially a large amount concurrent users
-	- have no ports blocked
-	- running on an operating system that allows us to have full reign of the installation of software.
-	- allows storage.
+
+- capable of having a dedicated connection to the internet
+- capable of handling potentially a large amount concurrent users
+- have no ports blocked
+- running on an operating system that allows us to have full reign of the installation of software.
+- allows storage.
+
 This hardware can be either virtually connected or, but at either case they will be provided by the client.
 
 The program will be accessed on any device with web browser support.
