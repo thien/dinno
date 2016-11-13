@@ -64,12 +64,22 @@
 
 ## Additional Open Issues
 
-- What are exact attributes associated with each food item?
+* What are exact attributes associated with each food item?
 
-- Does the system necessarily have to be a mobile app? (A web version of site would be preferable)
+These can be chosen by the developer depending on what they feel is appropriate.
 
-- For registration of users, does this feature have to be built into the system, or can it be outsourced via facebook/twitter?
+* Does the system necessarily have to be a mobile app? (A web version of site would be preferable)
 
-- In general, how important is it that the site’s features are custom-designed vs. being outsourced?
+No, a mobile app does not need to be implemented, though the website should still have a version optimised for mobile browsers.
 
-- Does the site need Terms/Conditions & Licensing, for legal issues such as if someone receives out of date food/gets food poisoning?
+* For registration of users, does this feature have to be built into the system, or can it be outsourced via facebook/twitter?
+
+Preferably built into the system.
+
+* In general, how important is it that the site’s features are custom-designed vs. being outsourced?
+
+Generally, as much should be custom-designed from scratch as possible.
+
+* Does the site need Terms/Conditions & Licensing, for legal issues such as if someone receives out of date food/gets food poisoning?
+
+Yes, terms & conditions should be created for the site.
