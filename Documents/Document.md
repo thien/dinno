@@ -98,7 +98,7 @@ We have found it to be quite busy looking with a long list of items sorted by di
 | A1 | Barcode Scanner           | @SimeonC96|
 | A2 | Search results appear on interactive map | @jj97       |
 | A3 | Recommend how to reduce food waste based on users past food offers            | @tnguyen    |
-| A4 | Unused food predictions based off past offers               | @jgbremner  |
+| A4 | Unused food predictions based off of past offers               | @jgbremner  |
 
 
 ![Gantt chart](gantt.png)
@@ -340,15 +340,6 @@ Yes, terms & conditions should be created for the site.
 | Dependencies  | Database |
 | Expected results  | Server will provide a list of foods available, presorted based on location, radius, or item type etc  |
 | Exception handling  | Connection loss with database, make user try again |
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | I2.01 - Notifications  |
-| Description  | Users receive a notification when food they are looking for becomes available |
-| Priority  | Medium  |
-| Dependencies  | Database  |
-| Expected results  | Users will receive a notification when food is available either by an email, or by mobile push notifications |
-| Exception handling  | N/A |
 
 | Section  | Description |
 | ------------- | ------------- |
