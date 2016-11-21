@@ -9,10 +9,14 @@ var express = require('express')
   , DB = mysql.DB;
 
 //database key
-var st = require('./db_key.js');
+// var st = require('./db_key.js');
 
 //initiate database connection
-var db = new DB(st.s());
+var db = new DB({
+  host     : process.env.JAWSDB_SERVER,
+  user     : process.env.JAWSDB_USER,
+  password : process.env.JAWSDB_PASS
+});
 
 app.set('views', __dirname + '/views')
 app.engine('pug', require('pug').__express)
