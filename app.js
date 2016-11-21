@@ -15,7 +15,8 @@ var express = require('express')
 var db = new DB({
   host     : process.env.JAWSDB_SERVER,
   user     : process.env.JAWSDB_USER,
-  password : process.env.JAWSDB_PASS
+  password : process.env.JAWSDB_PASS,
+  database : process.env.JAWSDB_DB
 });
 
 app.set('views', __dirname + '/views')
