@@ -41,3 +41,5 @@ db_key.js
 ehthumbs.db
 Thumbs.db
 
+
+config/database.json
