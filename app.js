@@ -1,13 +1,13 @@
 // initiate dependencies
-var express = require('express')
-  , fs = require('fs');
-  , bodyParser = require('body-parser')
-  , MarkdownIt = require('markdown-it')
-  , mysql = require('node-mysql')
-  , port = process.env.PORT || 3000
-  , app = express()
-  , md = new MarkdownIt()
-  , DB = mysql.DB
+var express = require('express');
+var fs = require('fs');
+var bodyParser = require('body-parser');
+var MarkdownIt = require('markdown-it');
+var mysql = require('node-mysql');
+var port = process.env.PORT || 3000;
+var app = express();
+var md = new MarkdownIt();
+var DB = mysql.DB;
 
 //database key
 var db_keys = {};
