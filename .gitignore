@@ -43,3 +43,8 @@ Thumbs.db
 
 
 config/database.json
+
+config/database_old.json
+
+Documents/Mockups/SVG/*
+Documents/Mockups/WebFont/*
