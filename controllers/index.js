@@ -4,6 +4,7 @@ var express = require('express')
 router.use('/comments', require('./comments'))
 router.use('/register', require('./register'))
 router.use('/users', require('./users'))
+router.use('/chat', require('./chat'))
 
 router.get('/', function(req, res) {
   res.render('index')
