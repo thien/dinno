@@ -9,7 +9,7 @@ In terms of hardware, our program will be running on a server that is:
 - running on an operating system that allows us to have full reign of the installation of software.
 - allows storage.
 
-This hardware can be either virtually connected or, but at either case they will be provided by the client.
+This hardware can be either virtually connected using a service provider such as Amazon's EC2, or owned physically, but at either case they will be provided by the client.
 
 The program will be accessed on any device with web browser support.
 

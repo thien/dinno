@@ -4,7 +4,7 @@
 | ------------- | ------------- |
 | Query | SQL sentence sent to a database to retrieve certain information OR synonymous with question. |
 | Socket | A tool that allows for connections to be created between machines.  |
-| SaaS | System as a Service.  |
+| SaaS | Software as a Service.  |
 | JavaScript | A web based programming language. |
 | Node.JS | An open-source, cross-platform JavaScript runtime environment. |
 | Runtime Environment | Implements the core behavior of a computer language. |

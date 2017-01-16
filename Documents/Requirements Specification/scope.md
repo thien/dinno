@@ -8,9 +8,9 @@ The purpose of this project is to provide an internet based solution that allows
 
 There are many benefits that this software project will provide, which are not limited to:
 
-- The project will allow users to give away unwanted food items. Food is an abundance and, as mentioned in the introduction a lot of edible food is discarded. Our SaaS can help ensure that food can go to people who need it.
+- The project will allow users to give away unwanted food items. Food is an abundance and, as mentioned in the introduction a lot of edible food is discarded. Our SaaS (Software as a Service) can help ensure that food can go to people who need it.
 
-- The project will allow users to advertise unwanted food items. Many people find it inconvenient to go out of their way in making sure that their surplus food can be put into good use.
+- The project will allow users (people above 18 years old) to advertise unwanted food items. Many people find it inconvenient to go out of their way in making sure that their surplus food can be put into good use.
 
 - The project will help spread goodwill among users. Allowing users the opportunity to give away allows them to see first hand where their food is going, which helps in making them feel that they are helping out others.
 
@@ -26,7 +26,7 @@ For the moment we will not be producing a native mobile application from scratch
 
 - User has food he is willing to give away
 - User goes to our website
-- User scans or puts in details of the food, alongside an assisting photo
+- User scans the barcode of the food item, or manually enters in details of the food, alongside an assisting photo
 - Another user goes to site
 - Another user searches for an item they like
 - User requests item.
