@@ -1,4 +1,4 @@
-# Introduction 
+# Introduction
 
 Every year in the UK, we throw away 7 million tonnes of food – half of which is perfectly edible. Leveraging such an enormous unused food supply would not only be of great social benefit to those struggling to feed themselves, but also of economic benefit to the typical household. It is estimated that the average family loses £700 a year due directly to food waste. [[1]](http://www.lovefoodhatewaste.com/node/2472)
 
@@ -7,3 +7,32 @@ The main cause of food waste is preparing a larger meal than was needed.  Especi
 Our proposed project – Dinno, is a mobile-friendly website focussed on tackling the ongoing issue of food waste in the UK. Through Dinno, users can advertise their unwanted food and with the integrated messaging system, get in touch with likeminded individuals. Users will be able to quickly and comprehensively search for meals or ingredients in their local area and arrange a suitable time for collection.
 
 In much the same way that social networks have made connecting with friends an effortless task, the power of the internet could easily be used to connect people with food to those that need it. Using Dinno, people can quickly see an overview of available donations in the area and if any look particularly appealing, contact the donor to claim their food. What was once only achieved by a few dedicated charities could easily be accomplished by the everyday man with the help of a simple, streamlined website.
+
+## Contents
+
+- Project Scope
+  - Purpose
+  - Benefits
+  - Project Boundaries
+  - Prodcut Vision
+  - User Base
+- Domain Analysis
+  - Background
+  - Existing Applications
+- Roles
+- Risks, Assumptions, Constraints and Dependencies
+  - Project Risks
+  - Assumptions
+  - Dependencies
+  - System Constraints
+  - Additional Open Issues
+- Solution Requirements
+  - Function Requirements
+  - Non-Functional Requirements
+- Development Approach
+  - Hardware
+  - Software
+  - Version Control System
+  - Testing Strategy
+  - Alternatives
+- Definition of Terms and References
