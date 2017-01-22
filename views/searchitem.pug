@@ -1,0 +1,45 @@
+extends layout
+
+block container
+	script
+		include assets/map.js
+	script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
+
+
+	include includes/nav
+	//- divide into two columns
+	.container-fluid
+		.row
+			.col
+				#item_results_container
+					if food
+						h1 Searching for #{food}
+					else
+						h1 Searching for ?
+
+					#formHolder
+						p
+							| Lat: 
+							span#lat
+						p
+							| Lng: 
+							span#lng
+						form
+							span Location
+							input#newName(type='text')
+							br
+							span Food
+							input#food(type='text')
+							br
+					p
+						| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rhoncus enim et dapibus tincidunt. In sit amet dolor ut turpis faucibus ultricies. Vestibulum tincidunt cursus est nec mattis. Quisque non arcu et lacus iaculis bibendum nec at urna. Etiam posuere eget elit ac rutrum. Nunc sit amet elementum purus. Phasellus at tristique est, ut dictum velit. Vivamus luctus hendrerit augue sit amet mattis. Mauris eget purus commodo, faucibus justo vel, vestibulum nisi. Sed tincidunt eros placerat felis ultricies accumsan at vel turpis. In hac habitasse platea dictumst.
+
+						| Aliquam erat volutpat. Sed consequat arcu eget tellus tincidunt, nec pharetra risus bibendum. Sed a sollicitudin mi. Ut in mauris ante. Aliquam at ipsum at ex eleifend euismod nec eget odio. Pellentesque est augue, pulvinar sit amet risus vel, porttitor ornare mauris. Sed ac tellus a justo accumsan malesuada ut a erat. In hac habitasse platea dictumst. Suspendisse potenti. Nulla posuere massa gravida leo gravida mattis. Fusce feugiat convallis dui elementum rhoncus. Nulla ex libero, sollicitudin ac pulvinar accumsan, molestie nec ligula.
+
+						| In euismod pellentesque velit sed placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a tristique nisi. Sed ultrices purus ante, eget maximus nulla convallis non. Nunc aliquam neque sollicitudin, hendrerit velit vel, sollicitudin dui. Sed finibus fermentum nisi sit amet tempor. Cras quis mauris quis diam tempus fringilla. Aliquam consequat gravida erat, a tincidunt nulla sagittis at. Donec ac placerat lorem. In hendrerit dolor id ante luctus, sit amet porttitor tellus commodo. Ut eu tortor dignissim, convallis nisl eu, molestie quam.
+
+						| Suspendisse dignissim nec massa non mattis. Donec maximus convallis ante, eget sollicitudin est ultrices ac. Nullam eleifend augue vitae justo hendrerit, eget malesuada ante tincidunt. Curabitur lorem dolor, sodales id facilisis sit amet, lacinia porta lorem. Donec efficitur luctus erat ac molestie. Nunc vehicula laoreet volutpat. Praesent porttitor volutpat elit, pharetra pellentesque dolor bibendum nec. Suspendisse potenti. Nulla convallis imperdiet elementum. Nulla posuere euismod justo eu egestas. Phasellus dignissim est a feugiat ultrices. Quisque eleifend gravida posuere.
+
+						| Duis ultrices ultrices quam. Pellentesque fringilla interdum interdum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras eget lectus et nulla dictum ornare vel eu massa. Duis eget ante est. Maecenas eros mi, ultricies vitae tellus at, condimentum sagittis nunc. Donec consequat pellentesque lacus vel facilisis.
+			.col.embed-responsive
+				#map-canvas.embed-responsive-item

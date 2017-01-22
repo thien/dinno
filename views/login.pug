@@ -1,0 +1,29 @@
+extends layout
+
+
+block container
+	include includes/nav
+	.col-md-6
+		#container
+			if username
+				h1 #{username}
+				h2 #{password}
+				
+			h1 Log In
+
+			include includes/login
+			//- form(method="post")
+				
+				//- 		label(for="city") City:
+				//- 			input(type="text", name="city", value=mail)
+				//- 	p
+				//- 		select(name="user[province]")
+				//- 			option(value="") -- Select Province --
+				//- 			option(value="AB") Alberta
+				//- 			option(value="BC") British Columbia
+				//- 			option(value="SK") Saskatchewan
+				//- 			option(value="MB") Manitoba
+				//- 			option(value="ON") Ontario
+				//- 			option(value="QC") Quebec
+				//- p.buttons
+				//- 	input(type="submit", value="Save")

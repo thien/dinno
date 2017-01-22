@@ -1,43 +1,16 @@
 {
   "name": "dinno",
-  "version": "0.0.1",
-  "description": "A food poaching app.",
-  "main": "app.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "node_modules/.bin/mocha tests/**"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "engines":{
-    "node":"7.1.0",
-    "npm": "3.10.9"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tnguyen/dinno.git"
-  },
-  "keywords": [
-    "base",
-    "project",
-    "node",
-    "express",
-    "structure"
-  ],
-  "author": "MooseLightning",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tnguyen/dinno/issues"
-  },
-  "homepage": "https://github.com/tnguyen/dinno#readme",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.16.0",
     "express": "^4.14.0",
-    "jstransformer-markdown-it": "^2.0.0",
-    "node-mysql": "^0.4.2",
-    "pug": "^2.0.0-beta6",
-    "socketio": "^1.0.0"
-  },
-  "devDependencies": {
-    "mocha": "^2.2.4",
-    "should": "^6.0.1"
+    "pug": "^2.0.0-beta6"
   }
 }

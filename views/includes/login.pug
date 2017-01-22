@@ -1,9 +1,16 @@
 form(method="post")
-	p
-		label(for="username") Username:
-			input(type="text", name="username")
-	p
-		label(for="password") Password:
-			input(type='password', name='password')
+	label(for="username") Username:
+		input(type="text", name="user")
+	label(for="password") Password:
+		input(type='password', name='pass')
+	label.custom-control.custom-checkbox.mb-2.mr-sm-2.mb-sm-0
+		input.custom-control-input(type='checkbox')
+		span.custom-control-indicator
+		span.custom-control-description Remember me
+	//- .form-group.row
+	//- 	label.col-sm-2.col-form-label.col-form-label-lg(for='lgFormGroupInput') Email
+	//- 	.col-sm-10
+	//- 		input#lgFormGroupInput.form-control.form-control-lg(type='email', placeholder='you@example.com')
+
 	p.buttons
 		input(type="submit", value="Sign In")

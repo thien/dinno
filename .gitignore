@@ -48,3 +48,8 @@ config/database_old.json
 
 Documents/Mockups/SVG/*
 Documents/Mockups/WebFont/*
+
+bower_components/*
+*.sublime-project
+
+*.sublime-workspace
