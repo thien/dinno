@@ -17,9 +17,10 @@ html(lang="en")
 				|	or Sign In with 
 				a(href="/facebook") Facebook
 				|	(or 
-				a(href="/login") Email
+				a(href="/login"  data-toggle='modal', data-target='#myModal') Email
 				| )
 
 		include includes/foot
+		include includes/login
 		script
 			include assets/frontpage.js

@@ -1,16 +1,33 @@
-form(method="post")
-	label(for="username") Username:
-		input(type="text", name="user")
-	label(for="password") Password:
-		input(type='password', name='pass')
-	label.custom-control.custom-checkbox.mb-2.mr-sm-2.mb-sm-0
-		input.custom-control-input(type='checkbox')
-		span.custom-control-indicator
-		span.custom-control-description Remember me
-	//- .form-group.row
-	//- 	label.col-sm-2.col-form-label.col-form-label-lg(for='lgFormGroupInput') Email
-	//- 	.col-sm-10
-	//- 		input#lgFormGroupInput.form-control.form-control-lg(type='email', placeholder='you@example.com')
+script
+	include /assets/login-popup.js
+// Button trigger modal
+//- button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal')
+//- 	| Launch demo modal
+// Modal
+#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+	.modal-dialog(role='document')
+		.modal-content
+			.modal-header
+				h5#exampleModalLabel.modal-title Log into dinno.club
+				button.close(type='button', data-dismiss='modal', aria-label='Close')
+					span(aria-hidden='true') ×
+			.modal-body
+				form(method="post" id="form1" action="/login")
+					.form-group.row
+						label.col-2.col-form-label(for='example-email-input') Email
+						.col-10
+							input#example-email-input.form-control(type='email', name="user", value='bootstrap@example.com')
+					.form-group.row
+						label.col-2.col-form-label(for='example-password-input') Password
+						.col-10
+							input#example-password-input.form-control(type='password', name='pass', value='hunter2')
+					.form-group-row
+						label.custom-control.custom-checkbox.mb-2.mr-sm-2.mb-sm-0
+							input.custom-control-input(type='checkbox')
+							span.custom-control-indicator
+							span.custom-control-description Remember me
+			.modal-footer
+				a(href="/register")
+					button.btn.btn-secondary(type='button' href='/register') Register
 
-	p.buttons
-		input(type="submit", value="Sign In")
+				button.btn.btn-primary( type="submit" form="form1" value="Submit") Log in

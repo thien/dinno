@@ -1,0 +1,49 @@
+extends layout
+
+
+block container
+	include includes/nav
+	.col-md-6
+		#container
+
+			//- carousel for pics.
+			#carouselExampleIndicators.carousel.slide(data-ride='carousel')
+				ol.carousel-indicators
+					li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
+					li(data-target='#carouselExampleIndicators', data-slide-to='1')
+					li(data-target='#carouselExampleIndicators', data-slide-to='2')
+				.carousel-inner(role='listbox')
+					.carousel-item.active
+						img.d-block.img-fluid(src='http://farm3.static.flickr.com/2716/4127243489_dd1197097d.jpg', alt='First slide')
+					.carousel-item
+						img.d-block.img-fluid(src='https://upload.wikimedia.org/wikipedia/commons/3/3f/KFC_-_Pressure-fried_Chicken_Wings_-_Kolkata_2013-02-08_4438.JPG', alt='Second slide')
+					.carousel-item
+						img.d-block.img-fluid(src='http://farm3.static.flickr.com/2716/4127243489_dd1197097d.jpg', alt='Third slide')
+				a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
+					span.carousel-control-prev-icon(aria-hidden='true')
+					span.sr-only Previous
+				a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
+					span.carousel-control-next-icon(aria-hidden='true')
+					span.sr-only Next
+
+			//- food item
+			h2 Chicken Wings
+
+			h5
+				| John Cena 
+				span.badge.badge-default 4.5
+
+
+			p
+				| I bought too many hot wings and i can't fit them in these memes.
+
+			span.badge.badge-info KFC
+			span.badge.badge-info Chicken Wings
+			span.badge.badge-info BBQ
+			span.badge.badge-info Hot Food
+
+			button.btn.btn-primary.btn-lg.btn-block(type='button') Dinno This
+
+
+
+

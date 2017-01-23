@@ -29,7 +29,40 @@
 	html, body, .container-fluid, .row { height: 100% }
 
 	.navbar {
-		height: 60px;
+		font-weight: bold;
+		height: 80px;
+		background-color: #FF5353;
+	}
+	.navbar a{
+		color: #fff;
+	}
+	#navsearchbar, #navsearchbutton {
+		background-color: #FF5353;
+		border: 1px solid #fff;
+		color: #fff;
+		border-radius: 0px;
+	}
+
+	#navsearchbar {
+		width: 400px;
+	}
+
+	#navsearchbar::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  color: #eee;
+	}
+	#navsearchbar::-moz-placeholder { /* Firefox 19+ */
+	  color: #eee;
+	}
+	#navsearchbar:-ms-input-placeholder { /* IE 10+ */
+	  color: #eee;
+	}
+	#navsearchbar:-moz-placeholder { /* Firefox 18- */
+	  color: #eee;
+	}
+
+	.navbar-collapse{
+		background-color: #FF5353;
+		z-index: 2;
 	}
 	.map{
 		height:inherit;
@@ -45,7 +78,7 @@
 	#display_item_results {
 		width: 100%;
 		display: table;
-		height:calc(100% - 60px);
+		height:calc(100% - 80px);
 	}
 
 	#results_container_left {

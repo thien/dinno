@@ -135,6 +135,12 @@ app.get('/search', function(req, res) {
     res.render('searchitem', param);
 })
 
+// food item
+
+app.get('/fooditem', function(req, res) {
+    res.render('fooditem');
+})
+
 server.listen(port, function(){
     // notify user that server is running
     console.log('Listening on port ' + port);
