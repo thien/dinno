@@ -1,0 +1,124 @@
+doctype html
+html(lang="en")
+	head
+		title Dinno
+		include includes/head
+		//- link(href='components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
+		style
+			include includes/chat.css
+		//- link(rel='stylesheet', href='includes/chat.css')
+
+	body
+		include includes/nav
+		.container#chat_container
+			.row
+				.conversation-wrap.col-lg-3
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+
+				.message-wrap.col-lg-8
+					.media.msg#chat_header
+							.media-body
+								.pull-left#contact_details
+									h5.media-heading John Cena
+									.status-circle.green
+									small.col-lg-10
+										i
+											| But can you see me tho?
+								a.pull-right(href='#')
+									img.media-object#contact_photo( src='http://cdn.marketplaceimages.windowsphone.com/v8/images/28374c9d-d97c-46ba-b5ed-9c3645cb2710?imageType=ws_icon_large')
+					.msg-wrap
+						//- display messages
+						.alert.alert-info.msg-date
+							strong Today
+						.media.msg
+							.media-body
+								small.pull-right.time
+									i.fa.fa-clock-o
+									| 12:10am
+								h5.media-heading John Cena
+								small.col-lg-10
+									| This is a message.
+						.media.msg
+							.media-body
+								small.pull-right.time
+									i.fa.fa-clock-o
+									| 12:10am
+								h5.media-heading John Cena
+								small.col-lg-10
+									| This is a message.
+						.media.msg
+							.media-body
+								small.pull-right.time
+									i.fa.fa-clock-o
+									| 12:10am
+								h5.media-heading John Cena
+								small.col-lg-10
+									| This is a message.
+						.media.msg
+							.media-body
+								small.pull-right.time
+									i.fa.fa-clock-o
+									| 12:10am
+								h5.media-heading John Cena
+								small.col-lg-10
+									| This is a message.
+					.send-wrap
+						form(action='' onsubmit="return false")#message_send
+							.pull-left
+								input.form-control.send-message#messagebox(name="message" type='text', placeholder='Write a reply..')
+							.pull-right
+								button.btn.btn-outline-primary(type='button') 
+									i.fa.fa-paper-plane(aria-hidden='true')
+						//- textarea.form-control.send-message(rows='3', placeholder='Write a reply...')
+						//- .btn-panel
+							//- a.col-lg-3.btn.send-message-btn(href='', role='button')
+							//- 	i.fa.fa-cloud-upload
+							//- 	| Add Files
+							//- a.col-lg-4.text-right.btn.send-message-btn.pull-right(href='', role='button')
+							//- 	i.fa.fa-plus
+							//- 	| Send Message
+		script(src='/socket.io/socket.io.js')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+		script
+			include assets/newchat.js

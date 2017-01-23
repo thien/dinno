@@ -1,0 +1,29 @@
+include login
+
+nav.navbar.navbar-inverse.navbar-toggleable-md
+	button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo02', aria-controls='navbarTogglerDemo02', aria-expanded='false', aria-label='Toggle navigation')
+		span.navbar-toggler-icon
+	a.navbar-brand(href='/') dinno.club
+	#navbarTogglerDemo02.collapse.navbar-collapse
+
+		form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
+			input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food')
+			button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
+				i.fa.fa-search(aria-hidden='true')
+
+
+		ul.navbar-nav.my-2.my-lg-0 
+			li.nav-item.active
+				a.nav-link(href='/')
+					| Home 
+					span.sr-only (current)
+			li.nav-item
+				a.nav-link(href='/chat') Chat
+			li.nav-item
+				a.nav-link(href='/register') Register
+			li.nav-item
+				a.nav-link(href='/#' data-toggle='modal', data-target='#myModal') Login
+
+		//- form.form-inline.my-2.my-lg-0
+		//- 	input.form-control.mr-sm-2(type='text', placeholder='Search')
+		//- 	button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
