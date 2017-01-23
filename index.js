@@ -49,6 +49,7 @@ app.use(bodyParser.json());
 // app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 app.use(express.static(__dirname + '/bower_components'));  
 app.use(express.static(__dirname + '/public'));
+app.use("/data", express.static(__dirname + '/data'));
 
 // manage views
 app.set('views', __dirname + '/views')
@@ -113,7 +114,7 @@ app.get('/register', function(req, res) {
 
 app.post('/register', function(req,res) {
     // get results
-    console.log(req.body);
+    // console.log(req.body);
     var checks = req.body;
     res.render('register', checks);
 })
@@ -121,13 +122,11 @@ app.post('/register', function(req,res) {
 // search item
 
 app.get('/search', function(req, res) {
-    console.log(req.query)
-    console.log(req.body)
     var food_item = req.query.food;
     var param = {
         food: food_item
     }
-    console.log("searching for", param)
+    console.log("someone's searching for", param)
     res.render('searchitem', param);
 })
 
