@@ -11,35 +11,77 @@ block container
 	.container-fluid#display_item_results
 		.row
 			.col.no-float#results_container_left
-				if food
-					h1 Searching for #{food}
-				else
-					h1 Searching for ?
+				#search_item_details 
+					if food
+						h1 Searching for #{food}
+					else
+						h1 Searching for ?
 
-				#formHolder
-					p
-						| Lat: 
-						span#lat
-					p
-						| Lng: 
-						span#lng
-					form
-						span Location
-						input#newName(type='text')
-						br
-						span Food
-						input#food(type='text')
-						br
+					#formHolder
+						p
+							| Lat: 
+							span#lat
+						p
+							| Lng: 
+							span#lng
+						form
+							span Location
+							input#newName(type='text')
+							br
+							span Food
+							input#food(type='text')
+							br
 				#list_results_container
-					p
-						| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rhoncus enim et dapibus tincidunt. In sit amet dolor ut turpis faucibus ultricies. Vestibulum tincidunt cursus est nec mattis. Quisque non arcu et lacus iaculis bibendum nec at urna. Etiam posuere eget elit ac rutrum. Nunc sit amet elementum purus. Phasellus at tristique est, ut dictum velit. Vivamus luctus hendrerit augue sit amet mattis. Mauris eget purus commodo, faucibus justo vel, vestibulum nisi. Sed tincidunt eros placerat felis ultricies accumsan at vel turpis. In hac habitasse platea dictumst.
+					.card-columns
+						.card
+							img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
+							.card-block
+								h4.card-title Card title that wraps to a new line
+								p.card-text
+									| This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+						.card.p-3
+							blockquote.card-block.card-blockquote
+								p
+									| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+								footer
+									small.text-muted
+										cite(title='Source Title') Source Title
+						.card
+							img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
+							.card-block
+								h4.card-title Card title
+								p.card-text This card has supporting text below as a natural lead-in to additional content.
+								p.card-text
+									small.text-muted Last updated 3 mins ago
+						.card.card-inverse.card-primary.p-3.text-center
+							blockquote.card-blockquote
+								p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.
+								footer
+									small
+										cite(title='Source Title') Source Title
+						.card.text-center
+							.card-block
+								h4.card-title Card title
+								p.card-text This card has supporting text below as a natural lead-in to additional content.
+								p.card-text
+									small.text-muted Last updated 3 mins ago
+						.card
+							img.card-img.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image')
+						.card.p-3.text-right
+							blockquote.card-blockquote
+								p
+									| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+								footer
+									small.text-muted
+										cite(title='Source Title') Source Title
+						.card
+							.card-block
+								h4.card-title Card title
+								p.card-text
+									| This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
+								p.card-text
+									small.text-muted Last updated 3 mins ago
+				//- include includes/foot
 
-						| Aliquam erat volutpat. Sed consequat arcu eget tellus tincidunt, nec pharetra risus bibendum. Sed a sollicitudin mi. Ut in mauris ante. Aliquam at ipsum at ex eleifend euismod nec eget odio. Pellentesque est augue, pulvinar sit amet risus vel, porttitor ornare mauris. Sed ac tellus a justo accumsan malesuada ut a erat. In hac habitassdgdfg aisdhfgla skjfhalkj se platea dictumst. Suspendisse potenti. Nulla posuere massa gravida leo gravida mattis. Fusce feugiat convallis dui elementum rhoncus. Nulla ex libero, sollicitudin ac pulvinar accumsan, molestie nec ligula.
-
-						| In euismod pellentesque velit sed placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a tristique nisi. Sed ultrices purus ante, eget maximus nulla convallis non. Nunc aliquam neque sollicitudin, hendrerit velit vel, sollicitudin dui. Sed finibus fermentum nisi sit amet tempor. Cras quis mauri
-
-						| In euismod pellentesque velit sed placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a tristique nisi. Sed ultrices purus ante, eget maximus nulla convallis non. Nunc aliquam neque sollicitudin, hendrerit velit vel, sollicitudin dui. Sed finibus fermentum nisi sit amet tempor. Cras quis mauri
-
-						| In euismod pellentesque velit sed placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a tristique nisi. Sed ultrices purus ante, eget maximus nulla convallis non. Nunc aliquam neque sollicitudin, hendrerit velit vel, sollicitudin dui. Sed finibus fermentum nisi sit amet tempor. Cras quis mauri
 			.col.embed-responsive#results_container_right
 				#map-canvas.embed-responsive-item

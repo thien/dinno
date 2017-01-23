@@ -71,9 +71,14 @@ app.get('/chat2', function(req, res) {
 
 io.on('connection', function(socket){
     socket.on('chat message', function(msg){
-        console.log(msg['contents']);
-        io.sockets.in(msg['from']).emit('chat message', msg['from'] + ":  " + msg['contents']);
-        io.sockets.in(msg['to']).emit('chat message', msg['from'] + ":  " + msg['contents']);
+        console.log(msg);
+        msg.timestamp = new Date();
+        msg.sendername = "John Cena"
+        // io.sockets.in(msg['from']).emit('chat message', msg['from'] + ":  " + msg['contents']);
+        // io.sockets.in(msg['to']).emit('chat message', msg['from'] + ":  " + msg['contents']);
+
+        // brocadcast to everyone; testing purposes
+        io.emit('chat message', msg);
     });
     socket.on('join', function (data) {
         io.emit('server message', data.name + " has joined");

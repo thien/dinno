@@ -38,28 +38,47 @@
 		background-color: #ccc;
 		height:calc(100% - 0px);
 	}
+	#search_item_details {
+		padding: 30px 10px 10px 10px;
+		text-align: center;
+	}
 	#display_item_results {
+		width: 100%;
 		display: table;
 		height:calc(100% - 60px);
 	}
 
 	#results_container_left {
 		/*background-color: blue;*/
+		/*width: 60%;*/
 		display: table-cell;
 		padding: 0px;
 		margin: 0px;
 	}
 	#results_container_right{
+		/*width: 40%;*/
 		background-color: red;
 		display: table-cell;
 		/*height:calc(100% - 60px);*/
 	}
 	#list_results_container {
+		/*background-color: #eee;*/
 		margin: 0px;
-		padding: 0px;
-		height:400px;
+		padding: 10px;
+		max-height: 60%;
+		/*height:500px;*/
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+
 		overflow: hidden;
 		overflow-y: scroll;
-		vertical-align: text-bottom;
+		vertical-align: bottom;
+	}
+	.card {
+		width: 30%;
+	}
+	.card-columns {
+		column-count: 2;
 	}
 </style>

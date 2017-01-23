@@ -1,126 +1,124 @@
 doctype html
 html(lang="en")
-    head
-        title Dinno
-        include includes/head
-        link(href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', rel='stylesheet')
-        link(rel='stylesheet', href='incldues/chat.css')
+	head
+		title Dinno
+		include includes/head
+		link(href='components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
+		style
+			include includes/chat.css
+		//- link(rel='stylesheet', href='includes/chat.css')
 
-    body
-        include includes/nav
-        .container
-            .row
-              //- .col-lg-3
-              //-     .btn-panel.btn-panel-conversation
-              //-       a.btn.col-lg-6.send-message-btn(href='', role='button')
-              //-           i.fa.fa-search
-              //-           | Search
-              //-       a.btn.col-lg-6.send-message-btn.pull-right(href='', role='button')
-              //-           i.fa.fa-plus
-              //-           | New Message
-              //- .col-lg-offset-1.col-lg-7
-              //-     .btn-panel.btn-panel-msg
-              //-       a.btn.col-lg-3.send-message-btn.pull-right(href='', role='button')
-              //-           i.fa.fa-gears
-              //-           | Settings http://placekitten.com/g/200/300
-            .row
-              .conversation-wrap.col-lg-3
-                  .media.conversation
-                    a.pull-left(href='#')
-                        img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 50px; height: 50px;', src='http://placekitten.com/g/200/300')
-                    .media-body
-                        h5.media-heading John Cena
-                        small Hello
-                  .media.conversation
-                    a.pull-left(href='#')
-                        img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 50px; height: 50px;', src='http://placekitten.com/g/200/300')
-                    .media-body
-                        h5.media-heading John Cena
-                        small Hello
-                  .media.conversation
-                    a.pull-left(href='#')
-                        img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 50px; height: 50px;', src='http://placekitten.com/g/200/300')
-                    .media-body
-                        h5.media-heading John Cena
-                        small Hello
-                  .media.conversation
-                    a.pull-left(href='#')
-                        img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 50px; height: 50px;', src='http://placekitten.com/g/200/300')
-                    .media-body
-                        h5.media-heading John Cena
-                        small Hello
-                  .media.conversation
-                    a.pull-left(href='#')
-                        img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 50px; height: 50px;', src='http://placekitten.com/g/200/300')
-                    .media-body
-                        h5.media-heading John Cena
-                        small Hello
-                  .media.conversation
-                    a.pull-left(href='#')
-                        img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 50px; height: 50px;', src='http://placekitten.com/g/200/300')
-                    .media-body
-                        h5.media-heading John Cena
-                        small Hello
-                  .media.conversation
-                    a.pull-left(href='#')
-                        img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 50px; height: 50px;', src='http://placekitten.com/g/200/300')
-                    .media-body
-                        h5.media-heading John Cena
-                        small Hello
-              .message-wrap.col-lg-8
-                  .msg-wrap
-                    .media.msg
-                        a.pull-left(href='#')
-                          img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 32px; height: 32px;', src='http://placekitten.com/g/200/300')
-                        .media-body
-                          small.pull-right.time
-                              i.fa.fa-clock-o
-                              | 12:10am
-                          h5.media-heading John Cena
-                          small.col-lg-10
-                              | Location H-2, Ayojan Nagar, Near Gate-3, Near
-                              | Shreyas Crossing Dharnidhar Derasar,
-                              | Paldi, Ahmedabad 380007, Ahmedabad,
-                              | India
-                              | Phone 091 37 669307
-                    .alert.alert-info.msg-date
-                        strong Today
-                    .media.msg
-                        a.pull-left(href='#')
-                          img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 32px; height: 32px;', src='http://placekitten.com/g/200/300')
-                        .media-body
-                          small.pull-right.time
-                              i.fa.fa-clock-o
-                              | 12:10am
-                          h5.media-heading John Cena
-                          small.col-lg-10
-                              | Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."
-                    .media.msg
-                        a.pull-left(href='#')
-                          img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 32px; height: 32px;', src='http://placekitten.com/g/200/300')
-                        .media-body
-                          small.pull-right.time
-                              i.fa.fa-clock-o
-                              | 12:10am
-                          h5.media-heading John Cena
-                          small.col-lg-10
-                              | Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."
-                    .media.msg
-                        a.pull-left(href='#')
-                          img.media-object(data-src='holder.js/64x64', alt='64x64', style='width: 32px; height: 32px;', src='http://placekitten.com/g/200/300')
-                        .media-body
-                          small.pull-right.time
-                              i.fa.fa-clock-o
-                              | 12:10am
-                          h5.media-heading John Cena
-                          small.col-lg-10
-                              | Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."
-                  .send-wrap
-                    textarea.form-control.send-message(rows='3', placeholder='Write a reply...')
-                  .btn-panel
-                    a.col-lg-3.btn.send-message-btn(href='', role='button')
-                        i.fa.fa-cloud-upload
-                        | Add Files
-                    a.col-lg-4.text-right.btn.send-message-btn.pull-right(href='', role='button')
-                        i.fa.fa-plus
-                        | Send Message
+	body
+		include includes/nav
+		.container#chat_container
+			.row
+				.conversation-wrap.col-lg-3
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+					.media.conversation
+						a.pull-left(href='#')
+							img.media-object.contact_photo.sm(src='http://placekitten.com/g/200/300')
+						.media-body.message-list-box
+							h5.media-heading John Cena
+							small Hello
+
+				.message-wrap.col-lg-8
+					.media.msg#chat_header
+							.media-body
+								.pull-left#contact_details
+									h5.media-heading John Cena
+									.status-circle.green
+									small.col-lg-10
+										i
+											| But can you see me tho?
+								a.pull-right(href='#')
+									img.media-object#contact_photo( src='http://cdn.marketplaceimages.windowsphone.com/v8/images/28374c9d-d97c-46ba-b5ed-9c3645cb2710?imageType=ws_icon_large')
+					.msg-wrap
+						//- display messages
+						.alert.alert-info.msg-date
+							strong Today
+						.media.msg
+							.media-body
+								small.pull-right.time
+									i.fa.fa-clock-o
+									| 12:10am
+								h5.media-heading John Cena
+								small.col-lg-10
+									| This is a message.
+						.media.msg
+							.media-body
+								small.pull-right.time
+									i.fa.fa-clock-o
+									| 12:10am
+								h5.media-heading John Cena
+								small.col-lg-10
+									| This is a message.
+						.media.msg
+							.media-body
+								small.pull-right.time
+									i.fa.fa-clock-o
+									| 12:10am
+								h5.media-heading John Cena
+								small.col-lg-10
+									| This is a message.
+						.media.msg
+							.media-body
+								small.pull-right.time
+									i.fa.fa-clock-o
+									| 12:10am
+								h5.media-heading John Cena
+								small.col-lg-10
+									| This is a message.
+					.send-wrap
+						form(action='' onsubmit="return false")#message_send
+							.pull-left
+								input.form-control.send-message#messagebox(name="message" type='text', placeholder='Write a reply..')
+							.pull-right
+								button.btn.btn-outline-primary(type='button') 
+									i.fa.fa-paper-plane(aria-hidden='true')
+						//- textarea.form-control.send-message(rows='3', placeholder='Write a reply...')
+						//- .btn-panel
+							//- a.col-lg-3.btn.send-message-btn(href='', role='button')
+							//- 	i.fa.fa-cloud-upload
+							//- 	| Add Files
+							//- a.col-lg-4.text-right.btn.send-message-btn.pull-right(href='', role='button')
+							//- 	i.fa.fa-plus
+							//- 	| Send Message
+		script(src='/socket.io/socket.io.js')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+		script
+			include assets/newchat.js
