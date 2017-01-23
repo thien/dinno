@@ -1,11 +1,16 @@
 // load depdendencies
-var express = require('express');
-var http = require('http');
-var bodyParser = require('body-parser');
-var mysql = require('node-mysql');
-var fs = require('fs');
-var DB = mysql.DB;
-// initiate new twitter object
+const express = require('express');
+const http = require('http');
+const bodyParser = require('body-parser');
+const mysql = require('node-mysql');
+const fs = require('fs');
+const pug = require('pug');
+
+// initiate express, socket and database
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const DB = mysql.DB;
 
 //database key
 var db_keys = {};
@@ -33,17 +38,17 @@ try {
 //initiate database connection
 var db = new DB(db_keys);
 
-// initiate express
-const app = express();
+// deal with port
 const port = process.env.PORT || 8080;
-const pug = require('pug');
 
 //Configure express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // make sure bower compoments are directed right.
-app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+// app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+app.use(express.static(__dirname + '/bower_components'));  
+app.use(express.static(__dirname + '/public'));
 
 // manage views
 app.set('views', __dirname + '/views')
@@ -53,12 +58,40 @@ app.locals.basedir = __dirname + '/views';
 // app.set('view options', { basedir: __dirname})
 
 
+// chat
+
+app.get('/chat', function(req, res) {
+    res.render('chat2');
+})
+
+app.get('/chat2', function(req, res) {
+    res.render('chat');
+})
+
+io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+        console.log(msg['contents']);
+        io.sockets.in(msg['from']).emit('chat message', msg['from'] + ":  " + msg['contents']);
+        io.sockets.in(msg['to']).emit('chat message', msg['from'] + ":  " + msg['contents']);
+    });
+    socket.on('join', function (data) {
+        io.emit('server message', data.name + " has joined");
+        socket.join(data.name); 
+    });
+});
+
 // front page
 
 app.get('/', function(req, res) {
     var user = req.query.user;
     var pass = req.query.pass;
     res.render('frontpage');
+})
+
+// login page
+
+app.get('/login', function(req, res) {
+    res.render('login');
 })
 
 app.post('/login', function(req, res) {
@@ -78,10 +111,11 @@ app.get('/register', function(req, res) {
     res.render('register');
 })
 
-// login page
-
-app.get('/login', function(req, res) {
-    res.render('login');
+app.post('/register', function(req,res) {
+    // get results
+    console.log(req.body);
+    var checks = req.body;
+    res.render('register', checks);
 })
 
 // search item
@@ -93,13 +127,12 @@ app.get('/search', function(req, res) {
     var param = {
         food: food_item
     }
-    console.log(param)
+    console.log("searching for", param)
     res.render('searchitem', param);
 })
 
-
-app.listen(port, function() {
+server.listen(port, function(){
     // notify user that server is running
     console.log('Listening on port ' + port);
-    console.log("the FAQ page can be seen on http://localhost:8080/index.html");
-})
+    console.log("the FAQ page can be seen on http://localhost:8080/");
+});

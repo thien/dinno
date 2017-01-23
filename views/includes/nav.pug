@@ -1,7 +1,7 @@
 nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
 	button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo02', aria-controls='navbarTogglerDemo02', aria-expanded='false', aria-label='Toggle navigation')
 		span.navbar-toggler-icon
-	a.navbar-brand(href='#') Dinno.Club
+	a.navbar-brand(href='/') dinno.club
 	#navbarTogglerDemo02.collapse.navbar-collapse
 
 		form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
@@ -13,6 +13,8 @@ nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
 				a.nav-link(href='/')
 					| Home 
 					span.sr-only (current)
+			li.nav-item
+				a.nav-link(href='/chat') Chat
 			li.nav-item
 				a.nav-link(href='/register') Register
 			li.nav-item

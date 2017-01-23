@@ -22,27 +22,9 @@ html
       input#to(autocomplete='off')
       input#contents(autocomplete='off')
       button Send
-    script(src='/controllers/socket.io/socket.io.js')
+
+
+    script(src='/socket.io/socket.io.js')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
-    script.
-      var socket = io();
-      var oldName = "";
-      $('form').submit(function(){
-      if ($('#from').val() != oldName){
-      socket.emit('join', {name: $('#from').val()});
-      oldName = $('#from').val();
-      }
-      socket.emit('chat message', {
-      from : $('#from').val(),
-      to : $('#to').val(),
-      contents : $('#contents').val()
-      });
-      $('#contents').val('');
-      return false;
-      });
-      socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
-      });
-      socket.on('server message', function(msg){
-      $('#messages').append($('<li class="server-message">').text(msg));
-      });
+    script
+      include assets/chat.js
