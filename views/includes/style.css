@@ -30,7 +30,7 @@
 
 	.navbar {
 		font-weight: bold;
-		height: 80px;
+		min-height: 80px;
 		background-color: #FF5353;
 	}
 	.navbar a{
