@@ -1,19 +1,5 @@
 # Non-Functional Requirements
 
-## Appearance/Feel Requirements
-
-| Requirement Type | Description |
-|------------------|-------------|
-|Style|The logo should be lighthearted and focus on the topic of food sharing.|
-|Style|The site will have a responsive design.|
-|Style|The site will use system fonts as a preference with universally supported fonts as a backup.|
-|Style|The website will be styled in such a manner that it has print formats inclusive in the stylesheets.|
-|Style|The site will use a bespoke styling sheet.|
-|Style|The site will use colour schemes that are complimentary to the colour Red.|
-|Style|The logo will be visible on all pages the website.|
-|Layout|The site will have a navigation system that is easy to understand.|
-|Layout|The structure of pages should be consistent as possible so as to prevent user disorientation.|
-
 ## Security/Access Requirements
 
 | Requirement Type | Description |
@@ -48,6 +34,7 @@
 | Requirement Type | Description |
 |------------------|-------------|
 |Usability|At least 80% of users shall rate the system as easy to use.|
+|Usability|The site should have a navigation system that is easy to understand as according to at least 80% of users.|
 |Usability|Any error messages given to the user for things such as incorrect input should be as specific and clear as possible so as to prevent confusion as to what has occurred, and should provide a possible solution depending on the error|
 |Accessibility|The system should have colour schemes which do not cause problems for people with colour blindness.|
 |Accessibility|The system should be accessible on all major desktop & mobile operating systems (Chrome, Safari, IE, Firefox)|
