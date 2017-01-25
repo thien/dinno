@@ -52,7 +52,7 @@
 
 - It is assumed that team members allocated to implementation are familiar/will be familiar with web languages such as PHP, HTML, CSS, and Javascript/Node.js
 
-- It is assumed all team members are familiar with basic database design , as well implementation of databases using SQL.
+- It is assumed all team members are familiar with basic database design , as well as implementation of databases using SQL.
 
 **Availability:**
 
