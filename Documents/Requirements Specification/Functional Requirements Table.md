@@ -142,17 +142,30 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | B8.01 -  |
-| Description  | |
+| ID, type and title  | B8.01 - Text/Image Size Adjustment |
+| Description  | The ability to adjust size of text & images correcting for those with poor eyesight |
 | Priority  | Medium  |
-| Dependencies  |  |
-| Expected results  |  |
-| Exception handling  |  |
+| Dependencies  | All site pages built |
+| Expected results  | Text size can be increased or decreased and no errors in formatting/site layout occur |
+| Exception handling  | N/A |
 
-|Usability|The website should provide tutorials/a help page on how to use the site, aimed towards less experienced computer users.|
-|Accessibility|The system should provide the ability to adjust size of text & images so that they are readable.|
-|Accessibility|The system should provide text alternatives for any visual/diagrammatic contact eg. maps so as to make the site usable by visually impaired/blind persons with software such as screen readers.|
-|Accessibility|The system should ensure all features on the site should be operable with a keyboard, for those who cannot use a  mouse.|
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | B8.02 - Screen Reader Functions/Compatibility |
+| Description  | Alt text for all images/diagrams/maps in the system so that the site can be used with a screen reader. |
+| Priority  | Medium  |
+| Dependencies  | All site pages built and visual resources added |
+| Expected results  | Any image/map in the system should provide alt text when hovered over. |
+| Exception handling  | N/A |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | B8.03 - Tutorial/Help Page |
+| Description  | A page which runs through how to use the system and contains various FAQs. |
+| Priority  | Medium  |
+| Dependencies  | All site pages built. |
+| Expected results  | Users should be able to load the help page. |
+| Exception handling  | N/A |
 
 | Section  | Description |
 | ------------- | ------------- |
