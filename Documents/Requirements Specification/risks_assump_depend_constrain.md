@@ -18,11 +18,33 @@
 
 - Not planning ahead & trying to incorporate too many advanced deliverables in too limited time.
 
+- A team member or multiple team members are unable to complete their allocated tasks due to outside personal circumstances or illness.
+
 **Prioritisation**
 
 - Putting focus on advanced deliverables before basic functionality of system is finished–basic deliverables should be done first so that if anything is unfinished it will be the advanced tasks, which are less important than basic functionality.
 
 - Lack of focus on mobile version of site vs. desktop version – both are equally important, should be worked on simultaneously.
+
+## System Risks
+
+**Security**
+
+- The final site is hacked in for example an SQL injection attack, leading to release of users' personal information including addresses.
+
+- The site is subject to a DDoS attack leading to users being unable to access the site.
+
+**Reliability/Usability**
+
+- The system goes down regularly due to unreliable hosting or too many users overloading the server.
+
+- The site is too confusing or difficult for users to learn, leading them to abandon the system in favor of alternative services.
+
+**Legal/Ethical**
+
+- The site may recieve legal action if users become ill or recieve (potentially fatal) food poisoning from food which is out of date, or has not been properly labelled in terms of what kind of allergens are contained within it.
+
+- The service may be used for illegal purposes, for example selling food items containing illegal narcotics.
 
 ## Assumptions
 
@@ -34,7 +56,7 @@
 
 **Availability:**
 
-- It is assumed that all team members will be available to work on the project during the project timeframe, excluding holiday time.
+- It is assumed there will always be a reasonable amount of team members available to work on the system at any point in the project timeframe, excluding holiday time, so that if a team member becomes unavailable for whatever reason then their tasks can be reallocated to another member.
 
 - It is assumed that the client will be available to give feedback at all points in the project timeframe.
 
@@ -50,7 +72,7 @@
 
 2. The requirements cannot be finalised until feedback and checking has been done by the client (In case any of the requirements are incorrect).
 
-3. The implementation cannot be completed until all design work has been completed. (Some basic implementation could start while extra design features are being added)
+3. Implementation cannot be started on a particular section of the system until all design work has been completed for that section.
 
 4. Testing cannot be completed until all implementation/extra features have been added to the system.
 
@@ -58,7 +80,7 @@
 
 - Only 3 hours a week have been allocated for group meetings, which must be shared with other projects such as the CEP and LSEPI presentation. This limits the amount of time that can be spend on collaborative design & evaluation.
 
-- Accounts have to be limited to only personal accounts due to, meaning anonymous or ‘guest’ accounts cannot be implemented.
+- Accounts have to be limited to only personal accounts due to the need for face-to-face food collection. Anonymous or ‘guest’ accounts cannot be implemented as this could casue potential security/personal issues.
 
 - Contact between team members as well as direct collaboration will be limited over both the winter and spring holiday periods due to separation as well as varying availability.
 
@@ -67,10 +89,6 @@
 - **What are exact attributes associated with each food item?**
 
 These can be chosen by the developer depending on what they feel is appropriate.
-
-- **Does the system necessarily have to be a mobile app? (A web version of site would be preferable)**
-
-No, a mobile app does not need to be implemented, though the website should still have a version optimised for mobile browsers.
 
 - **For registration of users, does this feature have to be built into the system, or can it be outsourced via facebook/twitter?**
 
