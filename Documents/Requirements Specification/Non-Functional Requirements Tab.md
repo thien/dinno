@@ -16,7 +16,7 @@
 | Requirement Type | Description |
 |------------------|-------------|
 |Reliability|The system should store backups of all customer and admin data which can be loaded as needed so as to ensure the website can still run if the database is corrupted.|
-|Reliability|The system should use defensive programming tactics to detect potential errors and provide warnings to users/admins.|
+|Reliability|The system should be able to detect potential errors and provide warnings to users/admins.|
 |Efficiency|Searches should take no more than 4 seconds for at least 95% of users.|
 |Responsiveness|Response time on mobile should match or at least be no more than a second greater than on desktop for 95% of users.|
 |Responsiveness|It should be the case that for normal users the response time for loading new pages should not exceed 4 seconds for at least 95% of pages.|
@@ -24,8 +24,8 @@
 |Responsiveness|The system should have animation/feedback on all input buttons/links to indicate to a user that the site is responding to mouse input correctly.|
 |Scalability|Ensure the site has a modular design to ensure that any extra site features/pages can be implemented when needed.|
 |Scalability|New database tables/records should be able to be added easily using site admin tools.|
-|Robustness|The site should be able to cope with a sudden influx of requests (eg. on login page) without going down, for example by using cloud mitigation services.|
-|Robustness|The site should be able to deal with invalid login details by performing validation and give appropriate error messages.|
+|Robustness|The site should be able to cope with a sudden influx of requests (eg. on login page) without going down.|
+|Robustness|The site should be able to deal with invalid login details by performing validation and giving appropriate error messages.|
 |Robustness|There should be limits on what size image files should be uploaded to the system to prevent excessively large files being uploaded which slow down the system.|
 |Robustness|The system should be maintained so as to account for changes which could potentially lead to errors, such as dead links or updates to implemented APIs.|
 
