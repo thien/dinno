@@ -8,6 +8,7 @@
 | B5 | Add, remove and edit food available to pick up |
 | B6 | Basic database search  |
 | B7 | Interactive sorting   |
+| B8 | Usability Functions |
 | I1 | Search filtering(Done before user receives results back) |
 | I2 | Notifications          |
 
@@ -138,6 +139,15 @@
 | Dependencies  | Database  |
 | Expected results  | User will be able to sort things easily by distance, expiry date, alphabetic etc |
 | Exception handling  | N/A |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | B8.01 -  |
+| Description  | |
+| Priority  | Medium  |
+| Dependencies  |  |
+| Expected results  |  |
+| Exception handling  |  |
 
 | Section  | Description |
 | ------------- | ------------- |
