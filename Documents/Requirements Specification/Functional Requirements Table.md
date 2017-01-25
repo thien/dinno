@@ -8,7 +8,7 @@
 | B5 | Add, remove and edit food available to pick up |
 | B6 | Basic database search  |
 | B7 | Interactive sorting   |
-| B8 | Usability Functions |
+| B8 | Usability/Accessibility Functions |
 | I1 | Search filtering(Done before user receives results back) |
 | I2 | Notifications          |
 
@@ -148,6 +148,11 @@
 | Dependencies  |  |
 | Expected results  |  |
 | Exception handling  |  |
+
+|Usability|The website should provide tutorials/a help page on how to use the site, aimed towards less experienced computer users.|
+|Accessibility|The system should provide the ability to adjust size of text & images so that they are readable.|
+|Accessibility|The system should provide text alternatives for any visual/diagrammatic contact eg. maps so as to make the site usable by visually impaired/blind persons with software such as screen readers.|
+|Accessibility|The system should ensure all features on the site should be operable with a keyboard, for those who cannot use a  mouse.|
 
 | Section  | Description |
 | ------------- | ------------- |
