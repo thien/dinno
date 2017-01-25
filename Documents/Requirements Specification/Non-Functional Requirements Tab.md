@@ -47,16 +47,10 @@
 
 | Requirement Type | Description |
 |------------------|-------------|
-|Usability|The system should be intuitive and easy to use for all users, even those who are inexperienced in using computers.|
-|Usability|It must be ensured that any language used is clear and unambiguous, and that no overtly technical terms are used.|
-|Usability|The website should provide tutorials/a help page on how to use the site, aimed towards less experienced computer users.|
-|Usability|The site should include a troubleshooting form or contact email so that users can contact anyone if they are having a problem with the site.|
+|Usability|At least 80% of users shall rate the system as easy to use.|
 |Usability|Any error messages given to the user for things such as incorrect input should be as specific and clear as possible so as to prevent confusion as to what has occurred, and should provide a possible solution depending on the error|
-|Accessibility|The system should provide the ability to adjust size of text & images so that they are readable.|
-|Accessibility|The system should provide text alternatives for any visual/diagrammatic contact eg. maps so as to make the site usable by visually impaired/blind persons with software such as screen readers.|
-|Accessibility|The system should have colour schemes which make text/images easy to read and which do not cause problems for people with colour blindness.|
-|Accessibility|The system should ensure all features on the site should be operable with a keyboard, for those who cannot use a  mouse.|
-|Accessibility|The system should be accessible on all major desktop & mobile operating systems.|
+|Accessibility|The system should have colour schemes which do not cause problems for people with colour blindness.|
+|Accessibility|The system should be accessible on all major desktop & mobile operating systems (Chrome, Safari, IE, Firefox)|
 |Accessibility|The site should adjust the size and position of content appropriately depending on the screen size of the user.|
 
 ## Maintainability
