@@ -19,11 +19,11 @@
 | Requirement Type | Description |
 |------------------|-------------|
 |Security|The system should have a secure system for user accounts with passwords and personal data being hashed/encrypted and stored in a secure database.|
-|Security|The system database should be protected by as many security features as possible to prevent attacks, including web application firewalls and other security controls.|
-|Security|The system should have features in place to prevent brute-force/robot attacks on login pages, such as adding a Captcha or artificial pauses between login attempts.|
-|Security|The system should prevent against rudimentary login attacks such as SQL injection.|
+|Security|The system should prevent against 99% of SQL injection or brute-force attacks on login pages|
+|Security|The site should be able to resist at least 90% of potential DDoS attacks.|
+|Security|The failure rate for password authentication on login pages should not exceed 0.005%.|
 |Security|The system should provide logs on all visitor requests to the site in order to monitor potentially malicious behaviour.|
-|Access|The admin login section of the site should have features in place to restrict access from malicious users, by for example only allowing access for trusted I.Ps/domains.|
+|Access|The admin login section of the site should have authentication in place to restrict access from malicious users.|
 
 ## Performance
 
@@ -34,7 +34,7 @@
 |Efficiency|Searches should take no more than 4 seconds for at least 95% of users.|
 |Responsiveness|Response time on mobile should match or at least be no more than a second greater than on desktop for 95% of users.|
 |Responsiveness|It should be the case that for normal users the response time for loading new pages should not exceed 4 seconds for at least 95% of pages.|
-|Responsiveness|Private messages sent between users should be received within 1 second.|
+|Responsiveness|Private messages sent between users should be received within 1 second for at least 95% of users.|
 |Responsiveness|The system should have animation/feedback on all input buttons/links to indicate to a user that the site is responding to mouse input correctly.|
 |Scalability|Ensure the site has a modular design to ensure that any extra site features/pages can be implemented when needed.|
 |Scalability|New database tables/records should be able to be added easily using site admin tools.|
@@ -67,5 +67,3 @@
 |Maintainability|The code should have low complexity with average method length not exceeding 100 lines.|
 |Maintainability|The site should use modular, organised architectures which are easily modifiable and maintainable.|
 |Maintainability|Installation or removal of site features should leave all database contents and all personal settings unchanged.|
-|Maintainability|The site should use architectures which are easily modifiable and maintainable.|
-
