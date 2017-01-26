@@ -23,7 +23,7 @@ try {
     //     password: k.password,
     //     database: k.database
     // }
-    db_keys = {
+    db_keys = { //temporary keys to work with my db 
         host: "localhost",
         user: "root",
         password: "meme1234",
