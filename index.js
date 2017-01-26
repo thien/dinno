@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mysql = require('node-mysql');
 const fs = require('fs');
 const pug = require('pug');
+const cps = require('cps')
 
 // initiate express, socket and database
 const app = express();
@@ -15,12 +16,18 @@ const DB = mysql.DB;
 //database key
 var db_keys = {};
 try {
-    var k = JSON.parse(fs.readFileSync('config/database.json', 'utf8'));
+    //var k = JSON.parse(fs.readFileSync('config/database.json', 'utf8'));
+    // db_keys = {
+    //     host: k.host,
+    //     user: k.user,
+    //     password: k.password,
+    //     database: k.database
+    // }
     db_keys = {
-        host: k.host,
-        user: k.user,
-        password: k.password,
-        database: k.database
+        host: "localhost",
+        user: "root",
+        password: "meme1234",
+        database: "testDatabase"
     }
     console.log("Secret Database Keys are found locally.");
 } catch (err) {
@@ -37,7 +44,16 @@ try {
 
 //initiate database connection
 var db = new DB(db_keys);
-
+var search = ('bread'); //placeholder, needs a client input
+var items = [];
+var dbconnection = {}
+var connectDB = function (cb) {
+    db.connect(function (conn, cb) {
+        console.log("Connected to database")
+        dbconnection = conn;    //save connection for future use
+    }, cb);
+};
+connectDB(); // connect to db
 // deal with port
 const port = process.env.PORT || 8080;
 
@@ -47,7 +63,7 @@ app.use(bodyParser.json());
 
 // make sure bower compoments are directed right.
 // app.use('/bower_components',  express.static(__dirname + '/bower_components'));
-app.use(express.static(__dirname + '/bower_components'));  
+app.use(express.static(__dirname + '/bower_components'));
 app.use(express.static(__dirname + '/public'));
 app.use("/data", express.static(__dirname + '/data'));
 
@@ -61,16 +77,16 @@ app.locals.basedir = __dirname + '/views';
 
 // chat
 
-app.get('/chat', function(req, res) {
+app.get('/chat', function (req, res) {
     res.render('chat2');
 })
 
-app.get('/chat2', function(req, res) {
+app.get('/chat2', function (req, res) {
     res.render('chat');
 })
 
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
+io.on('connection', function (socket) {
+    socket.on('chat message', function (msg) {
         console.log(msg);
         msg.timestamp = new Date();
         msg.sendername = "John Cena"
@@ -82,13 +98,13 @@ io.on('connection', function(socket){
     });
     socket.on('join', function (data) {
         io.emit('server message', data.name + " has joined");
-        socket.join(data.name); 
+        socket.join(data.name);
     });
 });
 
 // front page
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     var user = req.query.user;
     var pass = req.query.pass;
     res.render('frontpage');
@@ -96,16 +112,17 @@ app.get('/', function(req, res) {
 
 // login page
 
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
     res.render('login');
 })
 
-app.post('/login', function(req, res) {
+app.post('/login', function (req, res) {
     var user = req.body.user;
     var pass = req.body.pass;
-    var param = { username: user, 
-                  password: pass 
-                }
+    var param = {
+        username: user,
+        password: pass
+    }
     // console.log(req.body)
     // console.log(param)
     res.render('login', param);
@@ -113,11 +130,11 @@ app.post('/login', function(req, res) {
 
 // register page
 
-app.get('/register', function(req, res) {
+app.get('/register', function (req, res) {
     res.render('register');
 })
 
-app.post('/register', function(req,res) {
+app.post('/register', function (req, res) {
     // get results
     // console.log(req.body);
     var checks = req.body;
@@ -126,22 +143,32 @@ app.post('/register', function(req,res) {
 
 // search item
 
-app.get('/search', function(req, res) {
+app.get('/search', function (req, res) {
     var food_item = req.query.food;
     var param = {
         food: food_item
     }
     console.log("someone's searching for", param)
+
+    cps.seq([ //search for food
+        function (_, cb) {
+            dbconnection.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE "'+food_item+'");', cb);
+        },
+        function (res, cb) {
+            items = res //res contains previous cps.seq function. 
+            console.log(items);
+        }
+    ]);
     res.render('searchitem', param);
 })
 
 // food item
 
-app.get('/fooditem', function(req, res) {
+app.get('/fooditem', function (req, res) {
     res.render('fooditem');
 })
 
-server.listen(port, function(){
+server.listen(port, function () {
     // notify user that server is running
     console.log('Listening on port ' + port);
     console.log("the FAQ page can be seen on http://localhost:8080/");
