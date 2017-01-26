@@ -2,33 +2,35 @@
 const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
-const mysql = require('node-mysql');
+// const mysql = require('node-mysql');
 const fs = require('fs');
 const pug = require('pug');
-const cps = require('cps')
+// const cps = require('cps');
+
+const database = require('mysql');
 
 // initiate express, socket and database
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const DB = mysql.DB;
+
 
 //database key
 var db_keys = {};
 try {
-    //var k = JSON.parse(fs.readFileSync('config/database.json', 'utf8'));
-    // db_keys = {
-    //     host: k.host,
-    //     user: k.user,
-    //     password: k.password,
-    //     database: k.database
-    // }
-    db_keys = { //temporary keys to work with my db 
-        host: "localhost",
-        user: "root",
-        password: "meme1234",
-        database: "testDatabase"
+    var k = JSON.parse(fs.readFileSync('config/database.json', 'utf8'));
+    db_keys = {
+        host: k.host,
+        user: k.user,
+        password: k.password,
+        database: k.database
     }
+    // db_keys = { //temporary keys to work with my db 
+    //     host: "localhost",
+    //     user: "root",
+    //     password: "meme1234",
+    //     database: "testDatabase"
+    // }
     console.log("Secret Database Keys are found locally.");
 } catch (err) {
     // secret file isn't found.
@@ -42,18 +44,17 @@ try {
     }
 }
 
-//initiate database connection
-var db = new DB(db_keys);
-var search = ('bread'); //placeholder, needs a client input
-var items = [];
-var dbconnection = {}
-var connectDB = function (cb) {
-    db.connect(function (conn, cb) {
-        console.log("Connected to database")
-        dbconnection = conn;    //save connection for future use
-    }, cb);
-};
-connectDB(); // connect to db
+// connect to database
+var db = database.createConnection(db_keys);
+db.connect(function(err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
+    } 
+    console.log('Connected to Database - ' + connection.threadId);
+});
+
+
 // deal with port
 const port = process.env.PORT || 8080;
 
@@ -150,15 +151,13 @@ app.get('/search', function (req, res) {
     }
     console.log("someone's searching for", param)
 
-    cps.seq([ //search for food
-        function (_, cb) {
-            dbconnection.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE "'+food_item+'");', cb);
-        },
-        function (res, cb) {
-            items = res //res contains previous cps.seq function. 
-            console.log(items);
-        }
-    ]);
+    connection.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE ?)',[food_item], function (error, results, fields) {
+        // error will be an Error if one occurred during the query
+        // results will contain the results of the query
+        // fields will contain information about the returned results fields (if any)
+        console.log(fields);
+    });
+
     res.render('searchitem', param);
 })
 
