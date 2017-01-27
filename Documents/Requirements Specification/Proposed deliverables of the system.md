@@ -28,4 +28,4 @@
 | A4 | Unused food predictions based off past offers | Joshua Bremner  |
 
 
-![Gantt chart](/Documents/Requirements Specification/gantt.png) ~needs resizing for final document 
+![Gantt chart](/Documents/Requirements Specification/gantt.png) ~needs resizing for final document, key to show what each colour means and needs reordering of the chart
