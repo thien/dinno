@@ -5,7 +5,7 @@
   - Purpose
   - Benefits
   - Project Boundaries
-  - Prodcut Vision
+  - Product Vision
   - User Base
 - Domain Analysis
   - Background
