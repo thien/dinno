@@ -193,3 +193,12 @@
 | Dependencies  | Database  |
 | Expected results  | Users will receive a notification when food is available either by an email, or by mobile push notifications |
 | Exception handling  | N/A |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | A1.01 - Barcode scanning - Still images  |
+| Description  | Users will be able to scan in a still image taken by a mobile device or webcam for desktop version of website. |
+| Priority  | Low  |
+| Dependencies  | Database, QuaggaJS |
+| Expected results  | Barcode will be detected and decoded properly and passed onto global database maybe?|
+| Exception handling  | incorrect barcode decoded, make the use confirm if this is the item they want to add |
