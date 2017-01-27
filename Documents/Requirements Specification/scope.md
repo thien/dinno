@@ -2,7 +2,7 @@
 
 ## Purpose of Software Project
 
-The purpose of this project is to provide an internet based solution that allows users to give away unwanted food items to others. We aim to achieve this by making the human interaction part of the system as simple as possible without imposing restrictions on how complex the features could be. Because it is an internet-based solution, it can provide affordances that are unique to this type of medium,, such as the ability to scale the layout of the program to different devices efficently. Due to the ubiquity of internet browsers, it makes it viable to reach a wide audience.
+The purpose of this project is to provide an internet based solution that allows users to give away unwanted food items to others. We aim to achieve this by making the human interaction part of the system as simple as possible without imposing restrictions on how complex the features could be. Because it is an internet-based solution, it can provide affordances that are unique to this type of medium, such as the ability to scale the layout of the program to different devices efficently. Due to the ubiquity of internet browsers, it makes it viable to reach a wide audience.
 
 ## Benefits
 
