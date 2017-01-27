@@ -76,7 +76,7 @@
 | Section  | Description |
 | ------------- | ------------- |
 | ID, type and title  | B5.01 - Add single item to available food list |
-| Description  | User can add a single Item to the database |
+| Description  | User can add a single item to the database |
 | Priority  | High  |
 | Dependencies  | Database |
 | Expected results  | User will update the database with a single item of food |
@@ -88,7 +88,7 @@
 | Description  | Add item to "basket" or available food list |
 | Priority  | Medium  |
 | Dependencies  | Database |
-| Expected results  | User add food onto a available food list |
+| Expected results  | User adds food onto an available food list |
 | Exception handling  | Connection loss with database, make user try again |
 
 | Section  | Description |
@@ -103,7 +103,7 @@
 | Section  | Description |
 | ------------- | ------------- |
 | ID, type and title  | B3.04 - Rating System  |
-| Description  | Allows users to rate others in order to simulate a trust system. This will be based of if users put down what they are actually giving away e.g. if a user says they are giving away bread and they give away something other than bread then they will receive a lower rank. It will also be based off the condition of the food that a user picks up. Users who give out unedubke out of date food will receive lower ratings from other users.|
+| Description  | Allows users to rate others in order to simulate a trust system. This will be based on if users put down what they are actually giving away e.g. if a user says they are giving away bread and they give away something other than bread then they will receive a lower rank. It will also be based on the condition of the food that a user picks up. Users who give out of date food will receive lower ratings from other users.|
 | Priority  | Low  |
 | Dependencies  | Database  |
 | Expected results  | Users will be able to rate others.  |
