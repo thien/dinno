@@ -76,16 +76,9 @@ app.locals.basedir = __dirname + '/views';
 // app.set('view options', { basedir: __dirname})
 
 
-// chat
 
-app.get('/chat', function (req, res) {
-    res.render('chat2');
-})
 
-app.get('/chat2', function (req, res) {
-    res.render('chat');
-})
-
+// socket chatting
 io.on('connection', function (socket) {
     socket.on('chat message', function (msg) {
         console.log(msg);
@@ -103,65 +96,10 @@ io.on('connection', function (socket) {
     });
 });
 
-// front page
-
-app.get('/', function (req, res) {
-    var user = req.query.user;
-    var pass = req.query.pass;
-    res.render('frontpage');
-})
-
-// login page
-
-app.get('/login', function (req, res) {
-    res.render('login');
-})
-
-app.post('/login', function (req, res) {
-    var user = req.body.user;
-    var pass = req.body.pass;
-    var param = {
-        username: user,
-        password: pass
-    }
-    // console.log(req.body)
-    // console.log(param)
-    res.render('login', param);
-})
-
-// register page
-
-app.get('/register', function (req, res) {
-    res.render('register');
-})
-
-app.post('/register', function (req, res) {
-    // get results
-    // console.log(req.body);
-    var checks = req.body;
-    res.render('register', checks);
-})
-
-// profile page
-
-app.get('/profile', function (req, res) {
-    var review = {
-        pauline: "this is good lol"
-    }
-    var param = {
-        name: "John",
-        registered_date: "August 2014",
-        profile_photo: "http://1.bp.blogspot.com/-c9_0_EBSqCg/UG_uaVO3K-I/AAAAAAAAD18/zY53ome7ZRw/s200/John+Cena+profile+pic",
-        user_location: "London",
-        no_reviews: 17,
-        verified: true,
-        reviews: review
-    }
-    res.render('profile', param);
-})
 
 // search item
 
+// app.use('/', require('./routes/search'));  
 app.get('/search', function (req, res) {
     var food_item = req.query.food;
     var param = {
@@ -169,7 +107,7 @@ app.get('/search', function (req, res) {
     }
     console.log("someone's searching for", param)
 
-    connection.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE ?)',[food_item], function (error, results, fields) {
+    db.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE ?)',[food_item], function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
         // fields will contain information about the returned results fields (if any)
@@ -179,11 +117,23 @@ app.get('/search', function (req, res) {
     res.render('searchitem', param);
 })
 
-// food item
+// chat
+app.use('/', require('./routes/chat'));  
 
-app.get('/fooditem', function (req, res) {
-    res.render('fooditem');
-})
+// front page
+app.use('/', require('./routes/frontpage'));  
+
+// login page
+app.use('/', require('./routes/login'));  
+
+// register page
+app.use('/', require('./routes/register'));  
+
+// profile page
+app.use('/', require('./routes/profile'));  
+
+// food item
+app.use('/', require('./routes/fooditem'));  
 
 server.listen(port, function () {
     // notify user that server is running
