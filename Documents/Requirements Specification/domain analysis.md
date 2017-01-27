@@ -13,6 +13,6 @@ In regards to security in these systems, there is little. Common personal detail
 
 There is a current system in the form of an app called “OLIO - Food Sharing Revolution”. The app seems to have, overall, positive reviews. The one main downside to it is that food is not the only item being advertised on the app. Instead, it is swamped with other non-edible items. This could be solved by having approved items only on the marketplace for users, either by a selected admin or by some automated method.
 
-Accounts can be easily be set up either through Facebook or email. It is easy to locate the food and see who has posted it. It also shows how long an item has been posted for and allows for a short description.
+Accounts can easily be set up either through Facebook or email. It is easy to locate the food and see who has posted it. It also shows how long an item has been posted for and allows for a short description.
 
 We have found it to be quite busy looking with a long list of items sorted by distance to the user. There are no other options for ordering the list or searching - only a “Just Gone” section of the most recently posted food in an almost pointless nation level radius. The main downside is that the system has to be popular to work. Nobody wants to travel very far to get an apple.
