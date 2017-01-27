@@ -7,7 +7,7 @@
 | SaaS | Software as a Service.  |
 | JavaScript | A web based programming language. |
 | Node.JS | An open-source, cross-platform JavaScript runtime environment. |
-| Runtime Environment | Implements the core behavior of a computer language. |
+| Runtime Environment | Implements the core behaviour of a computer language. |
 
 ## References 
  

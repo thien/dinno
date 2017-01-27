@@ -38,11 +38,11 @@
 
 - The system goes down regularly due to unreliable hosting or too many users overloading the server.
 
-- The site is too confusing or difficult for users to learn, leading them to abandon the system in favor of alternative services.
+- The site is too confusing or difficult for users to learn, leading them to abandon the system in favour of alternative services.
 
 **Legal/Ethical**
 
-- The site may recieve legal action if users become ill or recieve (potentially fatal) food poisoning from food which is out of date, or has not been properly labelled in terms of what kind of allergens are contained within it.
+- The site may receive legal action if users become ill or receive (potentially fatal) food poisoning from food which is out of date, or has not been properly labelled in terms of what kind of allergens are contained within it.
 
 - The service may be used for illegal purposes, for example selling food items containing illegal narcotics.
 
@@ -56,9 +56,9 @@
 
 **Availability:**
 
-- It is assumed there will always be a reasonable amount of team members available to work on the system at any point in the project timeframe, excluding holiday time, so that if a team member becomes unavailable for whatever reason then their tasks can be reallocated to another member.
+- It is assumed there will always be a reasonable amount of team members available to work on the system at any point in the project time-frame, excluding holiday time, so that if a team member becomes unavailable for whatever reason then their tasks can be reallocated to another member.
 
-- It is assumed that the client will be available to give feedback at all points in the project timeframe.
+- It is assumed that the client will be available to give feedback at all points in the project time-frame.
 
 **Performance:**
 
@@ -80,7 +80,7 @@
 
 - Only 3 hours a week have been allocated for group meetings, which must be shared with other projects such as the CEP and LSEPI presentation. This limits the amount of time that can be spend on collaborative design & evaluation.
 
-- Accounts have to be limited to only personal accounts due to the need for face-to-face food collection. Anonymous or ‘guest’ accounts cannot be implemented as this could casue potential security/personal issues.
+- Accounts have to be limited to only personal accounts due to the need for face-to-face food collection. Anonymous or ‘guest’ accounts cannot be implemented as this could cause potential security/personal issues.
 
 - Contact between team members as well as direct collaboration will be limited over both the winter and spring holiday periods due to separation as well as varying availability.
 
