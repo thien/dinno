@@ -51,7 +51,7 @@ db.connect(function(err) {
         console.error('error connecting: ' + err.stack);
         return;
     } 
-    console.log('Connected to Database - ' + connection.threadId);
+    console.log('Connected to Database - ' + db.threadId);
 });
 
 
