@@ -11,6 +11,8 @@
 | B8 | Usability/Accessibility Functions |
 | I1 | Search filtering(Done before user receives results back) |
 | I2 | Notifications          |
+| A1 | Barcode Scanning          |
+| A2 | Advanced Searching          |
 
 # Function Requirements
 
@@ -44,7 +46,7 @@
 | Section  | Description |
 | ------------- | ------------- |
 | ID, type and title  | B4.01 - Send message |
-| Description  | Send a text message from one user to another  |
+| Description  | Send a message via the website from one user to another  |
 | Priority  | High  |
 | Dependencies  | Database, Socket  |
 | Expected results  | Users will be able to communicate through the website  |
@@ -98,8 +100,8 @@
 | Section  | Description |
 | ------------- | ------------- |
 | ID, type and title  | B3.04 - Rating System  |
-| Description  | Allows users to rate others in order to simulate a trust system.  |
-| Priority  | Medium  |
+| Description  | Allows users to rate others in order to simulate a trust system. This will be based of if users put down what they are actually giving away e.g. if a user says they are giving away bread and they give away something other than bread then they will receive a lower rank. It will also be based off the condition of the food that a user picks up. Users who give out unedubke out of date food will receive lower ratings from other users.|
+| Priority  | Low  |
 | Dependencies  | Database  |
 | Expected results  | Users will be able to rate others.  |
 | Exception handling  | User doesn't rate, Rating higher or under a range. reject users input and try again |
