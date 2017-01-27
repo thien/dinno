@@ -1,0 +1,19 @@
+extends layout
+
+block container
+	include includes/nav
+	.container 
+		.col-md-6
+			h1 Hi, I'm #{name}
+			h4 #{user_location} - Joined in #{registered_date}
+			h6 Report this user
+
+			.fooditem-listings
+			-
+				var list = ["Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis"]
+			each item in list
+				li= item
+
+		.col-md-3
+			img(src=profile_photo)#profilephoto
+				
