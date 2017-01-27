@@ -13,11 +13,13 @@
 | I2 | Notifications          |
 | A1 | Barcode Scanning          |
 | A2 | Advanced Searching          |
-| A3 | Food waste recommendations | 
-| A4 | Unused food predictions | 
+| A3 | Food waste reduction recommendations | 
+| A4 | Unused food predictions |
+| EX1 | Ranking System |
 
 
-# Function Requirements
+
+# Functional Requirements
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -44,7 +46,7 @@
 | Priority  | Medium  |
 | Dependencies  | Database  |
 | Expected results  | A user's details will be able to be accessed conveniently.  |
-| Exception handling  | Not Applicable |
+| Exception handling  | N/A |
 
 | Section  | Description |
 | ------------- | ------------- |
@@ -84,34 +86,7 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | B5.02 - Bulk item add |
-| Description  | Add item to "basket" or available food list |
-| Priority  | Medium  |
-| Dependencies  | Database |
-| Expected results  | User adds food onto an available food list |
-| Exception handling  | Connection loss with database, make user try again |
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | B5.03 - Report food |
-| Description  | Function will allow users to report food which doesn't match description |
-| Priority  | Low  |
-| Dependencies  | Database |
-| Expected results  | Will notify admins, and will be marked as reported food, the user who reported the food will receive a rating on accuracy|
-| Exception handling  | Connection loss with database, make user try again |
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | B3.04 - Rating System  |
-| Description  | Allows users to rate others in order to simulate a trust system. This will be based on if users put down what they are actually giving away e.g. if a user says they are giving away bread and they give away something other than bread then they will receive a lower rank. It will also be based on the condition of the food that a user picks up. Users who give out of date food will receive lower ratings from other users.|
-| Priority  | Low  |
-| Dependencies  | Database  |
-| Expected results  | Users will be able to rate others.  |
-| Exception handling  | User doesn't rate, Rating higher or under a range. reject users input and try again |
-
-| Section  | Description |
-| ------------- | ------------- |
-| ID, type and title  | B6.05 - Query database  |
+| ID, type and title  | B6.01 - Query database  |
 | Description  | Sends a query to the database and returns results based on the query|
 | Priority  | High |
 | Dependencies  | Database  |
@@ -120,16 +95,16 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | B6.06 - Query builder |
+| ID, type and title  | B6.02 - Query builder |
 | Description  | Function will build a query from parameter given from a user|
 | Priority  | High  |
-| Dependencies  | Not applicable |
+| Dependencies  | N/A |
 | Expected results  | Function will return a query in SQL |
 | Exception handling  | User inputs a invalid word e.g. any keyword in SQL will be rejected|
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | B6.07 - View current/past offers  |
+| ID, type and title  | B6.03 - View current/past offers  |
 | Description  | Allows users to see what they currently offer and what they offered in the past. |
 | Priority  | High  |
 | Dependencies  | Database  |
@@ -201,9 +176,63 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | A1.01 - Barcode scanning - Still images  |
+| ID, type and title  | A1.01 - Still images  |
 | Description  | Users will be able to scan in a still image taken by a mobile device or webcam for desktop version of website. |
 | Priority  | Low  |
-| Dependencies  | Database, QuaggaJS |
-| Expected results  | Barcode will be detected and decoded properly and passed onto global database maybe?|
-| Exception handling  | incorrect barcode decoded, make the use confirm if this is the item they want to add |
+| Dependencies  | Database, QuaggaJS, Global barcode database |
+| Expected results  | Barcode will be detected and decoded properly and passed onto global database to lookup name|
+| Exception handling  | Incorrect barcode decoded, make the user confirm this is the item they want to add |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | A1.02 - Live images  |
+| Description  | Users will be able to use their cameras to produce a live image taken by a mobile device or webcam for desktop version of website. |
+| Priority  | Low  |
+| Dependencies  | Database, QuaggaJS, Global barcode database |
+| Expected results  | Barcode will be detected and decoded properly and passed onto global database to lookup name|
+| Exception handling  | Incorrect barcode decoded, make the user confirm this is the item they want to add |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | A2.01 - Interactive map  |
+| Description  | Map will display locations of food, which when clicked displays more information about the available food there. |
+| Priority  | Low  |
+| Dependencies  | Database, Google maps api |
+| Expected results  | After searching, map will show locations of food searched for by the user, if user chooses to click the markers, information regarding the food available there will be shown |
+| Exception handling  | N/A |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | A3.01 - Food waste reduction recommendations  |
+| Description  | System to analyse users food waste and provide recommendations on how to reduce food waste |
+| Priority  | Low  |
+| Dependencies  | Database |
+| Expected results  | System will recommend to users how to reduce food |
+| Exception handling  | N/A |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | A4.01 - Unused food recommendation |
+| Description  | System to analyse users food waste and provide recommendations on what foods users should give away |
+| Priority  | Low  |
+| Dependencies  | Database |
+| Expected results  | System will recommend to users which foods they should give away from past it has been uploaded to the site. |
+| Exception handling  | N/A |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | EX1.01 - Rating System  |
+| Description  | Allows users to rate others in order to simulate a trust system. This will be based on if users put down what they are actually giving away e.g. if a user says they are giving away bread and they give away something other than bread then they will receive a lower rank. It will also be based on the condition of the food that a user picks up. Users who give out of date food will receive lower ratings from other users.|
+| Priority  | Low  |
+| Dependencies  | Database  |
+| Expected results  | Users will be able to rate others.  |
+| Exception handling  | User doesn't rate, Rating higher or under a range. reject users input and try again |
+
+| Section  | Description |
+| ------------- | ------------- |
+| ID, type and title  | EX1.02 - Report food |
+| Description  | Function will allow users to report food which doesn't match description |
+| Priority  | Low  |
+| Dependencies  | Database |
+| Expected results  | Will notify admins, and will be marked as reported food, the user who reported the food will receive a rating on accuracy|
+| Exception handling  | Connection loss with database, make user try again |
