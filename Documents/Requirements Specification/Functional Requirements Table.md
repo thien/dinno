@@ -167,15 +167,6 @@
 
 | Section  | Description |
 | ------------- | ------------- |
-| ID, type and title  | I2.01 - Notifications  |
-| Description  | Users receive a notification when food they are looking for becomes available |
-| Priority  | Medium  |
-| Dependencies  | Database  |
-| Expected results  | Users will receive a notification when food is available either by an email, or by mobile push notifications |
-| Exception handling  | N/A |
-
-| Section  | Description |
-| ------------- | ------------- |
 | ID, type and title  | A1.01 - Still images  |
 | Description  | Users will be able to scan in a still image taken by a mobile device or webcam for desktop version of website. |
 | Priority  | Low  |
