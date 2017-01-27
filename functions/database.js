@@ -31,7 +31,6 @@ try {
     }
 }
 
-
 var db = database.createConnection(db_keys);
 db.connect(function(err) {
     if (err) {

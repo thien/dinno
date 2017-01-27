@@ -11,11 +11,11 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-//database key
-// var db = require('./functions/database');
-
 // deal with port
 const port = process.env.PORT || 8080;
+
+//database key
+// var db = require('./functions/database');
 
 //Configure express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
