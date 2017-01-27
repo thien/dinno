@@ -1,6 +1,9 @@
+var express = require('express');
+var app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 module.exports = function(){
-	var express = require('express');
-	var app = express();
 	app.locals.basedir = "." + '/views';
 
 	app.get('/chat', function (req, res) {

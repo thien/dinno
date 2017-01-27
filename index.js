@@ -2,11 +2,8 @@
 const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
-// const mysql = require('node-mysql');
 const fs = require('fs');
 const pug = require('pug');
-// const cps = require('cps');
-
 const database = require('mysql');
 
 // initiate express, socket and database
@@ -14,46 +11,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-
 //database key
-var db_keys = {};
-try {
-    var k = JSON.parse(fs.readFileSync('config/database.json', 'utf8'));
-    db_keys = {
-        host: k.host,
-        user: k.user,
-        password: k.password,
-        database: k.database
-    }
-    // db_keys = { //temporary keys to work with my db 
-    //     host: "localhost",
-    //     user: "root",
-    //     password: "meme1234",
-    //     database: "testDatabase"
-    // }
-    console.log("Secret Database Keys are found locally.");
-} catch (err) {
-    // secret file isn't found.
-    console.log("Secret Database Keys aren't found.");
-    console.log("Attempting to Allocate from Heroku Servers.");
-    db_keys = {
-        host: process.env.JAWSDB_SERVER,
-        user: process.env.JAWSDB_USER,
-        password: process.env.JAWSDB_PASS,
-        database: process.env.JAWSDB_DB
-    }
-}
-
-// connect to database
-var db = database.createConnection(db_keys);
-db.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    } 
-    console.log('Connected to Database - ' + db.threadId);
-});
-
+// var db = require('./functions/database');
 
 // deal with port
 const port = process.env.PORT || 8080;
@@ -63,7 +22,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // make sure bower compoments are directed right.
-// app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 app.use(express.static(__dirname + '/bower_components'));
 app.use(express.static(__dirname + '/public'));
 app.use("/data", express.static(__dirname + '/data'));
@@ -74,8 +32,6 @@ app.engine('pug', require('pug').__express)
 app.set('view engine', 'pug')
 app.locals.basedir = __dirname + '/views';
 // app.set('view options', { basedir: __dirname})
-
-
 
 
 // socket chatting
@@ -96,26 +52,8 @@ io.on('connection', function (socket) {
     });
 });
 
-
 // search item
-
-// app.use('/', require('./routes/search'));  
-app.get('/search', function (req, res) {
-    var food_item = req.query.food;
-    var param = {
-        food: food_item
-    }
-    console.log("someone's searching for", param)
-
-    db.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE ?)',[food_item], function (error, results, fields) {
-        // error will be an Error if one occurred during the query
-        // results will contain the results of the query
-        // fields will contain information about the returned results fields (if any)
-        console.log(fields);
-    });
-
-    res.render('searchitem', param);
-})
+app.use('/', require('./routes/search'));  
 
 // chat
 app.use('/', require('./routes/chat'));  
