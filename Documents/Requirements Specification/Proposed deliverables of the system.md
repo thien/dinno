@@ -3,7 +3,7 @@
 ## Basic Deliverables
 | ID | Deliverable         | Assigned to   |
 | --- | ----------------- | ------------ |
-| B1 | Core setup (connection to database, defining routes~          | Thien Nguyen |
+| B1 | Core setup (connection to database, defining routes)          | Thien Nguyen & Joshua Bremner |
 | B2 | Database creation   | Joshua Bremner |
 | B3 | User registration, requires database     | John Jennings |
 | B4 | Messaging, requires database           | John Jennings |
