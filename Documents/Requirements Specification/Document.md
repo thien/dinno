@@ -40,17 +40,17 @@ For the moment we will not be producing a native mobile application from scratch
 - Another user goes to site
 - Another user searches for an item they like
 - User requests item.
-- both agree to meet up and food items.
-- both users rate each other's experience.
+- Both agree to meet up and food items.
+- Both users rate each other's experience.
 
 ## User Base
 
-- users short on food resources
-- users wishing to give away food
-- users wishing to find free food
-- users with an already full supply of groceries.
-- users short on food
-- anyone >=18 years old with knowledge of the internet
+- Users short on food resources
+- Users wishing to give away food
+- Users wishing to find free food
+- Users with an already full supply of groceries.
+- Users short on food
+- Anyone >=18 years old with knowledge of the internet
 
 # Domain Analysis
 
@@ -61,7 +61,7 @@ There are charities which supply a food sharing experience at events, by caterin
 An example of this method of food sharing is “REfUSE”, a pop up cafe in Durham. They run on a “pay as you feel” basis in order for the cafe to keep running. Another way is to have a “community fridge” where a village has a shop-like place which is stocked and taken from by villagers for free.
 
 In both respects, and any other future respects, there is a system which assists those with excess food and a willingness to support charity to those in need of food. It is key to link these two groups in an effective way.
-In regards to security in these systems, there is little. Common personal details are needed to be protected of any people involved, but no more than usual - still it is a high priority. Other information in the system is on the food which has to be open for it to work successfully.
+In regards to security in these systems, there is little. Personal details which are commonly needed such as email addresses and location data are needed to be protected, but despite no sensitive information being held, security is still high priority. Other information in the system is on the food which has to be open to all users for it to work successfully.
 
 ## Existing Applications
 
