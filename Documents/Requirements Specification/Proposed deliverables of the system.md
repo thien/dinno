@@ -10,6 +10,7 @@
 | B5 | Add, remove and edit food items  | Thien Nguyen & Robert Shipley | Requires database  |
 | B6 | Basic database search  | Simeon Chan    |  Show most relevant results first  |
 | B7 | Interactive sorting    | Robert Shipley   | Requires database   |
+| B8 | Usability/Accessibility Functions | ? | |
 
 ## Intermediate Deliverables
 

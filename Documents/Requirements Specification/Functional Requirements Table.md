@@ -5,14 +5,17 @@
 | B2 | Database creation   |
 | B3 | User registration   |
 | B4 | Messaging           |
-| B5 | Add, remove and edit food available to pick up |
+| B5 | Add, remove and edit food items |
 | B6 | Basic database search  |
 | B7 | Interactive sorting   |
 | B8 | Usability/Accessibility Functions |
-| I1 | Search filtering(Done before user receives results back) |
+| I1 | Search filtering |
 | I2 | Notifications          |
 | A1 | Barcode Scanning          |
 | A2 | Advanced Searching          |
+| A3 | Food waste recommendations | 
+| A4 | Unused food predictions | 
+
 
 # Function Requirements
 
