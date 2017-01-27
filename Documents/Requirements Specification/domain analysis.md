@@ -7,7 +7,8 @@ There are charities which supply a food sharing experience at events, by caterin
 An example of this method of food sharing is “REfUSE”, a pop up cafe in Durham. They run on a “pay as you feel” basis in order for the cafe to keep running. Another method is having a “community fridge” in which a village has a shop-like place which is stocked and taken from by villagers for free.
 
 In both respects, and any other future respects, there is a system which assists those with excess food and a willingness to support charity to those in need of food. It is key to link these two groups in an effective way.
-In regards to security in these systems, there is little. Common personal details of any people involved need to be protected, but no more than usual. Still, it is a high priority. Other information in the system is on the food which has to be open for it to work successfully.
+In regards to security in these systems, there is little. Personal details which are commonly needed such as email addresses and location data need to be protected. Despite no sensitive information being held, security is still a high priority. Other information in the system is on the food which has to be open to all users for it to work successfully.
+
 
 ##Existing Applications
 
