@@ -4,8 +4,8 @@
 
 | Requirement Type | Description |
 |------------------|-------------|
-|Security|The system should have a secure system for user accounts with passwords and personal data being hashed/encrypted and stored in a secure database.|
-|Security|The system should prevent against 99% of SQL injection or brute-force attacks on login pages|
+|Security|User accounts should be secured with passwords and personal data being hashed/encrypted and stored in a secure database.|
+|Security|The system should prevent against common SQL injection or brute-force attacks on login pages|
 |Security|The site should be able to resist at least 90% of potential DDoS attacks.|
 |Security|The failure rate for password authentication on login pages should not exceed 0.005%.|
 |Security|The system should provide logs on all visitor requests to the site in order to monitor potentially malicious behaviour.|
