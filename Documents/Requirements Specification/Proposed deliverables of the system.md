@@ -29,4 +29,4 @@
 | A4 | Unused food predictions | Joshua Bremner  | Based on past offers  |
 
 # DO NOT FORGET DO NOT FORGET
-![Gantt chart](/Documents/Requirements Specification/gantt.png) ~needs resizing for final document, key to show what each colour means and needs reordering of the chart
+![Gantt chart](/Documents/Requirements Specification/gantt3.png) ~needs resizing for final document
