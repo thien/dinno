@@ -1,19 +1,86 @@
 extends layout
 
 block container
+
+	//- - var fooditems = [{ "foodname":"ASd", "image": "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg", "urle":"#", "description": "asdf lol mofo", "last_updated": "3" },{ "foodname":"ASd", "image": "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg", "urle":"#", "description": "asdf lol mofo", "last_updated": "3" },{ "foodname":"ASd", "image": "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg", "urle":"#", "description": "asdf lol mofo", "last_updated": "3" } ]
+
 	include includes/nav
 	.container 
-		.col-md-6
-			h1 Hi, I'm #{name}
-			h4 #{user_location} - Joined in #{registered_date}
-			h6 Report this user
+		.row#user_profile_details
+			.col-md-6#left
+				#container
+				h1 Hi, I'm #{name}
+				h4 
+					span.badge.badge-default 6.9
+					|	 #{user_location}
+				h6 Joined in #{registered_date}
+				a(href="google.com") Report this user
+			.col-md-3#right
+				img(src=profile_photo)#profilephoto
+		.row
+			.col-md-9
+				h3 Dinnos
+				.card-columns
+					each fooditem in fooditems
+						a(href=fooditem.urle).card
+							img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
+							.card-block
+								h4.card-title #{fooditem.foodname}
+								p.card-text #{fooditem.description}
+								p.card-text
+									small.text-muted Last updated #{fooditem.last_updated} mins ago
+					//- a(href='/fooditem').card
+					//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
+					//- 	.card-block
+					//- 		h4.card-title Card title
+					//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
+					//- 		p.card-text
+					//- 			small.text-muted Last updated 3 mins ago
 
-			.fooditem-listings
-			-
-				var list = ["Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis"]
-			each item in list
-				li= item
+					//- a(href='/fooditem').card
+					//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
+					//- 	.card-block
+					//- 		h4.card-title Card title
+					//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
+					//- 		p.card-text
+					//- 			small.text-muted Last updated 3 mins ago
 
-		.col-md-3
-			img(src=profile_photo)#profilephoto
-				
+					//- a(href='/fooditem').card
+					//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
+					//- 	.card-block
+					//- 		h4.card-title Card cena
+					//- 		p.card-text This card has supporting text below as a natural lead-in to additional content. tn is poo lol
+					//- 		p.card-text
+					//- 			small.text-muted Last updated 3 mins ago
+		.row
+			.hr
+			.col-md-9.reviews_container
+				h3.reviewheader Reviews
+				.media.reviewbox
+					a(href='#')
+						img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
+					.media-body
+						h5.mt-0 
+							a(href='#') Patricia
+						|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
+				.media.reviewbox
+					a(href='#')
+						img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
+					.media-body
+						h5.mt-0 
+							a(href='#') Patricia
+						|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
+				.media.reviewbox
+					a(href='#')
+						img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
+					.media-body
+						h5.mt-0 
+							a(href='#') Patricia
+						|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
+				.media.reviewbox
+					a(href='#')
+						img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
+					.media-body
+						h5.mt-0 
+							a(href='#') Patricia
+						|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
