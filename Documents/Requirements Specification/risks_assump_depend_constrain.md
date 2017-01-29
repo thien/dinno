@@ -97,7 +97,3 @@ Preferably built into the system.
 - **In general, how important is it that the site’s features are custom-designed vs. being outsourced?**
 
 Generally, as much should be custom-designed from scratch as possible.
-
-- **Does the site need Terms/Conditions & Licensing, for legal issues such as if someone receives out of date food/gets food poisoning?**
-
-Yes, terms & conditions should be created for the site.
