@@ -2,6 +2,7 @@
 
 | Term  | Definition |
 | ------------- | ------------- |
+| Amazon EC2 | Amazon Elastic Compute Cloud, is a Amazon web service which allows a scaleable cloud for computing/processing information |
 | Application Programming Interface (API) | A set of functions and procedures that aid the utalisation of a operation system's functionality. |
 | Architecture | The style and design of the way something is built or composed. |
 | Brute Force Attack | A repeated trial-and-error attack to gain unauthorised access. |
