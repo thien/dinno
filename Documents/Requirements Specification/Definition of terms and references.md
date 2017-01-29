@@ -18,6 +18,7 @@
 | Port | A point of communication to and from an operating system. |
 | Query | SQL sentence sent to a database to retrieve certain information OR synonymous with question. |
 | Responsive Design | A design such that the user will get feedback from it during use. |
+| Route | A specific website link which provides access to different parts of th site e.g. search and chat  |
 | Runtime Environment | Implements the core behaviour of a computer language. |
 | SaaS | Software as a Service.  |
 | Socket | A tool that allows for connections to be created between machines.  |
