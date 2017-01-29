@@ -37,7 +37,7 @@
 |Usability|The site should have a navigation system that is easy to understand as according to at least 80% of users.|
 |Usability|Any error messages given to the user for things such as incorrect input should be as specific and clear as possible so as to prevent confusion as to what has occurred, and should provide a possible solution depending on the error|
 |Accessibility|The system should have colour schemes which do not cause problems for people with colour blindness.|
-|Accessibility|The system should be accessible on all major desktop & mobile operating systems (Chrome, Safari, IE, Firefox)|
+|Accessibility|The system should be accessible on all major desktop & mobile internet browsers (Chrome, Safari, IE, Firefox)|
 |Accessibility|The site should adjust the size and position of content appropriately depending on the screen size of the user.|
 
 ## Maintainability
