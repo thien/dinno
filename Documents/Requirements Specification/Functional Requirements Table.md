@@ -132,10 +132,10 @@
 | Section  | Description |
 | ------------- | ------------- |
 | ID, type and title  | B8.02 - Screen Reader Functions/Compatibility |
-| Description  | Alt text for all images/diagrams/maps in the system so that the site can be used with a screen reader. |
+| Description  | Alternate text for all images/diagrams/maps in the system so that the site can be used with a screen reader. |
 | Priority  | Medium  |
 | Dependencies  | All site pages built and visual resources added |
-| Expected results  | Any image/map in the system should provide alt text when hovered over. |
+| Expected results  | Any image/map in the system should provide alternate text when hovered over. |
 | Exception handling  | N/A |
 
 | Section  | Description |
@@ -171,7 +171,7 @@
 | Description  | Users will be able to scan in a still image taken by a mobile device or webcam for desktop version of website. |
 | Priority  | Low  |
 | Dependencies  | Database, QuaggaJS, Global barcode database |
-| Expected results  | Barcode will be detected and decoded properly and passed onto global database to lookup name|
+| Expected results  | Barcode will be detected, decoded and passed onto global database to look up number and find name of item|
 | Exception handling  | Incorrect barcode decoded, make the user confirm this is the item they want to add |
 
 | Section  | Description |
@@ -180,7 +180,7 @@
 | Description  | Users will be able to use their cameras to produce a live image taken by a mobile device or webcam for desktop version of website. |
 | Priority  | Low  |
 | Dependencies  | Database, QuaggaJS, Global barcode database |
-| Expected results  | Barcode will be detected and decoded properly and passed onto global database to lookup name|
+| Expected results  | Barcode will be detected, decoded and passed onto global database to look up number and find name of item|
 | Exception handling  | Incorrect barcode decoded, make the user confirm this is the item they want to add |
 
 | Section  | Description |
