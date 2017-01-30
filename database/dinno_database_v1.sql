@@ -11,7 +11,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `Dinno_Database`
+-- Database: `Dinno_Database_v1`
 --
 
 -- --------------------------------------------------------
@@ -29,9 +29,8 @@ CREATE TABLE IF NOT EXISTS `Ingredient` (
   `Category` varchar(60) NOT NULL,
   `Description` varchar(500) NOT NULL,
   PRIMARY KEY (`IngredientID`),
-  KEY `LocationID` (`LocationID`),
   KEY `UserID` (`UserID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -50,7 +49,15 @@ CREATE TABLE IF NOT EXISTS `Location` (
   `Latitude` float NOT NULL,
   `Longitude` float NOT NULL,
   PRIMARY KEY (`LocationID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Test data for table `Location`
+--
+
+INSERT INTO `Location` (`LocationID`, `Postcode`, `HouseNoName`, `Street`, `Town/City`, `County`, `IsDropbox`, `Latitude`, `Longitude`) VALUES
+(1, 'DH13RH', '18', 'North Bailey', 'Durham', 'County Durham', 0, 54.7731, -1.57489),
+(2, 'DH13LE', 'Bill Bryson Library', 'South Road', 'Durham', 'County Durham', 0, 54.7683, -1.57322);
 
 -- --------------------------------------------------------
 
@@ -66,9 +73,16 @@ CREATE TABLE IF NOT EXISTS `Meal` (
   `DateServed` date NOT NULL,
   `Description` varchar(500) NOT NULL,
   PRIMARY KEY (`MealID`),
-  KEY `LocationID` (`LocationID`),
   KEY `UserID` (`UserID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Test data for table `Meal`
+--
+
+INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `Name`, `DateServed`, `Description`) VALUES
+(1, 1, 2, 'Cauliflower Cheese', '2017-01-02', 'Some tasty cauliflower cheese.'),
+(2, 2, 3, 'Bangers & Mash', '2017-01-12', 'Tasty bangers.');
 
 -- --------------------------------------------------------
 
@@ -86,27 +100,12 @@ CREATE TABLE IF NOT EXISTS `User` (
   `EncryptedPass` varchar(60) NOT NULL,
   PRIMARY KEY (`UserID`),
   KEY `LocationID` (`LocationID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Test data for table `Location`
---
-INSERT INTO `Location` (`LocationID`, `Postcode`, `HouseNoName`, `Street`, `Town/City`, `County`, `IsDropbox`, `Latitude`, `Longitude`) VALUES
-(1, 'DH13RH', '18', 'North Bailey', 'Durham', 'County Durham', 0, 54.7731, -1.57489),
-(2, 'DH13LE', 'Bill Bryson Library', 'South Road', 'Durham', 'County Durham', 0, 54.7683, -1.57322);
--- --------------------------------------------------------
-
---
--- Test data for table `Meal`
---
-INSERT INTO `Meal` (`MealID`, `UserID`, `Name`, `DateServed`, `Description`) VALUES
-(1, 2, 'Cauliflower Cheese', '2017-01-02', 'Some tasty cauliflower cheese.'),
-(2, 3, 'Bangers & Mash', '2017-01-12', 'Tasty bangers.');
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Test data for table `User`
 --
+
 INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`) VALUES
 (1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass'),
 (2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass'),
@@ -114,21 +113,21 @@ INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddres
 
 --
 -- Constraints for dumped tables
--
+--
 
 --
 -- Constraints for table `Ingredient`
 --
 ALTER TABLE `Ingredient`
-  ADD CONSTRAINT `fk_Ingredient_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Ingredient_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE;
   ADD CONSTRAINT `fk_Ingredient_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Meal`
 --
 ALTER TABLE `Meal`
-  ADD CONSTRAINT `fk_Meal_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Meal_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_Meal_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_Meal_LocationID` FFOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `User`
