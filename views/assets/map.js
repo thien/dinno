@@ -1,16 +1,18 @@
 function initMap(lat_lng) {
+
+    // get latitude and longitude from GET variables
     var coord_lat = parseFloat(GETVariable("lat"));
     var coord_lng = parseFloat(GETVariable("lng"));
 
-    console.log(coord_lat, coord_lng);
-
+    // create base_coordinate
     const DURHAM_LAT_LNG = {
         lat: coord_lat,
         lng: coord_lng
     };
 
+    // load google maps with 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: 14,
+        zoom: 15,
         center: DURHAM_LAT_LNG
     });
 
