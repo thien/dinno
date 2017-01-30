@@ -1,4 +1,4 @@
-function initMap() {
+function initMap(lat_lng) {
     const DURHAM_LAT_LNG = {
         lat: 54.7762235,
         lng: -1.5864418

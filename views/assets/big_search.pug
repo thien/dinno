@@ -1,3 +1,8 @@
+script
+	include get_location.js
+
 form(method="get" action="/search")
 	.form-group.row
 		input#phatsearch.form-control-lg(name='food' type='search')
+		input#latlngfield(type='hidden', name='latlng')
+	p.center#fuckinglocation
