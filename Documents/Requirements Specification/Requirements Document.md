@@ -140,8 +140,7 @@ We have found it to be quite busy looking with a long list of items sorted by di
 | A3 | Food waste recommendations | Thien Nguyen    | Recommend how to reduce food waste based on users past food offers |
 | A4 | Unused food predictions | Joshua Bremner  | Based on past offers  |
 
-# DO NOT FORGET DO NOT FORGET
-![Gantt chart](gantt3.png) ~needs resizing for final document
+![Gantt chart](rotatedgantt.png)
 
 # Risks, Assumptions, Constraints & Dependencies
 
