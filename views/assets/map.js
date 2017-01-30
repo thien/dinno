@@ -1,7 +1,12 @@
 function initMap(lat_lng) {
+    var coord_lat = parseFloat(GETVariable("lat"));
+    var coord_lng = parseFloat(GETVariable("lng"));
+
+    console.log(coord_lat, coord_lng);
+
     const DURHAM_LAT_LNG = {
-        lat: 54.7762235,
-        lng: -1.5864418
+        lat: coord_lat,
+        lng: coord_lng
     };
 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {

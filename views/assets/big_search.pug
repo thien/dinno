@@ -4,5 +4,7 @@ script
 form(method="get" action="/search")
 	.form-group.row
 		input#phatsearch.form-control-lg(name='food' type='search')
-		input#latlngfield(type='hidden', name='latlng')
-	p.center#fuckinglocation
+		input#lat(type='hidden', name='lat')
+		input#lng(type='hidden', name='lng')
+		//- input#latlngfield(type='hidden', name='latlng')
+	p.center#location_text

@@ -1,32 +1,42 @@
 window.onload = function(){
-	document.getElementById("fuckinglocation").innerHTML = "Locating Position...";
+	document.getElementById("location_text").innerHTML = "Locating Position...";
 
 	function success(position) {
-		var latitude  = position.coords.latitude;
-		var longitude = position.coords.longitude;
+		var latitude  = position.coords.latitude.toFixed(4).toString();
+		var longitude = position.coords.longitude.toFixed(4).toString();
 
-		var titties = position.coords.latitude.toFixed(4).toString() +","+  position.coords.longitude.toFixed(4).toString()
-		console.log("gps coord:",titties);
-		document.getElementById("fuckinglocation").innerHTML = titties.toString()
+		var coords = latitude +","+ longitude
+		console.log("gps coord:",coords);
+		document.getElementById("location_text").innerHTML = coords.toString()
 
 
-		document.getElementById("latlngfield").value = titties;
-		printEstLocation(titties)
+		// document.getElementById("latlngfield").value = coords;
+		document.getElementById("lat").value = latitude;
+		document.getElementById("lng").value = longitude;
+		printEstLocation(coords)
 	}
 
 	function printEstLocation(coord){
 		$.getJSON('http://maps.google.com/maps/api/geocode/json?latlng=' + coord, function(data){
 			console.log(data.results[2])
 			console.log(data.results[2].formatted_address)
-			document.getElementById("fuckinglocation").innerHTML = data.results[2].formatted_address
+			document.getElementById("location_text").innerHTML = data.results[2].formatted_address
 		})
 	}
 
 	function error() {
 		$.getJSON('http://ipinfo.io', function(data){
-			document.getElementById("fuckinglocation").innerHTML = data.loc + " (Est.)"
+			document.getElementById("location_text").innerHTML = data.loc + " (Est.)"
 			printEstLocation(data.loc);
-			document.getElementById("latlngfield").value = data.loc;
+			console.log("ran error, est")
+			console.log("est location", data.loc)
+			var res = data.loc.split(",");
+			// console.log(res)
+			var latitude = res[0];
+			var longitude = res[1];
+			document.getElementById("lat").value = latitude;
+			document.getElementById("lng").value = longitude;
+			// document.getElementById("latlngfield").value = data.loc;
 		})
 	}
 

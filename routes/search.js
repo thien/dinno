@@ -17,6 +17,7 @@ module.exports = function(){
 	    });
 
 	    // will need to get search results
+	    // user id's
 	    var user_foods = [
 		    {
 	            "foodname": "ASd",
