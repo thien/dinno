@@ -1,10 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 4.0.10.17
--- https://www.phpmyadmin.net
---
--- Host: mysql.dur.ac.uk
--- Generation Time: Jan 30, 2017 at 04:58 AM
--- Server version: 5.1.39-community-log
+-- DINNO SQL Database - built using phpMyAdmin
 -- PHP Version: 5.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -17,7 +11,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `Ppppc32_Dinno`
+-- Database: `Dinno_Database`
 --
 
 -- --------------------------------------------------------
@@ -27,7 +21,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Ingredient` (
-  `IngredientID` int(11) NOT NULL,
+  `IngredientID` int(11) NOT NULL AUTO_INCREMENT,
   `LocationID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `Name` varchar(60) NOT NULL,
@@ -46,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `Ingredient` (
 --
 
 CREATE TABLE IF NOT EXISTS `Location` (
-  `LocationID` int(11) NOT NULL,
+  `LocationID` int(11) NOT NULL AUTO_INCREMENT,
   `Postcode` varchar(8) NOT NULL,
   `HouseNoName` varchar(60) NOT NULL,
   `Street` varchar(60) NOT NULL,
@@ -65,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `Location` (
 --
 
 CREATE TABLE IF NOT EXISTS `Meal` (
-  `MealID` int(11) NOT NULL,
+  `MealID` int(11) NOT NULL AUTO_INCREMENT,
   `LocationID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `Name` varchar(60) NOT NULL,
@@ -83,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `Meal` (
 --
 
 CREATE TABLE IF NOT EXISTS `User` (
-  `UserID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `LocationID` int(11) NOT NULL,
   `Firstname` varchar(60) NOT NULL,
   `Surname` varchar(60) NOT NULL,
@@ -95,8 +89,32 @@ CREATE TABLE IF NOT EXISTS `User` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Constraints for dumped tables
+-- Test data for table `Location`
 --
+INSERT INTO `Location` (`LocationID`, `Postcode`, `HouseNoName`, `Street`, `Town/City`, `County`, `IsDropbox`, `Latitude`, `Longitude`) VALUES
+(1, 'DH13RH', '18', 'North Bailey', 'Durham', 'County Durham', 0, 54.7731, -1.57489),
+(2, 'DH13LE', 'Bill Bryson Library', 'South Road', 'Durham', 'County Durham', 0, 54.7683, -1.57322);
+-- --------------------------------------------------------
+
+--
+-- Test data for table `Meal`
+--
+INSERT INTO `Meal` (`MealID`, `UserID`, `Name`, `DateServed`, `Description`) VALUES
+(1, 2, 'Cauliflower Cheese', '2017-01-02', 'Some tasty cauliflower cheese.'),
+(2, 3, 'Bangers & Mash', '2017-01-12', 'Tasty bangers.');
+-- --------------------------------------------------------
+
+--
+-- Test data for table `User`
+--
+INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`) VALUES
+(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass'),
+(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass'),
+(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass');
+
+--
+-- Constraints for dumped tables
+-
 
 --
 -- Constraints for table `Ingredient`
