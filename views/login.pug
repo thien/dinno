@@ -1,0 +1,15 @@
+extends layout
+
+
+block container
+	include includes/nav
+	.col-md-6
+		#container
+			if username
+				h1 #{username}
+				h2 #{password}
+				
+			h1 Log In
+
+			include includes/login
+			

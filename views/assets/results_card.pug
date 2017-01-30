@@ -1,0 +1,34 @@
+mixin card(fooditem)
+	a(href=fooditem.url).card
+		.card-block
+			h4.card-title fooditem.name
+			p.card-text fooditem.description
+			p.card-text
+				small.text-muted carditem.updated
+				
+var carditem = {
+	name: "baconi",
+	surname: 99,
+	img: "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg",
+	title: "Card title",
+	description: "this is a description",
+	updated: 2,
+	url: "http://google.com"
+}
+
+
+//- a(href='/fooditem').card
+//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
+//- 	.card-block
+//- 		h4.card-title Card title
+//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
+//- 		p.card-text
+//- 			small.text-muted Last updated 3 mins ago
+
+
+
+//- +article('Hello world')
+
+//- +article('Hello world')
+//- 	p This is my
+//- 	p Amazing article

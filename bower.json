@@ -1,0 +1,24 @@
+{
+  "name": "dinno",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "MooseLightning"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tnguyen/dinno",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "components-font-awesome": "^4.7.0",
+    "bootstrap": "v4.0.0-alpha.6",
+    "socket.io-client": "^1.7.2",
+    "socket.io": "^1.7.2"
+  }
+}
