@@ -3,47 +3,61 @@ extends layout
 
 block container
 	include includes/nav
-	.col-md-6
-		#container
+	.row
+		.col-md-6
+			#container
+				//- carousel for pics.
+				#carouselExampleIndicators.carousel.slide(data-ride='carousel')
+					//- ol.carousel-indicators
+					//- 	li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
+					//- 	li(data-target='#carouselExampleIndicators', data-slide-to='1')
+					//- 	li(data-target='#carouselExampleIndicators', data-slide-to='2')
+					.carousel-inner(role='listbox')
+						.carousel-item.active
+							img.d-block.img-fluid(src=front_img, alt='First slide')
+						each img in carousel_img
+							.carousel-item
+								img.d-block.img-fluid(src=img, alt='Second slide')
+					//- buttons for carousel
+					a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
+						span.carousel-control-prev-icon(aria-hidden='true')
+						span.sr-only Previous
+					a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
+						span.carousel-control-next-icon(aria-hidden='true')
+						span.sr-only Next
 
-			//- carousel for pics.
-			#carouselExampleIndicators.carousel.slide(data-ride='carousel')
-				ol.carousel-indicators
-					li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
-					li(data-target='#carouselExampleIndicators', data-slide-to='1')
-					li(data-target='#carouselExampleIndicators', data-slide-to='2')
-				.carousel-inner(role='listbox')
-					.carousel-item.active
-						img.d-block.img-fluid(src='http://farm3.static.flickr.com/2716/4127243489_dd1197097d.jpg', alt='First slide')
-					.carousel-item
-						img.d-block.img-fluid(src='https://upload.wikimedia.org/wikipedia/commons/3/3f/KFC_-_Pressure-fried_Chicken_Wings_-_Kolkata_2013-02-08_4438.JPG', alt='Second slide')
-					.carousel-item
-						img.d-block.img-fluid(src='http://farm3.static.flickr.com/2716/4127243489_dd1197097d.jpg', alt='Third slide')
-				a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
-					span.carousel-control-prev-icon(aria-hidden='true')
-					span.sr-only Previous
-				a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
-					span.carousel-control-next-icon(aria-hidden='true')
-					span.sr-only Next
+				//- load image container
+				.card-profile-container
+					img.card-userprofile-img(src=userimg, alt='Card image cap')
 
-			//- food item
-			h2 Chicken Wings
+				//- food name
+				h2 #{foodname}
 
-			h5
-				| John Cena 
-				span.badge.badge-default 4.5
+				h5
+					.username #{user_name}
+					span.badge.badge-default #{user_rating}
 
+				//- print description
+				p #{description}
 
-			p
-				| I bought too many hot wings and i can't fit them in these memes.
+				//- print tags
+				each tag in tags
+					span.badge.badge-info #{tag}
 
-			span.badge.badge-info KFC
-			span.badge.badge-info Chicken Wings
-			span.badge.badge-info BBQ
-			span.badge.badge-info Hot Food
+				//- request button
+				button.btn.btn-primary.btn-lg.btn-block(type='button') Dinno This
+		.col-md-4
+			#container
+				- var coord = marker.lat + "," + marker.lng
+				- var mapsrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCFfZX6iV4dWsBxUQ45EnobLYATI3WfXtw&q=Space+Needle,Seattle+WA&zoom=15&center="
+				- mapsrc = mapsrc + coord
 
-			button.btn.btn-primary.btn-lg.btn-block(type='button') Dinno This
+				- var staticimg = "https://maps.googleapis.com/maps/api/staticmap?size=300x400&style=element:labels|visibility:off&style=element:geometry.stroke|visibility:off&style=feature:landscape|element:geometry|saturation:-100&style=feature:water|saturation:-100|invert_lightness:true&key=AIzaSyBAQr_cnQ9oAQT1tlJtG5HV59pswwR5gAg"
 
+				- staticimg += "&zoom=15"
+				- staticimg += "&center="+coord
+				- staticimg += "&markers=color:red%7Clabel:S%7C" + coord
 
+				//- iframe(width='100%', height='450', frameborder='0', style='border:0', src=mapsrc, allowfullscreen='')
 
-
+				img(src=staticimg)

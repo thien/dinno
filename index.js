@@ -36,6 +36,7 @@ app.locals.basedir = __dirname + '/views';
 
 // socket chatting
 io.on('connection', function (socket) {
+    console.log(socket)
     socket.on('chat message', function (msg) {
         console.log(msg);
         msg.timestamp = new Date();
@@ -72,6 +73,9 @@ app.use('/', require('./routes/profile'));
 
 // food item
 app.use('/', require('./routes/fooditem'));  
+
+// add food item
+app.use('/', require('./routes/add'));  
 
 server.listen(port, function () {
     // notify user that server is running

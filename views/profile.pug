@@ -22,8 +22,10 @@ block container
 				h3 Dinnos
 				.card-columns
 					each fooditem in fooditems
-						a(href=fooditem.urle).card
+						a(href=fooditem.urle).card.fooditem-card
 							img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
+							.card-profile-container
+								img.card-userprofile-img(src=fooditem.userimg, alt='Card image cap')
 							.card-block
 								h4.card-title #{fooditem.foodname}
 								p.card-text #{fooditem.description}

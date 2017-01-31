@@ -3,7 +3,8 @@ extends layout
 block container
 	script
 		-
-			var latlng = [54.7762235,-1.5864418]
+			var latlng = [54.7762235,-1.5864418];
+		| var bacon = "";
 		include assets/poachGETVariables.js
 		include assets/map.js
 	script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
@@ -35,86 +36,18 @@ block container
 							input#food(type='text')
 							br
 				#list_results_container
-					.card-columns
+					.card-columns#fooditem_results_card
 						each fooditem in fooditems
-							a(href=fooditem.urle).card
+							a(href=fooditem.urle id='fooditem_' + fooditem.food_id).card
 								img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
+								.card-profile-container
+									img.card-userprofile-img(src=fooditem.userimg, alt='Card image cap')
 								.card-block
 									h4.card-title #{fooditem.foodname}
 									p.card-text #{fooditem.description}
 									p.card-text
 										small.text-muted Last updated #{fooditem.last_updated} mins ago
-						//- a(href='/fooditem').card
-						//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
-						//- 	.card-block
-						//- 		h4.card-title Card title that wraps to a new line
-						//- 		p.card-text
-						//- 			| This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-						//- //- .card.p-3
-						//- //- 	blockquote.card-block.card-blockquote
-						//- //- 		p
-						//- //- 			| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-						//- //- 		footer
-						//- //- 			small.text-muted
-						//- //- 				cite(title='Source Title') Source Title
-						//- a(href='/fooditem').card
-						//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
-						//- 	.card-block
-						//- 		h4.card-title Card title
-						//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
-						//- 		p.card-text
-						//- 			small.text-muted Last updated 3 mins ago
-						//- a(href='/fooditem').card
-						//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
-						//- 	.card-block
-						//- 		h4.card-title Card title
-						//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
-						//- 		p.card-text
-						//- 			small.text-muted Last updated 3 mins ago
-						//- a(href='/fooditem').card
-						//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
-						//- 	.card-block
-						//- 		h4.card-title Card title
-						//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
-						//- 		p.card-text
-						//- 			small.text-muted Last updated 3 mins ago
-						//- a(href='/fooditem').card
-						//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
-						//- 	.card-block
-						//- 		h4.card-title Card title
-						//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
-						//- 		p.card-text
-						//- 			small.text-muted Last updated 3 mins ago
 
-						//- a(href='/fooditem').card.card-inverse.card-primary.p-3.text-center
-						//- 	blockquote.card-blockquote
-						//- 		p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.
-						//- 		footer
-						//- 			small
-						//- 				cite(title='Source Title') Source Title
-						//- a(href='/fooditem').card.text-center
-						//- 	.card-block
-						//- 		h4.card-title Card title
-						//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
-						//- 		p.card-text
-						//- 			small.text-muted Last updated 3 mins ago
-						//- .card
-						//- 	img.card-img.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image')
-						//- a(href='/fooditem').card.p-3.text-right
-						//- 	blockquote.card-blockquote
-						//- 		p
-						//- 			| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-						//- 		footer
-						//- 			small.text-muted
-						//- 				cite(title='Source Title') Source Title
-						//- a(href='/fooditem').card
-						//- 	.card-block
-						//- 		h4.card-title Card title
-						//- 		p.card-text
-						//- 			| This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
-						//- 		p.card-text
-						//- 			small.text-muted Last updated 3 mins ago
-				//- include includes/foot
 
 			.col-6.embed-responsive#results_container_right
 				#map-canvas.embed-responsive-item

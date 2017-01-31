@@ -1,0 +1,23 @@
+extends layout
+
+
+block container
+	include includes/nav
+	.col-md-6
+		#container
+			h1 Add Fooditem
+			form(method="post", enctype="multipart/form-data")
+				.form-group
+					input(type="file", name="displayImage")
+				.form-group
+					label(for='Food Name') Food Name
+					input#exampleInputEmail1.form-control(name="forename" type='name', placeholder='First Name')
+				.form-group
+					label(for='exampleInputEmail1') Email address
+					input#exampleInputEmail1.form-control(name="email" type='email', placeholder='you@email.com')
+					small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+				.form-group
+					label(for='exampleInputPassword1') Password
+					input#exampleInputPassword1.form-control(name="pass" type='password', placeholder='Password')
+					small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+			

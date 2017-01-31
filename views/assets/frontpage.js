@@ -19,7 +19,6 @@ function getRandomFood(food_list) {
     return item;
 }
 
-
 function writeMagic(div, type_this){
     // console.log("doing wandom magic")
     // console.log(div, type_this)
