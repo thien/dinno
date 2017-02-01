@@ -91,7 +91,7 @@
     background-color: #6de16d;
 }
 #chat_header {
-    height: 100px;
+    /*height: 100px;*/
     width: 100%;
     border-bottom: 1px solid #ddd;
 }
@@ -100,7 +100,8 @@
     font-weight: 700;
 }
 #contact_details {
-    margin: 20px;
+    margin: 20px 0px 20px 20px;
+    display: inline-block;
 }
 .msg-date {
     background: none;
@@ -115,6 +116,15 @@
     margin: 5px 10px 5px 0px;
     height: 80px;
     width: 80px;
+}
+@media (max-width: 360px){
+    #contact_photo {
+        height: 50px;
+        width: 50px;
+    }
+    #contact_details {
+        margin: 20px 5px;
+    }
 }
 .media.conversation img,
 #contact_photo {
