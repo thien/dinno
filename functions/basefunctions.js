@@ -17,6 +17,9 @@ module.exports.generateRandomListing = function(){
 	return random;
 }
 
+// private functions;
+// these can only be accessed in this file.
+
 function generateRandomFoodName(){
 	var item = "";
 	var fooditems = require("../data/random_food_list.json");

@@ -193,6 +193,32 @@
 	.reviewbox{
 		margin: 20px 0px;
 	}
+	.fooditem_profile {
+
+	}
+	.fooditem_profile #userrating {
+		margin-right: 10px;
+		font-size: 135% !important;
+		display: inline-block;
+		/*height: 60%;*/
+	}
+	.fooditem_profile #userrating #user_rating{
+		background-color: #FF5353;
+	}
+	.tags_container {
+		text-align: center;
+	}
+	.categoriestags {
+		margin: 10px 5px;
+		padding: 7px 6px !important;
+		background-color: #FF5353;
+	}
+
+
+	.fooditem_profile .username{
+		/*background-color: #ccc;*/
+		display: inline-block;
+	}
 
 	.reviewbox img{
 		max-height: 100px;
@@ -205,6 +231,13 @@
 		margin: 15px 0px;
 	}
 
+	.upload_img_container {
+		margin: 0px 0px 20px 0px;
+		height: 200px;
+		width: 200px;
+		background-color: #ccc;
+	}
+
 	@media(min-width: 768px){
 		#profilephoto {
 			height: 200px;
@@ -214,7 +247,15 @@
 			display: block;
 			max-width: 300px;
 		}
+
+	#static_fooditem {
+		margin-bottom: 20px;
 	}
+	
+	.barcode-scanner-container{
+		padding: 20px 0px;
+	}
+
 	/*map stuf*/
 	.map-control {
         background-color: #fff;

@@ -5,7 +5,7 @@ block container
 	include includes/nav
 	.row
 		.col-md-6
-			#container
+			#container.fooditem_profile
 				//- carousel for pics.
 				#carouselExampleIndicators.carousel.slide(data-ride='carousel')
 					//- ol.carousel-indicators
@@ -34,15 +34,17 @@ block container
 				h2 #{foodname}
 
 				h5
+					#userrating
+						span.badge#user_rating #{user_rating}
 					.username #{user_name}
-					span.badge.badge-default #{user_rating}
 
 				//- print description
 				p #{description}
 
 				//- print tags
-				each tag in tags
-					span.badge.badge-info #{tag}
+				.tags_container
+					each tag in tags
+						span.badge.categoriestags #{tag}
 
 				//- request button
 				button.btn.btn-primary.btn-lg.btn-block(type='button') Dinno This
@@ -60,4 +62,8 @@ block container
 
 				//- iframe(width='100%', height='450', frameborder='0', style='border:0', src=mapsrc, allowfullscreen='')
 
-				img(src=staticimg)
+				img(src=staticimg)#static_fooditem
+
+				h5 Durham, UK
+				p
+				| about 5 minutes away.

@@ -10,26 +10,26 @@ block container
 			form(method="post")
 				.form-group
 					label(for='First Name') First Name
-					input#exampleInputEmail1.form-control(name="forename" type='name', placeholder='First Name')
+					input#forename.form-control(name="forename" type='name', placeholder='First Name' value=forename)
 				.form-group
 					label(for='First Name') Last Name
-					input#exampleInputEmail1.form-control(name="lastname" type='name', placeholder='Last Name')
+					input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=surname)
 				.form-group
 					label(for='exampleInputEmail1') Email address
-					input#exampleInputEmail1.form-control(name="email" type='email', placeholder='you@email.com')
+					input#email.form-control(name="email" type='email', placeholder='you@email.com' value=email)
 					small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
 				.form-group
 					label(for='exampleInputPassword1') Password
-					input#exampleInputPassword1.form-control(name="pass" type='password', placeholder='Password')
+					input#password.form-control(name="password" type='password', placeholder='Password')
 					small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
 
 				.form-group
 					label(for='exampleInputPassword1') Confirm Password
-					input#exampleInputPassword1.form-control(name="cpass" type='password', placeholder='Password')
+					input#password_verify.form-control(name="vpassword" type='password', placeholder='Password')
 				.form-inline
 					#sr-only
 						label(for='exampleSelect1') Day
-						select(name="day" type="Day" )#exampleSelect1.form-control-lg
+						select(name="day" type="Day" value=day)#bornday
 							option(value='1') 1
 							option(value='2') 2
 							option(value='3') 3
@@ -63,7 +63,7 @@ block container
 							option(value='31') 31
 					#sr-only
 						label(for='exampleSelect1') Month
-						select(name="month" type="Month").form-control-lg
+						select(name="month" type="Month" value=month)
 							option(value='January') January
 							option(value='Febuary') Febuary
 							option(value='March') March
@@ -78,7 +78,7 @@ block container
 							option(value='December') December
 					#sr-only
 						label(for='exampleSelect1' ) Year
-						select(name="year" type="Year").form-control-lg 
+						select(name="year" type="Year" value=year) 
 							option(value='1998') 1998
 							option(value='1997') 1997
 							option(value='1996') 1996
@@ -131,40 +131,6 @@ block container
 							option(value='1949') 1949
 							option(value='1948') 1948
 							option(value='1947') 1947
-				//- .form-group
-				//- 	label(for='exampleSelect2') Example multiple select
-				//- 	select#exampleSelect2.form-control(multiple='')
-				//- 		option 1
-				//- 		option 2
-				//- 		option 3
-				//- 		option 4
-				//- 		option 5
-				//- .form-group
-				//- 	label(for='exampleTextarea') Example textarea
-				//- 	textarea#exampleTextarea.form-control(rows='3')
-				//- .form-group
-				//- 	label(for='exampleInputFile') File input
-				//- 	input#exampleInputFile.form-control-file(type='file', aria-describedby='fileHelp')
-				//- 	small#fileHelp.form-text.text-muted
-				//- 		| This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.
-				//- fieldset.form-group
-				//- 	legend Radio buttons
-				//- 	.form-check
-				//- 		label.form-check-label
-				//- 			input#optionsRadios1.form-check-input(type='radio', name='optionsRadios', value='option1', checked='')
-				//- 			|				 Option one is this and that—be sure to include why it's great
-				//- 	.form-check
-				//- 		label.form-check-label
-				//- 			input#optionsRadios2.form-check-input(type='radio', name='optionsRadios', value='option2')
-				//- 			|				 Option two can be something else and selecting it will deselect option one
-				//- 	.form-check.disabled
-				//- 		label.form-check-label
-				//- 			input#optionsRadios3.form-check-input(type='radio', name='optionsRadios', value='option3', disabled='')
-				//- 			|				 Option three is disabled
-				//- .form-check
-				//- 	label.form-check-label
-				//- 		input.form-check-input(type='checkbox')
-				//- 		|			 Check me out
 				.form-group
 					p
 					| By signing up, I agree to 
@@ -174,33 +140,5 @@ block container
 					| , and 
 					a(href="/register") Privacy Policy
 					| .
-				button.btn.btn-primary(type='submit') Sign Up
-
-				//- fieldset
-			
-				//- 	p
-				//- 		label(for="name") Username:
-				//- 			input(type="text", name="name", value=name)
-				//- 	p
-				//- 		label(for="email") Email:
-				//- 			input(type='email', placeholder='name@email.com' name='email')
-				//- 			.tip.
-				//- 				Enter a valid
-				//- 				email address
-				//- 				such as <em>tj@vision-media.ca</em>.
-				//- fieldset
-				//- 	legend Location
-				//- 	p
-				//- 		label(for="city") City:
-				//- 			input(type="text", name="city", value=mail)
-				//- 	p
-				//- 		select(name="user[province]")
-				//- 			option(value="") -- Select Province --
-				//- 			option(value="AB") Alberta
-				//- 			option(value="BC") British Columbia
-				//- 			option(value="SK") Saskatchewan
-				//- 			option(value="MB") Manitoba
-				//- 			option(value="ON") Ontario
-				//- 			option(value="QC") Quebec
-				//- p.buttons
-				//- 	input(type="submit", value="Save")
+				button.btn.btn-primary(type='submit' value="Submit") Sign Up
+	script(src='https://www.google.com/recaptcha/api.js')
