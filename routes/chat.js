@@ -7,7 +7,7 @@ app.locals.basedir = "." + '/views';
 module.exports = function(){
 
 	app.get('/chat', function (req, res) {
-	    res.render('chat2');
+	    res.render('chat');
 	})
 
 	return app;

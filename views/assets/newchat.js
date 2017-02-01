@@ -15,13 +15,16 @@ $('form').submit(function() {
 });
 socket.on('chat message', function(msg) {
     console.log("from server", msg);
-    // var time = msg.timestamp.toString();
+
+
+    // time = msg.timestamp.getHours().toString() + ":" + msg.timestamp.d.getMinutes().toString() // => 9
+    // console.log(time);
 
 
     // create message container
     var message_container = document.createElement('div');
     var ghetto = '<div class="media msg"><div class="media-body"><small class="pull-right time">';
-    ghetto += '<i class="fa fa-clock-o"></i>'+"99:99"+'</small>';
+    ghetto += '<i class="fa fa-clock-o"></i> '+msg.timestamp+'</small>';
     ghetto += '<h5 class="media-heading">'+msg.sendername+'</h5>';
     ghetto += '<small class="col-lg-10">'+msg.contents+'</small></div></div>';
     // append to client's messagebox
