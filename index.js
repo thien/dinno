@@ -36,20 +36,26 @@ app.locals.basedir = __dirname + '/views';
 
 // socket chatting
 io.on('connection', function (socket) {
-    console.log(socket)
+    console.log("a new human has connected")
+    // send the clients id to the client itself.
+    socket.send(socket.id);
+
     socket.on('chat message', function (msg) {
-        console.log(msg);
-        msg.timestamp = new Date();
-        msg.sendername = "John Cena"
+
+        var k = new Date();
+        msg.timestamp = k.getHours().toString() + ":" + k.getMinutes().toString();
+        msg.sendername = "John Cena";
         // io.sockets.in(msg['from']).emit('chat message', msg['from'] + ":  " + msg['contents']);
         // io.sockets.in(msg['to']).emit('chat message', msg['from'] + ":  " + msg['contents']);
-
         // brocadcast to everyone; testing purposes
         io.emit('chat message', msg);
     });
-    socket.on('join', function (data) {
-        io.emit('server message', data.name + " has joined");
-        socket.join(data.name);
+    // socket.on('join', function (data) {
+    //     io.emit('server message', data.name + " has joined");
+    //     socket.join(data.name);
+    // });
+    socket.on('disconnect', function () {
+        console.log('fuck off')
     });
 });
 
