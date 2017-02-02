@@ -231,12 +231,47 @@
 		margin: 15px 0px;
 	}
 
-	.upload_img_container {
+	/*upload images*/
+
+	#upload_img_container {
 		margin: 0px 0px 20px 0px;
-		height: 200px;
-		width: 200px;
-		background-color: #ccc;
+		min-height: 250px;
+		width: 100%;
+		border: 3px dashed #ccc;
+		text-align: center;
 	}
+
+	.img_uploading{
+		-webkit-transition: background 0.5s ease-in-out;
+        -ms-transition:     background 0.5s ease-in-out;
+        transition:         background 0.5s ease-in-out;
+	}
+
+	.pulsebackground{
+        background: #ffbc6b;
+    }
+
+	.img_upload_done {
+		border: 1px solid #a1e0a8;
+		background-color: #a1e0a8;
+	}
+	#input_images{
+		display: block;
+		padding: 10px 0px;
+		margin: 0px auto;
+		width: 150px;
+	}
+
+	img.img_preview{
+		display: inline-block;
+		margin: 10px;
+		padding: 5px;
+		max-height: 100px;
+		max-width: 100px;
+	}
+
+
+	/*profile*/
 
 	@media(min-width: 768px){
 		#profilephoto {

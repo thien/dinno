@@ -8,28 +8,32 @@ block container
 		include assets/upload.js
 	include includes/nav
 	.container 
-		.row
-			form(method="post", enctype="multipart/form-data")
-			.col-lg-6
-				#container
-					h1 Add Fooditem
-					.form-group
-						label(for='Food Name') Food Name
-						input#exampleInputEmail1.form-control(name="forename" type='name', placeholder='First Name')
-					.form-group
-						label(for='exampleInputEmail1') Email address
-						input#exampleInputEmail1.form-control(name="email" type='email', placeholder='you@email.com')
-						small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
-					.form-group
-						label(for='exampleInputPassword1') Password
-						input#exampleInputPassword1.form-control(name="pass" type='password', placeholder='Password')
-						small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-			.col-md-4
-				#container
-					.form-group
-						.upload_img_container
-						input(type="file", name="displayImage")
-					.form-group.barcode-scanner-container
-						h3 Add Barcode Scanner Stuff Here
-					//- request button
-					button.btn.btn-primary.btn-lg.btn-block(type='button') Add Fooditem
+		form(method="post")
+			.row
+				.col-lg-6
+					#container
+						h1 Add Fooditem
+						.form-group
+							label(for='Food Name') Food Name
+							input#exampleInputEmail1.form-control(name="forename" type='foodname', placeholder='Lettuce' value="saiusages")
+						.form-group
+							label(for='exampleSelect1') Food Type
+							select#exampleSelect1.form-control(name="foodtype")
+								option Meal
+								option Ingredient
+						.form-group
+							label(for='exampleTextarea') Description
+							textarea#description.form-control(rows='3' maxlength="140" name="description")
+							//- small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+						.form-group
+							label(for='Food Name') Location
+							input#exampleInputEmail1.form-control(name="location" type='location', placeholder='Durham, UK')
+				.col-lg-4
+					#container
+						.form-group#pictureupload
+							#upload_img_container
+								input(id="input_images" name='images' type="file" multiple="true")
+						.form-group.barcode-scanner-container
+							h3 Add Barcode Scanner Stuff Here
+						//- request button
+						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
