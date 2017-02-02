@@ -6,10 +6,14 @@ const fs = require('fs');
 const pug = require('pug');
 const database = require('mysql');
 
-// initiate express, socket and database
+// initiate express and database
 const app = express();
 const server = require('http').Server(app);
+
+//set up socket
 const io = require('socket.io')(server);
+// load socket files from functions directory
+require('./functions/socket')(io, server);
 
 // deal with port
 const port = process.env.PORT || 8080;
@@ -31,33 +35,6 @@ app.set('views', __dirname + '/views')
 app.engine('pug', require('pug').__express)
 app.set('view engine', 'pug')
 app.locals.basedir = __dirname + '/views';
-// app.set('view options', { basedir: __dirname})
-
-
-// socket chatting
-io.on('connection', function (socket) {
-    console.log("a new human has connected")
-    // send the clients id to the client itself.
-    socket.send(socket.id);
-
-    socket.on('chat message', function (msg) {
-
-        var k = new Date();
-        msg.timestamp = k.getHours().toString() + ":" + k.getMinutes().toString();
-        msg.sendername = "John Cena";
-        // io.sockets.in(msg['from']).emit('chat message', msg['from'] + ":  " + msg['contents']);
-        // io.sockets.in(msg['to']).emit('chat message', msg['from'] + ":  " + msg['contents']);
-        // brocadcast to everyone; testing purposes
-        io.emit('chat message', msg);
-    });
-    // socket.on('join', function (data) {
-    //     io.emit('server message', data.name + " has joined");
-    //     socket.join(data.name);
-    // });
-    socket.on('disconnect', function () {
-        console.log('fuck off')
-    });
-});
 
 // search item
 app.use('/', require('./routes/search'));  
