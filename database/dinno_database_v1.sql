@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `EmailAddress` varchar(80) NOT NULL,
   `DOB` date NOT NULL,
   `EncryptedPass` varchar(60) NOT NULL,
+  `Rating` float NOT NULL,
   PRIMARY KEY (`UserID`),
   KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
@@ -106,10 +107,10 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Test data for table `User`
 --
 
-INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`) VALUES
-(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass'),
-(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass'),
-(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass');
+INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`) VALUES
+(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9),
+(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8),
+(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1);
 
 --
 -- Constraints for dumped tables
