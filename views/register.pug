@@ -1,18 +1,23 @@
 extends layout
 
-
 block container
 	include includes/nav
+
+	style
+			include includes/register.css
+	script
+		include assets/register.js
+
 	.col-md-6
 		#container
 			h1 Register
 
 			form(method="post")
 				.form-group
-					label(for='First Name') First Name
+					label(for='First Name') First Name 
 					input#forename.form-control(name="forename" type='name', placeholder='First Name' value=forename)
 				.form-group
-					label(for='First Name') Last Name
+					label(for='Last Name') Last Name
 					input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=surname)
 				.form-group
 					label(for='exampleInputEmail1') Email address
@@ -20,12 +25,11 @@ block container
 					small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
 				.form-group
 					label(for='exampleInputPassword1') Password
-					input#password.form-control(name="password" type='password', placeholder='Password')
-					small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-
+					input#password.form-control.password(name="password" type='password', placeholder='Password')
+					small#password-help-block.form-text.text-muted Your password must be at least 8 characters long and contain both leters and numbers.
 				.form-group
 					label(for='exampleInputPassword1') Confirm Password
-					input#password_verify.form-control(name="vpassword" type='password', placeholder='Password')
+					input#password-verify.form-control.password(name="vpassword" type='password', placeholder='Password')
 				.form-inline
 					#sr-only
 						label(for='exampleSelect1') Day
