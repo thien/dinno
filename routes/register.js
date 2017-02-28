@@ -9,9 +9,6 @@ app.locals.basedir = "." + '/views';
 function addNewUser(userData) {
 	// TODO: get location properly
 	// 			 actually validate things
-
-	const SECRET_SALT = '4G1L3M80';
-
 	var locationId   = 1;
 	var firstname    = userData['forename'];
 	var surname      = userData['surname'];
@@ -23,7 +20,7 @@ function addNewUser(userData) {
 	var day   = userData['day'];
 	var dob   = `${year}/${month}/${day}`;
 
-	var encryptedPass = encrypt.hash(userData['password'] + SECRET_SALT);
+	var encryptedPass = encrypt.hash(userData['password'], userData['email']);
 
 	db.query(`INSERT INTO User (UserID, LocationID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, Rating)
 						VALUES (0, ?, ?, ?, ?, ?, ?, 5.0)`, 
@@ -63,8 +60,8 @@ module.exports = function(){
 		if (verified){
 			// proceed with sending details to database
 			param = {
-			name: checks.forename,
-			hash: encrypt.hash(checks.password)
+				name: checks.forename,
+				hash: encrypt.hash(checks.password)
 			}
 			// send email with the goodies.
 			res.render('verify_email', param);
