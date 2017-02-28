@@ -6,25 +6,6 @@ const encrypt = require('../functions/encrypt');
 
 app.locals.basedir = "." + '/views';
 
-function getMonthNumberFromName(name) {
-	// If you can think of a nicer way, make my day 
-	var months = {
-      'January' : '01',
-     'February' : '02',
-        'March' : '03',
-        'April' : '04',
-          'May' : '05',
-         'June' : '06',
-         'July' : '07',
-       'August' : '08',
-    'September' : '09',
-      'October' : '10',
-     'November' : '11',
-     'December' : '12',
-	}
-	return months[name];
-}
-
 function addNewUser(userData) {
 	// TODO: get location properly
 	// 			 actually validate things
@@ -38,9 +19,8 @@ function addNewUser(userData) {
 
 	// Gets date of birth in YYYY/MM/DD format
 	var year  = userData['year'];
-	var month = getMonthNumberFromName(userData['month']);
-	// Pads day with zero if necessary
-	var day   = (userData['day'].length == 2) ? userData['day'] : '0' + userData['day'];
+	var month = userData['month'];
+	var day   = userData['day'];
 	var dob   = `${year}/${month}/${day}`;
 
 	var encryptedPass = encrypt.hash(userData['password'] + SECRET_SALT);
