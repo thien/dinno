@@ -14,10 +14,10 @@ block container
 
 			form(method="post")
 				.form-group
-					label(for='First Name') First Name 
+					label(for='First Name') First name 
 					input#forename.form-control(name="forename" type='name', placeholder='First Name' value=forename)
 				.form-group
-					label(for='Last Name') Last Name
+					label(for='Last Name') Last name
 					input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=surname)
 				.form-group
 					label(for='exampleInputEmail1') Email address
@@ -28,7 +28,7 @@ block container
 					input#password.form-control.password(name="password" type='password', placeholder='Password')
 					small#password-help-block.form-text.text-muted Your password must be at least 8 characters long and contain both letters and numbers.
 				.form-group
-					label(for='exampleInputPassword1') Confirm Password
+					label(for='exampleInputPassword1') Confirm password
 					input#password-verify.form-control.password(name="vpassword" type='password', placeholder='Password')
 				.form-inline
 					#sr-only
@@ -65,5 +65,5 @@ block container
 					| , and 
 					a(href="/register") Privacy Policy
 					| .
-				button.btn.btn-primary(type='submit' value="Submit") Sign Up
+				button#btn-submit.btn.btn-primary(type='submit' value="Submit") Sign Up
 	script(src='https://www.google.com/recaptcha/api.js')
