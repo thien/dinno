@@ -9,21 +9,35 @@ module.exports = function(){
 
 	app.get('/search', function (req, res) {
 		console.log(req.query);
-		var query = "SELECT * FROM availableFood WHERE(availableFood.Food LIKE ?)"
-		var foods = req.query.food.split(" ")
-
-		for(i = 1; i < foods.length ; i++){
-			query += " OR (availableFood.Food LIKE ?)"
+		var query = "SELECT * FROM ?? WHERE(?? LIKE ?)"
+		var meal = false;
+		var single = true
+		var foods
+		if(meal){
+			foods = ["%" + req.query.food +  "%"]
+			foods.splice(0,0,"meal","Name")
+			console.log(foods)
+		}else{
+			foods = req.query.food.split(" ")
+			foods.splice(0,0,"ingredient","Name")
+			var operator = " OR "
+			if(single){
+				operator = " AND "
+			}
+			for(i = 2; i < foods.length-1 ; i++){
+				query += operator + "(`Name` LIKE ?)"
+			}
 		}
+		
 		query += ";"
 		query = mysql.format(query,foods)
 		console.log(query)
 	    // will need to deal with queries
-	    db.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE ?)',foods, function (error, results, fields) {
+	    db.query(query,foods, function (error, results, fields) {
 	        // error will be an Error if one occurred during the query
 	        // results will contain the results of the query
 	        // fields will contain information about the returned results fields (if any)
-	        console.log(fields);
+	        console.log(results);
 	    });
 
 	    // will need to get search results
