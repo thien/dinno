@@ -83,9 +83,8 @@ function verifyPassword() {
 
 $(document).ready(function(){
   $("#btn-submit").prop("disabled", true);
-
   $('#forename').keyup(validateFirstName);
-  $('#surname' ).keyup(validateSurname);
+  $('#surname').keyup(validateSurname);
   $("#email").keyup(validateEmail);
   $("#password").keyup(validatePassword);
   $(".password").keyup(verifyPassword);
