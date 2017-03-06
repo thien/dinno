@@ -88,12 +88,12 @@ function sendVerificationEmail(emailAddress, verificationCode){
 	      },
 	    ],
 	    from: {
-	      email: 'app58540738@heroku.com',
+	      email: 'register@dinno.club',
 	    },
 	    content: [
 	      {
 	        type: 'text/html',
-	        value: `<a href='${verificationUrl}'>${verificationUrl}</a>`,
+	        value: `<a href='${verificationUrl}'>Click me!</a>`,
 	      },
 	    ],
 	  },
