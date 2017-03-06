@@ -10,18 +10,18 @@ module.exports = {
 
         var cookies = new Cookies(req, res);
         var loginCode = cookies.get('loginCode');
-        var email = cookies.get('email');
+        var id = cookies.get('id');
         db.query(`SELECT LoginCode = ? AS isValidLogin  
                   FROM User
-                  WHERE EmailAddress = ?`, 
-                [loginCode, email], 
+                  WHERE UserID = ?`, 
+                [loginCode, id], 
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
                     reject();
                   }
                   else if (results.length == 0) {
-                    console.log('Email not found');
+                    console.log('UserID not found');
                     reject();
                   }
                   else if (results[0].isValidLogin){
