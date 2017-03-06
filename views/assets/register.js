@@ -1,4 +1,5 @@
 function updateSubmitButton() {
+  // All 5 form inputs must be valid
   if ($(".valid-input").length == 5) {
     $("#btn-submit").prop("disabled", false);
   }
@@ -88,4 +89,7 @@ $(document).ready(function(){
   $("#email").keyup(validateEmail);
   $("#password").keyup(validatePassword);
   $(".password").keyup(verifyPassword);
+
+  // initialise each form input
+  $(".form-control").keyup();
 });
