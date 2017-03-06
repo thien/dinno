@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Rating` float NOT NULL,
   `IsVerified` boolean NOT NULL,
   `VerificationCode` varchar(70) NOT NULL,
+  `LoginCode` varchar(70) NOT NULL,
   PRIMARY KEY (`UserID`),
   KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
