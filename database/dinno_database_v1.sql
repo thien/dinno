@@ -101,6 +101,8 @@ CREATE TABLE IF NOT EXISTS `User` (
   `DOB` date NOT NULL,
   `EncryptedPass` varchar(60) NOT NULL,
   `Rating` float NOT NULL,
+  `IsVerified` boolean NOT NULL,
+  `VerificationCode` varchar(70) NOT NULL,
   PRIMARY KEY (`UserID`),
   KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
@@ -114,6 +116,48 @@ INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddres
 (2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8),
 (3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1);
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Tag`
+--
+
+CREATE TABLE IF NOT EXISTS `Tag` (
+  `TagID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(60) NOT NULL,
+  PRIMARY KEY (`TagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TagIngredient`
+--
+
+CREATE TABLE IF NOT EXISTS `TagIngredient` (
+  `TagIngredientID` int(11) NOT NULL AUTO_INCREMENT,
+  `IngredientID` int(11) NOT NULL,
+  `TagID` int(11) NOT NULL,
+  PRIMARY KEY (`TagIngredientID`),
+  KEY `IngredientID` (`IngredientID`),
+  KEY `TagID` (`TagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TagMeal`
+--
+
+CREATE TABLE IF NOT EXISTS `TagMeal` (
+  `TagMealID` int(11) NOT NULL AUTO_INCREMENT,
+  `MealID` int(11) NOT NULL,
+  `TagID` int(11) NOT NULL,
+  PRIMARY KEY (`TagMealID`),
+  KEY `MealID` (`MealID`),
+  KEY `TagID` (`TagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -140,6 +184,21 @@ ALTER TABLE `Meal`
 --
 ALTER TABLE `User`
   ADD CONSTRAINT `fk_User_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
+  
+--
+-- Constraints for table `TagIngredient`
+--
+ALTER TABLE `TagIngredient`
+  ADD CONSTRAINT `fk_TagIngredient_TagID` FOREIGN KEY (`TagID`) REFERENCES `Tag` (`TagID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_TagIngredient_IngredientID` FOREIGN KEY (`IngredientID`) REFERENCES `Ingredient` (`IngredientID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `TagMeal`
+--
+ALTER TABLE `TagMeal`
+  ADD CONSTRAINT `fk_TagMeal_TagID` FOREIGN KEY (`TagID`) REFERENCES `Tag` (`TagID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_TagMeal_MealID` FOREIGN KEY (`MealID`) REFERENCES `Meal` (`MealID`) ON UPDATE CASCADE;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
