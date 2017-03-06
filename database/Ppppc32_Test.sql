@@ -1,4 +1,10 @@
--- DINNO SQL Database - built using phpMyAdmin
+-- phpMyAdmin SQL Dump
+-- version 4.0.10.17
+-- https://www.phpmyadmin.net
+--
+-- Host: mysql.dur.ac.uk
+-- Generation Time: Mar 06, 2017 at 03:11 PM
+-- Server version: 5.1.39-community-log
 -- PHP Version: 5.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -11,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `Dinno_Database_v1`
+-- Database: `Ppppc32_Test`
 --
 
 -- --------------------------------------------------------
@@ -53,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `Location` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Test data for table `Location`
+-- Dumping data for table `Location`
 --
 
 INSERT INTO `Location` (`LocationID`, `Postcode`, `HouseNoName`, `Street`, `Town/City`, `County`, `IsDropbox`, `Latitude`, `Longitude`) VALUES
@@ -79,43 +85,12 @@ CREATE TABLE IF NOT EXISTS `Meal` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Test data for table `Meal`
+-- Dumping data for table `Meal`
 --
 
 INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `Name`, `DateServed`, `Description`) VALUES
 (1, 1, 2, 'Cauliflower Cheese', '2017-01-02', 'Some tasty cauliflower cheese.'),
 (2, 2, 3, 'Bangers & Mash', '2017-01-12', 'Tasty bangers.');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `User`
---
-
-CREATE TABLE IF NOT EXISTS `User` (
-  `UserID` int(11) NOT NULL AUTO_INCREMENT,
-  `LocationID` int(11) NOT NULL,
-  `Firstname` varchar(60) NOT NULL,
-  `Surname` varchar(60) NOT NULL,
-  `EmailAddress` varchar(80) NOT NULL,
-  `DOB` date NOT NULL,
-  `EncryptedPass` varchar(60) NOT NULL,
-  `Rating` float NOT NULL,
-  `IsVerified` boolean NOT NULL,
-  `VerificationCode` varchar(70) NOT NULL,
-  PRIMARY KEY (`UserID`),
-  KEY `LocationID` (`LocationID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Test data for table `User`
---
-
-INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`) VALUES
-(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9),
-(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8),
-(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1);
-
 
 -- --------------------------------------------------------
 
@@ -162,6 +137,34 @@ CREATE TABLE IF NOT EXISTS `TagMeal` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `User`
+--
+
+CREATE TABLE IF NOT EXISTS `User` (
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
+  `LocationID` int(11) NOT NULL,
+  `Firstname` varchar(60) NOT NULL,
+  `Surname` varchar(60) NOT NULL,
+  `EmailAddress` varchar(80) NOT NULL,
+  `DOB` date NOT NULL,
+  `EncryptedPass` varchar(60) NOT NULL,
+  `Rating` float NOT NULL,
+  `IsVerified` tinyint(1) NOT NULL,
+  `VerificationCode` varchar(70) NOT NULL,
+  PRIMARY KEY (`UserID`),
+  KEY `LocationID` (`LocationID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`) VALUES
+(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, ''),
+(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass', 9.8, 0, ''),
+(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass', 0.1, 0, '');
+
+--
 -- Constraints for dumped tables
 --
 
@@ -180,12 +183,6 @@ ALTER TABLE `Meal`
   ADD CONSTRAINT `fk_Meal_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `User`
---
-ALTER TABLE `User`
-  ADD CONSTRAINT `fk_User_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
-  
---
 -- Constraints for table `TagIngredient`
 --
 ALTER TABLE `TagIngredient`
@@ -199,6 +196,11 @@ ALTER TABLE `TagMeal`
   ADD CONSTRAINT `fk_TagMeal_TagID` FOREIGN KEY (`TagID`) REFERENCES `Tag` (`TagID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_TagMeal_MealID` FOREIGN KEY (`MealID`) REFERENCES `Meal` (`MealID`) ON UPDATE CASCADE;
 
+--
+-- Constraints for table `User`
+--
+ALTER TABLE `User`
+  ADD CONSTRAINT `fk_User_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
