@@ -48,7 +48,7 @@ function addNewUser(userData, res) {
 	var encryptedPass = encrypt.hash(userData['password'], userData['email']);
 	var verificationCode = encrypt.hash(userData['email']);
 
-	db.query(`INSERT INTO User (UserID, LocationID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, Verified, VerificationCode, Rating)
+	db.query(`INSERT INTO User (UserID, LocationID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, IsVerified, VerificationCode, Rating)
 						VALUES (0, ?, ?, ?, ?, ?, ?, 0, ?, 5.0)`, 
 						[locationId, firstname, surname, emailAddress, dob, encryptedPass, verificationCode], 
 						function (error, results, fields) {
@@ -115,7 +115,7 @@ function sendVerificationEmail(emailAddress, verificationCode){
 
 function verifyUser(verificationCode, res){
 	db.query(`UPDATE User
-						SET Verified = 1
+						SET IsVerified = 1
 						WHERE VerificationCode = ?`, 
 					[verificationCode], 
 					function (error, results, fields) {
