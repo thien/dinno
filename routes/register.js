@@ -3,6 +3,7 @@ const app     = express();
 const fs      = require('fs');
 const db      = require('../functions/database');
 const encrypt = require('../functions/encrypt');
+const sg      = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 app.locals.basedir = "." + '/views';
 
@@ -60,9 +61,9 @@ function addNewUser(userData, res) {
 							}
 							else { 
 								console.log(`Added user ${emailAddress}`); 
+								sendVerificationEmail(emailAddress, verificationCode);
 								param = {
-									name: userData.forename,
-									hash: encrypt.hash(userData.password)
+									msg: `We've sent you an email, ${firstname}`,
 								}
 								res.render('verify_email', param);
 							}
@@ -70,41 +71,107 @@ function addNewUser(userData, res) {
 	return true;
 }
 
-module.exports = function(){
+function sendVerificationEmail(emailAddress, verificationCode){
+	var verificationUrl = `dinno.herokuapp.com/verify?code=${verificationCode}`;
+	var request = sg.emptyRequest({
+	  method: 'POST',
+	  path: '/v3/mail/send',
+	  body: {
+	    personalizations: [
+	      {
+	        to: [
+	          {
+	            email: emailAddress,
+	          },
+	        ],
+	        subject: 'Verify your account on Dinno!',
+	      },
+	    ],
+	    from: {
+	      email: 'app58540738@heroku.com',
+	    },
+	    content: [
+	      {
+	        type: 'text/html',
+	        value: `<a href='${verificationUrl}'>${verificationUrl}</a>`,
+	      },
+	    ],
+	  },
+	});
 
-	app.get('/register', function (req, res) {
-	    res.render('register');
-	})
+	//With callback
+	sg.API(request, function(error, response) {
+	  if (error) {
+	    console.log('Error response received');
+	  }
+		else {
+			console.log(`Email sent to ${emailAddress}`);
+		}
+	  console.log(response.statusCode);
+	  console.log(response.body);
+	  console.log(response.headers);
+	});
+}
 
-	app.get('/verify', function (req, res) {
-		var verificationCode = req.query.code;
-		db.query(`UPDATE User
-							SET Verified = 1
+function verifyUser(verificationCode, res){
+	db.query(`UPDATE User
+						SET Verified = 1
+						WHERE VerificationCode = ?`, 
+					[verificationCode], 
+					function (error, results, fields) {
+						renderVerificationResults(verificationCode, error, results, res);
+					});
+}
+
+function renderVerificationResults(verificationCode, error, results, res){
+	if (error) { 
+		console.log(error); 
+		param = {
+			msg: error
+		}
+	  res.render('verify_email', param);
+	}
+	else if (results.affectedRows == 0) { 
+		console.log(`Invalid verification code: ${verificationCode}`);
+		param = {
+			msg: "Your verification code isn't valid"
+		}
+	  res.render('verify_email', param); 
+	}
+	else { 
+		db.query(`SELECT Firstname
+							FROM User
 							WHERE VerificationCode = ?`, 
 						[verificationCode], 
 						function (error, results, fields) {
 							if (error) { 
 								console.log(error); 
 								param = {
-									name: "John"
+									msg: error,
 								}
 							  res.render('verify_email', param);
 							}
-							else if (results.affectedRows == 0) { 
-								console.log(`Invalid verification code: ${verificationCode}`);
+							else {
+								var name = results[0].Firstname;
+								console.log(`User verified: ${name}`);
 								param = {
-									name: "John"
-								}
-							  res.render('verify_email', param); 
-							}
-							else { 
-								console.log(`User verified: ${verificationCode}`);
-								param = {
-									name: "John"
+									msg: `${name}, your email is now verified!`,
 								}
 							  res.render('verify_email', param); 
 							}
 						});
+	}
+}
+
+module.exports = function(){
+
+	app.get('/register', function (req, res) {
+		res.render('register');
+	})
+
+	app.get('/verify', function (req, res) {
+		var verificationCode = req.query.code;
+		verifyUser(verificationCode, res);
 	})
 
 	app.post('/register', function (req, res) {
