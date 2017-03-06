@@ -2,24 +2,16 @@ var db = require('../functions/database');
 var bf = require('../functions/basefunctions');
 var express = require('express');
 var app = express();
+var login = require('../functions/login');
 app.locals.basedir = "." + '/views';
 
 module.exports = function(){
 
 	app.get('/search', function (req, res) {
-		// console.log(req.query);
-
-	    // will need to deal with queries
-	    // db.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE ?)',[food_item], function (error, results, fields) {
-	    //     // error will be an Error if one occurred during the query
-	    //     // results will contain the results of the query
-	    //     // fields will contain information about the returned results fields (if any)
-	    //     console.log(fields);
-	    // });
-
-	    // will need to get search results
-	    // user id's
-	    var user_foods = [
+		
+		login.checkLogin(req, res).then(function(result) {
+      
+			var user_foods = [
 		    {
 	            "foodname": "ASd",
 	            "image": "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg",
@@ -92,6 +84,23 @@ module.exports = function(){
 	    // console.log("someone's searching for", param)
 
 	    res.render('searchitem', param);
+
+    }, function(err) {
+      res.render('frontpage');
+    });
+		// console.log(req.query);
+
+	    // will need to deal with queries
+	    // db.query('SELECT * FROM availableFood WHERE(availableFood.Food LIKE ?)',[food_item], function (error, results, fields) {
+	    //     // error will be an Error if one occurred during the query
+	    //     // results will contain the results of the query
+	    //     // fields will contain information about the returned results fields (if any)
+	    //     console.log(fields);
+	    // });
+
+	    // will need to get search results
+	    // user id's
+	    
 	})
 
 	return app;
