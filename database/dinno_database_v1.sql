@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Surname` varchar(60) NOT NULL,
   `EmailAddress` varchar(80) NOT NULL,
   `DOB` date NOT NULL,
-  `EncryptedPass` varchar(60) NOT NULL,
+  `EncryptedPass` varchar(70) NOT NULL,
   `Rating` float NOT NULL,
   `IsVerified` boolean NOT NULL,
   `VerificationCode` varchar(70) NOT NULL,
