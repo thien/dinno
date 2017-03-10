@@ -9,15 +9,17 @@ module.exports = function Server(io, server) {
             // send the clients id to the client itself.
         socket.send(socket.id);
 
-        socket.on('chat message', function(msg) {
+        socket.on('join', function (data) {
+            socket.join(data.name); 
+        });
 
+        socket.on('chat message', function(msg) {
             var k = new Date();
             msg.timestamp = k.getHours().toString() + ":" + k.getMinutes().toString();
             msg.sendername = "John Cena";
-            // io.sockets.in(msg['from']).emit('chat message', msg['from'] + ":  " + msg['contents']);
-            // io.sockets.in(msg['to']).emit('chat message', msg['from'] + ":  " + msg['contents']);
-            // brocadcast to everyone; testing purposes
-            io.emit('chat message', msg);
+            console.log(msg)
+            io.sockets.in(msg['from']).emit('chat message', msg);
+            io.sockets.in(msg['to']).emit('chat message', msg);
         });
 
         socket.on('imageupload', function(img_json) {
