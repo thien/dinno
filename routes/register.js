@@ -45,9 +45,9 @@ function addNewUser(userData, res) {
 	else if (!validateEmail(emailAddress))                  { return false; }
 	else if (!verifyPassword(password, passwordVerify))     { return false; }
 
-	var encryptedPass = encrypt.hash(userData['password'], userData['email']);
-	var verificationCode = encrypt.hash(userData['email']);
-
+	var verificationCode = encrypt.hash(userData['password'], userData['email']);
+	var encryptedPass = encrypt.hash(userData['password'], verificationCode);
+	
 	db.query(`INSERT INTO User (UserID, LocationID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, IsVerified, VerificationCode, Rating)
 						VALUES (0, ?, ?, ?, ?, ?, ?, 0, ?, 5.0)`, 
 						[locationId, firstname, surname, emailAddress, dob, encryptedPass, verificationCode], 

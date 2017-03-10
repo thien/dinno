@@ -1,23 +1,23 @@
 module.exports = function(){
 	var express = require('express');
 	var app = express();
+	var login = require('../functions/login');
 	app.locals.basedir = "." + '/views';
 
 	app.get('/add', function (req, res) {
-	    res.render('new_fooditem');
+			login.checkLogin(req, res).then(function(result) {
+        res.render('new_fooditem');
+      }, function(err) {
+        res.render('frontpage');
+      });
 	})
 
 	app.post('/add', function (req, res) {
-		console.log(req.body);
-	    // var user = req.body.user;
-	    // var pass = req.body.pass;
-	    // var param = {
-	    //     username: user,
-	    //     password: pass
-	    // }
-	    // console.log(req.body)
-	    // console.log(param)
-	    res.render('new_fooditem');
+		login.checkLogin(req, res).then(function(result) {
+      res.render('new_fooditem');
+    }, function(err) {
+      res.render('frontpage');
+    });
 	})
 
 	return app;
