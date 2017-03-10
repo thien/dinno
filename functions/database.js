@@ -60,6 +60,16 @@ db.query("DROP DATABASE " + db_keys.database, function (error, results, fields) 
     });
 });
 
+// 'Temp' fix for database error
+// Think it was something to do with async 
+db = database.createConnection(db_keys);
+db.connect(function(err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
+    } 
+    console.log('Connected to Database - ' + db.threadId);
+});
 
 
 
