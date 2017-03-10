@@ -28,7 +28,7 @@ socket.emit('join', {
     name: Cookies.get('id')
 });
 
-$('form').submit(function() {
+$('#message_send').submit(function() {
     var message = $('#messagebox').val();
     console.log(Cookies.get());
     socket.emit('chat message', {
@@ -42,6 +42,10 @@ $('form').submit(function() {
     return false;
 });
 
+$('#btn-message-send').click(function() {
+   $('#message_send').submit();
+});
+
 socket.on('chat message', function(msg) {
     console.log("from server", msg);
 
@@ -49,20 +53,23 @@ socket.on('chat message', function(msg) {
     // time = msg.timestamp.getHours().toString() + ":" + msg.timestamp.d.getMinutes().toString() // => 9
     // console.log(time);
 
+    // filter out messages from other people
+    if (msg.from == QueryString.id || msg.from == Cookies.get('id')){
+       // create message container
+      var message_container = document.createElement('div');
+      var ghetto = '<div class="media msg"><div class="media-body"><small class="pull-right time">';
+      ghetto += '<i class="fa fa-clock-o"></i> '+msg.timestamp+'</small>';
+      ghetto += '<h5 class="media-heading">'+msg.sendername+'</h5>';
+      ghetto += '<small class="col-lg-10">'+msg.contents+'</small></div></div>';
+      // append to client's messagebox
 
-    // create message container
-    var message_container = document.createElement('div');
-    var ghetto = '<div class="media msg"><div class="media-body"><small class="pull-right time">';
-    ghetto += '<i class="fa fa-clock-o"></i> '+msg.timestamp+'</small>';
-    ghetto += '<h5 class="media-heading">'+msg.sendername+'</h5>';
-    ghetto += '<small class="col-lg-10">'+msg.contents+'</small></div></div>';
-    // append to client's messagebox
+      // $('.msg-wrap').append($('<li>').text(msg.contents));
+      $('.msg-wrap').append(ghetto);
 
-    // $('.msg-wrap').append($('<li>').text(msg.contents));
-    $('.msg-wrap').append(ghetto);
+      // scroll down after the message has been added.
+      $(".msg-wrap").scrollTop($(".msg-wrap")[0].scrollHeight);
+    }
 
-    // scroll down after the message has been added.
-    $(".msg-wrap").scrollTop($(".msg-wrap")[0].scrollHeight);
 });
 socket.on('server message', function(msg) {
     $('#messages').append($('<li class="server-message">').text(msg));

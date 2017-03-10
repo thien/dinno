@@ -24,5 +24,30 @@ module.exports = {
                   }
                 });
     });
+  },
+
+  getRecipientName: function(recipientId) {
+    return new Promise(function(resolve, reject) {
+        db.query(`SELECT Firstname, Surname
+                  FROM User
+                  WHERE UserID = ?`, 
+                [recipientId], 
+                function (error, results, fields) {
+                  if (error) { 
+                    console.log(error); 
+                    reject();
+                  }
+                  else if (results.length == 0) {
+                    console.log('UserID not found');
+                    console.log(results);
+                    reject();
+                  }
+                  else{
+                    var firstname = results[0].Firstname;
+                    var lastname  = results[0].Surname;
+                    resolve(`${firstname} ${lastname}`);
+                  }
+                });
+    });
   }
 }
