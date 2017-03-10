@@ -52,8 +52,8 @@ function setLoginCookie(id, req, res) {
 								}
 								else {
 								var cookies = new Cookies(req, res);
-								cookies.set('loginCode', loginCode);
-								cookies.set('id', id);
+								cookies.set('loginCode', loginCode, { httpOnly: false});
+								cookies.set('id', id, { httpOnly: false});
 								console.log('cookies set!');
 								}
 							}

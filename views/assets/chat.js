@@ -30,6 +30,7 @@ socket.emit('join', {
 
 $('form').submit(function() {
     var message = $('#messagebox').val();
+    console.log(Cookies.get());
     socket.emit('chat message', {
         from: Cookies.get('id'),
         to: QueryString.id,

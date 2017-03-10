@@ -17,6 +17,7 @@ module.exports = function Server(io, server) {
         socket.on('chat message', function(msg) {
             var currentTime = new Date();
             var senderId = msg['from'];
+            console.log(msg);
             chat.getSenderName(senderId).then(function(name) {
                 msg.sendername = name;
 
