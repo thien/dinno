@@ -1,5 +1,6 @@
 var querystring = require('querystring');
-var request = require('request');
+var request     = require('request');
+var chat        = require('../functions/chat');
 
 module.exports = function Server(io, server) {
 
@@ -14,12 +15,25 @@ module.exports = function Server(io, server) {
         });
 
         socket.on('chat message', function(msg) {
-            var k = new Date();
-            msg.timestamp = k.getHours().toString() + ":" + k.getMinutes().toString();
-            msg.sendername = "John Cena";
-            console.log(msg)
-            io.sockets.in(msg['from']).emit('chat message', msg);
-            io.sockets.in(msg['to']).emit('chat message', msg);
+            var currentTime = new Date();
+            var senderId = msg['from'];
+            chat.getSenderName(senderId).then(function(name) {
+                msg.sendername = name;
+
+                var hours = currentTime.getHours().toString();
+                var mins  = currentTime.getMinutes().toString();    
+                if (hours.length == 1) { hours = "0" + hours; }
+                if (mins.length == 1)  { mins = "0" + mins; }
+                msg.timestamp = `${hours}:${mins}`; 
+
+                
+                io.sockets.in(msg['from']).emit('chat message', msg);
+                io.sockets.in(msg['to']).emit('chat message', msg);
+                console.log(msg)
+            }, function(err) {
+
+            });
+            
         });
 
         socket.on('imageupload', function(img_json) {
