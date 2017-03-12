@@ -29,12 +29,14 @@ module.exports = function(){
 	        		lng: -1.5749834
 	            },
 	            "description": "asdf lol mofo james is a plop",
+	            "best_before": Date.parse("01 Mar 2017 00:00:00"),
 	            "last_updated": "3"
 	        }, {
 	            "foodname": "ASd",
 	            "image": "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg",
 	            "urle": "#",
 	            "description": "asdf lol mofo mitchel can eat a poo",
+	            "best_before": Date.parse("05 Mar 2017 00:00:00"),
 	            "last_updated": "3",
 	            "marker":{
 	            	lat: 54.778665,
@@ -45,6 +47,7 @@ module.exports = function(){
 	            "image": "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg",
 	            "urle": "#",
 	            "description": "asdf lol mofo mitchel can eat a poo",
+	            "best_before": Date.parse("09 Feb 2017 00:00:00"),
 	            "last_updated": "3",
 	            "marker":{
 	            	lat: 54.778665,
@@ -55,6 +58,7 @@ module.exports = function(){
 	            "image": "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg",
 	            "urle": "#",
 	            "description": "asdf lol mofo mitchel can eat a poo",
+	            "best_before": Date.parse("14 Feb 2017 00:00:00"),
 	            "last_updated": "3",
 	            "marker":{
 	            	lat: 54.778665,
@@ -65,6 +69,7 @@ module.exports = function(){
 	            "image": "https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg",
 	            "urle": "#",
 	            "description": "asdf lol mofo",
+	            "best_before": Date.parse("22 Feb 2017 00:00:00"),
 	            "last_updated": "3",
 	            "marker":{
 	            	lat: 54.768665,
@@ -89,7 +94,7 @@ module.exports = function(){
 	        fooditems: random_foods_list
 	    }
 
-	    // console.log("someone's searching for", param)
+	    console.log("someone's searching for", param)
 
 	    res.render('searchitem', param);
 	})
