@@ -15,7 +15,7 @@ module.exports = {
                     reject();
                   }
                   else if (results.length == 0) {
-                    console.log('UserID not found');
+                    console.log('UserID not found: getSenderName');
                     console.log(results);
                     reject();
                   }
@@ -38,7 +38,7 @@ module.exports = {
                     reject();
                   }
                   else if (results.length == 0) {
-                    console.log('UserID not found');
+                    console.log('UserID not found: getRecipientName');
                     console.log(results);
                     reject();
                   }
@@ -64,11 +64,6 @@ module.exports = {
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
-                    reject();
-                  }
-                  else if (results.length == 0) {
-                    console.log('UserID not found');
-                    console.log(results);
                     reject();
                   }
                   else{
