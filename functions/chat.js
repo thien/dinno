@@ -49,5 +49,32 @@ module.exports = {
                   }
                 });
     });
+  },
+
+  getPreviousMessages: function(fromId, toID) {
+    return new Promise(function(resolve, reject) {
+        db.query(`SELECT Contents, TimeSent, User.FirstName AS FromName
+                  FROM Chat
+                  JOIN User
+                  ON User.UserID = Chat.FromId
+                  WHERE (FromId = ? AND ToID = ?)
+                  OR    (ToID = ? AND FromId = ?)
+                  ORDER BY TimeSent ASC`, 
+                [fromId, toID, fromId, toID], 
+                function (error, results, fields) {
+                  if (error) { 
+                    console.log(error); 
+                    reject();
+                  }
+                  else if (results.length == 0) {
+                    console.log('UserID not found');
+                    console.log(results);
+                    reject();
+                  }
+                  else{
+                    resolve(results);
+                  }
+                });
+    });
   }
 }

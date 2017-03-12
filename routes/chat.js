@@ -16,15 +16,24 @@ module.exports = function(){
       var senderId = cookies.get('id');
       var recipientId = req.query.id;
       if (senderId && recipientId) {
-
-        chat.getRecipientName(recipientId).then(function(name) {
+        
+        var recipientName    = chat.getRecipientName(recipientId);
+        var previousMessages = chat.getPreviousMessages(senderId, recipientId);
+      
+        Promise.all([recipientName, previousMessages]).then(function(data){
+          
+          var name = data[0]
+          var messages = data[1]
           var param = {
-                theirName: name,
-            };
+              theirName: name,
+              messages: messages,
+          };
           res.render('chat', param);
+
         }, function(err) {
           res.render('frontpage');
         });
+      
         
       }
       else {
