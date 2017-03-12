@@ -4,8 +4,6 @@ extends layout
 block container
 	script(src='/socket.io/socket.io.js')
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
-	script
-		include assets/upload.js
 	include includes/nav
 	.container 
 		form(method="post")
@@ -15,7 +13,7 @@ block container
 						h1 Add Fooditem
 						.form-group
 							label(for='Food Name') Food Name
-							input#exampleInputEmail1.form-control(name="forename" type='foodname', placeholder='Lettuce' value="saiusages")
+							input#exampleInputEmail1.form-control.food-name(name="forename" type='foodname', placeholder='Lettuce' value="saiusages")
 						.form-group
 							label(for='exampleSelect1') Food Type
 							select#exampleSelect1.form-control(name="foodtype")
@@ -35,5 +33,11 @@ block container
 								input(id="input_images" name='images' type="file" multiple="true")
 						.form-group.barcode-scanner-container
 							h3 Add Barcode Scanner Stuff Here
+							#yourElement
+									
 						//- request button
 						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
+	script
+		include assets/upload.js
+		include assets/lib/quagga.js
+		include assets/barcode.js
