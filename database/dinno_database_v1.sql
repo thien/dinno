@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS `Ingredient` (
   `Category` varchar(60) NOT NULL,
   `Description` varchar(500) NOT NULL,
   PRIMARY KEY (`IngredientID`),
-  KEY `UserID` (`UserID`)
+  KEY `UserID` (`UserID`),
+  KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -73,7 +74,8 @@ CREATE TABLE IF NOT EXISTS `Meal` (
   `DateServed` date NOT NULL,
   `Description` varchar(500) NOT NULL,
   PRIMARY KEY (`MealID`),
-  KEY `UserID` (`UserID`)
+  KEY `UserID` (`UserID`),
+  KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
@@ -97,7 +99,11 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Surname` varchar(60) NOT NULL,
   `EmailAddress` varchar(80) NOT NULL,
   `DOB` date NOT NULL,
-  `EncryptedPass` varchar(60) NOT NULL,
+  `EncryptedPass` varchar(70) NOT NULL,
+  `Rating` float NOT NULL,
+  `IsVerified` boolean NOT NULL,
+  `VerificationCode` varchar(70) NOT NULL,
+  `LoginCode` varchar(70) NOT NULL,
   PRIMARY KEY (`UserID`),
   KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
@@ -106,10 +112,55 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Test data for table `User`
 --
 
-INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`) VALUES
-(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass'),
-(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass'),
-(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass');
+INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`) VALUES
+(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9),
+(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8),
+(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1);
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Tag`
+--
+
+CREATE TABLE IF NOT EXISTS `Tag` (
+  `TagID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(60) NOT NULL,
+  PRIMARY KEY (`TagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TagIngredient`
+--
+
+CREATE TABLE IF NOT EXISTS `TagIngredient` (
+  `TagIngredientID` int(11) NOT NULL AUTO_INCREMENT,
+  `IngredientID` int(11) NOT NULL,
+  `TagID` int(11) NOT NULL,
+  PRIMARY KEY (`TagIngredientID`),
+  KEY `IngredientID` (`IngredientID`),
+  KEY `TagID` (`TagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TagMeal`
+--
+
+CREATE TABLE IF NOT EXISTS `TagMeal` (
+  `TagMealID` int(11) NOT NULL AUTO_INCREMENT,
+  `MealID` int(11) NOT NULL,
+  `TagID` int(11) NOT NULL,
+  PRIMARY KEY (`TagMealID`),
+  KEY `MealID` (`MealID`),
+  KEY `TagID` (`TagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
 -- Constraints for dumped tables
@@ -119,21 +170,36 @@ INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddres
 -- Constraints for table `Ingredient`
 --
 ALTER TABLE `Ingredient`
-  ADD CONSTRAINT `fk_Ingredient_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_Ingredient_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_Ingredient_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Meal`
 --
 ALTER TABLE `Meal`
-  ADD CONSTRAINT `fk_Meal_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE;
-  ADD CONSTRAINT `fk_Meal_LocationID` FFOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_Meal_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Meal_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `User`
 --
 ALTER TABLE `User`
   ADD CONSTRAINT `fk_User_LocationID` FOREIGN KEY (`LocationID`) REFERENCES `Location` (`LocationID`) ON UPDATE CASCADE;
+  
+--
+-- Constraints for table `TagIngredient`
+--
+ALTER TABLE `TagIngredient`
+  ADD CONSTRAINT `fk_TagIngredient_TagID` FOREIGN KEY (`TagID`) REFERENCES `Tag` (`TagID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_TagIngredient_IngredientID` FOREIGN KEY (`IngredientID`) REFERENCES `Ingredient` (`IngredientID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `TagMeal`
+--
+ALTER TABLE `TagMeal`
+  ADD CONSTRAINT `fk_TagMeal_TagID` FOREIGN KEY (`TagID`) REFERENCES `Tag` (`TagID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_TagMeal_MealID` FOREIGN KEY (`MealID`) REFERENCES `Meal` (`MealID`) ON UPDATE CASCADE;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
