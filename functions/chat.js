@@ -76,5 +76,27 @@ module.exports = {
                   }
                 });
     });
+  },
+
+  saveMessage: function(from, to, contents, timeSent) {
+    return new Promise(function(resolve, reject) {
+        db.query(`INSERT INTO Chat (MessageID, FromID, ToID, Contents, TimeSent)
+                  VALUES (0, ?, ?, ?, ?)`, 
+                [from, to, contents, timeSent], 
+                function (error, results, fields) {
+                  if (error) { 
+                    console.log(error); 
+                    reject();
+                  }
+                  else if (results.length == 0) {
+                    console.log('Chat insert failed');
+                    console.log(results);
+                    reject();
+                  }
+                  else{
+                    resolve(results);
+                  }
+                });
+    });
   }
 }

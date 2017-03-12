@@ -1,6 +1,7 @@
 var querystring = require('querystring');
 var request     = require('request');
 var chat        = require('../functions/chat');
+var dateFormat  = require('dateformat');
 
 module.exports = function Server(io, server) {
 
@@ -30,6 +31,10 @@ module.exports = function Server(io, server) {
                 
                 io.sockets.in(msg['from']).emit('chat message', msg);
                 io.sockets.in(msg['to']).emit('chat message', msg);
+                
+                dateFormat(currentTime, "YYYY-MM-DD HH:MM:SS");
+
+                chat.saveMessage(msg.from, msg.to, msg.contents, currentTime);
                 console.log(msg)
             }, function(err) {
 
