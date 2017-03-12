@@ -116,7 +116,7 @@ module.exports = function(){
 		    }
 
 		    // console.log("someone's searching for", param)
-
+				res.render('searchitem', param);
     }, function(err) {
       res.render('frontpage');
     });
