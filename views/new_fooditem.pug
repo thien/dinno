@@ -31,12 +31,14 @@ block container
 						.form-group#pictureupload
 							#upload_img_container
 								input(id="input_images" name='images' type="file" multiple="true")
-						.form-group.barcode-scanner-container
-							h3 Add Barcode Scanner Stuff Here
-							#yourElement
-									
 						//- request button
 						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
+			.row
+				.form-group.barcode-scanner-container
+					h3 Scan your barcode here!
+					#yourElement
+									
+						
 	script
 		include assets/upload.js
 		include assets/lib/quagga.js
