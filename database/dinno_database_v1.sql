@@ -160,8 +160,34 @@ CREATE TABLE IF NOT EXISTS `TagMeal` (
   KEY `TagID` (`TagID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `Chat`
+--
+
+CREATE TABLE IF NOT EXISTS `Chat` (
+  `MessageID` int(11) NOT NULL AUTO_INCREMENT,
+  `FromID` int(11) NOT NULL,
+  `ToID` int(11) NOT NULL,
+  `TimeSent` datetime NOT NULL,
+  `Contents` varchar(280) NOT NULL,
+  PRIMARY KEY (`MessageID`),
+  KEY `FromID` (`FromID`),
+  KEY `ToID` (`ToID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+-- --------------------------------------------------------
+
+
+--
+-- Test data for table `Chat`
+--
+
+INSERT INTO `Chat` (`MessageID`, `FromID`, `ToID`, `TimeSent`, `Contents`) VALUES
+(1, 4, 5, '2017-01-02 03:14:07', 'Can I have some food?'),
+(2, 5, 4, '2017-01-02 03:14:30', 'No?'),
+(3, 4, 5, '2017-01-02 03:18:07', ':(');
 --
 -- Constraints for dumped tables
 --
@@ -199,6 +225,14 @@ ALTER TABLE `TagIngredient`
 ALTER TABLE `TagMeal`
   ADD CONSTRAINT `fk_TagMeal_TagID` FOREIGN KEY (`TagID`) REFERENCES `Tag` (`TagID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_TagMeal_MealID` FOREIGN KEY (`MealID`) REFERENCES `Meal` (`MealID`) ON UPDATE CASCADE;
+
+
+--
+-- Constraints for table `TagMeal`
+--
+ALTER TABLE `Chat`
+  ADD CONSTRAINT `fk_Chat_FromID` FOREIGN KEY (`FromID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Chat_ToID` FOREIGN KEY (`ToID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
