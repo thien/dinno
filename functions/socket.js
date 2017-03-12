@@ -1,5 +1,7 @@
 var querystring = require('querystring');
-var request = require('request');
+var request     = require('request');
+var chat        = require('../functions/chat');
+var dateFormat  = require('dateformat');
 
 module.exports = function Server(io, server) {
 
@@ -9,15 +11,35 @@ module.exports = function Server(io, server) {
             // send the clients id to the client itself.
         socket.send(socket.id);
 
-        socket.on('chat message', function(msg) {
+        socket.on('join', function (data) {
+            socket.join(data.name); 
+        });
 
-            var k = new Date();
-            msg.timestamp = k.getHours().toString() + ":" + k.getMinutes().toString();
-            msg.sendername = "John Cena";
-            // io.sockets.in(msg['from']).emit('chat message', msg['from'] + ":  " + msg['contents']);
-            // io.sockets.in(msg['to']).emit('chat message', msg['from'] + ":  " + msg['contents']);
-            // brocadcast to everyone; testing purposes
-            io.emit('chat message', msg);
+        socket.on('chat message', function(msg) {
+            var currentTime = new Date();
+            var senderId = msg['from'];
+            console.log(msg);
+            chat.getSenderName(senderId).then(function(name) {
+                msg.sendername = name;
+
+                var hours = currentTime.getHours().toString();
+                var mins  = currentTime.getMinutes().toString();    
+                if (hours.length == 1) { hours = "0" + hours; }
+                if (mins.length == 1)  { mins = "0" + mins; }
+                msg.timestamp = `${hours}:${mins}`; 
+
+                
+                io.sockets.in(msg['from']).emit('chat message', msg);
+                io.sockets.in(msg['to']).emit('chat message', msg);
+                
+                dateFormat(currentTime, "YYYY-MM-DD HH:MM:SS");
+
+                chat.saveMessage(msg.from, msg.to, msg.contents, currentTime);
+                console.log(msg)
+            }, function(err) {
+
+            });
+            
         });
 
         socket.on('imageupload', function(img_json) {

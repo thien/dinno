@@ -26,6 +26,7 @@
     padding: 10px;
     /*height: 100px;*/
     
+    min-height: 400px;
     max-height: 400px;
     overflow: hidden;
     overflow-y: scroll;
