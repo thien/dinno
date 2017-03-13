@@ -13,7 +13,10 @@ function run() {
         inputStream: {
             name: "Live",
             type: "LiveStream",
-            target: document.querySelector('#yourElement')   
+            target: document.querySelector('#yourElement'),
+            constraints: {
+                facing: "environment", // or user
+            },
         },
         decoder: {
             readers: ["code_128_reader","ean_reader"],
