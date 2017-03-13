@@ -12,10 +12,28 @@ sorting methods:
 
 //event trigger, when some constraint clicked
 
+//rewrite the card holder div
+function writeCardHolder(){
+	var newContent = '';
+	for(var i=0; i<fooditems.length; i++){
+		newContent += '<a class="card" href="/fooditem" id="fooditem_'+fooditems[i].food_id+'">'+
+		'<img class="card-img-top img-fluid" src="https://unsplash.it/600,751/?random" alt="Card image cap">'+
+        '<div class="card-profile-container"><img class="card-userprofile-img" src="https://unsplash.it/80,80/?random" alt="Card image cap"></div>'+
+        '<div class="card-block">'+
+        '<h4 class="card-title">'+fooditems[i].foodname+'</h4>'+
+        '<p class="card-text">'+fooditems[i].description+'</p>'+
+        '<p class="card-text"><small class="text-muted">Last updated 6 mins ago</small></p>'+
+        '</div>'+
+        '</a>'
+	}
+	document.getElementById("fooditem_results_card").innerHTML = newContent;
+}
+
 
 //restrict results by distance
 function distanceRestriction(results, maxDistance){
 	//do stuff
+	maxDistance = maxDistance/111;	//do kilometers to degrees (positioning done in lat/log)
 	var userLat = 54.78, userLng = -1.52;
 	resultsInRadius = [];
 	for(var i=0;i<results.length;i++){
@@ -89,15 +107,12 @@ $(document).ready(function(){
 		}else if (document.getElementById("freshest").checked){
 			console.log("freshest")
 			byBestBefore(fooditems)
-			for (var i=0; i<fooditems.length; i++) {
-				console.log(fooditems[i].best_before);
-			}
 		}
 		if(document.getElementById("maxDistance").value != ""){
 			console.log("test max dis");
 			distanceRestriction(fooditems, document.getElementById("maxDistance").value);
 		}
+		writeCardHolder();
 	});
-	console.log(fooditems[0])
 });
 
