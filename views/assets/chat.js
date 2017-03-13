@@ -75,4 +75,6 @@ socket.on('server message', function(msg) {
     $('#messages').append($('<li class="server-message">').text(msg));
 });
 
+$(".msg-wrap").scrollTop($(".msg-wrap")[0].scrollHeight);
+
 

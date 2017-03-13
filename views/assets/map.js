@@ -66,15 +66,6 @@ function initMap(lat_lng) {
     }
 }
 
-// function resizeMap() {
-//     $(window).resize(function() {
-//         var h = $(window).height(),
-//             offsetTop = 60; // Calculate the top offset
-
-//         $('#map-canvas').css('height', (h - offsetTop));
-//     }).resize();
-// }
-
 
 $(document).ready(function() {
     initMap();
