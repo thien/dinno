@@ -18,8 +18,8 @@ function run() {
                 facing: "environment", // or user
             },
         },
-        decoder: {
-            readers: ["code_128_reader","ean_reader"],
+        decoder: { // or code_39, codabar, ean_13, ean_8, upc_a, upc_e
+            readers: ["code_128_reader",'ean_reader', 'ean_8_reader', 'code_39_reader', 'code_39_vin_reader', 'codabar_reader', 'upc_reader', 'upc_e_reader', 'i2of5_reader'],
         }
     }, function (err) {
         if (err) {
