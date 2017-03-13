@@ -311,4 +311,12 @@
         padding-left: 5px;
         padding-right: 5px;
       }
+
+      canvas.drawingBuffer {
+      	 /*box-shadow: inset 0px 0px 0px 10px red;*/
+        box-sizing: border-box; /* Include padding and border in element's width and height */
+      	position: absolute;
+      	z-index:1;
+      	left: 0px;
+      }
 </style>
