@@ -1,3 +1,5 @@
+var socket = io();
+
 function initMap(lat_lng) {
 
     // get latitude and longitude from GET variables
@@ -64,6 +66,30 @@ function initMap(lat_lng) {
         });
         return userMarker;
     }
+    
+    return map;
+}
+
+function updateMap(map, locations) {
+    
+    locations.forEach(function(loc) {
+        var marker = new google.maps.Marker({
+            position: {lat: loc.lat, lng: loc.lng},
+            map: map,
+            title: loc.locationName
+        });
+        google.maps.event.addListener(marker, 'click', function(event) {
+            document.getElementById('lat').innerHTML = event.latLng.lat();
+            document.getElementById('lng').innerHTML = event.latLng.lng();
+            var coordInfoWindow = new google.maps.InfoWindow({
+                content: '<button type="button">Get ' + loc.foodName + ' at ' + marker.title + '</button>',
+                position: marker.position
+            });
+            coordInfoWindow.open(map);
+        });
+        return marker;
+    });
+    
 }
 
 // function resizeMap() {
@@ -81,14 +107,15 @@ $(document).ready(function() {
     var coord_lat = parseFloat(GETVariable("lat"));
     var coord_lng = parseFloat(GETVariable("lng"));
 
-    initMap();
+    var map = initMap();
 
     socket.emit('join', {
         name: Cookies.get('id')
     });
     
-    socket.on('mapUpdate', function(msg) {
-        console.log(msg)
+    socket.on('mapUpdate', function(locations) {
+        console.log(locations);
+        updateMap(map, locations);
     });
 
     socket.emit('mapUpdate', {
