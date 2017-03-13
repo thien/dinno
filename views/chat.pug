@@ -71,13 +71,21 @@ html(lang="en")
 											| But can you see me tho?
 					.msg-wrap
 						//- display messages
-						.alert.alert-info.msg-date
-							strong Today
-						each msg in messages
+						
+						- var lastMsg = messages[0];
+						each msg, i in messages
+							- var lastMsg = messages[i-1];
+							if i == 0
+								.alert.alert-info.msg-date
+										strong #{msg.Day}
+							else if msg.Day != lastMsg.Day
+								.alert.alert-info.msg-date
+									strong #{msg.Day}
 							.media.msg
 								.media-body
-									small.pull-right.time 
-										i.fa.fa-clock-o #{msg.SentTime}
+									small.pull-right.time
+										i.fa.fa-clock-o 
+										p(style='display: inline;')      #{msg.TimeSent}
 									h5.media-heading #{msg.FromName}
 									small.col-lg-10 #{msg.Contents}
 
