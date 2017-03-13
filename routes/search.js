@@ -4,6 +4,7 @@ var mysql = require('mysql')
 var express = require('express');
 var app = express();
 var login = require('../functions/login');
+
 app.locals.basedir = "." + '/views';
 
 module.exports = function(){

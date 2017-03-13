@@ -1,3 +1,7 @@
+var coord_lat = parseFloat(GETVariable("lat"));
+var coord_lng = parseFloat(GETVariable("lng"));
+
+
 function initMap(lat_lng) {
 
     // get latitude and longitude from GET variables
@@ -16,14 +20,14 @@ function initMap(lat_lng) {
         center: DURHAM_LAT_LNG
     });
 
-    createMarker({
-        lat: 54.766866,
-        lng: -1.5749834
-    }, 'Billy B', 'cheese');
-    createMarker({
-        lat: 54.778665,
-        lng: -1.5588949
-    }, 'John\'s House', 'burnt pasta');
+    // createMarker({
+    //     lat: 54.766866,
+    //     lng: -1.5749834
+    // }, 'Billy B', 'cheese');
+    // createMarker({
+    //     lat: 54.778665,
+    //     lng: -1.5588949
+    // }, 'John\'s House', 'burnt pasta');
     createUserMarker(DURHAM_LAT_LNG);
 
     function createMarker(pos, t, food) {
@@ -78,4 +82,20 @@ function initMap(lat_lng) {
 
 $(document).ready(function() {
     initMap();
+
+    socket.emit('join', {
+        name: Cookies.get('id')
+    });
+    
+    socket.on('mapUpdate', function(msg) {
+        console.log(msg)
+    });
+
+    socket.emit('mapUpdate', {
+        id: Cookies.get('id'),
+        lat: coord_lat,
+        lng: coord_lng,
+    });
+
+    
 })
