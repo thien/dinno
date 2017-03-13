@@ -9,16 +9,25 @@ function getMostFrequentBarcode(freq) {
 function run() {
     var decoded = []
     var freq = {}
+    // document.getElementById("barcodeContainer").style.boxShadow = "inset 0px 0px 0px 50px red";
     Quagga.init({
         inputStream: {
             name: "Live",
             type: "LiveStream",
-            target: document.querySelector('#yourElement'),
+            target: document.querySelector('#barcodeContainer'),
             constraints: {
+                width: 640,
+                height: 480,
                 facing: "environment", // or user
             },
+            debug: true,
         },
         decoder: { // or code_39, codabar, ean_13, ean_8, upc_a, upc_e
+
+          drawBoundingBox: true,
+          showFrequency: false,
+          drawScanline: true,
+          showPattern: false,
             readers: ["code_128_reader",'ean_reader', 'ean_8_reader', 'code_39_reader', 'code_39_vin_reader', 'codabar_reader', 'upc_reader', 'upc_e_reader', 'i2of5_reader'],
         }
     }, function (err) {
@@ -31,7 +40,7 @@ function run() {
     Quagga.onDetected(function(data){
         console.log(decoded.length)
         if(decoded.length > 50){
-            console.log(freq)
+            console.log(freq);
             var barcode = getMostFrequentBarcode(freq);
             $('.food-name').val(barcode);
             Quagga.stop();
@@ -42,6 +51,7 @@ function run() {
             }else{
                 freq[data.codeResult.code] = freq[data.codeResult.code] + 1
             }
+            document.getElementsByClassName("drawingBuffer")[0].style["boxShadow"] = "inset 0px 0px 0px "+(decoded.length*2)+"px rgba(65,255,72,"+decoded.length/70+")";
         }
     })
 }
