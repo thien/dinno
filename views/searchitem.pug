@@ -2,8 +2,9 @@ extends layout
 
 block container
 	script
-		-
+		- 
 			var latlng = [54.7762235,-1.5864418];
+		| var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')};
 		| var bacon = "";
 		include assets/poachGETVariables.js
 		include assets/interactive_sorting.js
@@ -41,15 +42,21 @@ block container
 							span Category: 
 							input#category(type='text')
 							span Best Before: 
-							input#bestBefore(type="text")
+							input#bestBeforeDay(type="text" size="2")
+							input#bestBeforeMonth(type="text" size="2")
+							input#bestBeforeYear(type="text" size="4")
+							span Max Distance:
+							input#maxDistance(type="text")
 							br
 							span Order By:
 							span Newest 
-							input#newest(type="checkbox")
+							input#newest(type="radio")
 							span Nearest 
-							input#nearest(type="checkbox")
+							input#nearest(type="radio")
 							span A-Z 
-							input#nearest(type="checkbox")
+							input#A-Z(type="radio")
+							span Freshest
+							input#freshest(type="radio")
 							input#sort(type="button" value="Sort Results")
 				#list_results_container
 					.card-columns#fooditem_results_card
