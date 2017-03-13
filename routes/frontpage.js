@@ -4,10 +4,9 @@ module.exports = function(){
 	app.locals.basedir = "." + '/views';
 
 	app.get('/', function (req, res) {
-	    var user = req.query.user;
-	    var pass = req.query.pass;
-	    res.render('frontpage');
+      res.render('frontpage');
 	})
 
 	return app;
 }();
+

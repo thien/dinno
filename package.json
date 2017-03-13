@@ -24,11 +24,16 @@
   "dependencies": {
     "body-parser": "^1.16.0",
     "bower": "^1.8.0",
+    "cookies": "^0.7.0",
     "cps": "^1.0.2",
+    "dateformat": "^2.0.0",
+    "datetime": "0.0.3",
     "express": "^4.14.0",
+    "js-sha256": "^0.5.0",
     "mysql": "^2.13.0",
     "pug": "^2.0.0-beta6",
     "request": "^2.79.0",
+    "sendgrid": "^4.7.1",
     "socket.io": "^1.7.2"
   }
 }

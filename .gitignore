@@ -1,5 +1,6 @@
 node_modules/*
 db_key.js
+encrypt.js
 
 <<<<<<< HEAD
 /Application/node_modules/*
