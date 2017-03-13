@@ -3,7 +3,7 @@ html(lang="en")
 		title Dinno
 		include includes/head
 		script(src='/socket.io/socket.io.js')
-		script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
+		script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8')
 
 	body
 		
@@ -49,6 +49,7 @@ html(lang="en")
 
 				.col-6.embed-responsive#results_container_right
 					#map-canvas.embed-responsive-item
+
 
 		script
 			include assets/poachGETVariables.js

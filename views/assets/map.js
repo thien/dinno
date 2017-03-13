@@ -1,7 +1,3 @@
-var coord_lat = parseFloat(GETVariable("lat"));
-var coord_lng = parseFloat(GETVariable("lng"));
-
-
 function initMap(lat_lng) {
 
     // get latitude and longitude from GET variables
@@ -81,6 +77,10 @@ function initMap(lat_lng) {
 
 
 $(document).ready(function() {
+
+    var coord_lat = parseFloat(GETVariable("lat"));
+    var coord_lng = parseFloat(GETVariable("lng"));
+
     initMap();
 
     socket.emit('join', {
