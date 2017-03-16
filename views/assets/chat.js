@@ -1,5 +1,6 @@
 var socket = io();
 var oldName = "";
+var lastDay = "Ages ago";
 
 var QueryString = function () {
   // This function is anonymous, is executed immediately and 
@@ -50,12 +51,16 @@ socket.on('chat message', function(msg) {
     console.log("from server", msg);
 
 
-    // time = msg.timestamp.getHours().toString() + ":" + msg.timestamp.d.getMinutes().toString() // => 9
-    // console.log(time);
-
     // filter out messages from other people
     if (msg.from == QueryString.id || msg.from == Cookies.get('id')){
-       // create message container
+      
+      if (msg.day !== lastDay) {
+        lastDay = msg.day;
+        var dayHeader = `<div class='alert alert-info msg-date'> <strong> ${msg.day} </strong> </div>`;
+        $('.msg-wrap').append(dayHeader);
+      }
+
+      // create message container
       var message_container = document.createElement('div');
       var ghetto = '<div class="media msg"><div class="media-body"><small class="pull-right time">';
       ghetto += '<i class="fa fa-clock-o"></i> '+msg.timestamp+'</small>';
