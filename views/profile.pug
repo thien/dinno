@@ -12,7 +12,8 @@ block container
 					span.badge.badge-default #{rating}
 					|	 #{user_location}
 				h6 #{age} years old
-				a(href="google.com") Report this user
+				a.chat-link(href='chat?id=' + userId) Send me a message
+				a(href="google.com") Report me
 			.col-md-3#right
 				img(src=profile_photo)#profilephoto
 		.row

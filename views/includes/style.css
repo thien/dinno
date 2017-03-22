@@ -319,4 +319,8 @@
       	z-index:1;
       	left: 0px;
       }
+
+	.chat-link {
+		padding-right: 15px;
+	}
 </style>
