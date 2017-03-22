@@ -22,12 +22,9 @@ module.exports = function Server(io, server) {
             console.log(msg);
             chat.getSenderName(senderId).then(function(name) {
                 msg.sendername = name;
-
-                var hours = currentTime.getHours().toString();
-                var mins  = currentTime.getMinutes().toString();    
-                if (hours.length == 1) { hours = "0" + hours; }
-                if (mins.length == 1)  { mins = "0" + mins; }
-                msg.timestamp = `${hours}:${mins}`; 
+                
+                msg.day        =  dateFormat(currentTime, "dddd dS mmmm");
+                msg.timestamp  =  dateFormat(currentTime, "HH:MM");
 
                 
                 io.sockets.in(msg['from']).emit('chat message', msg);

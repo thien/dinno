@@ -1,6 +1,7 @@
-var express   = require('express');
-var Cookies   = require("cookies");
-const db      = require('../functions/database');
+var express     = require('express');
+var Cookies     = require("cookies");
+var dateFormat  = require('dateformat');
+const db        = require('../functions/database');
 
 module.exports = {
   getSenderName: function(senderId) {
@@ -67,6 +68,12 @@ module.exports = {
                     reject();
                   }
                   else{
+                    results.map(function(r) { 
+                      r.Day      =  dateFormat(r.TimeSent, "dddd dS mmmm");
+                      r.TimeSent =  dateFormat(r.TimeSent, "HH:MM");
+                      return r;
+                    });
+                    console.log(results)
                     resolve(results);
                   }
                 });
