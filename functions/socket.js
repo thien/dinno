@@ -1,6 +1,7 @@
 var querystring = require('querystring');
 var request     = require('request');
 var chat        = require('../functions/chat');
+var map         = require('../functions/map');
 var dateFormat  = require('dateformat');
 
 module.exports = function Server(io, server) {
@@ -61,6 +62,16 @@ module.exports = function Server(io, server) {
             	console.log("sent back image uploaded.");
             })
 
+        });
+
+        socket.on('mapUpdate', function(req) {
+            var client = req.id;
+            
+            map.getLocations().then(function(locations) {
+                io.sockets.in(client).emit('mapUpdate', locations);
+            }, function(err) {
+
+            });
         });
 
         socket.on('disconnect', function() {

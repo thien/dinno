@@ -1,69 +1,58 @@
-function initMap(lat_lng) {
+var socket = io();
 
+var markers = {};
+
+function initMap() {
     // get latitude and longitude from GET variables
     var coord_lat = parseFloat(GETVariable("lat"));
     var coord_lng = parseFloat(GETVariable("lng"));
 
-    // create base_coordinate
-    const DURHAM_LAT_LNG = {
-        lat: coord_lat,
-        lng: coord_lng
-    };
-
     // load google maps with 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
-        center: DURHAM_LAT_LNG
+        center: {lat: coord_lat, lng: coord_lng},
     });
 
-    createMarker({
-        lat: 54.766866,
-        lng: -1.5749834
-    }, 'Billy B', 'cheese');
-    createMarker({
-        lat: 54.778665,
-        lng: -1.5588949
-    }, 'John\'s House', 'burnt pasta');
-    createUserMarker(DURHAM_LAT_LNG);
+    return map;
+}
 
-    function createMarker(pos, t, food) {
-        var marker = new google.maps.Marker({
-            position: pos,
-            map: map,
-            title: t
-        });
-        google.maps.event.addListener(marker, 'click', function(event) {
-            document.getElementById('lat').innerHTML = event.latLng.lat();
-            document.getElementById('lng').innerHTML = event.latLng.lng();
-            var coordInfoWindow = new google.maps.InfoWindow({
-                content: '<button type="button">Get ' + food + ' at ' + marker.title + '</button>',
-                position: marker.position
+function updateMap(map, locations) {
+    var newMarkers = {};
+
+    locations.forEach(function(loc) {
+        var markerId = loc.Latitude + loc.Name + loc.Longitude;
+
+        if (!markers[markerId]) {
+            var marker = new google.maps.Marker({
+                position: {lat: loc.Latitude, lng: loc.Longitude},
+                map: map,
+                title: `${loc.HouseNoName} ${loc.Street}`,
             });
-            coordInfoWindow.open(map);
-        });
-        return marker;
-    }
 
-    function createUserMarker(pos) {
-        var userMarker = new google.maps.Marker({
-            position: pos,
-            map: map,
-            title: 'Your Location',
-            draggable: true,
-            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-        });
-        google.maps.event.addListener(userMarker, 'dragend', function(event) {
-            document.getElementById('lat').innerHTML = event.latLng.lat();
-            document.getElementById('lng').innerHTML = event.latLng.lng();
-        })
-        google.maps.event.addListener(userMarker, 'click', function(event) {
-            createMarker({
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng()
-            }, document.getElementById('newName').value, document.getElementById('food').value);
-        });
-        return userMarker;
+            newMarkers[markerId] = marker;
+            delete markers[markerId];
+
+            google.maps.event.addListener(marker, 'click', function(event) {
+                document.getElementById('lat').innerHTML = event.latLng.lat();
+                document.getElementById('lng').innerHTML = event.latLng.lng();
+                var coordInfoWindow = new google.maps.InfoWindow({
+                    content: '<button type="button">Get ' + loc.Name + ' at ' + marker.title + '</button>',
+                    position: marker.position
+                });
+                coordInfoWindow.open(map);
+            });
+            console.log(`Added ${markerId}`);
+        }
+        else {
+            newMarkers[markerId] = markers[markerId];
+            delete markers[markerId];
+        }
+    });
+
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
     }
+    markers = newMarkers;
 }
 
 // function resizeMap() {
@@ -77,5 +66,29 @@ function initMap(lat_lng) {
 
 
 $(document).ready(function() {
-    initMap();
+
+    var coord_lat = parseFloat(GETVariable("lat"));
+    var coord_lng = parseFloat(GETVariable("lng"));
+
+    var map = initMap();
+
+    socket.emit('join', {
+        name: Cookies.get('id')
+    });
+    
+    socket.on('mapUpdate', function(locations) {
+        console.log(locations);
+        updateMap(map, locations);
+    });
+
+    window.setInterval(function () {
+        socket.emit('mapUpdate', {
+            id: Cookies.get('id'),
+            lat: coord_lat,
+            lng: coord_lng,
+        });
+    }, 5000);
+    
+
+    
 })
