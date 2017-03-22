@@ -1,6 +1,7 @@
 var querystring = require('querystring');
 var request     = require('request');
 var chat        = require('../functions/chat');
+var map         = require('../functions/map');
 var dateFormat  = require('dateformat');
 
 module.exports = function Server(io, server) {
@@ -65,12 +66,12 @@ module.exports = function Server(io, server) {
 
         socket.on('mapUpdate', function(req) {
             var client = req.id;
-            var locations = [
-                {lat: 54.766866, lng: -1.5749834, locationName: 'Billy B', foodName: 'cheese'},
-                {lat: 54.778665, lng: -1.5588949, locationName: 'John\'s House', foodName: 'burnt pasta'},
-            ];
+            
+            map.getLocations().then(function(locations) {
+                io.sockets.in(client).emit('mapUpdate', locations);
+            }, function(err) {
 
-            io.sockets.in(client).emit('mapUpdate', locations);
+            });
         });
 
         socket.on('disconnect', function() {

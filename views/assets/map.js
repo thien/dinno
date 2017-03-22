@@ -20,13 +20,13 @@ function updateMap(map, locations) {
     var newMarkers = {};
 
     locations.forEach(function(loc) {
-        var markerId = loc.lat + loc.foodName + loc.lng;
+        var markerId = loc.Latitude + loc.Name + loc.Longitude;
 
         if (!markers[markerId]) {
             var marker = new google.maps.Marker({
-                position: {lat: loc.lat, lng: loc.lng},
+                position: {lat: loc.Latitude, lng: loc.Longitude},
                 map: map,
-                title: loc.locationName
+                title: `${loc.HouseNoName} ${loc.Street}`,
             });
 
             newMarkers[markerId] = marker;
@@ -36,7 +36,7 @@ function updateMap(map, locations) {
                 document.getElementById('lat').innerHTML = event.latLng.lat();
                 document.getElementById('lng').innerHTML = event.latLng.lng();
                 var coordInfoWindow = new google.maps.InfoWindow({
-                    content: '<button type="button">Get ' + loc.foodName + ' at ' + marker.title + '</button>',
+                    content: '<button type="button">Get ' + loc.Name + ' at ' + marker.title + '</button>',
                     position: marker.position
                 });
                 coordInfoWindow.open(map);
