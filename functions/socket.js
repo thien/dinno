@@ -64,9 +64,6 @@ module.exports = function Server(io, server) {
         });
 
         socket.on('mapUpdate', function(req) {
-            console.log("request for map update");
-            console.log(req)
-            
             var client = req.id;
             var locations = [
                 {lat: 54.766866, lng: -1.5749834, locationName: 'Billy B', foodName: 'cheese'},
