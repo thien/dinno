@@ -61,15 +61,19 @@ socket.on('chat message', function(msg) {
       }
 
       // create message container
-      var message_container = document.createElement('div');
-      var ghetto = '<div class="media msg"><div class="media-body"><small class="pull-right time">';
-      ghetto += '<i class="fa fa-clock-o"></i> '+msg.timestamp+'</small>';
-      ghetto += '<h5 class="media-heading">'+msg.sendername+'</h5>';
-      ghetto += '<small class="col-lg-10">'+msg.contents+'</small></div></div>';
+      var message_container =
+      `<div class="media msg">
+        <div class="media-body">
+          <small class="pull-right time">
+            <i class="fa fa-clock-o"></i> ${msg.timestamp}
+          </small>
+          <h5 class="media-heading"> ${msg.sendername} </h5>
+          <small class="col-lg-10"> ${msg.contents} </small>
+        </div>
+      </div>`;
       // append to client's messagebox
 
-      // $('.msg-wrap').append($('<li>').text(msg.contents));
-      $('.msg-wrap').append(ghetto);
+      $('.msg-wrap').append(message_container);
 
       // scroll down after the message has been added.
       $(".msg-wrap").scrollTop($(".msg-wrap")[0].scrollHeight);
