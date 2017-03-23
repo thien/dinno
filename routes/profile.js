@@ -9,7 +9,7 @@ app.locals.basedir = "." + '/views';
 
 function getProfileInfo(userId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT Firstname, Surname, Rating, ProfileImage,
+        db.query(`SELECT *,
 				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
 				  FROM User
 				  WHERE UserID = ?`, [userId],
@@ -46,51 +46,80 @@ function getUserMeals(userId) {
 }
 
 module.exports = function() {
-    app.get('/profile', function(req, res) {
+  app.get('/profile', function(req, res) {
+    login.checkLogin(req, res).then(function(result) {
+      var cookies = new Cookies(req, res);
+      var userId = req.query.id;
+      if (!userId) {
+        userId = cookies.get('id');
+      }
 
-        login.checkLogin(req, res).then(function(result) {
-            var cookies = new Cookies(req, res);
+      var profileInfo = getProfileInfo(userId);
+      var userMeals = getUserMeals(userId);
 
-            var userId = req.query.id;
-            if (!userId) {
-                userId = cookies.get('id');
-            }
+      Promise.all([profileInfo, userMeals]).then(function(data) {
 
-            var profileInfo = getProfileInfo(userId);
-            var userMeals = getUserMeals(userId);
+        var param = {
+          name: `${data[0].Firstname} ${data[0].Surname}`,
+          age: data[0].Age,
+          userId: userId,
+          profile_photo: data[0].ProfileImage,
+          user_location: "London",
+          rating: data[0].Rating,
+          no_reviews: 17,
+          reviews: 'review',
+          fooditems: data[1],
+          ownProfile: !req.query.id
+        };
 
-            Promise.all([profileInfo, userMeals]).then(function(data) {
-                var review = {
-                    "pauline": "this is good lol"
-                }
+        res.render('profile', param);
 
-                var param = {
-                    name: `${data[0].Firstname} ${data[0].Surname}`,
-                    age: data[0].Age,
-                    userId: userId,
-                    profile_photo: data[0].ProfileImage,
-                    user_location: "London",
-                    rating: data[0].Rating,
-                    no_reviews: 17,
-                    reviews: review,
-                    fooditems: data[1]
-                };
+      }, function(err) {
+        var error_message = {
+          msg: err
+        };
+        res.render('error', error_message);
+      });
+    }, function(err) {
+      var error_message = {
+        msg: "You're not logged in."
+      };
+      res.render('error', error_message);
+    });
+  })
 
-                res.render('profile', param);
+app.get('/editprofile', function(req, res) {
+    login.checkLogin(req, res).then(function(result) {
+      var cookies = new Cookies(req, res);
+      userId = cookies.get('id');
+     
+      var profileInfo = getProfileInfo(userId);
 
-            }, function(err) {
-                var error_message = {
-					msg: err
-				};
-				res.render('error', error_message);
-            });
-        }, function(err) {
-            var error_message = {
-				msg:"You're not logged in."
-			};
-			res.render('error', error_message);
-        });
+      Promise.all([profileInfo]).then(function(data) {
+        
+        var param = {
+          forename: `${data[0].Firstname}`,
+          surname: `${data[0].Surname}`,
+          profileImage: data[0].ProfileImage,
+          email: data[0].EmailAddress,
+          edit: true,
+        };
 
-    })
-    return app;
+        res.render('register', param);
+
+      }, function(err) {
+        var error_message = {
+          msg: err
+        };
+        res.render('error', error_message);
+      });
+    }, function(err) {
+      var error_message = {
+        msg: "You're not logged in."
+      };
+      res.render('error', error_message);
+    });
+
+  })
+  return app;
 }();

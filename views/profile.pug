@@ -12,6 +12,8 @@ block container
 					span.badge.badge-default #{rating}
 					|	 #{user_location}
 				h6 #{age} years old
+				if ownProfile
+					a.chat-link(href='editprofile') Edit profile
 				a.chat-link(href='chat?id=' + userId) Send me a message
 				a(href="google.com") Report me
 			.col-md-3#right
@@ -28,6 +30,8 @@ block container
 							.card-block
 								h4.card-title #{fooditem.Name}
 								p.card-text #{fooditem.Description}
+					else
+						h5 No food :(
 								//- p.card-text
 								//- 	small.text-muted Last updated #{fooditem.last_updated} mins ago
 					//- a(href='/fooditem').card
