@@ -4,7 +4,7 @@ var Cookies = require("cookies");
 const encrypt = require('../functions/encrypt');
 const db = require('../functions/database');
 
-function login(email, pass, req, res) {
+function login(email, pass, remember, req, res) {
 	db.query(`SELECT VerificationCode, EncryptedPass, UserID
 						FROM User
 						WHERE EmailAddress = ?`, [email],
@@ -29,7 +29,7 @@ function login(email, pass, req, res) {
 			var id = results[0].UserID;
 			if (theirHash == results[0].EncryptedPass) {
 				console.log(`Login legit`);
-				setLoginCookie(id, req, res);
+				setLoginCookie(id, remember, req, res);
 			} 
 			else {
 				console.log(`Login bad`);	
@@ -44,7 +44,7 @@ function login(email, pass, req, res) {
 	});
 }
 
-function setLoginCookie(id, req, res) {
+function setLoginCookie(id, remember, req, res) {
 	var loginCode = encrypt.hash(id, req.connection.remoteAddress);
 	db.query(`UPDATE User
 						SET LoginCode = ?
@@ -66,13 +66,26 @@ function setLoginCookie(id, req, res) {
 		} 
 		else {
 			var cookies = new Cookies(req, res);
-			cookies.set('loginCode', loginCode, {
-				httpOnly: false
-			});
-			cookies.set('id', id, {
-				httpOnly: false
-			});
-			console.log('cookies set!');
+			if (remember) {
+				cookies.set('loginCode', loginCode, {
+					httpOnly: false
+				});
+				cookies.set('id', id, {
+					httpOnly: false
+				});
+				console.log('cookies set with no expiry!');
+			}
+			else {
+				cookies.set('loginCode', loginCode, {
+					httpOnly: false,
+					maxAge: 21600000,
+				});
+				cookies.set('id', id, {
+					httpOnly: false,
+					maxAge: 21600000,
+				});
+				console.log('cookies set with expiry!');
+			}
 			res.render('frontpage');
 		}
 	});
@@ -84,7 +97,9 @@ module.exports = function() {
 	app.post('/login', function(req, res) {
 		var email = req.body.user;
 		var pass = req.body.pass;
-		login(email, pass, req, res);
+		var remember = req.body.remember;
+		console.log(remember);
+		login(email, pass, remember, req, res);
 	})
 
 	return app;
