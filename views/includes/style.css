@@ -55,6 +55,11 @@
 		border-radius: 0px;
 	}
 
+	#navbarToggler {
+		/*margin-top:15px;*/
+		margin-bottom:-15px;
+	}
+
 	#navsearchbar {
 		width: 400px;
 	}
