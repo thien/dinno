@@ -60,8 +60,13 @@ app.use('/', require('./routes/fooditem'));
 // add food item
 app.use('/', require('./routes/add'));  
 
+// add error message
+app.use('/', require('./routes/error'));  
+
+// add static assets for public access
+app.use('/assets', express.static('./views/assets'))
+
 server.listen(port, function () {
     // notify user that server is running
-    console.log('Listening on port ' + port);
-    console.log("the FAQ page can be seen on http://localhost:8080/");
+    console.log("Dinno can be seen on http://localhost:"  + port);
 });

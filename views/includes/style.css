@@ -26,7 +26,6 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-
 	@media(max-width: 680px){
 		#frontpage-container.jumbotron{
 			background-color: #fff;
@@ -165,6 +164,13 @@
 		right: 20px;
 	}
 
+
+
+	#dinnosaur {
+		margin: 20px 0px;
+		max-width: 200px;
+	}
+
 	#user_profile_details #left, #user_profile_details #right {
 		/*max-height: 300px;*/
 	}
@@ -260,6 +266,13 @@
 		padding: 10px 0px;
 		margin: 0px auto;
 		width: 150px;
+	}
+
+	pre {
+		background-color: #fee;
+		display: inline-block;
+		padding: 10px;
+		margin: 20px 0px !important;
 	}
 
 	img.img_preview{
