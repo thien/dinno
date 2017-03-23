@@ -119,7 +119,11 @@ module.exports = function(){
 		    // console.log("someone's searching for", param)
 				res.render('searchitem', param);
     }, function(err) {
-      res.render('frontpage');
+      // res.render('frontpage');
+      var error_message = {
+				msg:"You're not logged in."
+			};
+			res.render('error', error_message);
     });
 		// console.log(req.query);
 
