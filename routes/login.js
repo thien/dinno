@@ -98,7 +98,6 @@ module.exports = function() {
 		var email = req.body.user;
 		var pass = req.body.pass;
 		var remember = req.body.remember;
-		console.log(remember);
 		login(email, pass, remember, req, res);
 	})
 
