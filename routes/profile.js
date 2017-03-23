@@ -10,16 +10,16 @@ app.locals.basedir = "." + '/views';
 function getProfileInfo(userId) {
     return new Promise(function(resolve, reject) {
         db.query(`SELECT Firstname, Surname, Rating,
-										 YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
-							FROM User
-							WHERE UserID = ?`, [userId],
+				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
+				  FROM User
+				  WHERE UserID = ?`, [userId],
             function(error, results, fields) {
                 if (error) {
                     console.log(error);
-                    reject();
+                    reject(error);
                 } else if (results.length == 0) {
                     console.log('UserID not found');
-                    reject();
+                    reject('UserID not found');
                 } else {
                     resolve(results[0]);
                 }
@@ -78,7 +78,7 @@ module.exports = function() {
 
             }, function(err) {
                 var error_message = {
-					msg:"There was an issue related to the promises on profile.js."
+					msg: err
 				};
 				res.render('error', error_message);
             });
