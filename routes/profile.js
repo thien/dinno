@@ -8,39 +8,41 @@ var bf = require('../functions/basefunctions');
 app.locals.basedir = "." + '/views';
 
 function getProfileInfo(userId) {
-  return new Promise(function(resolve, reject) {
-    db.query(`SELECT *,
-        YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
-        FROM User
-        WHERE UserID = ?`, [userId],
-      function(error, results, fields) {
-        if (error) {
-          console.log(error);
-          reject(error);
-        } else if (results.length == 0) {
-          console.log('UserID not found');
-          reject('UserID not found');
-        } else {
-          resolve(results[0]);
-        }
-      });
-  });
+    return new Promise(function(resolve, reject) {
+        db.query(`SELECT *,
+				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
+				  FROM User
+				  WHERE UserID = ?`, [userId],
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                } else if (results.length == 0) {
+                    console.log('UserID not found');
+                    reject('UserID not found');
+                } else {
+                    resolve(results[0]);
+                }
+            });
+    });
 }
 
 function getUserMeals(userId) {
-  return new Promise(function(resolve, reject) {
-    db.query(`SELECT MealID, Name, Description
-          FROM Meal
-          WHERE UserID = ?`, [userId],
-      function(error, results, fields) {
-        if (error) {
-          console.log(error);
-          reject();
-        } else {
-          resolve(results);
-        }
-      });
-  });
+    return new Promise(function(resolve, reject) {
+        db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage
+				  FROM Meal
+                  JOIN User 
+                  ON User.UserID = Meal.UserID
+				  WHERE Meal.UserID = ?`, [userId],
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    reject();
+                } else {
+                    resolve(results);
+                }
+            });
+    });
 }
 
 module.exports = function() {
@@ -85,8 +87,7 @@ module.exports = function() {
     });
   })
 
-    app.get('/editprofile', function(req, res) {
-
+app.get('/editprofile', function(req, res) {
     login.checkLogin(req, res).then(function(result) {
       var cookies = new Cookies(req, res);
       userId = cookies.get('id');
@@ -98,8 +99,9 @@ module.exports = function() {
         var param = {
           forename: `${data[0].Firstname}`,
           surname: `${data[0].Surname}`,
-          profile_photo: data[0].ProfileImage,
+          profileImage: data[0].ProfileImage,
           email: data[0].EmailAddress,
+          edit: true,
         };
 
         res.render('register', param);

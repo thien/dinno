@@ -7,72 +7,74 @@ block container
 		include includes/register.css
 	script
 		include assets/register.js
-
-	.col-md-6
-		#container
-			h1 Register
-
-			form(method="post")
-				.form-group
-					label(for='First Name') First name 
-					input#forename.form-control(name="forename" type='name', placeholder='First Name' value=forename)
-				.form-group
-					label(for='Last Name') Last name
-					input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=surname)
-				.form-group
-					label(for='exampleInputEmail1') Email address
-					input#email.form-control(name="email" type='email', placeholder='you@email.com' value=email)
-					small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
-				.form-group
-					label(for='exampleInputPassword1') Password
-					input#password.form-control.password(name="password" type='password', placeholder='Password')
-					small#password-help-block.form-text.text-muted Your password must be at least 8 characters long and contain both letters and numbers.
-				.form-group
-					label(for='exampleInputPassword1') Confirm password
-					input#password-verify.form-control.password(name="vpassword" type='password', placeholder='Password')
-				.form-inline
-					#sr-only
-						label(for='exampleSelect1') Day
-						select(name="day" type="Day" value=day)#bornday
-							- for (var d = 1; d <= 31; d++)
-								option(value=''+d) #{d}
-					#sr-only
-						label(for='exampleSelect1') Month
-						select(name="month" type="Month" value=month)
-							option(value='01') January
-							option(value='02') Febuary
-							option(value='03') March
-							option(value='04') April
-							option(value='05') May
-							option(value='06') June
-							option(value='07') July
-							option(value='08') August
-							option(value='09') September
-							option(value='10') October
-							option(value='11') November
-							option(value='12') December
-					#sr-only
-						label(for='exampleSelect1' ) Year
-						select(name="year" type="Year" value=year) 
-							- for (var y = 2017; y >= 1900; y--)
-								option(value=''+y) #{y}
-				.form-group
-					p
-					| By signing up, I agree to 
-					a(href="/register") Dinno's Terms of Service
-					| , 
-					a(href="/register") Non Discrimination Policy
-					| , and 
-					a(href="/register") Privacy Policy
-					| .
-				button#btn-submit.btn.btn-primary(type='submit' value="Submit") Sign Up
 	
+	.row 
+		.col-lg-6
+			#container
+				h1 Register
+
+				form(method="post")
+					.form-group
+						label(for='First Name') First name 
+						input#forename.form-control(name="forename" type='name', placeholder='First Name' value=forename)
+					.form-group
+						label(for='Last Name') Last name
+						input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=surname)
+					.form-group
+						label(for='exampleInputEmail1') Email address
+						input#email.form-control(name="email" type='email', placeholder='you@email.com' value=email)
+						small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+					.form-group
+						label(for='exampleInputPassword1') Password
+						input#password.form-control.password(name="password" type='password', placeholder='Password')
+						small#password-help-block.form-text.text-muted Your password must be at least 8 characters long and contain both letters and numbers.
+					.form-group
+						label(for='exampleInputPassword1') Confirm password
+						input#password-verify.form-control.password(name="vpassword" type='password', placeholder='Password')
+					.form-inline
+						#sr-only
+							label(for='exampleSelect1') Day
+							select(name="day" type="Day" value=day)#bornday
+								- for (var d = 1; d <= 31; d++)
+									option(value=''+d) #{d}
+						#sr-only
+							label(for='exampleSelect1') Month
+							select(name="month" type="Month" value=month)
+								option(value='01') January
+								option(value='02') Febuary
+								option(value='03') March
+								option(value='04') April
+								option(value='05') May
+								option(value='06') June
+								option(value='07') July
+								option(value='08') August
+								option(value='09') September
+								option(value='10') October
+								option(value='11') November
+								option(value='12') December
+						#sr-only
+							label(for='exampleSelect1' ) Year
+							select(name="year" type="Year" value=year) 
+								- for (var y = 2017; y >= 1900; y--)
+									option(value=''+y) #{y}
+					.form-group
+						input#secret-image-input.form-control.password(name="profileImage" value=profileImage)
+					.form-group
+						p
+						| By signing up, I agree to 
+						a(href="/register") Dinno's Terms of Service
+						| , 
+						a(href="/register") Non Discrimination Policy
+						| , and 
+						a(href="/register") Privacy Policy
+						| .
+					button#btn-submit.btn.btn-primary(type='submit' value="Submit") Sign Up
 		.col-lg-4
-					#container
-						#pictureupload
-							#upload_img_container
-								img(src=profile_photo)#profilephoto
-								input(id="input_images" name='images' type="file")
+			#container
+				.form-group#pictureupload
+					#upload_img_container
+						img(src=profileImage)#profilephoto
+						input(id="input_images" name='images' type="file")
 	script(src='https://www.google.com/recaptcha/api.js')
 	script
 		include assets/upload.js

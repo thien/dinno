@@ -31,6 +31,7 @@ function addNewUser(userData, res) {
 	var firstname    = userData['forename'];
 	var surname      = userData['surname'];
 	var emailAddress = userData['email'];
+	var profileImage = userData['profileImage']
 
 	// Gets date of birth in YYYY/MM/DD format
 	var year  = userData['year'];
@@ -49,9 +50,9 @@ function addNewUser(userData, res) {
 	var verificationCode = encrypt.hash(userData['password'], userData['email']);
 	var encryptedPass = encrypt.hash(userData['password'], verificationCode);
 	
-	db.query(`INSERT INTO User (UserID, LocationID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, IsVerified, VerificationCode, Rating)
-						VALUES (0, ?, ?, ?, ?, ?, ?, 0, ?, 5.0)`, 
-						[locationId, firstname, surname, emailAddress, dob, encryptedPass, verificationCode], 
+	db.query(`INSERT INTO User (UserID, LocationID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, IsVerified, VerificationCode, Rating, ProfileImage)
+						VALUES (0, ?, ?, ?, ?, ?, ?, 0, ?, 5.0, ?)`, 
+						[locationId, firstname, surname, emailAddress, dob, encryptedPass, verificationCode, profileImage], 
 						function (error, results, fields) {
 							if (error) { 
 								console.log(error); 
@@ -80,6 +81,7 @@ function updateUser(userId, userData, res) {
 	var firstname    = userData['forename'];
 	var surname      = userData['surname'];
 	var emailAddress = userData['email'];
+	var profileImage = userData['profileImage']
 
 	// Gets date of birth in YYYY/MM/DD format
 	var year  = userData['year'];
@@ -99,9 +101,9 @@ function updateUser(userId, userData, res) {
 	var encryptedPass = encrypt.hash(userData['password'], verificationCode);
 	
 	db.query(`UPDATE User 
-						SET LocationID = ?, Firstname = ?, Surname = ?, EmailAddress = ?, DOB = ?, EncryptedPass = ?
+						SET LocationID = ?, Firstname = ?, Surname = ?, EmailAddress = ?, DOB = ?, EncryptedPass = ?, ProfileImage = ?
 						WHERE UserID = ?`,
-						[locationId, firstname, surname, emailAddress, dob, encryptedPass, userId], 
+						[locationId, firstname, surname, emailAddress, dob, encryptedPass, profileImage, userId], 
 						function (error, results, fields) {
 							if (error) { 
 								console.log(error); 
@@ -240,7 +242,7 @@ module.exports = function(){
 	app.post('/editprofile', function (req, res) {
 		// get results
 		var userData = req.body;
-		console.log(userData);
+		userData.edit = true;
 
 		var cookies = new Cookies(req, res);
     userId = cookies.get('id');

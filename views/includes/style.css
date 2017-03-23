@@ -340,4 +340,7 @@
 	.chat-link {
 		padding-right: 15px;
 	}
+	#secret-image-input {
+		display: none;
+	}
 </style>
