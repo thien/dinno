@@ -9,7 +9,7 @@ app.locals.basedir = "." + '/views';
 
 function getProfileInfo(userId) {
   return new Promise(function(resolve, reject) {
-    db.query(`SELECT Firstname, Surname, Rating,
+    db.query(`SELECT *,
         YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
         FROM User
         WHERE UserID = ?`, [userId],
@@ -65,7 +65,7 @@ module.exports = function() {
           user_location: "London",
           rating: data[0].Rating,
           no_reviews: 17,
-          reviews: review,
+          reviews: 'review',
           fooditems: data[1]
         };
 
@@ -84,30 +84,25 @@ module.exports = function() {
       res.render('error', error_message);
     });
   })
+
     app.get('/editprofile', function(req, res) {
 
     login.checkLogin(req, res).then(function(result) {
       var cookies = new Cookies(req, res);
-
-      var userId = req.query.id;
-      if (!userId) {
-        userId = cookies.get('id');
-      }
-
+      userId = cookies.get('id');
+     
       var profileInfo = getProfileInfo(userId);
 
       Promise.all([profileInfo]).then(function(data) {
-
+        
         var param = {
           forename: `${data[0].Firstname}`,
           surname: `${data[0].Surname}`,
-          userId: userId,
-          profile_photo: "http://1.bp.blogspot.com/-c9_0_EBSqCg/UG_uaVO3K-I/AAAAAAAAD18/zY53ome7ZRw/s200/John+Cena+profile+pic",
-          user_location: "London",
-          email: "chuck_norrison@gmail.com",
+          profile_photo: data[0].ProfileImage,
+          email: data[0].EmailAddress,
         };
 
-        res.render('edit_profile', param);
+        res.render('register', param);
 
       }, function(err) {
         var error_message = {

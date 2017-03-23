@@ -4,6 +4,7 @@ const fs      = require('fs');
 const db      = require('../functions/database');
 const encrypt = require('../functions/encrypt');
 const sg      = require('sendgrid')(process.env.SENDGRID_API_KEY);
+var Cookies   = require("cookies");
 
 app.locals.basedir = "." + '/views';
 
@@ -66,6 +67,52 @@ function addNewUser(userData, res) {
 									msg: `We've sent you an email, ${firstname}`,
 								}
 								res.render('verify_email', param);
+							}
+						});
+	return true;
+}
+
+
+function updateUser(userId, userData, res) {
+	// TODO: get location properly
+	//				validate dob
+	var locationId   = 1;
+	var firstname    = userData['forename'];
+	var surname      = userData['surname'];
+	var emailAddress = userData['email'];
+
+	// Gets date of birth in YYYY/MM/DD format
+	var year  = userData['year'];
+	var month = userData['month'];
+	var day   = userData['day'];
+	var dob   = `${year}/${month}/${day}`;
+	
+	var password       = userData['password'];
+	var passwordVerify = userData['vpassword'];
+
+	if      (!validateFirstName(firstname))                 { return false; }
+	else if (!validateSurname(surname))                     { return false; }
+	else if (!validateEmail(emailAddress))                  { return false; }
+	else if (!verifyPassword(password, passwordVerify))     { return false; }
+
+	var verificationCode = encrypt.hash(userData['password'], userData['email']);
+	var encryptedPass = encrypt.hash(userData['password'], verificationCode);
+	
+	db.query(`UPDATE User 
+						SET LocationID = ?, Firstname = ?, Surname = ?, EmailAddress = ?, DOB = ?, EncryptedPass = ?
+						WHERE UserID = ?`,
+						[locationId, firstname, surname, emailAddress, dob, encryptedPass, userId], 
+						function (error, results, fields) {
+							if (error) { 
+								console.log(error); 
+								console.log(`Rejected user ${userData['email']}`);
+								delete userData.password;
+								delete userData.vpassword;
+								res.render('register', userData);
+							}
+							else { 
+								console.log(`Updated user ${emailAddress}`); 
+								res.render('register', userData);
 							}
 						});
 	return true;
@@ -180,6 +227,25 @@ module.exports = function(){
 		console.log(userData);
 
 		var isValidUser = addNewUser(userData, res);
+
+		if (!isValidUser){
+			console.log(`Rejected user ${userData['email']}`);
+			delete userData.password;
+			delete userData.vpassword;
+			res.render('register', userData);
+		}
+
+	})
+
+	app.post('/editprofile', function (req, res) {
+		// get results
+		var userData = req.body;
+		console.log(userData);
+
+		var cookies = new Cookies(req, res);
+    userId = cookies.get('id');
+
+		var isValidUser = updateUser(userId, userData, res);
 
 		if (!isValidUser){
 			console.log(`Rejected user ${userData['email']}`);

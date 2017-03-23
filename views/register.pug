@@ -2,7 +2,7 @@ extends layout
 
 block container
 	include includes/nav
-
+	script(src='/socket.io/socket.io.js')
 	style
 		include includes/register.css
 	script
@@ -66,4 +66,13 @@ block container
 					a(href="/register") Privacy Policy
 					| .
 				button#btn-submit.btn.btn-primary(type='submit' value="Submit") Sign Up
+	
+		.col-lg-4
+					#container
+						#pictureupload
+							#upload_img_container
+								img(src=profile_photo)#profilephoto
+								input(id="input_images" name='images' type="file")
 	script(src='https://www.google.com/recaptcha/api.js')
+	script
+		include assets/upload.js
