@@ -273,6 +273,10 @@
 		display: inline-block;
 		padding: 10px;
 		margin: 20px 0px !important;
+		white-space: -moz-pre-wrap;
+		white-space: -o-pre-wrap;
+		word-wrap: break-word;
+		white-space: pre-wrap;
 	}
 
 	img.img_preview{
