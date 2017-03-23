@@ -1,8 +1,9 @@
 var querystring = require('querystring');
 var request     = require('request');
+var dateFormat  = require('dateformat');
 var chat        = require('../functions/chat');
 var map         = require('../functions/map');
-var dateFormat  = require('dateformat');
+const db        = require('../functions/database');
 
 module.exports = function Server(io, server) {
 

@@ -9,7 +9,7 @@ app.locals.basedir = "." + '/views';
 
 function getProfileInfo(userId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT Firstname, Surname, Rating,
+        db.query(`SELECT Firstname, Surname, Rating, ProfileImage,
 				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
 				  FROM User
 				  WHERE UserID = ?`, [userId],
@@ -29,9 +29,11 @@ function getProfileInfo(userId) {
 
 function getUserMeals(userId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT MealID, Name, Description
-							FROM Meal
-							WHERE UserID = ?`, [userId],
+        db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage
+				  FROM Meal
+                  JOIN User 
+                  ON User.UserID = Meal.UserID
+				  WHERE Meal.UserID = ?`, [userId],
             function(error, results, fields) {
                 if (error) {
                     console.log(error);
@@ -66,7 +68,7 @@ module.exports = function() {
                     name: `${data[0].Firstname} ${data[0].Surname}`,
                     age: data[0].Age,
                     userId: userId,
-                    profile_photo: "http://1.bp.blogspot.com/-c9_0_EBSqCg/UG_uaVO3K-I/AAAAAAAAD18/zY53ome7ZRw/s200/John+Cena+profile+pic",
+                    profile_photo: data[0].ProfileImage,
                     user_location: "London",
                     rating: data[0].Rating,
                     no_reviews: 17,

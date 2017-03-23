@@ -8,7 +8,7 @@ socket.on('sentimg', function(img_url) {
 
 socket.on('img_uploaded', function(img_url) {
     // we'll need to send the image url to the post form.
-    console.log(img_url.id, img_url.url)
+    console.log(img_url);
 	var targetDiv = document.getElementById(img_url.id);
 	targetDiv.className += " img_upload_done";
 	var line = '<input type="hidden" name="images[]" value="'+img_url.url+'">';
