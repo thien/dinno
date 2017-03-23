@@ -36,12 +36,12 @@ module.exports = {
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
-                    reject();
+                    reject(error);
                   }
                   else if (results.length == 0) {
                     console.log('UserID not found: getRecipientName');
                     console.log(results);
-                    reject();
+                    reject("User not found");
                   }
                   else{
                     var firstname = results[0].Firstname;
@@ -65,7 +65,7 @@ module.exports = {
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
-                    reject();
+                    reject(error);
                   }
                   else{
                     results.map(function(r) { 
@@ -88,12 +88,12 @@ module.exports = {
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
-                    reject();
+                    reject(error);
                   }
                   else if (results.length == 0) {
                     console.log('Chat insert failed');
                     console.log(results);
-                    reject();
+                    reject('Chat insert failed');
                   }
                   else{
                     resolve(results);

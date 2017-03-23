@@ -31,16 +31,14 @@ module.exports = function() {
 					res.render('chat', param);
 
 				}, function(err) {
-					// theres an issue with the promises
 					var error_message = {
-						msg:"There's an issue with the promises."
+						msg: err
 					};
 					res.render('error', error_message);
 				});
 			} else {
-				// theres an issue with the ID's of recipient/senders
 				var error_message = {
-					msg:"theres an issue with the ID's of recipient/senders."
+					msg:"Your sender or recipient has not been specified"
 				};
 				res.render('error', error_message);
 			}
