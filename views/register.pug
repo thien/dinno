@@ -11,7 +11,10 @@ block container
 	.row 
 		.col-lg-6
 			#container
-				h1 Register
+				if edit
+					h1 Edit Profile
+				else 
+					h1 Register
 
 				form(method="post")
 					.form-group
@@ -59,16 +62,20 @@ block container
 									option(value=''+y) #{y}
 					.form-group
 						input#secret-image-input.form-control.password(name="profileImage" value=profileImage)
-					.form-group
-						p
-						| By signing up, I agree to 
-						a(href="/register") Dinno's Terms of Service
-						| , 
-						a(href="/register") Non Discrimination Policy
-						| , and 
-						a(href="/register") Privacy Policy
-						| .
-					button#btn-submit.btn.btn-primary(type='submit' value="Submit") Sign Up
+					if !edit
+						.form-group
+							p
+							| By signing up, I agree to 
+							a(href="/register") Dinno's Terms of Service
+							| , 
+							a(href="/register") Non Discrimination Policy
+							| , and 
+							a(href="/register") Privacy Policy
+							| .
+					if edit
+						button#btn-submit.btn.btn-primary(type='submit' value="Submit") Submit		
+					else
+						button#btn-submit.btn.btn-primary(type='submit' value="Submit") Sign Up			
 		.col-lg-4
 			#container
 				.form-group#pictureupload
