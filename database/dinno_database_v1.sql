@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `Ingredient` (
   `BestBefore` date NOT NULL,
   `Category` varchar(60) NOT NULL,
   `Description` varchar(500) NOT NULL,
+  `Image` varchar(70) NOT NULL,
   PRIMARY KEY (`IngredientID`),
   KEY `UserID` (`UserID`),
   KEY `LocationID` (`LocationID`)
@@ -73,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `Meal` (
   `Name` varchar(60) NOT NULL,
   `DateServed` date NOT NULL,
   `Description` varchar(500) NOT NULL,
+  `Image` varchar(70) NOT NULL,
   PRIMARY KEY (`MealID`),
   KEY `UserID` (`UserID`),
   KEY `LocationID` (`LocationID`)
@@ -82,9 +84,9 @@ CREATE TABLE IF NOT EXISTS `Meal` (
 -- Test data for table `Meal`
 --
 
-INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `Name`, `DateServed`, `Description`) VALUES
-(1, 1, 2, 'Cauliflower Cheese', '2017-01-02', 'Some tasty cauliflower cheese.'),
-(2, 2, 3, 'Bangers & Mash', '2017-01-12', 'Tasty bangers.');
+INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `Name`, `DateServed`, `Description`, `Image`) VALUES
+(1, 1, 2, 'Cauliflower Cheese', '2017-01-02', 'Some tasty cauliflower cheese.', 'http://i.imgur.com/VLT6AOi.png'),
+(2, 2, 3, 'Bangers & Mash', '2017-01-12', 'Tasty bangers.', 'http://i.imgur.com/VLT6AOi.png');
 
 -- --------------------------------------------------------
 
@@ -104,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `IsVerified` boolean NOT NULL,
   `VerificationCode` varchar(70) NOT NULL,
   `LoginCode` varchar(70) NOT NULL,
+  `ProfileImage` varchar(70) NOT NULL,
   PRIMARY KEY (`UserID`),
   KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
@@ -112,12 +115,12 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Test data for table `User`
 --
 
-INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`, `LoginCode`) VALUES
-(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL),
-(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL),
-(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1, 0, NULL, NULL),
-(4, 1, 'john' , 'jennings' , 'johnmjennings97@gmail.com', '2017-01-01',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9'), 
-(5 ,1 ,'not john',  'jennings',  'juanuncalcetin@gmail.com' , '2017-01-01',  'b328473224ad100b5021818149d79347cbf5217490cb65959626a54b47089cb4' , 5, 1 ,'b256f0aa70f968d1a5b0ebefde8da550ea852359330b81ac3d59da6fbe5f0c4a','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef');
+INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`, `LoginCode`, `ProfileImage`) VALUES
+(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png'),
+(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png'),
+(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png'),
+(4, 1, 'john' , 'jennings' , 'johnmjennings97@gmail.com', '2017-01-01',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9', 'http://i.imgur.com/VLT6AOi.png'), 
+(5 ,1 ,'not john',  'jennings',  'juanuncalcetin@gmail.com' , '2017-01-01',  'b328473224ad100b5021818149d79347cbf5217490cb65959626a54b47089cb4' , 5, 1 ,'b256f0aa70f968d1a5b0ebefde8da550ea852359330b81ac3d59da6fbe5f0c4a','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/VLT6AOi.png');
 -- --------------------------------------------------------
 
 --

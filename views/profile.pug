@@ -22,9 +22,9 @@ block container
 				.card-columns
 					each fooditem in fooditems
 						a(href='fooditem?id=' + fooditem.MealID).card.fooditem-card
-							img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
+							img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
 							.card-profile-container
-								img.card-userprofile-img(src=fooditem.userimg, alt='Card image cap')
+								img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
 							.card-block
 								h4.card-title #{fooditem.Name}
 								p.card-text #{fooditem.Description}

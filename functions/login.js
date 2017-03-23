@@ -11,7 +11,7 @@ module.exports = {
         var cookies = new Cookies(req, res);
         var loginCode = cookies.get('loginCode');
         var id = cookies.get('id');
-        db.query(`SELECT LoginCode = ? AS isValidLogin  
+        db.query(`SELECT LoginCode = ? AS isValidLogin, Firstname, Surname, ProfileImage  
                   FROM User
                   WHERE UserID = ?`, 
                 [loginCode, id], 
@@ -25,7 +25,7 @@ module.exports = {
                     reject();
                   }
                   else if (results[0].isValidLogin){
-                    resolve();
+                    resolve(results[0]);
                   }
                   else{
                     reject();
