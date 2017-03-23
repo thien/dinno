@@ -63,12 +63,13 @@ module.exports = function() {
           name: `${data[0].Firstname} ${data[0].Surname}`,
           age: data[0].Age,
           userId: userId,
-          profile_photo: "http://1.bp.blogspot.com/-c9_0_EBSqCg/UG_uaVO3K-I/AAAAAAAAD18/zY53ome7ZRw/s200/John+Cena+profile+pic",
+          profile_photo: data[0].ProfileImage,
           user_location: "London",
           rating: data[0].Rating,
           no_reviews: 17,
           reviews: 'review',
-          fooditems: data[1]
+          fooditems: data[1],
+          ownProfile: !req.query.id
         };
 
         res.render('profile', param);
