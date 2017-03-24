@@ -86,7 +86,7 @@ function setLoginCookie(id, remember, req, res) {
 				});
 				console.log('cookies set with expiry!');
 			}
-			res.render('frontpage');
+			res.redirect('back');
 		}
 	});
 }
@@ -105,7 +105,7 @@ module.exports = function() {
 		var cookies = new Cookies(req, res);
 		cookies.set('loginCode', '');
 		cookies.set('id', '');
-		res.render('frontpage');
+		res.redirect('back');
 	})
 
 	return app;

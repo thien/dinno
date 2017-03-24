@@ -10,16 +10,14 @@ nav.navbar-alt.navbar-light.navbar-toggleable-md
 
 
 		ul.navbar-nav.my-2.my-lg-0 
-			//- li.nav-item
-			//- 	h5 #{loggedin}
-			li.nav-item
-				a.nav-link(href='/add') Add
-			li.nav-item
-				a.nav-link(href='/manage?type=others') Dinnos
-			li.nav-item
-				a.nav-link(href='/chat') Chat
 
 			if loggedin
+				li.nav-item
+					a.nav-link(href='/add') Add
+				li.nav-item
+					a.nav-link(href='/manage?type=others') Dinnos
+				li.nav-item
+					a.nav-link(href='/chat') Chat
 				.dropdown.nav-profile-dropdown
 					a.dropdown-toggle.nav-profile(data-toggle='dropdown')  
 						img(src=user_data.mugshot).navbar-mugshot
