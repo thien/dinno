@@ -35,17 +35,17 @@ function updateMap(map, locations) {
 
             google.maps.event.addListener(marker, 'click', function(event) {
                 var coordInfoWindow = new google.maps.InfoWindow({
-                    content: `<div class='row'>
-                                <div class='col-md-4'>
+                    content: `<div class='row popup-food'>
+    
                                     <a href='/fooditem?id=${loc.MealID}''> 
-                                        <img src='${loc.Image}' class='marker-image' style='padding-right:45px;'>  
+                                        <img src='${loc.Image}' class='marker-image'>  
                                     </a>
-                                </div>
-                                <div class='col-md-8'>
+                                    <div class="popup-food-data">
                                     <a href='/fooditem?id=${loc.MealID}''> 
                                         <h3> ${loc.Name} </h5>
                                     </a>
                                     <p> ${loc.Description} </p>
+                                    </div>
                                 </div>
                             </div>`,
                     position: marker.position

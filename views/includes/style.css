@@ -83,13 +83,18 @@
 		background-color: #ccc;
 		height:calc(100% - 0px);
 	}
+	.popup-food {
+		display: block;
+		padding: 0px 15px;
+	}
 	.marker-image {
-		float: right;
+		/*float: right;*/
     border-radius: 50%;
     border: 3px solid #fff;
     height: 80px;
     width: 80px;
-    position: relative;
+    margin: 0px 10px 0px 0px;
+    /*position: relative;*/
 	}
 	#search_item_details {
 		padding: 30px 10px 10px 10px;
