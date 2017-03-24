@@ -39,22 +39,48 @@ block container
 								a.nav-link.disabled(href='#') Expiry Date
 					.card-block
 						.card
-							.row
-								.col-xl-4
-									img.h-100(src='https://placeholdit.imgix.net/~text?txtsize=38&txt=200%C3%97400&w=200&h=200')
-								.col-md-6
-									.card-block
-										h4.card-title Hot dogs
-										p.card-text
-											| Something about Chicken!
-										span.badge.categoriestags Hot
-										span.badge.categoriestags Hot
-										span.badge.categoriestags Hot
-										span.badge.categoriestags Hot
-										
+							each fooditem in posted
+								.row
+									.col-xl-4
+										img.h-100(src=fooditem.Image)
+									.col-md-6
+										.card-block
+											h4.card-title fooditem.Name
+											p.card-text
+												| fooditem.Description
+											//- span.badge.categoriestags Hot
+											//- span.badge.categoriestags Hot
+											//- span.badge.categoriestags Hot
+											//- span.badge.categoriestags Hot
+											
 
-								.col-md-2.btn-group-vertical
-									a.btn.btn-link.btn-sm(href='#') Chat
-									a.btn.btn-link.btn-sm(href='#') Edit
-									a.btn.btn-link.btn-sm(href='#') Delete
-									a.btn.btn-link.btn-sm(href='#') Cancel
+									.col-md-2.btn-group-vertical
+										a.btn.btn-link.btn-sm(href='#') Chat
+										a.btn.btn-link.btn-sm(href='#') Edit
+										a.btn.btn-link.btn-sm(href='#') Delete
+										a.btn.btn-link.btn-sm(href='#') Cancel
+							else
+								h4 No Dinnos posted!
+						.card
+							each fooditem in received
+								.row
+									.col-xl-4
+										img.h-100(src=fooditem.Image)
+									.col-md-6
+										.card-block
+											h4.card-title fooditem.Name
+											p.card-text
+												| fooditem.Description
+											//- span.badge.categoriestags Hot
+											//- span.badge.categoriestags Hot
+											//- span.badge.categoriestags Hot
+											//- span.badge.categoriestags Hot
+											
+
+									.col-md-2.btn-group-vertical
+										a.btn.btn-link.btn-sm(href='#') Chat
+										a.btn.btn-link.btn-sm(href='#') Edit
+										a.btn.btn-link.btn-sm(href='#') Delete
+										a.btn.btn-link.btn-sm(href='#') Cancel
+							else 
+								h4 No Dinnos received!
