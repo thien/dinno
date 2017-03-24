@@ -12,8 +12,8 @@ module.exports = function() {
 
 	app.get('/chat', function(req, res) {
 		var param = {
-            loggedin : false,
-        };
+			loggedin: false,
+		};
 		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
 
@@ -22,11 +22,11 @@ module.exports = function() {
 			var recipientId = req.query.id;
 
 			param.user_data = {
-                userID : senderId,
-                firstname : result.Firstname,
-                surname : result.Surname,
-                mugshot : result.ProfileImage
-            };
+				userID: senderId,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
 
 			if (senderId && recipientId) {
 
@@ -37,8 +37,8 @@ module.exports = function() {
 
 					param.chat = {
 						theirName: `${data[0].Firstname} ${data[0].Surname}`,
-           				profileImage: data[0].ProfileImage,
-            			theirId: recipientId,
+						profileImage: data[0].ProfileImage,
+						theirId: recipientId,
 						messages: data[1],
 					};
 
@@ -52,13 +52,13 @@ module.exports = function() {
 				});
 			} else {
 				param.error_message = {
-					msg:"Your sender or recipient has not been specified"
+					msg: "Your sender or recipient has not been specified"
 				};
 				res.render('error', param);
 			}
 		}, function(err) {
 			param.error_message = {
-				msg:"You're not logged in."
+				msg: "You're not logged in."
 			};
 			res.render('error', param);
 		});
