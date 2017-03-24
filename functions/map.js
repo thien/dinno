@@ -5,7 +5,7 @@ const db      = require('../functions/database');
 module.exports = {
   getLocations: function(pos, radius) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT Meal.Name, Meal.MealID, Meal.Image, Meal.Description, Location.Latitude, Location.Longitude, Location.HouseNoName, Location.Street
+        db.query(`SELECT Meal.Name, Meal.MealID, Meal.Image, Meal.Description, Location.Latitude, Location.Longitude
                   FROM Meal
                   JOIN Location 
                   ON Meal.LocationID = Location.LocationID`, 

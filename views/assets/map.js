@@ -83,6 +83,12 @@ $(document).ready(function() {
         updateMap(map, locations);
     });
 
+    socket.emit('mapUpdate', {
+        id: Cookies.get('id'),
+        lat: coord_lat,
+        lng: coord_lng,
+    });
+
     window.setInterval(function () {
         socket.emit('mapUpdate', {
             id: Cookies.get('id'),
