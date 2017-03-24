@@ -1,3 +1,5 @@
+
+
 module.exports = function() {
 	var express = require('express');
 	var app = express();
@@ -12,10 +14,8 @@ module.exports = function() {
 		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
 
-			// !IMPORTANT, USER ID IS NOT DEFINED HERE WE'll NEED TO GET IT SOMEHOW
-
 			param.user_data = {
-				userID: 111,
+				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage
@@ -38,7 +38,7 @@ module.exports = function() {
 			param.loggedin = true;
 
 			param.user_data = {
-				userID: 666,
+				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage

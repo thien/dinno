@@ -3,6 +3,7 @@ const app = express();
 const fs = require('fs');
 const db = require('../functions/database');
 const encrypt = require('../functions/encrypt');
+var login = require('../functions/login');
 const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 var Cookies = require("cookies");
 
@@ -241,22 +242,41 @@ module.exports = function() {
 	})
 
 	app.post('/editprofile', function(req, res) {
-		// get results
-		var userData = req.body;
-		userData.edit = true;
+		var param = {
+			loggedin: false,
+		};
+	
+		login.checkLogin(req, res).then(function(result) {
+			// get results
+			var param = req.body;
+			param.loggedin = true;
+			param.edit = true;
+			param.user_data = {
+				userID: result.userID,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
 
-		var cookies = new Cookies(req, res);
-		userId = cookies.get('id');
+			var cookies = new Cookies(req, res);
+			userId = cookies.get('id');
 
-		var isValidUser = updateUser(userId, userData, res);
+			var isValidUser = updateUser(userId, param, res);
 
-		if (!isValidUser) {
-			console.log(`Rejected user ${userData['email']}`);
-			delete userData.password;
-			delete userData.vpassword;
-			res.render('register', userData);
-		}
+			if (!isValidUser) {
+				console.log(`Rejected user ${param['email']}`);
+				delete param.password;
+				delete param.vpassword;
+				res.render('register', param);
+			}
 
+		}, function(err){
+			param.error_message = {
+				msg: "You're not logged in."
+			};
+			res.render('error', param);
+		});
+		
 	})
 
 	return app;
