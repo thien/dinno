@@ -85,19 +85,26 @@
 	}
 
 	html, body, .container-fluid, .row { height: 100% }
-
+	.navbar-alt {
+		padding: 20px;
+		font-weight: bold;
+		margin-bottom: -80px;
+	}
 	.navbar {
 		font-weight: bold;
 		/*min-height: 80px;*/
 		background-color: #FF5353;
 	}
 	@media(min-width: 990px){
-		.navbar {
+		.navbar, .navbar-alt {
 			min-height: 80px;
 		}
 	}
 	.navbar a{
 		color: #fff;
+	}
+	.navbar-alt a{
+		color: #222;
 	}
 	#navsearchbar, #navsearchbutton {
 		background-color: #FF5353;
@@ -125,6 +132,11 @@
 
 	.navbar-collapse{
 		background-color: #FF5353;
+		z-index: 2;
+	}
+
+	.navbar-alt-collapse{
+		background-color: transparent;
 		z-index: 2;
 	}
 
