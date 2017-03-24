@@ -21,8 +21,8 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 					span.sr-only (current)
 			li.nav-item
 				a.nav-link(href='/add') Add
-			//- li.nav-item
-			//- 	a.nav-link(href='/profile') Profile
+			li.nav-item
+				a.nav-link(href='/manage?type=others') Dinnos
 			li.nav-item
 				a.nav-link(href='/chat') Chat
 
@@ -33,6 +33,8 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 					.dropdown-menu.dropdown-menu-right
 						h6.dropdown-header Hi, #{user_data.firstname}
 						a.dropdown-item(href='/profile') Profile
+						|  
+						a.dropdown-item(href='/manage?type=yours') Your Dinnos
 						|  
 						a.dropdown-item(href='/settings') Settings
 						|  
