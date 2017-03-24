@@ -1,0 +1,32 @@
+if alerts
+	.alert-containers
+		if alerts.success
+			each message in alerts.success
+				.alert.alert-success(role='alert')
+					button.close(type='button', data-dismiss='alert', aria-label='Close')
+						span(aria-hidden='true') &times;
+					span #{message}
+
+		if alerts.info
+			each message in alerts.info
+				.alert.alert-info(role='alert')
+					button.close(type='button', data-dismiss='alert', aria-label='Close')
+						span(aria-hidden='true') &times;
+					span #{message}
+
+		if alerts.warning
+			each message in alerts.warning
+				.alert.alert-warning(role='alert')
+					button.close(type='button', data-dismiss='alert', aria-label='Close')
+						span(aria-hidden='true') &times;
+					span #{message}
+
+		if alerts.error
+			each message in alerts.error
+				.alert.alert-danger(role='alert')
+					button.close(type='button', data-dismiss='alert', aria-label='Close')
+						span(aria-hidden='true') &times;
+					span #{message}
+else
+	p
+	| no erroro

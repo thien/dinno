@@ -44,7 +44,20 @@ module.exports = function() {
 				mugshot: result.ProfileImage
 			};
 
-			res.render('new_fooditem', param);
+			//
+			//  This section is where you manipulate the data etc.
+			//
+			//
+
+			//resulting item
+			param.new_item = {
+				name: "Hot dogs",
+				image: "http://assets.epicurious.com/photos/5761c748ff66dde1456dfec0/2:1/w_1260%2Ch_630/crispy-baked-chicken-wings.jpg",
+				id: 123
+			}
+
+			//render page with new entry
+			res.render('added_fooditem', param);
 		}, function(err) {
 			param.error_message = {
 				msg: err
