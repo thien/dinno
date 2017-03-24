@@ -2,6 +2,26 @@
 	#container {
 		padding: 50px;
 	}
+	.container-vp {
+		padding: 10px 0px;
+	}
+	.container-padder {
+		padding: 0px 20px;
+		margin: 0px;
+	}
+	.manage-header {
+		padding: 20px 0px 10px 0px;
+	}
+	.sort-select-optiontype {
+		width: 100%;
+		padding: 0px 0px 20px;
+		margin: 0 auto; 
+	    text-align: center;
+	    display: inline-block;
+	}
+	.user-fooditem-cardlist {
+		padding: 0px 10px;
+	}
 	.footer {
 		position: absolute;
 		bottom: 0;
@@ -382,6 +402,13 @@
 	#secret-image-input {
 		display: none;
 	}
+
+	.card-horizontal {    flex-direction: row;}
+/*	.card-horizontal-sm-up { ... }
+	.card-horizontal-md-up { ... } etc.*/
+
+	.card-horizontal .card-img {    flex: 0 0 $card-img-width;}
+	.card-horizontal .card-block {    flex: 0 0 calc(100% - $card-img-width)}
 
 	.alert-containers{
 		margin: 10px 0px 0px 0px;
