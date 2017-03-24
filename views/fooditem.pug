@@ -16,22 +16,22 @@ block container
 	.row
 		.col-md-6
 			#container.fooditem_profile
-				img.d-block.img-fluid(src=Image)
+				img.d-block.img-fluid(src=data.Image)
 
 				//- load image container
 				.card-profile-container
-					img.card-userprofile-img(src=ProfileImage, alt='Card image cap')
+					img.card-userprofile-img(src=data.ProfileImage, alt='Card image cap')
 
 				//- food name
 				h2 #{Name}
 
 				h5
 					#userrating
-						span.badge#user_rating #{Rating}
-					.username #{Firstname} #{Surname} 
+						span.badge#user_rating #{data.Rating}
+					.username #{data.Firstname} #{data.Surname} 
 
 				//- print description
-				p #{Description}
+				p #{data.Description}
 
 				//- //- print tags
 				//- .tags_container

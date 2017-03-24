@@ -10,9 +10,9 @@ app.locals.basedir = "." + '/views';
 function getProfileInfo(userId) {
     return new Promise(function(resolve, reject) {
         db.query(`SELECT *,
-				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
-				  FROM User
-				  WHERE UserID = ?`, [userId],
+                  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
+                  FROM User
+                  WHERE UserID = ?`, [userId],
             function(error, results, fields) {
                 if (error) {
                     console.log(error);
@@ -30,10 +30,10 @@ function getProfileInfo(userId) {
 function getUserMeals(userId) {
     return new Promise(function(resolve, reject) {
         db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage
-				  FROM Meal
+                  FROM Meal
                   JOIN User 
                   ON User.UserID = Meal.UserID
-				  WHERE Meal.UserID = ?`, [userId],
+                  WHERE Meal.UserID = ?`, [userId],
             function(error, results, fields) {
                 if (error) {
                     console.log(error);
@@ -47,19 +47,31 @@ function getUserMeals(userId) {
 
 module.exports = function() {
   app.get('/profile', function(req, res) {
+    var param = {
+            loggedin : false,
+    };
+
     login.checkLogin(req, res).then(function(result) {
+        // user is logged in, proceed.
+            param.loggedin = true;
       var cookies = new Cookies(req, res);
       var userId = req.query.id;
       if (!userId) {
         userId = cookies.get('id');
       }
+      param.user_data = {
+                userID : userId,
+                firstname : result.Firstname,
+                surname : result.Surname,
+                mugshot : result.ProfileImage
+            };
 
       var profileInfo = getProfileInfo(userId);
       var userMeals = getUserMeals(userId);
 
       Promise.all([profileInfo, userMeals]).then(function(data) {
 
-        var param = {
+        param.page_data = {
           name: `${data[0].Firstname} ${data[0].Surname}`,
           age: data[0].Age,
           userId: userId,
@@ -75,21 +87,25 @@ module.exports = function() {
         res.render('profile', param);
 
       }, function(err) {
-        var error_message = {
-          msg: err
-        };
-        res.render('error', error_message);
-      });
+                param.error_message = {
+                    msg: err
+                };
+                res.render('error', param);
+            });
     }, function(err) {
-      var error_message = {
-        msg: "You're not logged in."
-      };
-      res.render('error', error_message);
-    });
+            param.error_message = {
+                msg:"You're not logged in."
+            };
+            res.render('error', param);
+        });
   })
 
 app.get('/editprofile', function(req, res) {
+     var param = {
+            loggedin : false,
+    };
     login.checkLogin(req, res).then(function(result) {
+        param.loggedin = true;
       var cookies = new Cookies(req, res);
       userId = cookies.get('id');
      
@@ -97,7 +113,7 @@ app.get('/editprofile', function(req, res) {
 
       Promise.all([profileInfo]).then(function(data) {
         
-        var param = {
+        param.user_details = {
           forename: `${data[0].Firstname}`,
           surname: `${data[0].Surname}`,
           profileImage: data[0].ProfileImage,
@@ -108,18 +124,17 @@ app.get('/editprofile', function(req, res) {
         res.render('register', param);
 
       }, function(err) {
-        var error_message = {
-          msg: err
-        };
-        res.render('error', error_message);
-      });
+                param.error_message = {
+                    msg: err
+                };
+                res.render('error', param);
+            });
     }, function(err) {
-      var error_message = {
-        msg: "You're not logged in."
-      };
-      res.render('error', error_message);
-    });
-
+            param.error_message = {
+                msg:"You're not logged in."
+            };
+            res.render('error', param);
+        });
   })
   return app;
 }();
