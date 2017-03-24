@@ -188,6 +188,7 @@
 
 	#profilephoto{
 		margin: 20px 0px;
+		max-width: 90vw;
 		background-color: #00ff00;
 		border-radius: 50%;
 	}
