@@ -59,6 +59,8 @@ module.exports = function() {
             var profileInfo = getProfileInfo(userId);
             var userMeals = getUserMeals(userId);
 
+            console.log("Result:",result.Firstname);
+
             Promise.all([profileInfo, userMeals]).then(function(data) {
                 var review = {
                     "pauline": "this is good lol"
