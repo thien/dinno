@@ -128,6 +128,13 @@ module.exports = function() {
 					edit: true,
 				};
 
+				param.alerts = {
+					warning: [],
+					info : [],
+					error : [],
+					success : ["Your data has been updated successfully."]
+				}
+
 				res.render('edit_profile', param);
 
 			}, function(err) {
