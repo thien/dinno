@@ -99,7 +99,63 @@ module.exports = function() {
 			res.render('error', param);
 		});
 	})
+	app.get('/profile/:id', function(req, res) {
+		var param = {
+			loggedin: false,
+		};
 
+		console.log(req.params.id)
+
+		login.checkLogin(req, res).then(function(result) {
+			// user is logged in, proceed.
+			param.loggedin = true;
+			var cookies = new Cookies(req, res);
+
+			var userId = req.params.id;
+			if (!userId) {
+				userId = cookies.get('id');
+			}
+			
+			param.user_data = {
+				userID: userId,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
+
+			var profileInfo = getProfileInfo(userId);
+			var userMeals = getUserMeals(userId);
+
+			Promise.all([profileInfo, userMeals]).then(function(data) {
+
+				param.page_data = {
+					name: `${data[0].Firstname} ${data[0].Surname}`,
+					age: data[0].Age,
+					userId: userId,
+					profile_photo: data[0].ProfileImage,
+					user_location: "London",
+					rating: data[0].Rating,
+					no_reviews: 17,
+					reviews: 'review',
+					fooditems: data[1],
+					ownProfile: !req.query.id
+				};
+
+				res.render('profile', param);
+
+			}, function(err) {
+				param.error_message = {
+					msg: err
+				};
+				res.render('error', param);
+			});
+		}, function(err) {
+			param.error_message = {
+				msg: "You're not logged in."
+			};
+			res.render('error', param);
+		});
+	})
 	app.get('/editprofile', function(req, res) {
 		var param = {
 			loggedin: false,
