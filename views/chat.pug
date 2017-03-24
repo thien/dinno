@@ -61,8 +61,8 @@ html(lang="en")
 				.message-wrap.col-lg-12
 					.media.msg#chat_header
 							.media-body
-								a.pull-right(href='#')
-									img.media-object#contact_photo( src='http://cdn.marketplaceimages.windowsphone.com/v8/images/28374c9d-d97c-46ba-b5ed-9c3645cb2710?imageType=ws_icon_large')
+								a.pull-right(href='/profile?id=' + theirId)
+									img.media-object#contact_photo( src=profileImage)
 								.pull-left#contact_details
 									h5.media-heading #{theirName}
 									.status-circle.green

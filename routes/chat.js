@@ -17,16 +17,16 @@ module.exports = function() {
 			var recipientId = req.query.id;
 			if (senderId && recipientId) {
 
-				var recipientName = chat.getRecipientName(recipientId);
+				var recipientInfo = chat.getRecipientInfo(recipientId);
 				var previousMessages = chat.getPreviousMessages(senderId, recipientId);
 
-				Promise.all([recipientName, previousMessages]).then(function(data) {
+				Promise.all([recipientInfo, previousMessages]).then(function(data) {
 
-					var name = data[0]
-					var messages = data[1]
 					var param = {
-						theirName: name,
-						messages: messages,
+						theirName: `${data[0].Firstname} ${data[0].Surname}`,
+            profileImage: data[0].ProfileImage,
+            theirId: recipientId,
+						messages: data[1],
 					};
 					res.render('chat', param);
 

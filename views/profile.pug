@@ -5,29 +5,32 @@ block container
 	include includes/nav
 	.container 
 		.row#user_profile_details
-			.col-md-6#left
-				#container
-				h1 Hi, I'm #{page_data.name}
+			.col-md-4.col-lg-3
+				img(src=page_data.profile_photo)#profilephoto
+			.col-md-6.col-lg-6
+				h1#profile-title Hi, I'm #{page_data.name}
 				h4 
 					span.badge.badge-default #{page_data.rating}
 					|	 #{page_data.user_location}
 				h6 #{page_data.age} years old
+				if ownProfile
+					a.chat-link(href='editprofile') Edit profile
 				a.chat-link(href='chat?id=' + page_data.userId) Send me a message
 				a(href="google.com") Report me
-			.col-md-3#right
-				img(src=profile_photo)#profilephoto
-		.row
-			.col-md-9
+		.dinnos
 				h3 Dinnos
-				.card-columns
+				.row
 					each fooditem in page_data.fooditems
-						a(href='fooditem?id=' + fooditem.MealID).card.fooditem-card
-							img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
-							.card-profile-container
-								img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
-							.card-block
-								h4.card-title #{fooditem.Name}
-								p.card-text #{fooditem.Description}
+						.col-md-3
+							a(href='fooditem?id=' + fooditem.MealID).card.fooditem-card
+								img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+								.card-profile-container
+									img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+								.card-block
+									h4.card-title #{fooditem.Name}
+									p.card-text #{fooditem.Description}
+					else
+						h5 No food :(
 								//- p.card-text
 								//- 	small.text-muted Last updated #{fooditem.last_updated} mins ago
 					//- a(href='/fooditem').card

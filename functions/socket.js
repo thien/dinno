@@ -51,7 +51,7 @@ module.exports = function Server(io, server) {
             img_json.src = img_json.src.replace("data:image/png;base64,", "");
 
             upload(img_json.src, function(err, response){
-            	// console.log(response.data.link)
+            	console.log(response.data.link)
             	var resp_img = {
             		'id' : img_json.id,
             		'url': response.data.link

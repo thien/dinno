@@ -13,6 +13,7 @@ socket.on('img_uploaded', function(img_url) {
 	targetDiv.className += " img_upload_done";
 	var line = '<input type="hidden" name="images[]" value="'+img_url.url+'">';
 	$( "#pictureupload" ).append( line );
+    $("#secret-image-input").val(img_url.url);
 });
 
 $(function() {
