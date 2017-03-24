@@ -7,12 +7,12 @@ block container
 		.row#user_profile_details
 			.col-md-6#left
 				#container
-				h1 Hi, I'm #{name}
+				h1 Hi, I'm #{page_data.name}
 				h4 
-					span.badge.badge-default #{rating}
-					|	 #{user_location}
-				h6 #{age} years old
-				a.chat-link(href='chat?id=' + userId) Send me a message
+					span.badge.badge-default #{page_data.rating}
+					|	 #{page_data.user_location}
+				h6 #{page_data.age} years old
+				a.chat-link(href='chat?id=' + page_data.userId) Send me a message
 				a(href="google.com") Report me
 			.col-md-3#right
 				img(src=profile_photo)#profilephoto
@@ -20,7 +20,7 @@ block container
 			.col-md-9
 				h3 Dinnos
 				.card-columns
-					each fooditem in fooditems
+					each fooditem in page_data.fooditems
 						a(href='fooditem?id=' + fooditem.MealID).card.fooditem-card
 							img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
 							.card-profile-container

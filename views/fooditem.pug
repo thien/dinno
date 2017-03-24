@@ -14,8 +14,8 @@ block container
 					//- 	li(data-target='#carouselExampleIndicators', data-slide-to='2')
 					.carousel-inner(role='listbox')
 						.carousel-item.active
-							img.d-block.img-fluid(src=front_img, alt='First slide')
-						each img in carousel_img
+							img.d-block.img-fluid(src=random.front_img, alt='First slide')
+						each img in random.carousel_img
 							.carousel-item
 								img.d-block.img-fluid(src=img, alt='Second slide')
 					//- buttons for carousel
@@ -28,29 +28,29 @@ block container
 
 				//- load image container
 				.card-profile-container
-					img.card-userprofile-img(src=userimg, alt='Card image cap')
+					img.card-userprofile-img(src=random.userimg, alt='Card image cap')
 
 				//- food name
-				h2 #{foodname}
+				h2 #{random.foodname}
 
 				h5
 					#userrating
-						span.badge#user_rating #{user_rating}
-					.username #{user_name}
+						span.badge#user_rating #{random.user_rating}
+					.username #{random.user_name}
 
 				//- print description
-				p #{description}
+				p #{random.description}
 
 				//- print tags
 				.tags_container
-					each tag in tags
+					each tag in random.tags
 						span.badge.categoriestags #{tag}
 
 				//- request button
 				button.btn.btn-primary.btn-lg.btn-block(type='button') Dinno This
 		.col-md-4
 			#container
-				- var coord = marker.lat + "," + marker.lng
+				- var coord = random.marker.lat + "," + random.marker.lng
 				- var mapsrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCFfZX6iV4dWsBxUQ45EnobLYATI3WfXtw&q=Space+Needle,Seattle+WA&zoom=15&center="
 				- mapsrc = mapsrc + coord
 

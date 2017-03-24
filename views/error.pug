@@ -2,7 +2,7 @@ extends layout
 
 block container
 
-	include includes/nav
+	//- include includes/nav
 	.container 
 		.row
 			.col-md-6#left
@@ -12,8 +12,12 @@ block container
 					p
 					| I'm not sure how you encountered this page, but here's the corresponding error message:
 
-					pre #{msg}
+					pre #{error_message.msg}
 					p
 					| Let us know about this issue at 
 					a(href="mailto:errors@dinno.club")
-						| errors@dinno.club.
+						| errors@dinno.club
+					| .
+					br
+					br
+					button.btn.btn-outline-danger(onclick='window.history.back()') Take me back!

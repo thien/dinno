@@ -48,7 +48,14 @@ function getUserMeals(userId) {
 module.exports = function() {
     app.get('/profile', function(req, res) {
 
+        var param = {
+            loggedin : false,
+        };
+
         login.checkLogin(req, res).then(function(result) {
+            // user is logged in, proceed.
+            param.loggedin = true;
+
             var cookies = new Cookies(req, res);
 
             var userId = req.query.id;
@@ -59,14 +66,22 @@ module.exports = function() {
             var profileInfo = getProfileInfo(userId);
             var userMeals = getUserMeals(userId);
 
-            console.log("Result:",result.Firstname);
+            // console.log("Result:",result.Firstname);
+            console.log("Result:",result);
+
+            param.user_data = {
+                userID : userId,
+                firstname : result.Firstname,
+                surname : result.Surname,
+                mugshot : result.ProfileImage
+            };
 
             Promise.all([profileInfo, userMeals]).then(function(data) {
                 var review = {
                     "pauline": "this is good lol"
                 }
 
-                var param = {
+                param.page_data = {
                     name: `${data[0].Firstname} ${data[0].Surname}`,
                     age: data[0].Age,
                     userId: userId,
@@ -81,16 +96,16 @@ module.exports = function() {
                 res.render('profile', param);
 
             }, function(err) {
-                var error_message = {
+                param.error_message = {
 					msg: err
 				};
-				res.render('error', error_message);
+				res.render('error', param);
             });
         }, function(err) {
-            var error_message = {
+            param.error_message = {
 				msg:"You're not logged in."
 			};
-			res.render('error', error_message);
+			res.render('error', param);
         });
 
     })

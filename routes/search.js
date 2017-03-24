@@ -10,8 +10,20 @@ app.locals.basedir = "." + '/views';
 module.exports = function(){
 
 	app.get('/search', function (req, res) {
+		var param = {
+            loggedin : false,
+        };
 
 		login.checkLogin(req, res).then(function(result) {
+			param.loggedin = true;
+			// !IMPORTANT; THE USER ID NEEDS TO BE FOUND!!!
+			param.user_data = {
+                userID : 666,
+                firstname : result.Firstname,
+                surname : result.Surname,
+                mugshot : result.ProfileImage
+            };
+
 			console.log(req.query);
 			var query = "SELECT * FROM ?? WHERE(?? LIKE ?)"
 			var meal = false;
@@ -111,7 +123,7 @@ module.exports = function(){
 	        ]
 
 		   	var food_item_query = req.query.food;
-		    var param = {
+		   	param.results = {
 		        food: food_item_query,
 		        fooditems: random_foods_list
 		    }
@@ -119,12 +131,11 @@ module.exports = function(){
 		    // console.log("someone's searching for", param)
 				res.render('searchitem', param);
     }, function(err) {
-      // res.render('frontpage');
-      var error_message = {
+            param.error_message = {
 				msg:"You're not logged in."
 			};
-			res.render('error', error_message);
-    });
+			res.render('error', param);
+        });
 		// console.log(req.query);
 
 	    // will need to deal with queries

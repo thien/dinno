@@ -22,8 +22,8 @@ block container
 		.row
 			.col-6.no-float#results_container_left
 				#search_item_details 
-					if food
-						h1 Searching for #{food}
+					if results.food
+						h1 Searching for #{results.food}
 					else
 						h1 Searching for ?
 					#formHolder
@@ -42,7 +42,7 @@ block container
 							br
 				#list_results_container
 					.card-columns#fooditem_results_card
-						each fooditem in fooditems
+						each fooditem in results.fooditems
 							a(href=fooditem.urle id='fooditem_' + fooditem.food_id).card
 								img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
 								.card-profile-container

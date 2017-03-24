@@ -8,8 +8,20 @@ module.exports = function() {
 
 	app.get('/fooditem', function(req, res) {
 
-		login.checkLogin(req, res).then(function(result) {
-			var random = {
+		var param = {
+            loggedin : false,
+        };
+
+        login.checkLogin(req, res).then(function(result) {
+            param.loggedin = true;
+
+            param.user_data = {
+                userID : 123,
+                firstname : result.Firstname,
+                surname : result.Surname,
+                mugshot : result.ProfileImage
+            };
+			param.random = {
 				"foodname": "Hot Dogs",
 				"food_id": Math.round(Math.random() * 1000),
 				"user_id": Math.round(Math.random() * 1000),
@@ -34,13 +46,13 @@ module.exports = function() {
 				"tags": ["KFC", "Chicken", "BBQ", "Hot Food"]
 			}
 
-			res.render('fooditem', random);
+			res.render('fooditem', param);
 		}, function(err) {
-			var error_message = {
+            param.error_message = {
 				msg:"You're not logged in."
 			};
-			res.render('error', error_message);
-		});
+			res.render('error', param);
+        });
 
 	})
 

@@ -5,24 +5,57 @@ module.exports = function() {
     app.locals.basedir = "." + '/views';
 
     app.get('/add', function(req, res) {
+        var param = {
+            loggedin : false,
+        };
+
         login.checkLogin(req, res).then(function(result) {
-            res.render('new_fooditem');
+            param.loggedin = true;
+
+            // !IMPORTANT, USER ID IS NOT DEFINED HERE WE'll NEED TO GET IT SOMEHOW
+
+
+            param.user_data = {
+                userID : 111,
+                firstname : result.Firstname,
+                surname : result.Surname,
+                mugshot : result.ProfileImage
+            };
+
+            res.render('new_fooditem', param);
         }, function(err) {
-            var error_message = {
-				msg:"You're not logged in."
-			};
+            param.error_message = {
+                msg: err
+            };
 			res.render('error', error_message);
         });
     })
 
     app.post('/add', function(req, res) {
+        var param = {
+            loggedin : false,
+        };
         login.checkLogin(req, res).then(function(result) {
-            res.render('new_fooditem');
+            param.loggedin = true;
+
+            var userId = req.query.id;
+            if (!userId) {
+                userId = cookies.get('id');
+            }
+
+            param.user_data = {
+                userID : userId,
+                firstname : result.Firstname,
+                surname : result.Surname,
+                mugshot : result.ProfileImage
+            };
+
+            res.render('new_fooditem', param);
         }, function(err) {
-            var error_message = {
-				msg:"You're not logged in."
-			};
-			res.render('error', error_message);
+            param.error_message = {
+                msg: err
+            };
+            res.render('error', param);
         });
     })
 
