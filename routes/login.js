@@ -101,5 +101,12 @@ module.exports = function() {
 		login(email, pass, remember, req, res);
 	})
 
+	app.get('/logout', function(req, res) {
+		var cookies = new Cookies(req, res);
+		cookies.set('loginCode', '');
+		cookies.set('id', '');
+		res.render('frontpage');
+	})
+
 	return app;
 }();
