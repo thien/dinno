@@ -14,14 +14,14 @@ function login(email, pass, remember, req, res) {
 			var error_message = {
 				msg: error
 			};
-			res.render('error', error_message);
+			res.render('error', {error_message: error_message});
 		} 
 		else if (results.length == 0) {
 				console.log('Email not found');
 				var error_message = {
 					msg: 'Email address not found'
 				};
-				res.render('error', error_message);
+				res.render('error', {error_message: error_message});
 		} 
 		else {
 			var verificationCode = results[0].VerificationCode;
@@ -38,7 +38,7 @@ function login(email, pass, remember, req, res) {
 				var error_message = {
 					msg: 'Login unsuccessful'
 				};
-				res.render('error', error_message);
+				res.render('error', {error_message: error_message});
 			}
 		}
 	});
@@ -55,14 +55,14 @@ function setLoginCookie(id, remember, req, res) {
 			var error_message = {
 				msg: error
 			};
-			res.render('error', error_message);
+			res.render('error', {error_message: error_message});
 		} 
 		else if (results.length == 0) {
 			console.log('User id not found');
 			var error_message = {
 				msg: 'User not found'
 			};
-			res.render('error', error_message);
+			res.render('error', {error_message: error_message});
 		} 
 		else {
 			var cookies = new Cookies(req, res);
