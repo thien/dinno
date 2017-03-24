@@ -76,6 +76,37 @@
 		background-color: #FF5353;
 		z-index: 2;
 	}
+
+	.nav-profile{
+		/*background-color: #ccc;*/
+		margin: 0px 10px;
+		width: 40px;
+		display: block;
+	}
+	.nav-profile::after{
+		display:none !important;
+	}
+
+	.nav-profile-dropdown .dropdown-header{
+		font-size: 1em;
+	}
+	.nav-profile-dropdown .dropdown-item{
+		font-size: 0.9em;
+	}
+	.nav-profile-dropdown a{
+		color: #000;
+	}
+
+	.navbar-mugshot {
+		border-radius: 100px;
+		height: 40px;
+		width: 40px;
+		background-color: #fff;
+	}
+	.navbar-mugshot:hover{
+		/*background-color: #ccc;*/
+		border: 1px solid #ccc;
+	}
 	.map{
 		height:inherit;
 	}
