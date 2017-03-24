@@ -16,7 +16,7 @@ block container
 				h6 #{page_data.age} years old
 				if page_data.ownProfile
 					a.chat-link(href='editprofile') Edit profile
-				a.chat-link(href='chat?id=' + page_data.userId) Send me a message
+				a.chat-link(href='/chat?id=' + page_data.userId) Send me a message
 				a(href="google.com") Report me
 		.dinnos
 				h3 Dinnos
