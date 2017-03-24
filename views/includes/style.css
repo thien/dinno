@@ -83,6 +83,14 @@
 		background-color: #ccc;
 		height:calc(100% - 0px);
 	}
+	.marker-image {
+		float: right;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    height: 80px;
+    width: 80px;
+    position: relative;
+	}
 	#search_item_details {
 		padding: 30px 10px 10px 10px;
 		text-align: center;

@@ -4,8 +4,8 @@ var markers = {};
 
 function initMap() {
     // get latitude and longitude from GET variables
-    var coord_lat = parseFloat(GETVariable("lat"));
-    var coord_lng = parseFloat(GETVariable("lng"));
+    var coord_lat = parseFloat(GETVariable("lat")) || 54.7731;
+    var coord_lng = parseFloat(GETVariable("lng")) || -1.57489;
 
     // load google maps with 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -32,11 +32,22 @@ function updateMap(map, locations) {
             newMarkers[markerId] = marker;
             delete markers[markerId];
 
+
             google.maps.event.addListener(marker, 'click', function(event) {
-                document.getElementById('lat').innerHTML = event.latLng.lat();
-                document.getElementById('lng').innerHTML = event.latLng.lng();
                 var coordInfoWindow = new google.maps.InfoWindow({
-                    content: '<button type="button">Get ' + loc.Name + ' at ' + marker.title + '</button>',
+                    content: `<div class='row'>
+                                <div class='col-md-4'>
+                                    <a href='/fooditem?id=${loc.MealID}''> 
+                                        <img src='${loc.Image}' class='marker-image' style='padding-right:45px;'>  
+                                    </a>
+                                </div>
+                                <div class='col-md-8'>
+                                    <a href='/fooditem?id=${loc.MealID}''> 
+                                        <h3> ${loc.Name} </h5>
+                                    </a>
+                                    <p> ${loc.Description} </p>
+                                </div>
+                            </div>`,
                     position: marker.position
                 });
                 coordInfoWindow.open(map);
