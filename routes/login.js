@@ -105,7 +105,7 @@ module.exports = function() {
 		var cookies = new Cookies(req, res);
 		cookies.set('loginCode', '');
 		cookies.set('id', '');
-		res.redirect('back');
+		res.redirect('/');
 	})
 
 	return app;
