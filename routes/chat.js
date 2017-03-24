@@ -25,6 +25,7 @@ module.exports = function() {
 					var param = {
 						theirName: `${data[0].Firstname} ${data[0].Surname}`,
             profileImage: data[0].ProfileImage,
+            theirId: recipientId,
 						messages: data[1],
 					};
 					res.render('chat', param);

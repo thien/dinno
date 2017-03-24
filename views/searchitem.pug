@@ -62,7 +62,7 @@ html(lang="en")
 					#list_results_container
 						.row#fooditem_results_card
 							each fooditem in fooditems
-								.col-md-4
+								.col-md-6.col-lg-4
 									a(href=fooditem.urle id='fooditem_' + fooditem.food_id).card
 										img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
 										.card-profile-container
