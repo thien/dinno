@@ -1,6 +1,8 @@
-module.exports = function() {
-	var express = require('express');
+var express = require('express');
 	var app = express();
+	var login = require('../functions/login');
+	var Cookies = require("cookies");
+module.exports = function() {
 	app.locals.basedir = "." + '/views';
 
 	app.get('/', function(req, res) {
