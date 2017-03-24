@@ -13,7 +13,7 @@ block container
 					span.badge.badge-default #{page_data.rating}
 					|	 #{page_data.user_location}
 				h6 #{page_data.age} years old
-				if ownProfile
+				if page_data.ownProfile
 					a.chat-link(href='editprofile') Edit profile
 				a.chat-link(href='chat?id=' + page_data.userId) Send me a message
 				a(href="google.com") Report me

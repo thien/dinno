@@ -111,6 +111,13 @@ module.exports = function() {
 
 			var profileInfo = getProfileInfo(userId);
 
+			param.user_data = {
+				userID: userId,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
+
 			Promise.all([profileInfo]).then(function(data) {
 
 				param.user_details = {
@@ -121,7 +128,7 @@ module.exports = function() {
 					edit: true,
 				};
 
-				res.render('register', param);
+				res.render('edit_profile', param);
 
 			}, function(err) {
 				param.error_message = {
