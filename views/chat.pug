@@ -72,9 +72,9 @@ html(lang="en")
 					.msg-wrap
 						//- display messages
 						
-						- var lastMsg = messages[0];
+						- var lastMsg = chat.messages[0];
 						each msg, i in chat.messages
-							- var lastMsg = messages[i-1];
+							- var lastMsg = chat.messages[i-1];
 							if i == 0
 								.alert.alert-info.msg-date
 										strong #{msg.Day}
