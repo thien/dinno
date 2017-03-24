@@ -1,56 +1,48 @@
 extends layout
-
+//- Name: 'Birds',
+//-   Description: 'They keep me up at night. Free to a good home.',
+//-   Image: 'http://i.imgur.com/RIi7RlF.png',
+//-   HouseNoName: 'Bill Bryson Library',
+//-   Street: 'South Road',
+//-   Latitude: 54.7683,
+//-   Longitude: -1.57322,
+//-   Firstname: 'Thien',
+//-   Surname: 'Nguyen',
+//-   ProfileImage: 'http://i.imgur.com/fzYJAEz.png',
+//-   Rating: 5 }
 
 block container
 	include includes/nav
 	.row
 		.col-md-6
 			#container.fooditem_profile
-				//- carousel for pics.
-				#carouselExampleIndicators.carousel.slide(data-ride='carousel')
-					//- ol.carousel-indicators
-					//- 	li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
-					//- 	li(data-target='#carouselExampleIndicators', data-slide-to='1')
-					//- 	li(data-target='#carouselExampleIndicators', data-slide-to='2')
-					.carousel-inner(role='listbox')
-						.carousel-item.active
-							img.d-block.img-fluid(src=front_img, alt='First slide')
-						each img in carousel_img
-							.carousel-item
-								img.d-block.img-fluid(src=img, alt='Second slide')
-					//- buttons for carousel
-					a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
-						span.carousel-control-prev-icon(aria-hidden='true')
-						span.sr-only Previous
-					a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
-						span.carousel-control-next-icon(aria-hidden='true')
-						span.sr-only Next
+				img.d-block.img-fluid(src=data.Image)
 
 				//- load image container
 				.card-profile-container
-					img.card-userprofile-img(src=userimg, alt='Card image cap')
+					img.card-userprofile-img(src=data.ProfileImage, alt='Card image cap')
 
 				//- food name
-				h2 #{foodname}
+				h2 #{Name}
 
 				h5
 					#userrating
-						span.badge#user_rating #{user_rating}
-					.username #{user_name}
+						span.badge#user_rating #{data.Rating}
+					.username #{data.Firstname} #{data.Surname} 
 
 				//- print description
-				p #{description}
+				p #{data.Description}
 
-				//- print tags
-				.tags_container
-					each tag in tags
-						span.badge.categoriestags #{tag}
+				//- //- print tags
+				//- .tags_container
+				//- 	each tag in tags
+				//- 		span.badge.categoriestags #{tag}
 
 				//- request button
 				button.btn.btn-primary.btn-lg.btn-block(type='button') Dinno This
 		.col-md-4
 			#container
-				- var coord = marker.lat + "," + marker.lng
+				- var coord = Latitude + "," + Longitude
 				- var mapsrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCFfZX6iV4dWsBxUQ45EnobLYATI3WfXtw&q=Space+Needle,Seattle+WA&zoom=15&center="
 				- mapsrc = mapsrc + coord
 
@@ -64,6 +56,6 @@ block container
 
 				img(src=staticimg)#static_fooditem
 
-				h5 Durham, UK
-				p
-				| about 5 minutes away.
+				h5 #{HouseNoName} #{Street}
+				//- p
+				//- | about 5 minutes away.

@@ -61,10 +61,10 @@ html(lang="en")
 				.message-wrap.col-lg-12
 					.media.msg#chat_header
 							.media-body
-								a.pull-right(href='#')
-									img.media-object#contact_photo( src='http://cdn.marketplaceimages.windowsphone.com/v8/images/28374c9d-d97c-46ba-b5ed-9c3645cb2710?imageType=ws_icon_large')
+								a.pull-right(href='/profile?id=' + chat.theirId)
+									img.media-object#contact_photo( src=chat.profileImage)
 								.pull-left#contact_details
-									h5.media-heading #{theirName}
+									h5.media-heading #{chat.theirName}
 									.status-circle.green
 									small.col-lg-10
 										i
@@ -72,9 +72,9 @@ html(lang="en")
 					.msg-wrap
 						//- display messages
 						
-						- var lastMsg = messages[0];
-						each msg, i in messages
-							- var lastMsg = messages[i-1];
+						- var lastMsg = chat.messages[0];
+						each msg, i in chat.messages
+							- var lastMsg = chat.messages[i-1];
 							if i == 0
 								.alert.alert-info.msg-date
 										strong #{msg.Day}

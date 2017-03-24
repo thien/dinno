@@ -76,6 +76,37 @@
 		background-color: #FF5353;
 		z-index: 2;
 	}
+
+	.nav-profile{
+		/*background-color: #ccc;*/
+		margin: 0px 10px;
+		width: 40px;
+		display: block;
+	}
+	.nav-profile::after{
+		display:none !important;
+	}
+
+	.nav-profile-dropdown .dropdown-header{
+		font-size: 1em;
+	}
+	.nav-profile-dropdown .dropdown-item{
+		font-size: 0.9em;
+	}
+	.nav-profile-dropdown a{
+		color: #000;
+	}
+
+	.navbar-mugshot {
+		border-radius: 100px;
+		height: 40px;
+		width: 40px;
+		background-color: #fff;
+	}
+	.navbar-mugshot:hover{
+		/*background-color: #ccc;*/
+		border: 1px solid #ccc;
+	}
 	.map{
 		height:inherit;
 	}
@@ -146,8 +177,14 @@
 		margin: 10px 0px;
 	}
 
+	
+
 	#user_profile_details {
+		margin-top: 50px;
 		margin-bottom: 30px;
+	}
+	#profile-title {
+		margin-top: 25px;
 	}
 	.card-profile-container{
 		height: 40px;
@@ -187,7 +224,9 @@
 	}
 
 	#profilephoto{
-		margin: 20px 0px;
+		display:block;
+    margin:auto;
+		max-width: 70vw;
 		background-color: #00ff00;
 		border-radius: 50%;
 	}
@@ -294,10 +333,10 @@
 		#profilephoto {
 			height: 200px;
 			width: 200px;
-			margin: 20%;
+			/*margin: 20%;
 			margin: 20% 0 20% auto;
 			display: block;
-			max-width: 300px;
+			max-width: 300px;*/
 		}
 
 	#static_fooditem {
@@ -339,5 +378,8 @@
 
 	.chat-link {
 		padding-right: 15px;
+	}
+	#secret-image-input {
+		display: none;
 	}
 </style>

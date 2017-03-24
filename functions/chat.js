@@ -27,9 +27,9 @@ module.exports = {
     });
   },
 
-  getRecipientName: function(recipientId) {
+  getRecipientInfo: function(recipientId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT Firstname, Surname
+        db.query(`SELECT Firstname, Surname, ProfileImage
                   FROM User
                   WHERE UserID = ?`, 
                 [recipientId], 
@@ -44,9 +44,7 @@ module.exports = {
                     reject("User not found");
                   }
                   else{
-                    var firstname = results[0].Firstname;
-                    var lastname  = results[0].Surname;
-                    resolve(`${firstname} ${lastname}`);
+                    resolve(results[0]);
                   }
                 });
     });
