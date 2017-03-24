@@ -118,6 +118,13 @@ module.exports = function() {
 
 			var profileInfo = getProfileInfo(userId);
 
+			param.user_data = {
+				userID: userId,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
+
 			Promise.all([profileInfo]).then(function(data) {
 
 				param.forename =  `${data[0].Firstname}`,
@@ -126,7 +133,14 @@ module.exports = function() {
 				param.email = data[0].EmailAddress,
 				param.edit =  true,
 
-				res.render('register', param);
+				param.alerts = {
+					warning: [],
+					info : [],
+					error : [],
+					success : ["Your data has been updated successfully."]
+				}
+
+				res.render('edit_profile', param);
 
 			}, function(err) {
 				param.error_message = {
