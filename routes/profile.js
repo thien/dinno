@@ -109,6 +109,13 @@ module.exports = function() {
 			var cookies = new Cookies(req, res);
 			userId = cookies.get('id');
 
+			param.user_data = {
+				userID: userId,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
+
 			var profileInfo = getProfileInfo(userId);
 
 			Promise.all([profileInfo]).then(function(data) {
