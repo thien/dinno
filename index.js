@@ -60,6 +60,9 @@ app.use('/', require('./routes/fooditem'));
 // add food item
 app.use('/', require('./routes/add'));  
 
+// manage fooditems
+app.use('/', require('./routes/manage'));  
+
 // add static assets for public access
 app.use('/assets', express.static('./views/assets'))
 
