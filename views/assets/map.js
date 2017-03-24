@@ -4,8 +4,8 @@ var markers = {};
 
 function initMap() {
     // get latitude and longitude from GET variables
-    var coord_lat = parseFloat(GETVariable("lat"));
-    var coord_lng = parseFloat(GETVariable("lng"));
+    var coord_lat = parseFloat(GETVariable("lat")) || 54.7731;
+    var coord_lng = parseFloat(GETVariable("lng")) || -1.57489;
 
     // load google maps with 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -32,11 +32,22 @@ function updateMap(map, locations) {
             newMarkers[markerId] = marker;
             delete markers[markerId];
 
+
             google.maps.event.addListener(marker, 'click', function(event) {
-                document.getElementById('lat').innerHTML = event.latLng.lat();
-                document.getElementById('lng').innerHTML = event.latLng.lng();
                 var coordInfoWindow = new google.maps.InfoWindow({
-                    content: '<button type="button">Get ' + loc.Name + ' at ' + marker.title + '</button>',
+                    content: `<div class='row popup-food'>
+    
+                                    <a href='/fooditem?id=${loc.MealID}''> 
+                                        <img src='${loc.Image}' class='marker-image'>  
+                                    </a>
+                                    <div class="popup-food-data">
+                                    <a href='/fooditem?id=${loc.MealID}''> 
+                                        <h3> ${loc.Name} </h5>
+                                    </a>
+                                    <p> ${loc.Description} </p>
+                                    </div>
+                                </div>
+                            </div>`,
                     position: marker.position
                 });
                 coordInfoWindow.open(map);
@@ -70,6 +81,12 @@ $(document).ready(function() {
     socket.on('mapUpdate', function(locations) {
         console.log(locations);
         updateMap(map, locations);
+    });
+
+    socket.emit('mapUpdate', {
+        id: Cookies.get('id'),
+        lat: coord_lat,
+        lng: coord_lng,
     });
 
     window.setInterval(function () {
