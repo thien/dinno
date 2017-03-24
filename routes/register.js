@@ -271,7 +271,10 @@ module.exports = function() {
 			}
 
 		}, function(err){
-	
+			param.error_message = {
+				msg: "You're not logged in."
+			};
+			res.render('error', param);
 		});
 		
 	})
