@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `Ingredient` (
   `BestBefore` date NOT NULL,
   `Category` varchar(60) NOT NULL,
   `Description` varchar(500) NOT NULL,
+  `Image` varchar(70) NOT NULL,
   PRIMARY KEY (`IngredientID`),
   KEY `UserID` (`UserID`),
   KEY `LocationID` (`LocationID`)
@@ -73,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `Meal` (
   `Name` varchar(60) NOT NULL,
   `DateServed` date NOT NULL,
   `Description` varchar(500) NOT NULL,
+  `Image` varchar(70) NOT NULL,
   PRIMARY KEY (`MealID`),
   KEY `UserID` (`UserID`),
   KEY `LocationID` (`LocationID`)
@@ -82,10 +84,18 @@ CREATE TABLE IF NOT EXISTS `Meal` (
 -- Test data for table `Meal`
 --
 
-INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `Name`, `DateServed`, `Description`) VALUES
-(1, 1, 2, 'Cauliflower Cheese', '2017-01-02', 'Some tasty cauliflower cheese.'),
-(2, 2, 3, 'Bangers & Mash', '2017-01-12', 'Tasty bangers.');
-
+INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `Name`, `DateServed`, `Description`, `Image`) VALUES
+(1, 2, 6, 'Birds', '2017-01-12', 'They keep me up at night. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png'),
+(2, 1, 8, 'Apples', '2017-02-08', 'Fresh from my back garden', 'http://i.imgur.com/FgSGTwD.png'),
+(3, 2, 6, 'Bread', '2017-03-02', 'Baked it yesterday', 'http://i.imgur.com/0b4FxjX.png'),
+(4, 1, 9, 'Chicken Wings', '2017-03-03', 'Too spicy for my little baby mouth', 'http://i.imgur.com/BZO1dmk.png'),
+(5, 1, 6, 'Lime', '2017-03-03', 'Put in coconut and shake it all up', 'http://i.imgur.com/qGwqKyk.png'),
+(6, 2, 7, 'Burger', '2017-02-12', 'Get it quick or I might just eat it', 'http://i.imgur.com/TN27JVi.png'),
+(7, 2, 8, 'Pizza', '2017-01-26', 'P-I-Z-Z-A', 'http://i.imgur.com/W50LFXw.png'),
+(8, 1, 4, 'Raspberries', '2017-01-28', 'Stole them from a farmer when he wasn\'t looking', 'http://i.imgur.com/KtUoI1n.png'),
+(9, 2, 4, 'Burrito', '2017-01-29', 'La he lamido', 'http://i.imgur.com/wx1aQh8.png'),
+(10, 1, 9, 'Pineapple', '2017-02-02', 'Took the photo in a field because I\'m artistic', 'http://i.imgur.com/GseR7AL.jpg'),
+(11, 1, 6, 'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'http://i.imgur.com/9uVJuWZ.jpg');
 -- --------------------------------------------------------
 
 --
@@ -104,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `IsVerified` boolean NOT NULL,
   `VerificationCode` varchar(70) NOT NULL,
   `LoginCode` varchar(70) NOT NULL,
+  `ProfileImage` varchar(70) NOT NULL,
   PRIMARY KEY (`UserID`),
   KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
@@ -112,12 +123,16 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Test data for table `User`
 --
 
-INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`, `LoginCode`) VALUES
-(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL),
-(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL),
-(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1, 0, NULL, NULL),
-(4, 1, 'john' , 'jennings' , 'johnmjennings97@gmail.com', '2017-01-01',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9'), 
-(5 ,1 ,'not john',  'jennings',  'juanuncalcetin@gmail.com' , '2017-01-01',  'b328473224ad100b5021818149d79347cbf5217490cb65959626a54b47089cb4' , 5, 1 ,'b256f0aa70f968d1a5b0ebefde8da550ea852359330b81ac3d59da6fbe5f0c4a','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef');
+INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`, `LoginCode`, `ProfileImage`) VALUES
+(1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png'),
+(2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png'),
+(3, 2, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png'),
+(4, 1, 'John' , 'Jennings' , 'johnmjennings97@gmail.com', '2017-01-01',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9', 'http://i.imgur.com/cnErTA2.jpg'), 
+(5 ,1 ,'not john',  'jennings',  'juanuncalcetin@gmail.com' , '2017-01-01',  'b328473224ad100b5021818149d79347cbf5217490cb65959626a54b47089cb4' , 5, 1 ,'b256f0aa70f968d1a5b0ebefde8da550ea852359330b81ac3d59da6fbe5f0c4a','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/VLT6AOi.png'),
+(6 ,1 ,'Thien',  'Nguyen',  'thien@thien.thien' , '2004-07-06',  '0ddb868c67e94f1f6aa7cbd2924a569639df64cdd2575511e41333d9cd384488' , 5, 1 ,'8c93436961bcdb5bbb9a9d4502f6f89d8b7a6c86cc855d2d3e96f8ddd7e4f962','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/fzYJAEz.png'),
+(7 ,1 ,'Josh',  'Bremner',  'josh@josh.josh' , '1985-10-09',  '07e5713321c2281ee54d7079b0fa7a479b5f81366d46b562de81a2dc2213a2ce' , 5, 1 ,'6abcc73ff8e1827d4be242b32e566ce9d21c53aa1a244a35cd6bebaf5a9d3e1d','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/5uGHDQ7.png'),
+(8 ,1 ,'Simeon',  'Chan',  'simeon@simeon.simeon' , '1991-06-09 ',  '98f3113f9c3068336e6e43cf4abca28c84e25a79f39d9234ed5349780270e320' , 5, 1 ,'c696005063d7dcea6530b574fb76e00b7e6b7fcaa8b2098ee7474d9bb73da870','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/mdn3p1t.jpg'),
+(9 ,1 ,'Rob',  'Shipley',  'rob@rob.rob' , '1984-09-13',  'bcc86146ac38d786abddd0e608a8348a2686626ede21e544b839044f4c88deac' , 5, 1 ,'d065974710c9461de2cf4edded78b95a3621e352f4266595fd37d84b6d0fa502','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/SEYDQ7G.jpg');
 -- --------------------------------------------------------
 
 --

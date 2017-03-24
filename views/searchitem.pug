@@ -1,76 +1,78 @@
-extends layout
+html(lang="en")
+	head
+		title Dinno
+		include includes/head
+		script(src='/socket.io/socket.io.js')
+		script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8')
+		script
+			- 
+				var latlng = [54.7762235,-1.5864418];
+			| var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')};
+			include assets/poachGETVariables.js
+			include assets/interactive_sorting.js
+			include assets/js-cookie.js
+			include assets/map.js
+	body
+		
+		include includes/nav
+		//- divide into two columns
+		.container-fluid#display_item_results
+			.row
+				.col-6.no-float#results_container_left
+					#search_item_details 
+						if food
+							h1 Searching for #{food}
+						else
+							h1 Searching for ?
+						#formHolder
+							//-p
+							//-	| Lat: 
+							//-	span#lat
+							//-p
+							//-	| Lng: 
+							//-	span#lng
+							form
+								span Location
+								input#newName(type='text')
+								br
+								span Food
+								input#food(type='text')
+								br
+						#formHolder
+							form
+								span Category: 
+								input#category(type='text')
+								span Best Before: 
+								input#bestBeforeDay(type="text" size="2")
+								input#bestBeforeMonth(type="text" size="2")
+								input#bestBeforeYear(type="text" size="4")
+								span Max Distance:
+								input#maxDistance(type="text")
+								br
+								span Order By:
+								span Newest 
+								input#newest(type="radio")
+								span Nearest 
+								input#nearest(type="radio")
+								span A-Z 
+								input#A-Z(type="radio")
+								span Freshest
+								input#freshest(type="radio")
+								input#sort(type="button" value="Sort Results")
+					#list_results_container
+						.row#fooditem_results_card
+							each fooditem in fooditems
+								.col-md-4
+									a(href=fooditem.urle id='fooditem_' + fooditem.food_id).card
+										img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
+										.card-profile-container
+											img.card-userprofile-img(src=fooditem.userimg, alt='Card image cap')
+										.card-block
+											h4.card-title #{fooditem.foodname}
+											p.card-text #{fooditem.description}
+											p.card-text
+												small.text-muted Last updated #{fooditem.last_updated} mins ago
 
-block container
-	script
-		- 
-			var latlng = [54.7762235,-1.5864418];
-		| var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')};
-		| var bacon = "";
-		include assets/poachGETVariables.js
-		include assets/interactive_sorting.js
-		include assets/map.js
-	script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
-
-	//- will need to add user location by request, get estimate location using ip address of user.
-
-	include includes/nav
-	//- divide into two columns
-	.container-fluid#display_item_results
-		.row
-			.col-6.no-float#results_container_left
-				#search_item_details 
-					if food
-						h1 Searching for #{food}
-					else
-						h1 Searching for ?
-					#formHolder
-						//-p
-						//-	| Lat: 
-						//-	span#lat
-						//-p
-						//-	| Lng: 
-						//-	span#lng
-						form
-							span Location
-							input#newName(type='text')
-							br
-							span Food
-							input#food(type='text')
-							br
-					#formHolder
-						form
-							span Category: 
-							input#category(type='text')
-							span Best Before: 
-							input#bestBeforeDay(type="text" size="2")
-							input#bestBeforeMonth(type="text" size="2")
-							input#bestBeforeYear(type="text" size="4")
-							span Max Distance:
-							input#maxDistance(type="text")
-							br
-							span Order By:
-							span Newest 
-							input#newest(type="radio")
-							span Nearest 
-							input#nearest(type="radio")
-							span A-Z 
-							input#A-Z(type="radio")
-							span Freshest
-							input#freshest(type="radio")
-							input#sort(type="button" value="Sort Results")
-				#list_results_container
-					.card-columns#fooditem_results_card
-						each fooditem in fooditems
-							a(href=fooditem.urle id='fooditem_' + fooditem.food_id).card
-								img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
-								.card-profile-container
-									img.card-userprofile-img(src=fooditem.userimg, alt='Card image cap')
-								.card-block
-									h4.card-title #{fooditem.foodname}
-									p.card-text #{fooditem.description}
-									p.card-text
-										small.text-muted Last updated #{fooditem.last_updated} mins ago
-
-
-			.col-6.embed-responsive#results_container_right
-				#map-canvas.embed-responsive-item
+				.col-6.embed-responsive#results_container_right
+					#map-canvas.embed-responsive-item
+		

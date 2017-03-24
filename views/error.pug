@@ -1,0 +1,19 @@
+extends layout
+
+block container
+
+	include includes/nav
+	.container 
+		.row
+			.col-md-6#left
+				#container
+					img(src="/assets/dinnosaur/bw.svg" )#dinnosaur
+					h4 Oops, there seems to be an error here.
+					p
+					| I'm not sure how you encountered this page, but here's the corresponding error message:
+
+					pre #{msg}
+					p
+					| Let us know about this issue at 
+					a(href="mailto:errors@dinno.club")
+						| errors@dinno.club.

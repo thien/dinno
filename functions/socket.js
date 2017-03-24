@@ -1,7 +1,9 @@
 var querystring = require('querystring');
 var request     = require('request');
-var chat        = require('../functions/chat');
 var dateFormat  = require('dateformat');
+var chat        = require('../functions/chat');
+var map         = require('../functions/map');
+const db        = require('../functions/database');
 
 module.exports = function Server(io, server) {
 
@@ -21,12 +23,9 @@ module.exports = function Server(io, server) {
             console.log(msg);
             chat.getSenderName(senderId).then(function(name) {
                 msg.sendername = name;
-
-                var hours = currentTime.getHours().toString();
-                var mins  = currentTime.getMinutes().toString();    
-                if (hours.length == 1) { hours = "0" + hours; }
-                if (mins.length == 1)  { mins = "0" + mins; }
-                msg.timestamp = `${hours}:${mins}`; 
+                
+                msg.day        =  dateFormat(currentTime, "dddd dS mmmm");
+                msg.timestamp  =  dateFormat(currentTime, "HH:MM");
 
                 
                 io.sockets.in(msg['from']).emit('chat message', msg);
@@ -52,7 +51,7 @@ module.exports = function Server(io, server) {
             img_json.src = img_json.src.replace("data:image/png;base64,", "");
 
             upload(img_json.src, function(err, response){
-            	// console.log(response.data.link)
+            	console.log(response.data.link)
             	var resp_img = {
             		'id' : img_json.id,
             		'url': response.data.link
@@ -61,6 +60,16 @@ module.exports = function Server(io, server) {
             	console.log("sent back image uploaded.");
             })
 
+        });
+
+        socket.on('mapUpdate', function(req) {
+            var client = req.id;
+            
+            map.getLocations().then(function(locations) {
+                io.sockets.in(client).emit('mapUpdate', locations);
+            }, function(err) {
+
+            });
         });
 
         socket.on('disconnect', function() {

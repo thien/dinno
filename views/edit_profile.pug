@@ -1,0 +1,44 @@
+extends layout
+
+block container
+	script(src='/socket.io/socket.io.js')
+	include includes/nav
+
+	style
+		include includes/register.css
+
+	.container 
+		form(method="post")
+			.row
+				.col-lg-6
+					#container
+						h1 Edit Profile
+						.form-group
+							label(for='First Name') First name 
+							input#forename.form-control(name="forename" type='name', placeholder='First Name' value=forename)
+						.form-group
+							label(for='Last Name') Last name
+							input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=surname)
+						.form-group
+							label(for='Last Name') Location
+							input#location.form-control(name="location" type='name', placeholder='location' value=user_location)
+						.form-group
+							label(for='exampleInputEmail1') Email address
+							input#email.form-control(name="email" type='email', placeholder='you@email.com' value=email)
+						.form-group
+							label(for='exampleInputPassword1') New Password
+							input#password.form-control.password(name="password" type='password', placeholder='Password')
+							small#password-help-block.form-text.text-muted Your password must be at least 8 characters long and contain both letters and numbers.
+						.form-group
+							label(for='exampleInputPassword1') Confirm password
+							input#password-verify.form-control.password(name="vpassword" type='password', placeholder='Password')
+				.col-lg-4
+					#container
+						#pictureupload
+							#upload_img_container
+								img(src=profile_photo)#profilephoto
+								input(id="input_images" name='images' type="file")
+						button#btn-submit.btn.btn-primary(type='submit' value="Submit") Update
+
+	script
+		include assets/upload.js

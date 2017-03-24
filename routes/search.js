@@ -4,6 +4,7 @@ var mysql = require('mysql')
 var express = require('express');
 var app = express();
 var login = require('../functions/login');
+
 app.locals.basedir = "." + '/views';
 
 module.exports = function(){
@@ -118,7 +119,11 @@ module.exports = function(){
 		    // console.log("someone's searching for", param)
 				res.render('searchitem', param);
     }, function(err) {
-      res.render('frontpage');
+      // res.render('frontpage');
+      var error_message = {
+				msg:"You're not logged in."
+			};
+			res.render('error', error_message);
     });
 		// console.log(req.query);
 

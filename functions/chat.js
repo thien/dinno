@@ -1,6 +1,7 @@
-var express   = require('express');
-var Cookies   = require("cookies");
-const db      = require('../functions/database');
+var express     = require('express');
+var Cookies     = require("cookies");
+var dateFormat  = require('dateformat');
+const db        = require('../functions/database');
 
 module.exports = {
   getSenderName: function(senderId) {
@@ -26,26 +27,24 @@ module.exports = {
     });
   },
 
-  getRecipientName: function(recipientId) {
+  getRecipientInfo: function(recipientId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT Firstname, Surname
+        db.query(`SELECT Firstname, Surname, ProfileImage
                   FROM User
                   WHERE UserID = ?`, 
                 [recipientId], 
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
-                    reject();
+                    reject(error);
                   }
                   else if (results.length == 0) {
                     console.log('UserID not found: getRecipientName');
                     console.log(results);
-                    reject();
+                    reject("User not found");
                   }
                   else{
-                    var firstname = results[0].Firstname;
-                    var lastname  = results[0].Surname;
-                    resolve(`${firstname} ${lastname}`);
+                    resolve(results[0]);
                   }
                 });
     });
@@ -64,9 +63,15 @@ module.exports = {
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
-                    reject();
+                    reject(error);
                   }
                   else{
+                    results.map(function(r) { 
+                      r.Day      =  dateFormat(r.TimeSent, "dddd dS mmmm");
+                      r.TimeSent =  dateFormat(r.TimeSent, "HH:MM");
+                      return r;
+                    });
+                    console.log(results)
                     resolve(results);
                   }
                 });
@@ -81,12 +86,12 @@ module.exports = {
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
-                    reject();
+                    reject(error);
                   }
                   else if (results.length == 0) {
                     console.log('Chat insert failed');
                     console.log(results);
-                    reject();
+                    reject('Chat insert failed');
                   }
                   else{
                     resolve(results);

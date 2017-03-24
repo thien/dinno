@@ -26,7 +26,6 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-
 	@media(max-width: 680px){
 		#frontpage-container.jumbotron{
 			background-color: #fff;
@@ -165,6 +164,13 @@
 		right: 20px;
 	}
 
+
+
+	#dinnosaur {
+		margin: 20px 0px;
+		max-width: 200px;
+	}
+
 	#user_profile_details #left, #user_profile_details #right {
 		/*max-height: 300px;*/
 	}
@@ -182,6 +188,7 @@
 
 	#profilephoto{
 		margin: 20px 0px;
+		max-width: 90vw;
 		background-color: #00ff00;
 		border-radius: 50%;
 	}
@@ -262,6 +269,17 @@
 		width: 150px;
 	}
 
+	pre {
+		background-color: #fee;
+		display: inline-block;
+		padding: 10px;
+		margin: 20px 0px !important;
+		white-space: -moz-pre-wrap;
+		white-space: -o-pre-wrap;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+	}
+
 	img.img_preview{
 		display: inline-block;
 		margin: 10px;
@@ -311,4 +329,19 @@
         padding-left: 5px;
         padding-right: 5px;
       }
+
+      canvas.drawingBuffer {
+      	 /*box-shadow: inset 0px 0px 0px 10px red;*/
+        box-sizing: border-box; /* Include padding and border in element's width and height */
+      	position: absolute;
+      	z-index:1;
+      	left: 0px;
+      }
+
+	.chat-link {
+		padding-right: 15px;
+	}
+	#secret-image-input {
+		display: none;
+	}
 </style>

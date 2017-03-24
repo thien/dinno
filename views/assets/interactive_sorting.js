@@ -16,7 +16,7 @@ sorting methods:
 function writeCardHolder(){
 	var newContent = '';
 	for(var i=0; i<fooditems.length; i++){
-		newContent += '<a class="card" href="/fooditem" id="fooditem_'+fooditems[i].food_id+'">'+
+		newContent += '<div class="col-md-4"><a class="card" href="/fooditem" id="fooditem_'+fooditems[i].food_id+'">'+
 		'<img class="card-img-top img-fluid" src="https://unsplash.it/600,751/?random" alt="Card image cap">'+
         '<div class="card-profile-container"><img class="card-userprofile-img" src="https://unsplash.it/80,80/?random" alt="Card image cap"></div>'+
         '<div class="card-block">'+
@@ -24,7 +24,7 @@ function writeCardHolder(){
         '<p class="card-text">'+fooditems[i].description+'</p>'+
         '<p class="card-text"><small class="text-muted">Last updated 6 mins ago</small></p>'+
         '</div>'+
-        '</a>'
+        '</a></div>'
 	}
 	document.getElementById("fooditem_results_card").innerHTML = newContent;
 }

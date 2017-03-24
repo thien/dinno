@@ -5,30 +5,35 @@ block container
 	include includes/nav
 	.container 
 		.row#user_profile_details
-			.col-md-6#left
+			.col-md-4.col-lg-3
+				img(src=profile_photo)#profilephoto
+			.col-md-6.col-lg-6
 				#container
 				h1 Hi, I'm #{name}
 				h4 
-					span.badge.badge-default 6.9
+					span.badge.badge-default #{rating}
 					|	 #{user_location}
-				h6 Joined in #{registered_date}
-				a(href="google.com") Report this user
-			.col-md-3#right
-				img(src=profile_photo)#profilephoto
-		.row
-			.col-md-9
+				h6 #{age} years old
+				if ownProfile
+					a.chat-link(href='editprofile') Edit profile
+				a.chat-link(href='chat?id=' + userId) Send me a message
+				a(href="google.com") Report me
+		.dinnos
 				h3 Dinnos
-				.card-columns
+				.row
 					each fooditem in fooditems
-						a(href=fooditem.urle).card.fooditem-card
-							img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
-							.card-profile-container
-								img.card-userprofile-img(src=fooditem.userimg, alt='Card image cap')
-							.card-block
-								h4.card-title #{fooditem.foodname}
-								p.card-text #{fooditem.description}
-								p.card-text
-									small.text-muted Last updated #{fooditem.last_updated} mins ago
+						.col-md-3
+							a(href='fooditem?id=' + fooditem.MealID).card.fooditem-card
+								img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+								.card-profile-container
+									img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+								.card-block
+									h4.card-title #{fooditem.Name}
+									p.card-text #{fooditem.Description}
+					else
+						h5 No food :(
+								//- p.card-text
+								//- 	small.text-muted Last updated #{fooditem.last_updated} mins ago
 					//- a(href='/fooditem').card
 					//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
 					//- 	.card-block
@@ -37,35 +42,35 @@ block container
 					//- 		p.card-text
 					//- 			small.text-muted Last updated 3 mins ago
 
-		.row
-			.hr
-			.col-md-9.reviews_container
-				h3.reviewheader Reviews
-				.media.reviewbox
-					a(href='#')
-						img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
-					.media-body
-						h5.mt-0 
-							a(href='#') Patricia
-						|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
-				.media.reviewbox
-					a(href='#')
-						img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
-					.media-body
-						h5.mt-0 
-							a(href='#') Patricia
-						|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
-				.media.reviewbox
-					a(href='#')
-						img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
-					.media-body
-						h5.mt-0 
-							a(href='#') Patricia
-						|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
-				.media.reviewbox
-					a(href='#')
-						img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
-					.media-body
-						h5.mt-0 
-							a(href='#') Patricia
-						|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
+		//- .row
+		//- 	.hr
+		//- 	.col-md-9.reviews_container
+		//- 		h3.reviewheader Reviews
+		//- 		.media.reviewbox
+		//- 			a(href='#')
+		//- 				img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
+		//- 			.media-body
+		//- 				h5.mt-0 
+		//- 					a(href='#') Patricia
+		//- 				|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
+		//- 		.media.reviewbox
+		//- 			a(href='#')
+		//- 				img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
+		//- 			.media-body
+		//- 				h5.mt-0 
+		//- 					a(href='#') Patricia
+		//- 				|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
+		//- 		.media.reviewbox
+		//- 			a(href='#')
+		//- 				img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
+		//- 			.media-body
+		//- 				h5.mt-0 
+		//- 					a(href='#') Patricia
+		//- 				|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!
+		//- 		.media.reviewbox
+		//- 			a(href='#')
+		//- 				img.d-flex.mr-3(src=profile_photo, alt='Generic placeholder image')
+		//- 			.media-body
+		//- 				h5.mt-0 
+		//- 					a(href='#') Patricia
+		//- 				|	Roberto's apartment was wonderful and he is a great host. My daughter arrived a day earlier than I did and he was not able to meet her personally but had a friend meet her with the key and show her the apartment!

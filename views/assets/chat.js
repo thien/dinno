@@ -1,5 +1,6 @@
 var socket = io();
 var oldName = "";
+var lastDay = "Ages ago";
 
 var QueryString = function () {
   // This function is anonymous, is executed immediately and 
@@ -50,21 +51,29 @@ socket.on('chat message', function(msg) {
     console.log("from server", msg);
 
 
-    // time = msg.timestamp.getHours().toString() + ":" + msg.timestamp.d.getMinutes().toString() // => 9
-    // console.log(time);
-
     // filter out messages from other people
     if (msg.from == QueryString.id || msg.from == Cookies.get('id')){
-       // create message container
-      var message_container = document.createElement('div');
-      var ghetto = '<div class="media msg"><div class="media-body"><small class="pull-right time">';
-      ghetto += '<i class="fa fa-clock-o"></i> '+msg.timestamp+'</small>';
-      ghetto += '<h5 class="media-heading">'+msg.sendername+'</h5>';
-      ghetto += '<small class="col-lg-10">'+msg.contents+'</small></div></div>';
+      
+      if (msg.day !== lastDay) {
+        lastDay = msg.day;
+        var dayHeader = `<div class='alert alert-info msg-date'> <strong> ${msg.day} </strong> </div>`;
+        $('.msg-wrap').append(dayHeader);
+      }
+
+      // create message container
+      var message_container =
+      `<div class="media msg">
+        <div class="media-body">
+          <small class="pull-right time">
+            <i class="fa fa-clock-o"></i> ${msg.timestamp}
+          </small>
+          <h5 class="media-heading"> ${msg.sendername} </h5>
+          <small class="col-lg-10"> ${msg.contents} </small>
+        </div>
+      </div>`;
       // append to client's messagebox
 
-      // $('.msg-wrap').append($('<li>').text(msg.contents));
-      $('.msg-wrap').append(ghetto);
+      $('.msg-wrap').append(message_container);
 
       // scroll down after the message has been added.
       $(".msg-wrap").scrollTop($(".msg-wrap")[0].scrollHeight);
@@ -74,5 +83,7 @@ socket.on('chat message', function(msg) {
 socket.on('server message', function(msg) {
     $('#messages').append($('<li class="server-message">').text(msg));
 });
+
+$(".msg-wrap").scrollTop($(".msg-wrap")[0].scrollHeight);
 
 
