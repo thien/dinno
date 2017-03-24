@@ -11,7 +11,7 @@ block container
 	.row 
 		.col-lg-6
 			#container
-				if user_details.edit
+				if edit
 					h1 Edit Profile
 				else 
 					h1 Register
@@ -19,13 +19,13 @@ block container
 				form(method="post")
 					.form-group
 						label(for='First Name') First name 
-						input#forename.form-control(name="forename" type='name', placeholder='First Name' value=user_details.forename)
+						input#forename.form-control(name="forename" type='name', placeholder='First Name' value=forename)
 					.form-group
 						label(for='Last Name') Last name
-						input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=user_details.surname)
+						input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=surname)
 					.form-group
 						label(for='exampleInputEmail1') Email address
-						input#email.form-control(name="email" type='email', placeholder='you@email.com' value=user_details.email)
+						input#email.form-control(name="email" type='email', placeholder='you@email.com' value=email)
 						small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
 					.form-group
 						label(for='exampleInputPassword1') Password
@@ -61,8 +61,8 @@ block container
 								- for (var y = 2017; y >= 1900; y--)
 									option(value=''+y) #{y}
 					.form-group
-						input#secret-image-input.form-control.password(name="profileImage" value=user_details.profileImage)
-					if !user_details.edit
+						input#secret-image-input.form-control.password(name="profileImage" value=profileImage)
+					if !edit
 						.form-group
 							p
 							| By signing up, I agree to 
@@ -72,7 +72,7 @@ block container
 							| , and 
 							a(href="/register") Privacy Policy
 							| .
-					if user_details.edit
+					if edit
 						button#btn-submit.btn.btn-primary(type='submit' value="Submit") Submit		
 					else
 						button#btn-submit.btn.btn-primary(type='submit' value="Submit") Sign Up			
@@ -80,7 +80,7 @@ block container
 			#container
 				.form-group#pictureupload
 					#upload_img_container
-						img(src=user_details.profileImage)#profilephoto
+						img(src=profileImage)#profilephoto
 						input(id="input_images" name='images' type="file")
 	script(src='https://www.google.com/recaptcha/api.js')
 	script

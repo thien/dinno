@@ -120,13 +120,11 @@ module.exports = function() {
 
 			Promise.all([profileInfo]).then(function(data) {
 
-				param.user_details = {
-					forename: `${data[0].Firstname}`,
-					surname: `${data[0].Surname}`,
-					profileImage: data[0].ProfileImage,
-					email: data[0].EmailAddress,
-					edit: true,
-				};
+				param.forename =  `${data[0].Firstname}`,
+				param.surname = `${data[0].Surname}`,
+				param.profileImage = data[0].ProfileImage,
+				param.email = data[0].EmailAddress,
+				param.edit =  true,
 
 				res.render('register', param);
 
