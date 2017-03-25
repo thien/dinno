@@ -1,4 +1,32 @@
+const express = require('express');
+const app = express();
+const db = require('../functions/database');
+var login = require('../functions/login');
+var Cookies = require("cookies");
 
+function addNewMeal(mealData, userId) {
+	return new Promise(function(resolve, reject) {
+		var year = mealData['year'];
+		var month = mealData['month'];
+		var day = mealData['day'];
+		var bestBefore = `${year}/${month}/${day}`;
+	
+		var isIngredient = mealData.foodtype == 'Ingredient';
+
+		db.query(`INSERT INTO Meal (MealID, LocationID, UserID, RecipientID, Name, BestBefore, Description, Image, IsIngredient)
+							VALUES (0, ?, ?, NULL, ?, ?, ?, ?, ?)`, 
+						[mealData.location, userId, mealData.name, bestBefore, mealData.description, mealData['images[]'], isIngredient],
+		function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				reject(error);
+			} else {
+				console.log(`Added meal ${mealData.name}`);
+				resolve(results);
+			}
+		});
+	});
+}
 
 module.exports = function() {
 	var express = require('express');
@@ -36,7 +64,6 @@ module.exports = function() {
 		};
 		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
-
 			param.user_data = {
 				userID: result.UserID,
 				firstname: result.Firstname,
@@ -44,20 +71,24 @@ module.exports = function() {
 				mugshot: result.ProfileImage
 			};
 
-			//
-			//  This section is where you manipulate the data etc.
-			//
-			//
+			var mealData = req.body;
+			addNewMeal(mealData, result.UserID).then(function(result) {	
 
-			//resulting item
-			param.new_item = {
-				name: "Hot dogs",
-				image: "http://assets.epicurious.com/photos/5761c748ff66dde1456dfec0/2:1/w_1260%2Ch_630/crispy-baked-chicken-wings.jpg",
-				id: 123
-			}
+					param.new_item = {
+						name: mealData.name,
+						image: mealData['images[]'],
+						id: result.insertId
+					}
+					res.render('added_fooditem', param);
 
-			//render page with new entry
-			res.render('added_fooditem', param);
+
+			}, function(err) {
+					param.error_message = {
+						msg: err
+					};
+					res.render('error', param);
+			});
+
 		}, function(err) {
 			param.error_message = {
 				msg: err

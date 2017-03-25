@@ -22,13 +22,13 @@ module.exports = {
                   }
                   else if (results.length == 0) {
                     console.log('UserID not found');
-                    reject();
+                    reject('Not logged in');
                   }
                   else if (results[0].isValidLogin){
                     resolve(results[0]);
                   }
                   else{
-                    reject();
+                    reject('Not logged in');
                   }
                 });
     });
