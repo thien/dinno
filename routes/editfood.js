@@ -1,70 +1,77 @@
-
+var bf = require('../functions/basefunctions');
+var express = require('express');
+var app = express();
+var login = require('../functions/login');
+const db = require('../functions/database');
+app.locals.basedir = "." + '/views';
 
 module.exports = function() {
-  var express = require('express');
-  var app = express();
-  var login = require('../functions/login');
-  app.locals.basedir = "." + '/views';
 
-  app.get('/add', function(req, res) {
-    var param = {
-      loggedin: false,
-    };
+	app.get('/edit/:id', function(req, res) {
+		var param = {
+			loggedin: false,
+		};
 
-    login.checkLogin(req, res).then(function(result) {
-      param.loggedin = true;
+		login.checkLogin(req, res).then(function(result) {
+			param.loggedin = true;
 
-      param.user_data = {
-        userID: result.UserID,
-        firstname: result.Firstname,
-        surname: result.Surname,
-        mugshot: result.ProfileImage
-      };
+			param.user_data = {
+				userID: result.UserID,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
 
-      res.render('new_fooditem', param);
-    }, function(err) {
-      param.error_message = {
-        msg: err
-      };
-      res.render('error', error_message);
-    });
-  })
+			var mealId = req.params.id;
 
-  app.post('/add', function(req, res) {
-    var param = {
-      loggedin: false,
-    };
-    login.checkLogin(req, res).then(function(result) {
-      param.loggedin = true;
+			if (mealId) {
+				getFoodInfo(mealId).then(function(data) {
+					console.log(data);
+					param.data = data;
+					res.render('edit_fooditem', param);
 
-      param.user_data = {
-        userID: result.UserID,
-        firstname: result.Firstname,
-        surname: result.Surname,
-        mugshot: result.ProfileImage
-      };
+				}, function(err) {
+					param.error_message = {
+						msg: err
+					};
+					res.render('error', param);
+				});
+			} else {
+				param.error_message = {
+					msg: 'No mealId provided'
+				};
+				res.render('error', param);
+			}
+		}, function(err) {
+			param.error_message = {
+				msg: "You're not logged in."
+			};
+			res.render('error', param);
+		});
+	})
 
-      //
-      //  This section is where you manipulate the data etc.
-      //
-      //
-
-      //resulting item
-      param.new_item = {
-        name: "Hot dogs",
-        image: "http://assets.epicurious.com/photos/5761c748ff66dde1456dfec0/2:1/w_1260%2Ch_630/crispy-baked-chicken-wings.jpg",
-        id: 123
-      }
-
-      //render page with new entry
-      res.render('added_fooditem', param);
-    }, function(err) {
-      param.error_message = {
-        msg: err
-      };
-      res.render('error', param);
-    });
-  })
-
-  return app;
+	return app;
 }();
+
+function getFoodInfo(mealId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Meal.Name, Meal.Description, Meal.Image, Location.HouseNoName, Location.Street, Location.Latitude, Location.Longitude, User.Firstname, User.Surname, User.ProfileImage, User.Rating
+				FROM Meal
+				JOIN User 
+				ON User.UserID = Meal.UserID
+				JOIN Location 
+				ON Location.LocationID = Meal.LocationID 
+				WHERE Meal.MealID = ?`, [mealId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject(error);
+				} else if (results.length == 0) {
+					console.log('Meal not found');
+					reject('Meal not found');
+				} else {
+					resolve(results[0]);
+				}
+			});
+	});
+}
