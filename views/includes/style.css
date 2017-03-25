@@ -376,7 +376,7 @@
 	/*location arrow*/
 
 	#locationarrow {
-		color: #0ff;
+		/*color: #0ff;*/
 	}
 	#locationarrow:hover {
 		color: #ccc;
@@ -389,15 +389,15 @@
 	}
 
 	.arrowpulse{
-        color: #ffbc6b;
+        color: #9be9ff;
     }
 
     .arrowdone{
-        color: #0f0;
+        color: #b5ff70;
     }
 
     .arrowamber{
-        color: #ccc;
+        color: #ffeb8c;
     }
 
 	/*upload images*/
