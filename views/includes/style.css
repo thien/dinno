@@ -373,6 +373,32 @@
 	.reviewheader {
 		margin: 15px 0px;
 	}
+	/*location arrow*/
+
+	#locationarrow {
+		color: #0ff;
+	}
+	#locationarrow:hover {
+		color: #ccc;
+	}
+
+	.arrowloading {
+		-webkit-transition: background 0.5s ease-in-out;
+        -ms-transition:     background 0.5s ease-in-out;
+        transition:         background 0.5s ease-in-out;
+	}
+
+	.arrowpulse{
+        color: #ffbc6b;
+    }
+
+    .arrowdone{
+        color: #0f0;
+    }
+
+    .arrowamber{
+        color: #ccc;
+    }
 
 	/*upload images*/
 

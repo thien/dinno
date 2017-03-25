@@ -11,8 +11,9 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food')
 				input(type='hidden', name='lat')
 				input(type='hidden', name='lng')
-				a(href="#")#in-the-searchbar-right
-					i.fa.fa-location-arrow(aria-hidden='true')
+				#in-the-searchbar-right
+					i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom")
+
 				button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
 					i.fa.fa-search(aria-hidden='true')
 
