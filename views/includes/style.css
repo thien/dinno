@@ -9,6 +9,37 @@
 		padding: 0px 20px;
 		margin: 0px;
 	}
+	.item-details {
+		display: block;
+		height: inherit;
+	}
+	.block-left {
+		display: block;
+	}
+	@media(min-width: 320px){
+		.block-left {
+
+			margin: 0 auto;
+			display: block;
+			max-width: 100%;
+			max-height: 200px;
+		}
+	}
+	@media(max-width: 420px){
+		.block-left {
+			text-align: center;
+			margin: 0 auto;
+			display: block;
+			max-width: 100%;
+		}
+	}
+	@media(min-width: 720px){
+		.block-left {
+			padding-right: 20px;
+			max-height: 200px;
+			float:left;
+		}
+	}
 	.manage-header {
 		padding: 20px 0px 10px 0px;
 	}
@@ -54,19 +85,26 @@
 	}
 
 	html, body, .container-fluid, .row { height: 100% }
-
+	.navbar-alt {
+		padding: 20px;
+		font-weight: bold;
+		margin-bottom: -80px;
+	}
 	.navbar {
 		font-weight: bold;
 		/*min-height: 80px;*/
 		background-color: #FF5353;
 	}
 	@media(min-width: 990px){
-		.navbar {
+		.navbar, .navbar-alt {
 			min-height: 80px;
 		}
 	}
 	.navbar a{
 		color: #fff;
+	}
+	.navbar-alt a{
+		color: #222;
 	}
 	#navsearchbar, #navsearchbutton {
 		background-color: #FF5353;
@@ -74,9 +112,31 @@
 		color: #fff;
 		border-radius: 0px;
 	}
-
-	#navsearchbar {
-		width: 400px;
+	#in-the-searchbar-right {
+		position: relative;
+	}
+	@media(min-width: 580px){
+		#navsearchbar {
+			width: 400px;
+		}
+		#in-the-searchbar-right {
+			right: 35px;
+			margin-bottom: 3px;
+			margin-right: -10px;
+		}
+	}
+	@media(max-width: 580px){
+		#navsearchbar {
+			width: 200px;
+		}
+		#in-the-searchbar-right {
+			right: 25px;
+			margin-bottom: 3px;
+			margin-right: -10px;
+		}
+	}
+	h1.frontpage-logo-banner {
+		color: #FF5353;
 	}
 
 	#navsearchbar::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -94,6 +154,11 @@
 
 	.navbar-collapse{
 		background-color: #FF5353;
+		z-index: 2;
+	}
+
+	.navbar-alt-collapse{
+		background-color: transparent;
 		z-index: 2;
 	}
 

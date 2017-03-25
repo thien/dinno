@@ -26,7 +26,7 @@ module.exports = function() {
 			param.error_message = {
 				msg: err
 			};
-			res.render('error', error_message);
+			res.render('error', param);
 		});
 	})
 

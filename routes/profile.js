@@ -99,7 +99,6 @@ module.exports = function() {
 			res.render('error', param);
 		});
 	})
-
 	app.get('/editprofile', function(req, res) {
 		var param = {
 			loggedin: false,
