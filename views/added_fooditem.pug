@@ -15,4 +15,4 @@ block container
 					| #{new_item.name} is now added into dinno.club. It won't be long until someone hits<br> you up about it!
 					br
 					br
-					button.btn.btn-outline-danger(onclick='/#{new_item.id}') Take me there!
+					a.btn.btn-outline-danger(href='/fooditem?id='+new_item.id) Take me there!
