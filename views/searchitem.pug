@@ -67,16 +67,32 @@ block container
 		include assets/poachGETVariables.js
 		include assets/map.js
 	script.
-		$("form#filters").submit(function(e){
+		//- $("form#filters").submit(function(e){
+		//- 	var form = this;
+		//- 	$.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
+		//- 		$("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
+		//- 		$("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
+		//- 		$("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
+		//- 	})
+		//- 	e.preventDefault();
+		//- 	setTimeout(function(){
+		//- 		form.submit()
+		//- 	},500)
+		//- })
+		$("form#filters").submit(function(){
 			var form = this;
 			$.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
-				$("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-				$("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
-				$("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
+				dataAppend(data,function(){
+					form.submit()
+				})
 			})
-			e.preventDefault();
-			setTimeout(function(){
-				form.submit()
-			},500)
+			e.preventDefault()
+
 		})
+		function dataAppend(data,callback){
+			$("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
+			$("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
+			$("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
+			callback()
+		}
 		
