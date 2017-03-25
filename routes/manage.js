@@ -7,7 +7,41 @@ var bf = require('../functions/basefunctions');
 
 app.locals.basedir = "." + '/views';
 
+function getPostedMeals(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage, User.UserID, Meal.RecipientId
+				  FROM Meal
+				  JOIN User 
+				  ON User.UserID = Meal.UserID
+				  WHERE Meal.UserID = ?`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
 
+function getReceivedMeals(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage, Meal.RecipientId, Meal.UserID
+				  FROM Meal
+				  JOIN User 
+				  ON User.UserID = Meal.RecipientId
+				  WHERE Meal.RecipientId = ?`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
 /*
 
 Note: For /manage
@@ -33,136 +67,40 @@ module.exports = function() {
 		};
 		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
-			var cookies = new Cookies(req, res);
-			userId = cookies.get('id');
-
-			// var profileInfo = getProfileInfo(userId);
-
-			param.user_data = {
-				userID: userId,
-				firstname: result.Firstname,
-				surname: result.Surname,
-				mugshot: result.ProfileImage
-			};
-
-			param.fooditems = {}
-			param.fooditems.theirs = [
-				{
-					name : "Dhicken Wing",
-					id : 123,
-					userID : 12,
-					usersname : "Chuck",
-					description: "what do you think fool",
-					image : "http://piq.codeus.net/static/media/userpics/piq_182936_400x400.png",
-					url : "/",
-					tags : ["hot", "salsa"],
-					date_added : "2017-01-01",
-					date_expiry : "2017-01-31",
-					active : false
-				},
-				{
-					name : "Ahicken Wing",
-					id : 123,
-					userID : 12,
-					usersname : "Harry",
-					description: "what do you think fool",
-					image : "http://piq.codeus.net/static/media/userpics/piq_182936_400x400.png",
-					url : "/",
-					tags : ["hot", "salsa"],
-					date_added : "2017-01-03",
-					date_expiry : "2017-01-28",
-					active : true
-				},
-				{
-					name : "Bhicken Wing",
-					id : 123,
-					userID : 12,
-					usersname : "Dave",
-					description: "what do you think fool",
-					image : "http://piq.codeus.net/static/media/userpics/piq_182936_400x400.png",
-					url : "/",
-					tags : ["hot", "salsa"],
-					date_added : "2017-01-02",
-					date_expiry : "2017-01-29",
-					active : true
-				},
-				{
-					name : "Chicken Wing",
-					id : 123,
-					userID : 12,
-					usersname : "Daniel",
-					description: "what do you think fool",
-					image : "http://piq.codeus.net/static/media/userpics/piq_182936_400x400.png",
-					url : "/",
-					tags : ["hot", "salsa"],
-					date_added : "2017-01-11",
-					date_expiry : "2017-01-30",
-					active : false
+			userID = result.UserID;
+			var posted = getPostedMeals(userID);
+			var received = getReceivedMeals(userID);
+			Promise.all([posted, received]).then(function(data) {
+				
+				param.fooditems = {};
+				param.fooditems.yours = data[0];
+				param.fooditems.theirs = data[1];
+				param.user_data = {
+					userID: userID,
+					firstname: result.Firstname,
+					surname: result.Surname,
+					mugshot: result.ProfileImage
+				};
+				
+				if (req.query.type){
+					if (req.query.type === "others"){
+						param.defaultToggle = false;
+					} else {
+						param.defaultToggle = true;
+					}
 				}
-			]
-			param.fooditems.yours = [
-				{
-					name : "Pasta Bake",
-					id : 123,
-					userID : userId,
-					description: "what do you think fool",
-					image : "http://piq.codeus.net/static/media/userpics/piq_182936_400x400.png",
-					url : "/",
-					tags : ["hot", "salsa"],
-					date_added : "2017-01-11",
-					date_expiry : "2017-01-18",
-					active : true
-				},
-				{
-					name : "Qasta Bake",
-					id : 123,
-					userID : userId,
-					description: "what do you think fool",
-					image : "http://piq.codeus.net/static/media/userpics/piq_182936_400x400.png",
-					url : "/",
-					tags : ["hot", "salsa"],
-					date_added : "2017-01-11",
-					date_expiry : "2017-02-28",
-					active : true
-				},
-				{
-					name : "Rasta Baked",
-					id : 123,
-					userID : userId,
-					description: "what do you think fool",
-					image : "http://piq.codeus.net/static/media/userpics/piq_182936_400x400.png",
-					url : "/",
-					tags : ["hot", "salsa"],
-					date_added : "2017-01-11",
-					date_expiry : "2017-03-28",
-					active : false
-				},
-				{
-					name : "Sasta Baked",
-					id : 123,
-					userID : userId,
-					description: "what do you think fool",
-					image : "http://piq.codeus.net/static/media/userpics/piq_182936_400x400.png",
-					url : "/",
-					tags : ["hot", "salsa"],
-					date_added : "2017-01-11",
-					date_expiry : "2017-04-28",
-					active : false
-				},
-			]
+				console.log(param);
+				res.render('manage', param);
 
-			if (req.query.type){
-				if (req.query.type === "others"){
-					param.defaultToggle = false;
-				} else {
-					param.defaultToggle = true;
-				}
-			}
-
-			res.render('manage', param);
+			},function(err) {
+				param.error_message = {
+					msg: err
+				};
+				res.render('error', param);
+			});
 		}, function(err) {
 			param.error_message = {
-				msg: "You're not logged in."
+				msg: err
 			};
 			res.render('error', param);
 		});

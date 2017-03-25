@@ -113,7 +113,7 @@ function FilterData() {
 	}
 	if (search_parameters.sorting === "alphabetical"){
 		data.sort(function(a, b) {
-		  return stringsComparison(a.name, b.name);
+		  return stringsComparison(a.Name, b.Name);
 		})
 	}
 	if (search_parameters.sorting === "expiry"){
@@ -132,6 +132,7 @@ function displayGoods(data){
 }
 
 function cardEntry(item){
+		console.log(item);
 // .container-vp
 // 	.card
 // 		.row
@@ -153,22 +154,22 @@ function cardEntry(item){
 // 					a.btn.btn-link.btn-sm(href='#') Delete
 // 					a.btn.btn-link.btn-sm(href='#') Cancel
 	var card = "<div class='container-vp'><div class='card'><div class='row'><div class='col-md-12'>";
-	card += "<img src='"+item.image+"' class='block-left h-100'><div class='card-block item-details'>";
-	card += "<h4 class='card-title'>"+item.name+"</h4>";
+	card += "<img src='"+item.Image+"' class='block-left h-100'><div class='card-block item-details'>";
+	card += "<h4 class='card-title'>"+item.Name+"</h4>";
 	if (search_parameters.req_type === "others"){
-		card += "<h6 class='card-subtitle mb-2 text-muted'>Submitted by "+item.usersname+"</h6>";
+		card += "<h6 class='card-subtitle mb-2 text-muted'>Submitted by "+item.Forename+"</h6>";
 	}
-	card += "<p class='card-text'>" + item.description +"</p>";
+	card += "<p class='card-text'>" + item.Description +"</p>";
 	for (var i in item.tags){
 		card += "<span class='badge categoriestags'>"+item.tags[i]+"</span>";
 	}
 	card += "</div></div></div>";
 	card += "<div class='card-footer text-muted'><div class='btn-group'>";
 	if (search_parameters.req_type === "others"){
-		card += "<a class='btn btn-link btn-sm' href='/chat/"+item.userID+"'>Message</a>";
+		card += "<a class='btn btn-link btn-sm' href='/chat/"+item.UserID+"'>Message</a>";
 		card += "<a class='btn btn-link btn-sm' href='#'>Cancel</a>";
 	} else {
-		card += "<a class='btn btn-link btn-sm' href='/edit/"+item.id+"'>Edit</a>";
+		card += "<a class='btn btn-link btn-sm' href='/edit/"+item.MealID+"'>Edit</a>";
 		card += "<a class='btn btn-link btn-sm' href='#'>Remove</a>";
 	}
 	card += "</div></div></div></div>";
