@@ -26,22 +26,27 @@ module.exports = function() {
 
 			console.log(req.query);
 			var query = "SELECT * FROM ?? WHERE(?? LIKE ?)"
-			var meal = false;
-			var single = true
+			var meal = (req.query.isMeal == 'true')
+			if(req.query.isMeal == 'both'){
+				meal = true;
+			}
+			
 			var foods
-			if (meal) {
+			if(req.query.food != ""){
+				if (req.query.isMeal == 'true') {
 				foods = ["%" + req.query.food + "%"]
-				foods.splice(0, 0, "meal", "Name")
+				foods.splice(0, 0, "Meal", "Name")
 				console.log(foods)
+				query += " AND `IsIngredient` = 0"
 			} else {
 				foods = req.query.food.split(" ")
-				foods.splice(0, 0, "ingredient", "Name")
+				foods.splice(0, 0, "Meal", "Name")
 				var operator = " OR "
-				if (single) {
-					operator = " AND "
-				}
 				for (i = 2; i < foods.length - 1; i++) {
 					query += operator + "(`Name` LIKE ?)"
+				}
+				if(req.query.isMeal != 'both'){
+					query += " AND `IsIngredient` = 1"
 				}
 			}
 
@@ -55,6 +60,7 @@ module.exports = function() {
 				// fields will contain information about the returned results fields (if any)
 				console.log(results);
 			});
+			}
 
 			// will need to get search results
 			// user id's
