@@ -19,6 +19,7 @@
     "components-font-awesome": "^4.7.0",
     "bootstrap": "v4.0.0-alpha.6",
     "socket.io-client": "^1.7.2",
-    "socket.io": "^1.7.2"
+    "socket.io": "^1.7.2",
+    "js-cookie": "^2.1.3"
   }
 }
