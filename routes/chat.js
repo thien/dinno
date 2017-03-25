@@ -19,7 +19,7 @@ module.exports = function() {
 
 			var cookies = new Cookies(req, res);
 			var senderId = cookies.get('id');
-			var recipientId = req.query.id;
+			var recipientId = req.query.id || 1;
 
 			param.user_data = {
 				userID: senderId,
@@ -27,13 +27,13 @@ module.exports = function() {
 				surname: result.Surname,
 				mugshot: result.ProfileImage
 			};
-
-			if (senderId && recipientId) {
+			if (senderId) {
 
 				var recipientInfo = chat.getRecipientInfo(recipientId);
 				var previousMessages = chat.getPreviousMessages(senderId, recipientId);
+				var previousConversations = chat.getPreviousConversations(senderId);
 
-				Promise.all([recipientInfo, previousMessages]).then(function(data) {
+				Promise.all([recipientInfo, previousMessages, previousConversations]).then(function(data) {
 
 					param.chat = {
 						theirName: `${data[0].Firstname} ${data[0].Surname}`,
@@ -41,6 +41,7 @@ module.exports = function() {
 						theirId: recipientId,
 						messages: data[1],
 					};
+					param.convos = data[2];
 
 					res.render('chat', param);
 

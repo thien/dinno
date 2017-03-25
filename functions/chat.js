@@ -71,7 +71,36 @@ module.exports = {
                       r.TimeSent =  dateFormat(r.TimeSent, "HH:MM");
                       return r;
                     });
-                    console.log(results)
+                    resolve(results);
+                  }
+                });
+    });
+  },
+
+  getPreviousConversations: function(userId) {
+    return new Promise(function(resolve, reject) {
+        db.query(`SELECT msg.Contents, msg.TimeSent, msg.Firstname, msg.Surname, msg.UserID, msg.ProfileImage
+                  FROM (
+                    SELECT Chat.Contents, Chat.TimeSent, User.Firstname, User.Surname, User.UserID, User.ProfileImage
+                    FROM Chat
+                    JOIN User
+                    ON User.UserID = Chat.FromID OR User.UserID = Chat.ToID
+                    WHERE Chat.FromID = ? OR Chat.ToID = ?
+                    ORDER BY Chat.TimeSent ASC
+                  ) AS msg
+                  GROUP BY msg.UserID`,
+                [userId, userId], 
+                function (error, results, fields) {
+                  if (error) { 
+                    console.log(error); 
+                    reject(error);
+                  }
+                  else{
+                    results.map(function(r) { 
+                      r.Day      =  dateFormat(r.TimeSent, "dddd dS mmmm");
+                      r.TimeSent =  dateFormat(r.TimeSent, "HH:MM");
+                      return r;
+                    });
                     resolve(results);
                   }
                 });
