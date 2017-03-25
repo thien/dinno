@@ -123,6 +123,9 @@
 			width: 200px;
 		}
 	}
+	h1.frontpage-logo-banner {
+		color: #FF5353;
+	}
 
 	#navsearchbar::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 	  color: #eee;
