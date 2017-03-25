@@ -13,6 +13,8 @@ window.onload = function(){
 		// document.getElementById("latlngfield").value = coords;
 		document.getElementById("lat").value = latitude;
 		document.getElementById("lng").value = longitude;
+		Cookies.set('lat',latitude);
+		Cookies.set('lng',longitude);
 		printEstLocation(coords)
 	}
 
