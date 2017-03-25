@@ -1,4 +1,7 @@
 <style>
+	/*html, body {
+	    height: 100%;
+	}*/
 	#container {
 		padding: 50px;
 	}
@@ -219,7 +222,11 @@
 	#display_item_results {
 		width: 100%;
 		display: table;
+
 		height:calc(100% - 80px);
+	}
+	.display-item-results-baby {
+		position: absolute; height: 100%; width: 100%;
 	}
 	@media(max-width: 990px){
 		#display_item_results {
