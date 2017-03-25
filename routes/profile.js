@@ -139,7 +139,7 @@ module.exports = function() {
 					success : ["Your data has been updated successfully."]
 				}
 
-				res.render('edit_profile', param);
+				res.render('register', param);
 
 			}, function(err) {
 				param.error_message = {
