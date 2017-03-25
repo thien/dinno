@@ -35,6 +35,7 @@
 			display: block;
 			max-width: 100%;
 		}
+
 	}
 	@media(min-width: 720px){
 		.block-left {
@@ -42,6 +43,22 @@
 			max-height: 200px;
 			float:left;
 		}
+	}
+	.man-block-left {
+		padding-right: 20px;
+		max-height: 200px;
+		float:left;
+	}
+	.man-img-container {
+	    width: 120px;
+	    height: 120px;
+	    overflow: hidden;
+	    margin-right: 20px;
+	}
+	.man-img-container img {
+	    height: 140%;
+	    position: relative;
+	    bottom:10%;
 	}
 	.manage-header {
 		padding: 20px 0px 10px 0px;
@@ -351,9 +368,6 @@
 		font-size: 135% !important;
 		display: inline-block;
 		/*height: 60%;*/
-	}
-	.man-item-image {
-		max-width: 300px;
 	}
 	.fooditem_profile #userrating #user_rating{
 		background-color: #FF5353;
