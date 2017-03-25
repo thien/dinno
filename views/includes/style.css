@@ -352,6 +352,9 @@
 		display: inline-block;
 		/*height: 60%;*/
 	}
+	.man-item-image {
+		max-width: 300px;
+	}
 	.fooditem_profile #userrating #user_rating{
 		background-color: #FF5353;
 	}
@@ -364,6 +367,10 @@
 		background-color: #FF5353;
 	}
 
+	.row.man-item-entry {
+		height: 100%;
+		display:block;
+	}
 
 	.fooditem_profile .username{
 		/*background-color: #ccc;*/

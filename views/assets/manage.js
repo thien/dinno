@@ -153,8 +153,8 @@ function cardEntry(item){
 // 					a.btn.btn-link.btn-sm(href='#') Edit
 // 					a.btn.btn-link.btn-sm(href='#') Delete
 // 					a.btn.btn-link.btn-sm(href='#') Cancel
-	var card = "<div class='container-vp'><div class='card'><div class='row'><div class='col-md-12'>";
-	card += "<img src='"+item.Image+"' class='block-left h-100'><div class='card-block item-details'>";
+	var card = "<div class='container-vp'><div class='card'><div class='row man-item-entry'><div class='col-md-12'>";
+	card += "<img src='"+item.Image+"' class='block-left h-100 man-item-image'><div class='card-block item-details'>";
 	card += "<h4 class='card-title'>"+item.Name+"</h4>";
 	if (search_parameters.req_type === "others"){
 		card += "<h6 class='card-subtitle mb-2 text-muted'>Submitted by "+item.Forename+"</h6>";
