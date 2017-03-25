@@ -1,4 +1,7 @@
 <style>
+	/*html, body {
+	    height: 100%;
+	}*/
 	#container {
 		padding: 50px;
 	}
@@ -219,7 +222,11 @@
 	#display_item_results {
 		width: 100%;
 		display: table;
+
 		height:calc(100% - 80px);
+	}
+	.display-item-results-baby {
+		position: absolute; height: 100%; width: 100%;
 	}
 	@media(max-width: 990px){
 		#display_item_results {
@@ -373,6 +380,32 @@
 	.reviewheader {
 		margin: 15px 0px;
 	}
+	/*location arrow*/
+
+	#locationarrow {
+		/*color: #0ff;*/
+	}
+	#locationarrow:hover {
+		color: #ccc;
+	}
+
+	.arrowloading {
+		-webkit-transition: background 0.5s ease-in-out;
+        -ms-transition:     background 0.5s ease-in-out;
+        transition:         background 0.5s ease-in-out;
+	}
+
+	.arrowpulse{
+        color: #9be9ff;
+    }
+
+    .arrowdone{
+        color: #b5ff70;
+    }
+
+    .arrowamber{
+        color: #ffeb8c;
+    }
 
 	/*upload images*/
 
