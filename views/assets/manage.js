@@ -165,7 +165,7 @@ function cardEntry(item){
 	card += "</div></div></div>";
 	card += "<div class='card-footer text-muted'><div class='btn-group'>";
 	if (search_parameters.req_type === "others"){
-		card += "<a class='btn btn-link btn-sm' href='/chat/"+item.userID+"'>Message</a>";
+		card += "<a class='btn btn-link btn-sm' href='/chat?id="+item.userID+"'>Message</a>";
 		card += "<a class='btn btn-link btn-sm' href='#'>Cancel</a>";
 	} else {
 		card += "<a class='btn btn-link btn-sm' href='/edit/"+item.id+"'>Edit</a>";
