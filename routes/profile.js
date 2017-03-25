@@ -99,7 +99,6 @@ module.exports = function() {
 			res.render('error', param);
 		});
 	})
-
 	app.get('/editprofile', function(req, res) {
 		var param = {
 			loggedin: false,
@@ -140,7 +139,7 @@ module.exports = function() {
 					success : ["Your data has been updated successfully."]
 				}
 
-				res.render('edit_profile', param);
+				res.render('register', param);
 
 			}, function(err) {
 				param.error_message = {

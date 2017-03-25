@@ -14,48 +14,4 @@ extends layout
 block container
 	include includes/nav
 	.row
-		.col-md-6
-			#container.fooditem_profile
-				img.d-block.img-fluid(src=data.Image)
-
-				//- load image container
-				.card-profile-container
-					img.card-userprofile-img(src=data.ProfileImage, alt='Card image cap')
-
-				//- food name
-				h2 #{Name}
-
-				h5
-					#userrating
-						span.badge#user_rating #{data.Rating}
-					.username #{data.Firstname} #{data.Surname} 
-
-				//- print description
-				p #{data.Description}
-
-				//- //- print tags
-				//- .tags_container
-				//- 	each tag in tags
-				//- 		span.badge.categoriestags #{tag}
-
-				//- request button
-				button.btn.btn-primary.btn-lg.btn-block(type='button') Dinno This
-		.col-md-4
-			#container
-				- var coord = Latitude + "," + Longitude
-				- var mapsrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCFfZX6iV4dWsBxUQ45EnobLYATI3WfXtw&q=Space+Needle,Seattle+WA&zoom=15&center="
-				- mapsrc = mapsrc + coord
-
-				- var staticimg = "https://maps.googleapis.com/maps/api/staticmap?size=300x400&style=element:labels|visibility:off&style=element:geometry.stroke|visibility:off&style=feature:landscape|element:geometry|saturation:-100&style=feature:water|saturation:-100|invert_lightness:true&key=AIzaSyBAQr_cnQ9oAQT1tlJtG5HV59pswwR5gAg"
-
-				- staticimg += "&zoom=15"
-				- staticimg += "&center="+coord
-				- staticimg += "&markers=color:red%7Clabel:S%7C" + coord
-
-				//- iframe(width='100%', height='450', frameborder='0', style='border:0', src=mapsrc, allowfullscreen='')
-
-				img(src=staticimg)#static_fooditem
-
-				h5 #{HouseNoName} #{Street}
-				//- p
-				//- | about 5 minutes away.
+		include /assets/fooditem-container

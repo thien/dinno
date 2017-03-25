@@ -15,16 +15,16 @@ block container
 						h1 Edit Profile
 						.form-group
 							label(for='First Name') First name 
-							input#forename.form-control(name="forename" type='name', placeholder='First Name' value=user_details.forename)
+							input#forename.form-control(name="forename" type='name', placeholder='First Name' value=user_data.firstname)
 						.form-group
 							label(for='Last Name') Last name
-							input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=user_details.surname)
+							input#surname.form-control(name="surname" type='name', placeholder='Last Name' value=user_data.surname)
 						.form-group
 							label(for='Last Name') Location
-							input#location.form-control(name="location" type='name', placeholder='location' value=user_details.user_location)
+							input#location.form-control(name="location" type='name', placeholder='location' value=user_data.user_location)
 						.form-group
 							label(for='exampleInputEmail1') Email address
-							input#email.form-control(name="email" type='email', placeholder='you@email.com' value=user_details.email)
+							input#email.form-control(name="email" type='email', placeholder='you@email.com' value=user_data.email)
 						.form-group
 							label(for='exampleInputPassword1') New Password
 							input#password.form-control.password(name="password" type='password', placeholder='Password')

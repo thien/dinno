@@ -54,11 +54,14 @@ app.use('/', require('./routes/register'));
 // profile page
 app.use('/', require('./routes/profile'));  
 
-// food item
+// food item profile
 app.use('/', require('./routes/fooditem'));  
 
 // add food item
 app.use('/', require('./routes/add'));  
+
+// edit food item
+app.use('/', require('./routes/editfood'));  
 
 // manage fooditems
 app.use('/', require('./routes/manage'));  
