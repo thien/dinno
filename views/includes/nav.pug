@@ -6,27 +6,31 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 	a.navbar-brand(href='/') dinno.club
 	#navbarTogglerDemo02.collapse.navbar-collapse
 
-		form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
-			input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food')
-			button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
-				i.fa.fa-search(aria-hidden='true')
+		if loggedin
+			form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
+				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food')
+				button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
+					i.fa.fa-search(aria-hidden='true')
+		else
+			.form-inline.mr-auto.mt-2.mt-md-0
 
 
 		ul.navbar-nav.my-2.my-lg-0 
 			//- li.nav-item
 			//- 	h5 #{loggedin}
-			li.nav-item.active
-				a.nav-link(href='/')
-					| Home 
-					span.sr-only (current)
-			li.nav-item
-				a.nav-link(href='/add') Add
-			li.nav-item
-				a.nav-link(href='/manage?type=others') Dinnos
-			li.nav-item
-				a.nav-link(href='/chat') Messages
-
+		
 			if loggedin
+				li.nav-item.active
+					a.nav-link(href='/')
+						| Home 
+						span.sr-only (current)
+				li.nav-item
+					a.nav-link(href='/add') Add
+				li.nav-item
+					a.nav-link(href='/manage?type=others') Dinnos
+				li.nav-item
+					a.nav-link(href='/chat') Messages
+
 				.dropdown.nav-profile-dropdown
 					a.dropdown-toggle.nav-profile(data-toggle='dropdown')  
 						img(src=user_data.mugshot).navbar-mugshot
