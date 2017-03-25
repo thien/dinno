@@ -36,13 +36,15 @@ module.exports = function() {
 		};
 		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
-
 			param.user_data = {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage
 			};
+
+			var newItem = req.body;
+			console.log(newItem);
 
 			//
 			//  This section is where you manipulate the data etc.

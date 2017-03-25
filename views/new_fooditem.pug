@@ -14,7 +14,7 @@ block container
 						h1 Add Fooditem
 						.form-group
 							label(for='Food Name') Food Name
-							input#exampleInputEmail1.form-control.food-name(name="forename" type='foodname', placeholder='Lettuce' value="saiusages")
+							input#exampleInputEmail1.form-control.food-name(name="name" type='foodname', placeholder='Lettuce' value="saiusages")
 						.form-group
 							label(for='exampleSelect1') Food Type
 							select#exampleSelect1.form-control(name="foodtype")
@@ -24,6 +24,32 @@ block container
 							label(for='exampleTextarea') Description
 							textarea#description.form-control(rows='3' maxlength="140" name="description")
 							//- small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+						.form-inline
+							#sr-only
+								label(for='exampleSelect1') Day
+								select(name="day" type="Day" value=day)#bornday
+									- for (var d = 1; d <= 31; d++)
+										option(value=''+d) #{d}
+							#sr-only
+								label(for='exampleSelect1') Month
+								select(name="month" type="Month" value=month)
+									option(value='01') January
+									option(value='02') Febuary
+									option(value='03') March
+									option(value='04') April
+									option(value='05') May
+									option(value='06') June
+									option(value='07') July
+									option(value='08') August
+									option(value='09') September
+									option(value='10') October
+									option(value='11') November
+									option(value='12') December
+							#sr-only
+								label(for='exampleSelect1' ) Year
+								select(name="year" type="Year" value=year) 
+									- for (var y = 2100; y >= 1900; y--)
+										option(value=''+y) #{y}
 						.form-group
 							label(for='Food Name') Location
 							input#exampleInputEmail1.form-control(name="location" type='location', placeholder='Durham, UK')
