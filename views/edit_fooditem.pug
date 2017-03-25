@@ -1,6 +1,5 @@
 extends layout
 
-
 block container
 	script(src='/socket.io/socket.io.js')
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
@@ -11,7 +10,7 @@ block container
 			.row
 				.col-lg-6
 					#container
-						h1 Add Fooditem
+						h1 Edit Fooditem
 						.form-group
 							label(for='Food Name') Food Name
 							input#exampleInputEmail1.form-control.food-name(name="forename" type='foodname', placeholder='Lettuce' value="saiusages")
@@ -23,9 +22,14 @@ block container
 						.form-group
 							label(for='exampleTextarea') Description
 							textarea#description.form-control(rows='3' maxlength="140" name="description")
-							//- small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
 						.form-group
 							label(for='Food Name') Location
+							input#exampleInputEmail1.form-control(name="location" type='location', placeholder='Durham, UK')
+						.form-group
+							label(for='Food Name') Item Expiry Date
+							input#exampleInputEmail1.form-control(name="location" type='location', placeholder='Durham, UK')
+						.form-group
+							label(for='Food Name') Tags
 							input#exampleInputEmail1.form-control(name="location" type='location', placeholder='Durham, UK')
 
 						
@@ -35,14 +39,21 @@ block container
 							#upload_img_container
 								input(id="input_images" name='images' type="file" multiple="true")
 						//- request button
-						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
+						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Update Fooditem
 			.row
-				.form-group.barcode-scanner-container
-					h3 Scan your barcode here!
-					#barcodeContainer
-									
-						
+				.col-xl-10
+					.container
+						div
+							hr
+						h3 Preview
+			.row
+				//- will need to generate a client side version to manipulate this
+				include /assets/fooditem-container
+			.col-xl-10
+				.container
+					div
+						hr
+				//- request button
+				button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Update Fooditem
 	script
 		include assets/upload.js
-		include assets/lib/quagga.js
-		include assets/barcode.js

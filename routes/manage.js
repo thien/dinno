@@ -7,7 +7,41 @@ var bf = require('../functions/basefunctions');
 
 app.locals.basedir = "." + '/views';
 
+function getPostedMeals(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage, User.UserID, Meal.RecipientId
+				  FROM Meal
+				  JOIN User 
+				  ON User.UserID = Meal.UserID
+				  WHERE Meal.UserID = ?`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
 
+function getReceivedMeals(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage, Meal.RecipientId, Meal.UserID
+				  FROM Meal
+				  JOIN User 
+				  ON User.UserID = Meal.RecipientId
+				  WHERE Meal.RecipientId = ?`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
 /*
 
 Note: For /manage
@@ -33,23 +67,40 @@ module.exports = function() {
 		};
 		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
-			var cookies = new Cookies(req, res);
-			userId = cookies.get('id');
+			userID = result.UserID;
+			var posted = getPostedMeals(userID);
+			var received = getReceivedMeals(userID);
+			Promise.all([posted, received]).then(function(data) {
+				
+				param.fooditems = {};
+				param.fooditems.yours = data[0];
+				param.fooditems.theirs = data[1];
+				param.user_data = {
+					userID: userID,
+					firstname: result.Firstname,
+					surname: result.Surname,
+					mugshot: result.ProfileImage
+				};
+				
+				if (req.query.type){
+					if (req.query.type === "others"){
+						param.defaultToggle = false;
+					} else {
+						param.defaultToggle = true;
+					}
+				}
+				console.log(param);
+				res.render('manage', param);
 
-			// var profileInfo = getProfileInfo(userId);
-
-			param.user_data = {
-				userID: userId,
-				firstname: result.Firstname,
-				surname: result.Surname,
-				mugshot: result.ProfileImage
-			};
-
-
-			res.render('manage', param);
+			},function(err) {
+				param.error_message = {
+					msg: err
+				};
+				res.render('error', param);
+			});
 		}, function(err) {
 			param.error_message = {
-				msg: "You're not logged in."
+				msg: err
 			};
 			res.render('error', param);
 		});
