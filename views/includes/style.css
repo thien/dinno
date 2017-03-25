@@ -112,15 +112,27 @@
 		color: #fff;
 		border-radius: 0px;
 	}
-
+	#in-the-searchbar-right {
+		position: relative;
+	}
 	@media(min-width: 580px){
 		#navsearchbar {
 			width: 400px;
+		}
+		#in-the-searchbar-right {
+			right: 35px;
+			margin-bottom: 3px;
+			margin-right: -10px;
 		}
 	}
 	@media(max-width: 580px){
 		#navsearchbar {
 			width: 200px;
+		}
+		#in-the-searchbar-right {
+			right: 25px;
+			margin-bottom: 3px;
+			margin-right: -10px;
 		}
 	}
 	h1.frontpage-logo-banner {
