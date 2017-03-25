@@ -113,8 +113,15 @@
 		border-radius: 0px;
 	}
 
-	#navsearchbar {
-		width: 400px;
+	@media(min-width: 580px){
+		#navsearchbar {
+			width: 400px;
+		}
+	}
+	@media(max-width: 580px){
+		#navsearchbar {
+			width: 200px;
+		}
 	}
 
 	#navsearchbar::-webkit-input-placeholder { /* Chrome/Opera/Safari */
