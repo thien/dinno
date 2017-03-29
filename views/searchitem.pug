@@ -35,7 +35,7 @@ block container
 							span#lng
 						form#filters
 							span Location
-							input#newName(type='text',name='location')
+							input#newName(type='text')
 							br
 							span Meal
 							input#meal(type='radio',name='isMeal',value='true')
@@ -81,7 +81,15 @@ block container
 		//- })
 		$("form#filters").submit(function(){
 			var form = this;
-			$.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
+			var location = ""
+			//console.log(document.cookie)
+			document.cookie += ";"
+			if($("input#newName").val() == ""){
+				location += Cookies.get('lat') + "," + Cookies.get('lng')
+			}else{
+				location = $("input#newName").val()
+			}
+			$.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
 				dataAppend(data,function(){
 					form.submit()
 				})
