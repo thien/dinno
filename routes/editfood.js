@@ -5,6 +5,54 @@ var login = require('../functions/login');
 const db = require('../functions/database');
 app.locals.basedir = "." + '/views';
 
+module.exports = function() {
+
+	app.get('/edit/:id', function(req, res) {
+		var param = {
+			loggedin: false,
+		};
+
+		login.checkLogin(req, res).then(function(result) {
+			param.loggedin = true;
+
+			param.user_data = {
+				userID: result.UserID,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
+
+			var mealId = req.params.id;
+
+			if (mealId) {
+				getFoodInfo(mealId).then(function(data) {
+					console.log(data);
+					param.data = data;
+					res.render('edit_fooditem', param);
+
+				}, function(err) {
+					param.error_message = {
+						msg: err
+					};
+					res.render('error', param);
+				});
+			} else {
+				param.error_message = {
+					msg: 'No mealId provided'
+				};
+				res.render('error', param);
+			}
+		}, function(err) {
+			param.error_message = {
+				msg: "You're not logged in."
+			};
+			res.render('error', param);
+		});
+	})
+
+	return app;
+}();
+
 function getFoodInfo(mealId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT Meal.Name, Meal.Description, Meal.Image, Location.HouseNoName, Location.Street, Location.Latitude, Location.Longitude, User.Firstname, User.Surname, User.ProfileImage, User.Rating
@@ -27,56 +75,3 @@ function getFoodInfo(mealId) {
 			});
 	});
 }
-
-module.exports = function() {
-	app.get('/fooditem', function(req, res) {
-
-		var param = {
-			loggedin: false,
-		};
-
-		login.checkLogin(req, res).then(function(result) {
-
-			param.loggedin = true;
-
-			param.user_data = {
-				userID: 123,
-				firstname: result.Firstname,
-				surname: result.Surname,
-				mugshot: result.ProfileImage
-			};
-
-			var mealId = req.query.id;
-
-			if (mealId) {
-				getFoodInfo(mealId).then(function(data) {
-					console.log(data);
-					param.data = data;
-					res.render('fooditem', param);
-
-				}, function(err) {
-					param.error_message = {
-						msg: err
-					};
-					res.render('error', param);
-				});
-			} else {
-				param.error_message = {
-					msg: 'No mealId provided'
-				};
-				res.render('error', param);
-			}
-
-
-
-		}, function(err) {
-			param.error_message = {
-				msg: "You're not logged in."
-			};
-			res.render('error', param);
-		});
-
-	})
-
-	return app;
-}();

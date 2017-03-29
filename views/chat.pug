@@ -14,57 +14,24 @@ html(lang="en")
 		include includes/nav
 		.container#chat_container
 			.row
-				//- .conversation-wrap.col-lg-3
-				//- 	.media.conversation
-				//- 		a.pull-left(href='#')
-				//- 			img.media-object.contact_photo.sm(src='http://img-cache.cdn.gaiaonline.com/98edcc4caa9f3cd30f2c79516d70804b/http://i269.photobucket.com/albums/jj41/panda-girl-person/panda-14.png')
-				//- 		.media-body.message-list-box
-				//- 			h5.media-heading John Cena
-				//- 			small Hello
-				//- 	.media.conversation
-				//- 		a.pull-left(href='#')
-				//- 			img.media-object.contact_photo.sm(src='http://img-cache.cdn.gaiaonline.com/98edcc4caa9f3cd30f2c79516d70804b/http://i269.photobucket.com/albums/jj41/panda-girl-person/panda-14.png')
-				//- 		.media-body.message-list-box
-				//- 			h5.media-heading John Cena
-				//- 			small Hello
-				//- 	.media.conversation
-				//- 		a.pull-left(href='#')
-				//- 			img.media-object.contact_photo.sm(src='http://img-cache.cdn.gaiaonline.com/98edcc4caa9f3cd30f2c79516d70804b/http://i269.photobucket.com/albums/jj41/panda-girl-person/panda-14.png')
-				//- 		.media-body.message-list-box
-				//- 			h5.media-heading John Cena
-				//- 			small Hello
-				//- 	.media.conversation
-				//- 		a.pull-left(href='#')
-				//- 			img.media-object.contact_photo.sm(src='http://img-cache.cdn.gaiaonline.com/98edcc4caa9f3cd30f2c79516d70804b/http://i269.photobucket.com/albums/jj41/panda-girl-person/panda-14.png')
-				//- 		.media-body.message-list-box
-				//- 			h5.media-heading John Cena
-				//- 			small Hello
-				//- 	.media.conversation
-				//- 		a.pull-left(href='#')
-				//- 			img.media-object.contact_photo.sm(src='http://img-cache.cdn.gaiaonline.com/98edcc4caa9f3cd30f2c79516d70804b/http://i269.photobucket.com/albums/jj41/panda-girl-person/panda-14.png')
-				//- 		.media-body.message-list-box
-				//- 			h5.media-heading John Cena
-				//- 			small Hello
-				//- 	.media.conversation
-				//- 		a.pull-left(href='#')
-				//- 			img.media-object.contact_photo.sm(src='http://img-cache.cdn.gaiaonline.com/98edcc4caa9f3cd30f2c79516d70804b/http://i269.photobucket.com/albums/jj41/panda-girl-person/panda-14.png')
-				//- 		.media-body.message-list-box
-				//- 			h5.media-heading John Cena
-				//- 			small Hello
-				//- 	.media.conversation
-				//- 		a.pull-left(href='#')
-				//- 			img.media-object.contact_photo.sm(src='http://img-cache.cdn.gaiaonline.com/98edcc4caa9f3cd30f2c79516d70804b/http://i269.photobucket.com/albums/jj41/panda-girl-person/panda-14.png')
-				//- 		.media-body.message-list-box
-				//- 			h5.media-heading John Cena
-				//- 			small Hello
+				.conversation-wrap.col-lg-3
+					each convo in convos
+						if convo.UserID != user_data.userID
+							.media.conversation
+								a.pull-left(href='/chat?id=' + convo.UserID)
+									img.media-object.contact_photo.sm(src=convo.ProfileImage)
+								.media-body.message-list-box
+									h5.media-heading #{convo.Firstname}
+									small #{convo.Contents}
+					
 
-				.message-wrap.col-lg-12
+				.message-wrap.col-lg-9
 					.media.msg#chat_header
 							.media-body
-								a.pull-right(href='/profile?id=' + theirId)
-									img.media-object#contact_photo( src=profileImage)
+								a.pull-right(href='/profile?id=' + chat.theirId)
+									img.media-object#contact_photo( src=chat.profileImage)
 								.pull-left#contact_details
-									h5.media-heading #{theirName}
+									h5.media-heading #{chat.theirName}
 									.status-circle.green
 									small.col-lg-10
 										i
@@ -72,9 +39,9 @@ html(lang="en")
 					.msg-wrap
 						//- display messages
 						
-						- var lastMsg = messages[0];
-						each msg, i in messages
-							- var lastMsg = messages[i-1];
+						- var lastMsg = chat.messages[0];
+						each msg, i in chat.messages
+							- var lastMsg = chat.messages[i-1];
 							if i == 0
 								.alert.alert-info.msg-date
 										strong #{msg.Day}
@@ -97,14 +64,7 @@ html(lang="en")
 							.pull-right
 								button.btn.btn-outline-primary#btn-message-send(type='button') 
 									i.fa.fa-paper-plane(aria-hidden='true')
-						//- textarea.form-control.send-message(rows='3', placeholder='Write a reply...')
-						//- .btn-panel
-							//- a.col-lg-3.btn.send-message-btn(href='', role='button')
-							//- 	i.fa.fa-cloud-upload
-							//- 	| Add Files
-							//- a.col-lg-4.text-right.btn.send-message-btn.pull-right(href='', role='button')
-							//- 	i.fa.fa-plus
-							//- 	| Send Message
+
 		script(src='/socket.io/socket.io.js')
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
 		script

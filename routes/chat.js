@@ -11,42 +11,57 @@ app.locals.basedir = "." + '/views';
 module.exports = function() {
 
 	app.get('/chat', function(req, res) {
+		var param = {
+			loggedin: false,
+		};
 		login.checkLogin(req, res).then(function(result) {
+			param.loggedin = true;
+
 			var cookies = new Cookies(req, res);
 			var senderId = cookies.get('id');
-			var recipientId = req.query.id;
-			if (senderId && recipientId) {
+			var recipientId = req.query.id || 1;
+
+			param.user_data = {
+				userID: senderId,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage
+			};
+			if (senderId) {
 
 				var recipientInfo = chat.getRecipientInfo(recipientId);
 				var previousMessages = chat.getPreviousMessages(senderId, recipientId);
+				var previousConversations = chat.getPreviousConversations(senderId);
 
-				Promise.all([recipientInfo, previousMessages]).then(function(data) {
+				Promise.all([recipientInfo, previousMessages, previousConversations]).then(function(data) {
 
-					var param = {
+					param.chat = {
 						theirName: `${data[0].Firstname} ${data[0].Surname}`,
             profileImage: data[0].ProfileImage,
             theirId: recipientId,
 						messages: data[1],
 					};
+					param.convos = data[2];
+
 					res.render('chat', param);
 
 				}, function(err) {
-					var error_message = {
+					param.error_message = {
 						msg: err
 					};
-					res.render('error', error_message);
+					res.render('error', param);
 				});
 			} else {
-				var error_message = {
-					msg:"Your sender or recipient has not been specified"
+				param.error_message = {
+					msg: "Your sender or recipient has not been specified"
 				};
-				res.render('error', error_message);
+				res.render('error', param);
 			}
 		}, function(err) {
-			var error_message = {
-				msg:"You're not logged in."
+			param.error_message = {
+				msg: "You're not logged in."
 			};
-			res.render('error', error_message);
+			res.render('error', param);
 		});
 	})
 

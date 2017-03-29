@@ -1,42 +1,23 @@
 include login
 
-nav.navbar.navbar-inverse.navbar-toggleable-md
-	button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo02', aria-controls='navbarTogglerDemo02', aria-expanded='false', aria-label='Toggle navigation')
+nav.navbar-alt.navbar-light.navbar-toggleable-md
+	button.navbar-toggler.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo02', aria-controls='navbarTogglerDemo02', aria-expanded='false', aria-label='Toggle navigation')
 		span.navbar-toggler-icon
-	a.navbar-brand(href='/') dinno.club
-	#navbarTogglerDemo02.collapse.navbar-collapse
+	//- a.navbar-brand(href='/') dinno.club
+	#navbarTogglerDemo02.collapse.navbar-collapse.navbar-alt-collapse
 
-		if loggedin
-			form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
-				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food')
-				input(type='hidden', name='lat')
-				input(type='hidden', name='lng')
-				#in-the-searchbar-right
-					i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom")
-
-				button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
-					i.fa.fa-search(aria-hidden='true')
-
-		else
-			.form-inline.mr-auto.mt-2.mt-md-0
+		.form-inline.mr-auto.mt-2.mt-md-0
 
 
 		ul.navbar-nav.my-2.my-lg-0 
-			//- li.nav-item
-			//- 	h5 #{loggedin}
-		
+
 			if loggedin
-				li.nav-item.active
-					a.nav-link(href='/')
-						| Home 
-						span.sr-only (current)
 				li.nav-item
 					a.nav-link(href='/add') Add
 				li.nav-item
 					a.nav-link(href='/manage?type=others') Dinnos
 				li.nav-item
 					a.nav-link(href='/chat') Messages
-
 				.dropdown.nav-profile-dropdown
 					a.dropdown-toggle.nav-profile(data-toggle='dropdown')  
 						img(src=user_data.mugshot).navbar-mugshot
@@ -69,6 +50,3 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 		//- form.form-inline.my-2.my-lg-0
 		//- 	input.form-control.mr-sm-2(type='text', placeholder='Search')
 		//- 	button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
-if loggedin
-	script
-		include /assets/navbar-location.js
