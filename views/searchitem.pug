@@ -44,6 +44,8 @@ block container
 							span Either
 							input#ingredient(type="radio",name='isMeal',value='both')
 							br
+							input#range(type='range',name='radius')
+							input#rangeVal(type='number')
 							button Filter
 				#list_results_container
 					.card-columns#fooditem_results_card
@@ -103,4 +105,12 @@ block container
 			$("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
 			callback()
 		}
+
+		$("input#range").change(function(){
+			document.getElementById("rangeVal").value = $(this).val();
+		})
+
+		$("input#rangeVal").change(function(){
+			document.getElementById("range").value = $(this).val();
+		})
 		
