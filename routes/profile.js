@@ -10,7 +10,7 @@ app.locals.basedir = "." + '/views';
 function getProfileInfo(userId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT *,
-				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
+				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) + 1 as Age
 				  FROM User
 				  WHERE UserID = ?`, [userId],
 			function(error, results, fields) {
@@ -20,6 +20,30 @@ function getProfileInfo(userId) {
 				} else if (results.length == 0) {
 					console.log('UserID not found');
 					reject('UserID not found');
+				} else {
+					resolve(results[0]);
+				}
+			});
+	});
+}
+
+function getLastPostedLocation(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Location.Town
+							FROM User 
+							JOIN Meal
+							ON User.UserID = Meal.UserID
+							JOIN Location
+							ON Location.LocationID = Meal.LocationID
+							WHERE User.UserID = ?
+							ORDER BY Meal.MealID DESC`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject(error);
+				} else if (results.length == 0) {
+					console.log('UserID not found');
+					resolve();
 				} else {
 					resolve(results[0]);
 				}
@@ -68,15 +92,15 @@ module.exports = function() {
 
 			var profileInfo = getProfileInfo(userId);
 			var userMeals = getUserMeals(userId);
+			var lastLocation = getLastPostedLocation(userId);
 
-			Promise.all([profileInfo, userMeals]).then(function(data) {
-
+			Promise.all([profileInfo, userMeals, lastLocation]).then(function(data) {
 				param.page_data = {
 					name: `${data[0].Firstname} ${data[0].Surname}`,
 					age: data[0].Age,
 					userId: userId,
 					profile_photo: data[0].ProfileImage,
-					user_location: "London",
+					user_location: data[2].Town,
 					rating: data[0].Rating,
 					no_reviews: 17,
 					reviews: 'review',
