@@ -99,6 +99,7 @@ function updateUser(userId, userData, res) {
 	var month = userData['month'];
 	var day = userData['day'];
 	var dob = `${year}/${month}/${day}`;
+	console.log(dob);
 
 	var password = userData['password'];
 	var passwordVerify = userData['vpassword'];
@@ -128,6 +129,7 @@ function updateUser(userId, userData, res) {
 				res.render('register', userData);
 			} else {
 				console.log(`Updated user ${emailAddress}`);
+				console.log(userData);
 				res.render('register', userData);
 			}
 		});
@@ -228,7 +230,6 @@ module.exports = function() {
 	app.post('/register', function(req, res) {
 		// get results
 		var userData = req.body;
-		console.log(userData);
 
 		var isValidUser = addNewUser(userData, res);
 
@@ -252,7 +253,7 @@ module.exports = function() {
 			param.loggedin = true;
 			param.edit = true;
 			param.user_data = {
-				userID: result.userID,
+				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage

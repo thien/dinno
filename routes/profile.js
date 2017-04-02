@@ -99,6 +99,7 @@ module.exports = function() {
 			res.render('error', param);
 		});
 	})
+
 	app.get('/editprofile', function(req, res) {
 		var param = {
 			loggedin: false,
@@ -107,13 +108,6 @@ module.exports = function() {
 			param.loggedin = true;
 			var cookies = new Cookies(req, res);
 			userId = cookies.get('id');
-
-			param.user_data = {
-				userID: userId,
-				firstname: result.Firstname,
-				surname: result.Surname,
-				mugshot: result.ProfileImage
-			};
 
 			var profileInfo = getProfileInfo(userId);
 
@@ -126,12 +120,15 @@ module.exports = function() {
 
 			Promise.all([profileInfo]).then(function(data) {
 
+				var dob = data[0].DOB.toString().split(' ');
 				param.forename =  `${data[0].Firstname}`,
 				param.surname = `${data[0].Surname}`,
 				param.profileImage = data[0].ProfileImage,
 				param.email = data[0].EmailAddress,
+				param.year = dob[3];
+				param.month = data[0].DOB.getMonth()+1;
+				param.day = dob[2];
 				param.edit =  true,
-
 				param.alerts = {
 					warning: [],
 					info : [],
