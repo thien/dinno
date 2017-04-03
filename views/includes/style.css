@@ -443,7 +443,12 @@
     }
 
 	/*upload images*/
-
+	.valid-input {
+	  border-color: #A1E0A8 !important;
+	}
+	.invalid-input {
+	  border-color: #FF5353 !important;
+	}
 	#upload_img_container {
 		margin: 0px 0px 20px 0px;
 		min-height: 250px;

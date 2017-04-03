@@ -74,7 +74,6 @@ module.exports = function Server(io, server) {
         socket.on('mapUpdate', function(req) {
             var client = req.id;
             map.getLocations(req.bounds).then(function(locations) {
-                console.log(locations);
                 io.sockets.in(client).emit('mapUpdate', locations);
             }, function(err) {
 
