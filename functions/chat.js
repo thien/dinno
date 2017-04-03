@@ -86,7 +86,7 @@ module.exports = {
                     JOIN User
                     ON User.UserID = Chat.FromID OR User.UserID = Chat.ToID
                     WHERE Chat.FromID = ? OR Chat.ToID = ?
-                    ORDER BY Chat.TimeSent ASC
+                    ORDER BY Chat.TimeSent DESC
                   ) AS msg
                   GROUP BY msg.UserID`,
                 [userId, userId], 
@@ -127,5 +127,23 @@ module.exports = {
                   }
                 });
     });
-  }
+  },
+
+  searchUsers: function(name) {
+      return new Promise(function(resolve, reject) {
+          db.query(`Select * FROM User
+                    WHERE MATCH(Firstname, Surname) 
+                          AGAINST(? IN BOOLEAN MODE)`, 
+                  [name], 
+                  function (error, results, fields) {
+                    if (error) { 
+                      console.log(error); 
+                      reject(error);
+                    }
+                    else{
+                      resolve(results);
+                    }
+                  });
+      });
+    }
 }

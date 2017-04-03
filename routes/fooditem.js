@@ -7,7 +7,7 @@ app.locals.basedir = "." + '/views';
 
 function getFoodInfo(mealId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.Name, Meal.Description, Meal.Image, Location.HouseNoName, Location.Street, Location.Latitude, Location.Longitude, User.Firstname, User.Surname, User.ProfileImage, User.Rating
+		db.query(`SELECT Meal.Name, Meal.Description, Meal.Image, Location.HouseNoName, Location.Street, Location.Latitude, Location.Longitude, User.Firstname, User.Surname, User.ProfileImage, User.Rating, User.UserID
 				FROM Meal
 				JOIN User 
 				ON User.UserID = Meal.UserID

@@ -47,6 +47,21 @@ $('#btn-message-send').click(function() {
    $('#message_send').submit();
 });
 
+
+
+$('#user-search').submit(function() {
+    var q = $('#user-search-box').val();
+    socket.emit('user search', {
+        q: q
+    });
+});
+
+$('#btn-user-search').click(function() {
+   $('#user-search').submit();
+});
+
+
+
 socket.on('chat message', function(msg) {
     console.log("from server", msg);
 
@@ -82,6 +97,30 @@ socket.on('chat message', function(msg) {
 });
 socket.on('server message', function(msg) {
     $('#messages').append($('<li class="server-message">').text(msg));
+});
+
+socket.on('user search results', function(res) {
+    console.log("from server", res);
+  var users = '';
+  res.forEach(function(u) {
+    // .media.conversation
+    //             a.pull-left(href='/chat?id=' + convo.UserID)
+    //               img.media-object.contact_photo.sm(src=convo.ProfileImage)
+    //             .media-body.message-list-box
+    //               h5.media-heading #{convo.Firstname}
+    //               small #{convo.Contents}
+    users += ` <div class='media conversation'>
+                  <a class='pull-left' href='/chat?id=${u.UserID}'>
+                    <img class='media-object contact_photo sm' src='${u.ProfileImage}'>
+                  </a>
+                  <div class='media-body message-list-box'>
+                    <h5>${u.Firstname} ${u.Surname}</h5>
+                  </div>
+                </div>`;
+  });
+  var resBox = document.getElementById('user-search-results');
+  resBox.innerHTML = users;
+  
 });
 
 $(".msg-wrap").scrollTop($(".msg-wrap")[0].scrollHeight);

@@ -4,7 +4,8 @@
 
 		//- load image container
 		.card-profile-container
-			img.card-userprofile-img(src=data.ProfileImage, alt='Card image cap')
+			a(href='/profile?id=' + data.UserID)
+				img.card-userprofile-img(src=data.ProfileImage, alt='Card image cap')
 
 		//- food name
 		h2 #{data.Name}

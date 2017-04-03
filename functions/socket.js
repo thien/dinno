@@ -41,6 +41,13 @@ module.exports = function Server(io, server) {
             
         });
 
+        socket.on('user search', function(req) {    
+            var name = req.q;
+            chat.searchUsers(name).then(function(res){
+                socket.emit('user search results', res);
+            });
+        });
+
         socket.on('imageupload', function(img_json) {
             // console.log("upload this pls:", img);
 

@@ -323,6 +323,17 @@
 		right: 20px;
 	}
 
+	#fooditem .card-userprofile-img{
+		float: left;
+		border-radius: 50%;
+		border: 3px solid #fff;
+		height: 80px;
+		width: 80px;
+		position: relative;
+		top: -40px;
+		left: -20px;
+	}
+
 
 
 	#dinnosaur {
@@ -371,6 +382,9 @@
 	}
 	.fooditem_profile #userrating #user_rating{
 		background-color: #FF5353;
+	}
+	.fooditem_profile .img-fluid{
+		max-height: 50vh;
 	}
 	.tags_container {
 		text-align: center;
