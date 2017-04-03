@@ -30,7 +30,7 @@ function validateName() {
 
 function validateFoodtype() {
   var foodtype = $("#foodtype").val();
-  if (foodtype.length > 0) { 
+  if (foodtype == 'Meal' || foodtype == 'Ingredient') { 
     updateValidity("#foodtype", true);
     return true;
   }
@@ -53,7 +53,14 @@ function validateDescription() {
 }
 
 function validateDate() {
-  if (true){
+  var day = $("#day").val();
+  var month = $("#month").val();
+  var year = $("#year").val();
+
+  var date = new Date(year, month - 1, day);
+  var now = new Date();
+
+  if (date >= now){
     updateValidity(".date", true);
     return true;
   }
@@ -91,7 +98,7 @@ function validateImage() {
 $(document).ready(function(){
   $("#submitter").prop("disabled", true);
   $('#name').keyup(validateName);
-  $('#foodtype').keyup(validateFoodtype);
+  $('#foodtype').change(validateFoodtype);
   $('#description').keyup(validateDescription);
   $('#location').keyup(validateLocation);
   $('.date').change(validateDate);

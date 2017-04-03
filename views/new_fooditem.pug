@@ -29,7 +29,10 @@ block container
 								label(for='exampleSelect1') Day
 								select#day.date(name="day" type="Day" value=day)
 									- for (var d = 1; d <= 31; d++)
-										option(value=''+d) #{d}
+											if(d < 10)
+												option(value='0'+d) 0#{d}
+											else 
+												option(value=''+d) #{d}
 							#sr-only
 								label(for='exampleSelect1') Month
 								select#month.date(name="month" type="Month" value=month)
@@ -49,6 +52,7 @@ block container
 								label(for='exampleSelect1' ) Year
 								select#year.date(name="year" type="Year" value=year) 
 									- for (var y = 2100; y >= 1900; y--)
+										if(d.length == 1)
 										option(value=''+y) #{y}
 						.form-group
 							input#secret-image-input.form-control.password(name="profileImage" value=profileImage)
