@@ -2,7 +2,6 @@ extends layout
 
 block container
 	script(src='/socket.io/socket.io.js')
-	script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8')
 	include includes/nav
 
 	//- html(lang="en")
@@ -19,7 +18,7 @@ block container
 	//- include includes/nav
 	//- divide into two columns
 	.container-fluid#display_item_results
-		.row
+		.row.display-item-results-baby
 			.col-6.no-float#results_container_left
 				#search_item_details 
 					if results.food
@@ -57,9 +56,6 @@ block container
 			.col-6.embed-responsive#results_container_right
 				#map-canvas.embed-responsive-item
 
-
-	script
-		include assets/poachGETVariables.js
-		include assets/js-cookie.js
+	script 
 		include assets/map.js
-	
+	script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')

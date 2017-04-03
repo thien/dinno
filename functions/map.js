@@ -3,12 +3,15 @@ var Cookies   = require("cookies");
 const db      = require('../functions/database');
 
 module.exports = {
-  getLocations: function(pos, radius) {
+  getLocations: function(bounds) {
     return new Promise(function(resolve, reject) {
         db.query(`SELECT Meal.Name, Meal.MealID, Meal.Image, Meal.Description, Location.Latitude, Location.Longitude
                   FROM Meal
                   JOIN Location 
-                  ON Meal.LocationID = Location.LocationID`, 
+                  ON Meal.LocationID = Location.LocationID
+                  WHERE Location.Longitude > ? AND Location.Longitude < ?
+                  AND Location.Latitude > ? AND  Location.Latitude < ? `,
+                  [bounds.west, bounds.east, bounds.south, bounds.north],
                 function (error, results, fields) {
                   if (error) { 
                     console.log(error); 
