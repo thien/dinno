@@ -127,5 +127,23 @@ module.exports = {
                   }
                 });
     });
-  }
+  },
+
+  searchUsers: function(name) {
+      return new Promise(function(resolve, reject) {
+          db.query(`Select * FROM User
+                    WHERE MATCH(Firstname, Surname) 
+                          AGAINST(? IN BOOLEAN MODE)`, 
+                  [name], 
+                  function (error, results, fields) {
+                    if (error) { 
+                      console.log(error); 
+                      reject(error);
+                    }
+                    else{
+                      resolve(results);
+                    }
+                  });
+      });
+    }
 }

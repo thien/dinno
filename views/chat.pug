@@ -15,6 +15,11 @@ html(lang="en")
 		.container#chat_container
 			.row
 				.conversation-wrap.col-lg-3
+					form(action='' onsubmit="return false").form-inline#user-search
+						input.form-control.send-message#user-search-box(name="userSearch" type='text', placeholder='Search for a user...')
+						button.btn.btn-outline-primary#btn-user-search(type='button') 
+										i.fa.fa-address-book(aria-hidden='true')
+					#user-search-results
 					each convo in convos
 						if convo.UserID != user_data.userID
 							.media.conversation
@@ -23,7 +28,6 @@ html(lang="en")
 								.media-body.message-list-box
 									h5.media-heading #{convo.Firstname}
 									small #{convo.Contents}
-					
 
 				.message-wrap.col-lg-9
 					.media.msg#chat_header

@@ -105,6 +105,11 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Test data for table `User`
 --
 
+ALTER TABLE User
+ADD FULLTEXT INDEX `Name` 
+(`Firstname` ASC, 
+ `Surname` ASC);
+
 INSERT INTO `User` (`UserID`, `LocationID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`, `LoginCode`, `ProfileImage`) VALUES
 (1, 1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png'),
 (2, 1, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png'),
