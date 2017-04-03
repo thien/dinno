@@ -105,7 +105,6 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Test data for table `User`
 --
 
-<<<<<<< HEAD
 ALTER TABLE User
 ADD FULLTEXT INDEX `Name` 
 (`Firstname` ASC, 
