@@ -178,6 +178,36 @@ INSERT INTO `Chat` (`MessageID`, `FromID`, `ToID`, `TimeSent`, `Contents`) VALUE
 (8, 9, 4, '2017-01-07 03:14:30', 'Sup'),
 (9, 9, 4, '2017-01-08 03:14:30', 'Greetings'),
 (10, 4, 7, '2017-01-09 03:18:07', 'Lol');
+
+
+--
+-- Test data for table `Tag`
+--
+
+INSERT INTO `Tag` (`TagID`,`Name`) VALUES
+(1,'Poultry'),
+(2,'Vegetarian'),
+(3,'Pescatarian'),
+(4,'Gluten free'),
+(5,'Dairy free'),
+(6,'Nut free');
+
+--
+-- Test data for table `TagMeal`
+--
+
+INSERT INTO `TagMeal` (`TagMealID`,`MealID`,`TagID`) VALUES
+
+-- Apples 
+(1,2,2),
+(2,2,3),
+(3,2,4),
+
+-- Chicken wings
+(4,4,1),
+(5,4,5),
+(6,4,6);
+
 --
 -- Constraints for dumped tables
 --
