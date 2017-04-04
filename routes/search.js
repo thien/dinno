@@ -5,17 +5,17 @@ var express = require('express');
 var app = express();
 var login = require('../functions/login');
 var distance = require('google-distance');
-
+var data = []
 app.locals.basedir = "." + '/views';
 
-module.exports = function() {
+module.exports = function () {
 
-	app.get('/search', function(req, res) {
+	app.get('/search', function (req, res) {
 		var param = {
 			loggedin: false,
 		};
 
-		login.checkLogin(req, res).then(function(result) {
+		login.checkLogin(req, res).then(function (result) {
 			param.loggedin = true;
 			// !IMPORTANT; THE USER ID NEEDS TO BE FOUND!!!
 			param.user_data = {
@@ -28,68 +28,71 @@ module.exports = function() {
 			console.log(req.query);
 			var query = "SELECT * FROM ?? JOIN `Location` ON `Meal`.`LocationID` = `Location`.`LocationID` WHERE(?? LIKE ?)"
 			var meal = (req.query.isMeal == 'true')
-			var latDif = 1/69
-			var longDif = 1/69;
+			var latDif = 1 / 69
+			var longDif = 1 / 69;
 			distance.apiKey = 'AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao';
-			if(req.query.isMeal == 'both'){
+			if (req.query.isMeal == 'both') {
 				meal = true;
 			}
 			var foods
-			if(req.query.food != ""){
+			if (req.query.food != "") {
 				if (req.query.isMeal == 'true') {
-				foods = ["%" + req.query.food + "%"]
-				foods.splice(0, 0, "Meal", "Name")
-				console.log(foods)
-				query += " AND `IsIngredient` = 0"
-			} else {
-				foods = req.query.food.split(" ")
-				foods.splice(0, 0, "Meal", "Name")
-				var operator = " OR "
-				for (i = 2; i < foods.length - 1; i++) {
-					query += operator + "(`Name` LIKE ?)"
+					foods = ["%" + req.query.food + "%"]
+					foods.splice(0, 0, "Meal", "Name")
+					console.log(foods)
+					query += " AND `IsIngredient` = 0"
+				} else {
+					foods = req.query.food.split(" ")
+					foods.splice(0, 0, "Meal", "Name")
+					var operator = " OR "
+					for (i = 2; i < foods.length - 1; i++) {
+						query += operator + "(`Name` LIKE ?)"
+					}
+					if (req.query.isMeal != 'both') {
+						query += " AND `IsIngredient` = 1"
+					}
 				}
-				if(req.query.isMeal != 'both'){
-					query += " AND `IsIngredient` = 1"
+				if (req.query.radius != undefined) {
+					latDif = req.query.radius / 69;
+					longDif = req.query.radius / 69;
 				}
-			}
-			if(req.query.radius != undefined){
-				latDif = req.query.radius/69;
-				longDif = req.query.radius/69;
-			}
-			query += " AND `Location`.`Latitude` BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
-			query += " AND `Location`.`Longitude` BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif)) 
-			query += ";"
-			query = mysql.format(query, foods)
-			console.log(query)
-			// will need to deal with queries
-			db.query(query, foods, function(error, results, fields) {
-				var data = []
-				var count = 0
-				// error will be an Error if one occurred during the query
-				// results will contain the results of the query
-				// fields will contain information about the returned results fields (if any)
-				//console.log(results);
-				for(var i = 0;i < results.length;i++){
-					//console.log(results[i].Latitude + "," + results[i].Longitude)
-					distance.get({origin: "" + req.query.lat+","+req.query.lng, destination: ""+results[i].Latitude+","+results[i].Longitude,units: 'imperial'},function(err,distanceData){
-						if (err) return console.log(err);
-						if(parseFloat(distanceData.distance.substring(0,distanceData.distance.length-3)) <= req.query.radius){
-							//console.log(distanceData);
-						}else{
-							results[i]=""
-						}
-						// if(distanceData.distanceValue <= 1609*req.query.radius){
-						// 	console.log(distanceData);
-						// }else{
-						// 	results[i]=""
-						// }
-						count++
-						if(count == results.length){
-							console.log(results + "results")
-						}
-					})
-				}
-			});
+				query += " AND `Location`.`Latitude` BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
+				query += " AND `Location`.`Longitude` BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
+				query += ";"
+				query = mysql.format(query, foods)
+				console.log(query)
+				// will need to deal with queries
+				db.query(query, foods, function (error, results, fields) {
+
+					var count = 0
+					var i = 0
+					// error will be an Error if one occurred during the query
+					// results will contain the results of the query
+					// fields will contain information about the returned results fields (if any)
+					//console.log(results);
+					// while(i < results.length){
+					// 	//console.log(results[i].Latitude + "," + results[i].Longitude)
+					// 	distance.get({origin: "" + req.query.lat+","+req.query.lng, destination: ""+results[i].Latitude+","+results[i].Longitude,units: 'imperial'},function(err,distanceData){
+					// 		if (err) return console.log(err);
+					// 		// if(parseFloat(distanceData.distance.substring(0,distanceData.distance.length-3)) <= req.query.radius){
+					// 		// 	//console.log(distanceData);
+					// 		// }else{
+					// 		// 	results[i]=""
+					// 		// }
+					// 		if(distanceData.distanceValue <= 1609*req.query.radius){
+
+					// 		}else{
+
+					// 		}
+					// 		count++
+					// 		if(count > results.length){
+					// 			console.log(results)
+					// 		}
+					// 	})
+					// }
+					data = []
+					iterateDistance(req, results, 0)
+				});
 			}
 
 			// will need to get search results
@@ -164,7 +167,7 @@ module.exports = function() {
 
 			// console.log("someone's searching for", param)
 			res.render('searchitem', param);
-		}, function(err) {
+		}, function (err) {
 			param.error_message = {
 				msg: "You're not logged in."
 			};
@@ -184,6 +187,21 @@ module.exports = function() {
 		// user id's
 
 	})
+	function iterateDistance(req, results, i) {
+		if (i < results.length) {
+			distance.get({ origin: "" + req.query.lat + "," + req.query.lng, destination: "" + results[i].Latitude + "," + results[i].Longitude, units: 'imperial' }, function (err, distanceData) {
+				if (err) return console.log(err);
+				if (distanceData.distanceValue <= 1609 * req.query.radius) {
+					data[data.length] = results[i]
+				} else {
 
+				}
+				iterateDistance(req,results,i+1)
+			})
+		} else {
+			console.log(data)
+		}
+	}
 	return app;
+
 }();
