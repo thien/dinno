@@ -14,12 +14,10 @@ block container
 					span.badge.badge-default #{page_data.rating}
 					|	 #{page_data.user_location}
 				h6 #{page_data.age} years old
-				h6 Has been reported #{page_data.reportCount} times.
 				if page_data.ownProfile
 					a.chat-link(href='editprofile') Edit profile
-				else
-					a.chat-link(href='/chat?id=' + page_data.userId) Send me a message
-					a(href="/report?id=" + page_data.userId) Report me
+				a.chat-link(href='/chat?id=' + page_data.userId) Send me a message
+				a(href="google.com") Report me
 		.dinnos
 				h3 Dinnos
 				.row

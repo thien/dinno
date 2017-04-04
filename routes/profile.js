@@ -69,23 +69,6 @@ function getUserMeals(userId) {
 	});
 }
 
-function getReportCount(userId) {
-	return new Promise(function(resolve, reject) {
-		db.query(`SELECT COUNT(*) AS reportCount 
-				  FROM Report
-				  WHERE Report.RecipientID = ?`, [userId],
-			function(error, results, fields) {
-				if (error) {
-					console.log(error);
-					reject();
-				} else {
-					console.log(results);
-					resolve(results);
-				}
-			});
-	});
-}
-
 module.exports = function() {
 	app.get('/profile', function(req, res) {
 		var param = {
@@ -109,11 +92,9 @@ module.exports = function() {
 
 			var profileInfo = getProfileInfo(userId);
 			var userMeals = getUserMeals(userId);
-			var reportCount = getReportCount(userId);
 			var lastLocation = getLastPostedLocation(userId);
 
-			Promise.all([profileInfo, userMeals, lastLocation, reportCount]).then(function(data) {
-				console.log(data);
+			Promise.all([profileInfo, userMeals, lastLocation]).then(function(data) {
 				param.page_data = {
 					name: `${data[0].Firstname} ${data[0].Surname}`,
 					age: data[0].Age,
@@ -124,12 +105,9 @@ module.exports = function() {
 					no_reviews: 17,
 					reviews: 'review',
 					fooditems: data[1],
-					reportCount: data[3][0].reportCount,
 					ownProfile: !req.query.id
 				};
 
-				
-				
 				res.render('profile', param);
 
 			}, function(err) {
