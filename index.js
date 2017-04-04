@@ -58,7 +58,10 @@ app.use('/', require('./routes/login'));
 app.use('/', require('./routes/register'));  
 
 // profile page
-app.use('/', require('./routes/profile'));  
+app.use('/', require('./routes/profile'));
+
+// report user
+app.use('/', require('./routes/report'));  
 
 // food item profile
 app.use('/', require('./routes/fooditem'));  
