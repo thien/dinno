@@ -474,6 +474,9 @@
 	#secret-image-input {
 		display: none;
 	}
+	.secret-input {
+		display: none !important;
+	}
 	#input_images{
 		display: block;
 		padding: 10px 0px;

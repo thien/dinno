@@ -56,10 +56,14 @@ block container
 										if(d.length == 1)
 										option(value=''+y) #{y}
 						.form-group
-							input#secret-image-input.form-control.password(name="profileImage" value=profileImage)
+							input#secret-image-input.form-control.password.secret-input(name="profileImage" value=profileImage)
+							input#secret-lat-input.form-control.password.secret-input(name="lat" value=lat)
+							input#secret-lng-input.form-control.password.secret-input(name="lng" value=lng)
 						.form-group
 							label(for='Food Name') Location
-							input#location.form-control(name="location" type='location', placeholder='Durham, UK' value='1')
+							input#location.form-control(name="location" type='location', placeholder='Durham, UK')
+							label(for='Food Name') Use current location
+							input.form-control(id='use-current-location', type='checkbox' name='useCurrentLocation')
 
 						
 				.col-lg-4

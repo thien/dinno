@@ -72,13 +72,29 @@ function validateDate() {
 
 function validateLocation() {
   var location = $("#location").val();
-  if (location == '1' || location == '0'){
+  if ($("#use-current-location").is(':checked')){
     updateValidity("#location", true);
-    return true;
   }
-  else{
-    updateValidity("#location", false);
-    return false;
+  else {
+    $.ajax({
+      dataType: "json",
+      url: 'https://maps.googleapis.com/maps/api/geocode/json',
+      data: {address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},
+      success: function(data){
+        var res = data.results;
+        if (res.length > 0) {
+          $('#secret-lat-input').val(res[0].geometry.location.lat);
+          $('#secret-lng-input').val(res[0].geometry.location.lng);
+          updateValidity("#location", true);
+        }
+        else {
+          updateValidity("#location", false);
+        }
+      },
+      error: function(err){
+        updateValidity("#location", false);
+      }
+    });
   }
 }
 
@@ -101,6 +117,7 @@ $(document).ready(function(){
   $('#foodtype').change(validateFoodtype);
   $('#description').keyup(validateDescription);
   $('#location').keyup(validateLocation);
+  $('#use-current-location').change(validateLocation);
   $('.date').change(validateDate);
   $('#secret-image-input').change(validateImage);
   // initialise each form input

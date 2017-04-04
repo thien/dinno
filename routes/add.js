@@ -6,7 +6,6 @@ var location = require('../functions/location');
 var Cookies = require("cookies");
 
 function addNewMeal(mealData, userId, lat, lng) {
-	console.log(mealData);
 	return new Promise(function(resolve, reject) {
 		var year = mealData['year'];
 		var month = mealData['month'];
@@ -78,12 +77,16 @@ module.exports = function() {
 			};
 
 			var mealData = req.body;
+		
+			
 
-			var cookies = new Cookies(req, res);
-		  var lat = cookies.get('lat');
-			var lng = cookies.get('lng');
+			if (mealData.useCurrentLocation) {
+				var cookies = new Cookies(req, res);
+			  mealData.lat = cookies.get('lat');
+				mealData.lng = cookies.get('lng');
+			}
 
-			addNewMeal(mealData, result.UserID, lat, lng).then(function(result) {	
+			addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
 
 					param.new_item = {
 						name: mealData.name,
