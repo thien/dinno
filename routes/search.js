@@ -25,12 +25,13 @@ module.exports = function() {
 			};
 
 			console.log(req.query);
-			var query = "SELECT * FROM ?? WHERE(?? LIKE ?)"
+			var query = "SELECT * FROM ?? JOIN `Location` ON `Meal`.`LocationID` = `Location`.`LocationID` WHERE(?? LIKE ?)"
 			var meal = (req.query.isMeal == 'true')
+			var latDif = 1/69
+			var longDif = 1/69;
 			if(req.query.isMeal == 'both'){
 				meal = true;
 			}
-			
 			var foods
 			if(req.query.food != ""){
 				if (req.query.isMeal == 'true') {
@@ -49,7 +50,12 @@ module.exports = function() {
 					query += " AND `IsIngredient` = 1"
 				}
 			}
-
+			if(req.query.radius != undefined){
+				latDif = req.query.radius/69;
+				longDif = req.query.radius/69;
+			}
+			query += " AND `Location`.`Latitude` BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
+			query += " AND `Location`.`Longitude` BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif)) 
 			query += ";"
 			query = mysql.format(query, foods)
 			console.log(query)
