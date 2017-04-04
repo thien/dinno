@@ -4,6 +4,7 @@ var mysql = require('mysql')
 var express = require('express');
 var app = express();
 var login = require('../functions/login');
+var distance = require('google-distance');
 
 app.locals.basedir = "." + '/views';
 
@@ -29,6 +30,7 @@ module.exports = function() {
 			var meal = (req.query.isMeal == 'true')
 			var latDif = 1/69
 			var longDif = 1/69;
+			distance.apiKey = 'AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao';
 			if(req.query.isMeal == 'both'){
 				meal = true;
 			}
@@ -61,10 +63,32 @@ module.exports = function() {
 			console.log(query)
 			// will need to deal with queries
 			db.query(query, foods, function(error, results, fields) {
+				var data = []
+				var count = 0
 				// error will be an Error if one occurred during the query
 				// results will contain the results of the query
 				// fields will contain information about the returned results fields (if any)
-				console.log(results);
+				//console.log(results);
+				for(var i = 0;i < results.length;i++){
+					//console.log(results[i].Latitude + "," + results[i].Longitude)
+					distance.get({origin: "" + req.query.lat+","+req.query.lng, destination: ""+results[i].Latitude+","+results[i].Longitude,units: 'imperial'},function(err,distanceData){
+						if (err) return console.log(err);
+						if(parseFloat(distanceData.distance.substring(0,distanceData.distance.length-3)) <= req.query.radius){
+							//console.log(distanceData);
+						}else{
+							results[i]=""
+						}
+						// if(distanceData.distanceValue <= 1609*req.query.radius){
+						// 	console.log(distanceData);
+						// }else{
+						// 	results[i]=""
+						// }
+						count++
+						if(count == results.length){
+							console.log(results + "results")
+						}
+					})
+				}
 			});
 			}
 
