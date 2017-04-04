@@ -53,9 +53,8 @@ window.initMap = function() {
 
 function updateMap(map, locations) {
     var newMarkers = {};
-    
-    Object.keys(locations).forEach(function(k) {
-        var loc = locations[k];
+
+    Object.values(locations).forEach(function(loc) {
         var markerId = `${loc[0].Latitude}${loc[0].Longitude}`;
         var popup = `<div class='row popup-food'>`;
         loc.forEach(function(food) {
@@ -107,8 +106,7 @@ function updateMap(map, locations) {
         }
     });
 
-    Object.keys(oldMarkers).forEach(function(k) {
-        var m = oldMarkers[k];
+    Object.values(oldMarkers).forEach(function(m) {
         m.setMap(null);
     });
     oldMarkers = newMarkers;
