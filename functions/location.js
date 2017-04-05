@@ -18,6 +18,7 @@ function getLocationInformation(lat, lng) {
             acc[x.types[0]] = x.long_name;
             return acc;
           }, {});
+          console.log(res);
           resolve(res);
         }
       });
@@ -58,9 +59,14 @@ module.exports = {
           console.log(locationId);
           if (locationId == 0) {
             getLocationInformation(lat,lng).then( function(locData){
+              var postcode = locData.postal_code;
+              var houseNumber = locData.street_number || locData.premise;
+              var street = locData.route;
+              var town = locData.postcode || locData.neighborhood || locData.locality;
+              var city = locData.administrative_area_level_2 || locData.locality;
               db.query(`INSERT INTO Location
                         VALUES (0, ?, ?, ?, ?, ?, 0, ?, ?)`, 
-                      [locData.postal_code, locData.street_number || locData.premise , locData.route, locData.postal_town, locData.administrative_area_level_2, lat, lng],
+                      [postcode, houseNumber, street, town, city, lat, lng],
               function(error, results, fields) {
                 if (error) {
                   console.log(error);

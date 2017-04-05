@@ -16,7 +16,7 @@ function addNewMeal(mealData, userId, lat, lng) {
 		location.addNewLocation(lat,lng).then(function(locationId) { 
 			db.query(`INSERT INTO Meal (MealID, LocationID, UserID, RecipientID, Name, BestBefore, Description, Image, IsIngredient)
 								VALUES (0, ?, ?, NULL, ?, ?, ?, ?, ?)`, 
-							[locationId, userId, mealData.name, bestBefore, mealData.description, mealData['images[]'], isIngredient],
+							[locationId, userId, mealData.name, bestBefore, mealData.description, mealData.image, isIngredient],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
