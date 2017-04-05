@@ -56,7 +56,6 @@ module.exports = {
   addNewLocation: function(lat,lng) {
     return new Promise(function(resolve, reject) {
         checkLocationExists(lat, lng).then( function(locationId) {
-          console.log(locationId);
           if (locationId == 0) {
             getLocationInformation(lat,lng).then( function(locData){
               var postcode = locData.postal_code;

@@ -123,4 +123,5 @@ $(document).ready(function(){
   // initialise each form input
   $(".form-control").keyup();
   $(".form-control").change();
+  $('.date').change();
 });
