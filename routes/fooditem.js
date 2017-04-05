@@ -50,7 +50,6 @@ module.exports = function() {
 
 			if (mealId) {
 				getFoodInfo(mealId).then(function(data) {
-					console.log(data);
 					param.data = data;
 					res.render('fooditem', param);
 
