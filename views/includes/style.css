@@ -443,7 +443,12 @@
     }
 
 	/*upload images*/
-
+	.valid-input {
+	  border-color: #A1E0A8 !important;
+	}
+	.invalid-input {
+	  border-color: #FF5353 !important;
+	}
 	#upload_img_container {
 		margin: 0px 0px 20px 0px;
 		min-height: 250px;
@@ -465,6 +470,12 @@
 	.img_upload_done {
 		border: 1px solid #a1e0a8;
 		background-color: #a1e0a8;
+	}
+	#secret-image-input {
+		display: none;
+	}
+	.secret-input {
+		display: none !important;
 	}
 	#input_images{
 		display: block;
@@ -544,9 +555,6 @@
 
 	.chat-link {
 		padding-right: 15px;
-	}
-	#secret-image-input {
-		display: none;
 	}
 
 	.card-horizontal {    flex-direction: row;}

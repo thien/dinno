@@ -22,11 +22,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `Location` (
   `LocationID` int(11) NOT NULL AUTO_INCREMENT,
-  `Postcode` varchar(8) NOT NULL,
-  `HouseNoName` varchar(60) NOT NULL,
-  `Street` varchar(60) NOT NULL,
-  `Town` varchar(60) NOT NULL,
-  `County` varchar(60) NOT NULL,
+  `Postcode` varchar(8),
+  `HouseNoName` varchar(60),
+  `Street` varchar(60),
+  `Town` varchar(60) ,
+  `County` varchar(60) ,
   `IsDropbox` tinyint(1) NOT NULL,
   `Latitude` float NOT NULL,
   `Longitude` float NOT NULL,

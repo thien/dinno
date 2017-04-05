@@ -35,7 +35,7 @@
     "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
     "pug": "^2.0.0-beta6",
-    "request": "^2.79.0",
+    "request": "^2.81.0",
     "sendgrid": "^4.7.1",
     "socket.io": "^1.7.2"
   },
