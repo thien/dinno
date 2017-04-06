@@ -81,6 +81,7 @@ module.exports = function() {
             food: food_item_query,
             fooditems: results
           }
+          param.isSearchResultsPage = true;
           res.render('searchitem', param);
         }
       });

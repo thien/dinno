@@ -7,3 +7,12 @@ meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-sc
 
 link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
 link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
+
+if isSearchResultsPage
+	script(src='/socket.io/socket.io.js')
+	script
+		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
+	script(src='assets/poachGETVariables.js')
+	script(src='assets/interactive_sorting.js')
+	script(src='assets/js-cookie.js')
+	script(src='assets/map.js')

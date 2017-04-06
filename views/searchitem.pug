@@ -1,16 +1,6 @@
-html(lang="en")
-  head
-    title Dinno
-    include includes/head
-    script(src='/socket.io/socket.io.js')
-    script
-      | var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
-      include assets/poachGETVariables.js
-      include assets/interactive_sorting.js
-      include assets/js-cookie.js
-      include assets/map.js
-  body
-    
+extends layout
+
+block container
   include includes/nav
 
   .container-fluid#display_item_results
@@ -39,22 +29,29 @@ html(lang="en")
             form
               span Category: 
               input#category(type='text')
+              br
               span Best Before: 
               input#bestBeforeDay(type="text" size="2")
               input#bestBeforeMonth(type="text" size="2")
               input#bestBeforeYear(type="text" size="4")
-              span Max Distance:
-              input#maxDistance(type="text")
+              //- br
+              //- span Max Distance:
+              //- input#maxDistance(type="text")
               br
               span Order By:
+              br
               span Newest 
               input#newest(type="radio" name="orderBy")
+              br
               span Nearest 
               input#nearest(type="radio" name="orderBy")
+              br
               span A-Z 
               input#A-Z(type="radio" name="orderBy")
+              br
               span Freshest
               input#freshest(type="radio" name="orderBy")
+              br
               input#sort(type="button" value="Sort Results")
         #list_results_container
          .row#fooditem_results_card

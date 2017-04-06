@@ -108,10 +108,10 @@ $(document).ready(function(){
 			console.log("freshest")
 			byBestBefore(fooditems)
 		}
-		if(document.getElementById("maxDistance").value != ""){
-			console.log("test max dis");
-			distanceRestriction(fooditems, document.getElementById("maxDistance").value);
-		}
+		// if(document.getElementById("maxDistance").value != ""){
+		// 	console.log("test max dis");
+		// 	distanceRestriction(fooditems, document.getElementById("maxDistance").value);
+		// }
 		writeCardHolder();
 	});
 });
