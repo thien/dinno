@@ -15,8 +15,8 @@ function GETVariable(variable){
 
 window.initMap = function() {
     // get latitude and longitude from GET variables
-    var coord_lat = parseFloat(GETVariable("lat")) || 54.7731;
-    var coord_lng = parseFloat(GETVariable("lng")) || -1.57489;
+    var coord_lat = search_location.latitude;
+    var coord_lng = search_location.longitude;
 
     // load google maps with 
     console.log('hello');

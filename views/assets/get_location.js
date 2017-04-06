@@ -1,5 +1,5 @@
 window.onload = function(){
-	document.getElementById("location_text").innerHTML = "Locating Position...";
+	document.getElementById("phatsearchlocation").value = "Locating Position...";
 	navigator.geolocation.getCurrentPosition(coord_poach_success, coord_poach_error);
 };
 
@@ -9,7 +9,7 @@ function coord_poach_success(position) {
 
 	var coords = latitude +","+ longitude
 	console.log("gps coord:",coords);
-	document.getElementById("location_text").innerHTML = coords.toString()
+	document.getElementById("phatsearchlocation").value = coords.toString()
 
 	setHTMLCoordResults(latitude, longitude);
 	storeCoordinatesinCookies(latitude,longitude);
@@ -18,7 +18,7 @@ function coord_poach_success(position) {
 
 function coord_poach_error() {
 	$.getJSON('http://ipinfo.io', function(data){
-		document.getElementById("location_text").innerHTML = data.loc + " (Est.)";
+		document.getElementById("phatsearchlocation").value = data.loc + " (Est.)";
 		printEstLocation(data.loc);
 		console.log("ran error, est");
 		console.log("est location", data.loc);
@@ -40,6 +40,6 @@ function printEstLocation(coord){
 	$.getJSON('http://maps.google.com/maps/api/geocode/json?latlng=' + coord, function(data){
 		console.log(data.results[2]);
 		console.log(data.results[2].formatted_address);
-		document.getElementById("location_text").innerHTML = data.results[2].formatted_address;
+		document.getElementById("phatsearchlocation").value = data.results[2].formatted_address;
 	})
 }
