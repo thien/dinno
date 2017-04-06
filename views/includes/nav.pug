@@ -6,24 +6,20 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 	a.navbar-brand(href='/') dinno.club
 	#navbarTogglerDemo02.collapse.navbar-collapse
 
-		if loggedin
-			form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
-				if foodcheck
-					input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=results.food)
-					input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
-				else
-					input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food')
-					input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location')
-				input(type='hidden', name='lat')
-				input(type='hidden', name='lng')
-				#in-the-searchbar-right
-					i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Find your location")
+		form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
+			if foodcheck
+				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=results.food)
+				input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
+			else
+				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food')
+				input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location')
+			input(type='hidden', name='lat')
+			input(type='hidden', name='lng')
+			#in-the-searchbar-right
+				i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Find your location")
 
-				button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
-					i.fa.fa-search(aria-hidden='true')
-
-		else
-			.form-inline.mr-auto.mt-2.mt-md-0
+			button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
+				i.fa.fa-search(aria-hidden='true')
 
 
 		ul.navbar-nav.my-2.my-lg-0 
