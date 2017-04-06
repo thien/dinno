@@ -37,8 +37,8 @@ module.exports = function() {
 
 					param.chat = {
 						theirName: `${data[0].Firstname} ${data[0].Surname}`,
-						profileImage: data[0].ProfileImage,
-						theirId: recipientId,
+            profileImage: data[0].ProfileImage,
+            theirId: recipientId,
 						messages: data[1],
 					};
 					param.convos = data[2];
