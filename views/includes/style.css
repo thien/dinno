@@ -82,12 +82,24 @@
 		line-height: 60px; /* Vertically center the text there */
 		background-color: #f5f5f5;
 	}
-	#phatsearch {
-		border: 1px solid #ccc;
-		border-radius: 0px;
-		width: 60%;
+	#hiddenbutton {
+		display: none;
+	}
+	.putMeTogether {
 		margin-left: auto;
 		margin-right: auto;
+	}
+	#phatsearchfood{
+		width: 50%;
+	}
+	#phatsearchlocation {
+		width: 45%;
+	}
+	.phatsearch {
+		border: 1px solid #ccc;
+		border-radius: 0px !important;
+		/*width: 60%;*/
+		margin: -1px;
 	}
 	#frontpage-container.jumbotron {
 		/*transform: translateY(-50%);*/

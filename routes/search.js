@@ -27,6 +27,10 @@ module.exports = function() {
 		
 			req.query.food = req.query.food || "";
 			req.query.isMeal = req.query.isMeal || "both";
+
+      if (req.query.location && req.query.location !== "Locating Position..."){
+        // get coords.
+      }
 			// default to durham when no position given.
 			req.query.lat = parseFloat(req.query.lat) || 54.7731;
     	req.query.lng = parseFloat(req.query.lng) || -1.57489;

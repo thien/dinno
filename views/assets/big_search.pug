@@ -1,10 +1,16 @@
 script
 	include get_location.js
 
-form(method="get" action="/search")
-	.form-group.row
-		input#phatsearch.form-control-lg(name='food' type='search')
+form(method="get" action="/search")#bigsearchform
+	.row
+		.col-xs-2
+		.col-lg-8.putMeTogether
+			input.phatsearch#phatsearchfood.form-control-lg(name='food' type='search')
+			input.phatsearch#phatsearchlocation.form-control-lg(name='location' type='search')
 		input#lat(type='hidden', name='lat')
 		input#lng(type='hidden', name='lng')
+		.col-xs-2
+	input#hiddenbutton(type='submit')
+
 		//- input#latlngfield(type='hidden', name='latlng')
-	p.center#location_text
+	//- p.center#location_text
