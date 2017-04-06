@@ -12,6 +12,7 @@ module.exports.generateRandomListing = function(){
 			lng: -1.5749834 + Math.random()/10
 	    },
 	    "description": generateRandomDescription(),
+	    "best_before": new Date((Math.random()*(Date.now()-1188820475441))+1188800475441),
 	    "last_updated": Math.round(Math.random()*10)
 	}
 	return random;

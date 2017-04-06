@@ -77,8 +77,14 @@ INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `RecipientID`, `Name`, `Be
 (8, 1, 4, 5,'Raspberries', '2017-01-28', 'Stole them from a farmer when he wasn\'t looking', 'http://i.imgur.com/KtUoI1n.png',1),
 (9, 2, 4, NULL,'Burrito', '2017-01-29', 'La he lamido', 'http://i.imgur.com/wx1aQh8.png',0),
 (10, 1, 9, NULL,'Pineapple', '2017-02-02', 'Took the photo in a field because I\'m artistic', 'http://i.imgur.com/GseR7AL.jpg',0),
-(11, 1, 6, NULL,'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'http://i.imgur.com/9uVJuWZ.jpg',0);
+(11, 1, 6, NULL,'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'http://i.imgur.com/9uVJuWZ.jpg',0),
+(12, 2, 8, 2, 'Apples', '2017-02-08', 'Found from some dudes back garden', 'http://i.imgur.com/FgSGTwD.png',1);
 -- --------------------------------------------------------
+
+ALTER TABLE Meal
+ADD FULLTEXT INDEX `Meal` 
+(`Name` ASC, 
+ `Description` ASC);
 
 --
 -- Table structure for table `User`
@@ -185,6 +191,35 @@ INSERT INTO `Chat` (`MessageID`, `FromID`, `ToID`, `TimeSent`, `Contents`) VALUE
 (9, 9, 4, '2017-01-08 03:14:30', 'Greetings'),
 (10, 4, 7, '2017-01-09 03:18:07', 'Lol');
 
+
+--
+-- Test data for table `Tag`
+--
+
+INSERT INTO `Tag` (`TagID`,`Name`) VALUES
+(1,'Poultry'),
+(2,'Vegetarian'),
+(3,'Pescatarian'),
+(4,'Gluten free'),
+(5,'Dairy free'),
+(6,'Nut free');
+
+--
+-- Test data for table `TagMeal`
+--
+
+INSERT INTO `TagMeal` (`TagMealID`,`MealID`,`TagID`) VALUES
+
+-- Apples 
+(1,2,2),
+(2,2,3),
+(3,2,4),
+
+-- Chicken wings
+(4,4,1),
+(5,4,5),
+(6,4,6);
+
 --
 -- Table structure for table `Report`
 --
@@ -202,6 +237,7 @@ CREATE TABLE `Report` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
 
 --
 -- Constraints for dumped tables
