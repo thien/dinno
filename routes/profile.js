@@ -10,7 +10,7 @@ app.locals.basedir = "." + '/views';
 function getProfileInfo(userId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT *,
-				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) as Age
+				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) + 1 as Age
 				  FROM User
 				  WHERE UserID = ?`, [userId],
 			function(error, results, fields) {
@@ -20,6 +20,30 @@ function getProfileInfo(userId) {
 				} else if (results.length == 0) {
 					console.log('UserID not found');
 					reject('UserID not found');
+				} else {
+					resolve(results[0]);
+				}
+			});
+	});
+}
+
+function getLastPostedLocation(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Location.Town
+							FROM User 
+							JOIN Meal
+							ON User.UserID = Meal.UserID
+							JOIN Location
+							ON Location.LocationID = Meal.LocationID
+							WHERE User.UserID = ?
+							ORDER BY Meal.MealID DESC`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject(error);
+				} else if (results.length == 0) {
+					console.log('UserID not found');
+					resolve();
 				} else {
 					resolve(results[0]);
 				}
@@ -39,6 +63,23 @@ function getUserMeals(userId) {
 					console.log(error);
 					reject();
 				} else {
+					resolve(results);
+				}
+			});
+	});
+}
+
+function getReportCount(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT COUNT(*) AS reportCount 
+				  FROM Report
+				  WHERE Report.RecipientID = ?`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					console.log(results);
 					resolve(results);
 				}
 			});
@@ -68,22 +109,27 @@ module.exports = function() {
 
 			var profileInfo = getProfileInfo(userId);
 			var userMeals = getUserMeals(userId);
+			var reportCount = getReportCount(userId);
+			var lastLocation = getLastPostedLocation(userId);
 
-			Promise.all([profileInfo, userMeals]).then(function(data) {
-
+			Promise.all([profileInfo, userMeals, lastLocation, reportCount]).then(function(data) {
+				console.log(data);
 				param.page_data = {
 					name: `${data[0].Firstname} ${data[0].Surname}`,
 					age: data[0].Age,
 					userId: userId,
 					profile_photo: data[0].ProfileImage,
-					user_location: "London",
+					user_location: data[2].Town,
 					rating: data[0].Rating,
 					no_reviews: 17,
 					reviews: 'review',
 					fooditems: data[1],
+					reportCount: data[3][0].reportCount,
 					ownProfile: !req.query.id
 				};
 
+				
+				
 				res.render('profile', param);
 
 			}, function(err) {
@@ -99,6 +145,7 @@ module.exports = function() {
 			res.render('error', param);
 		});
 	})
+
 	app.get('/editprofile', function(req, res) {
 		var param = {
 			loggedin: false,
@@ -107,13 +154,6 @@ module.exports = function() {
 			param.loggedin = true;
 			var cookies = new Cookies(req, res);
 			userId = cookies.get('id');
-
-			param.user_data = {
-				userID: userId,
-				firstname: result.Firstname,
-				surname: result.Surname,
-				mugshot: result.ProfileImage
-			};
 
 			var profileInfo = getProfileInfo(userId);
 
@@ -126,12 +166,15 @@ module.exports = function() {
 
 			Promise.all([profileInfo]).then(function(data) {
 
+				var dob = data[0].DOB.toString().split(' ');
 				param.forename =  `${data[0].Firstname}`,
 				param.surname = `${data[0].Surname}`,
 				param.profileImage = data[0].ProfileImage,
 				param.email = data[0].EmailAddress,
+				param.year = dob[3];
+				param.month = data[0].DOB.getMonth()+1;
+				param.day = dob[2];
 				param.edit =  true,
-
 				param.alerts = {
 					warning: [],
 					info : [],

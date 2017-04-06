@@ -37,29 +37,30 @@ block container
 					.form-inline
 						#sr-only
 							label(for='exampleSelect1') Day
-							select(name="day" type="Day" value=day)#bornday
+							select(name="day" type="Day")#bornday
 								- for (var d = 1; d <= 31; d++)
-									option(value=''+d) #{d}
+										if (d == day)
+											option(value=''+d selected='selected') #{d}
+										else
+											option(value=''+d) #{d}
+									
 						#sr-only
 							label(for='exampleSelect1') Month
-							select(name="month" type="Month" value=month)
-								option(value='01') January
-								option(value='02') Febuary
-								option(value='03') March
-								option(value='04') April
-								option(value='05') May
-								option(value='06') June
-								option(value='07') July
-								option(value='08') August
-								option(value='09') September
-								option(value='10') October
-								option(value='11') November
-								option(value='12') December
+							select(name="month" type="Month")
+								each m, i in ['January','Febuary','March','April','May','June','July','August','September','October','November','December']
+									if (i + 1 == month)
+										option(value=''+(i+1) selected='selected') #{m}
+									else
+										option(value=''+(i+1)) #{m}
 						#sr-only
 							label(for='exampleSelect1' ) Year
-							select(name="year" type="Year" value=year) 
+							select(name="year" type="Year" value='2014') 
 								- for (var y = 2017; y >= 1900; y--)
-									option(value=''+y) #{y}
+										if (y == year)
+											option(value=''+y selected='selected') #{y}
+										else
+											option(value=''+y) #{y}
+									
 					.form-group
 						input#secret-image-input.form-control.password(name="profileImage" value=profileImage)
 					if !edit

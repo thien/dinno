@@ -1,116 +1,116 @@
 extends layout
 
 block container
-	script(src='/socket.io/socket.io.js')
-	script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8')
-	include includes/nav
+  script(src='/socket.io/socket.io.js')
+  include includes/nav
 
-	//- html(lang="en")
-	//- head
-	//- 	title Dinno
-	//- 	include includes/head
-	//- 	script(src='/socket.io/socket.io.js')
-	//- 	script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8')
+  //- html(lang="en")
+  //- head
+  //-   title Dinno
+  //-   include includes/head
+  //-   script(src='/socket.io/socket.io.js')
+  //-   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8')
 
-	//- body
-		
-	//- will need to add user location by request, get estimate location using ip address of user.
+  //- body
+    
+  //- will need to add user location by request, get estimate location using ip address of user.
 
-	//- include includes/nav
-	//- divide into two columns
-	.container-fluid#display_item_results
-		.row.display-item-results-baby
-			.col-6.no-float#results_container_left
-				#search_item_details 
-					if results.food
-						h1 Searching for #{results.food}
-					else
-						h1 Searching for ?
-					#formHolder
-						p
-							| Lat: 
-							span#lat
-						p
-							| Lng: 
-							span#lng
-						form#filters
-							span Location
-							input#newName(type='text')
-							br
-							span Meal
-							input#meal(type='radio',name='isMeal',value='true')
-							span Ingredient
-							input#ingredient(type="radio",name='isMeal',value='false')
-							span Either
-							input#ingredient(type="radio",name='isMeal',value='both')
-							br
-							input#range(type='range',name='radius',value='1')
-							input#rangeVal(type='number',value='1')
-							button Filter
-				#list_results_container
-					.card-columns#fooditem_results_card
-						each fooditem in results.fooditems
-							a(href=fooditem.urle id='fooditem_' + fooditem.food_id).card
-								img.card-img-top.img-fluid(src=fooditem.image, alt='Card image cap')
-								.card-profile-container
-									img.card-userprofile-img(src=fooditem.userimg, alt='Card image cap')
-								.card-block
-									h4.card-title #{fooditem.foodname}
-									p.card-text #{fooditem.description}
-									p.card-text
-										small.text-muted Last updated #{fooditem.last_updated} mins ago
-
-
-			.col-6.embed-responsive#results_container_right
-				#map-canvas.embed-responsive-item
+  //- include includes/nav
+  //- divide into two columns
+  .container-fluid#display_item_results
+    .row.display-item-results-baby
+      .col-6.no-float#results_container_left
+        #search_item_details 
+          if results.food
+            h1 Searching for #{results.food}
+          else
+            h1 Searching for ?
+          #formHolder
+            p
+              | Lat: 
+              span#lat
+            p
+              | Lng: 
+              span#lng
+            form#filters
+              span Location
+              input#newName(type='text')
+              br
+              span Meal
+              input#meal(type='radio',name='isMeal',value='true')
+              span Ingredient
+              input#ingredient(type="radio",name='isMeal',value='false')
+              span Either
+              input#ingredient(type="radio",name='isMeal',value='both')
+              br
+              input#range(type='range',name='radius')
+              input#rangeVal(type='number')
+              button Filter
+        #list_results_container
+          .card-columns#fooditem_results_card
+            each fooditem in results.fooditems
+              a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
+                img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+                .card-profile-container
+                  img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+                .card-block
+                  h4.card-title #{fooditem.Name}
+                  p.card-text #{fooditem.Description}
+                  p.card-text
+                    small.text-muted Best before #{fooditem.BestBefore}
 
 
-	script
-		include assets/poachGETVariables.js
-		include assets/map.js
-	script.
-		//- $("form#filters").submit(function(e){
-		//- 	var form = this;
-		//- 	$.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
-		//- 		$("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-		//- 		$("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
-		//- 		$("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
-		//- 	})
-		//- 	e.preventDefault();
-		//- 	setTimeout(function(){
-		//- 		form.submit()
-		//- 	},500)
-		//- })
-		$("form#filters").submit(function(){
-			var form = this;
-			var location = ""
-			//console.log(document.cookie)
-			document.cookie += ";"
-			if($("input#newName").val() == ""){
-				location += Cookies.get('lat') + "," + Cookies.get('lng')
-			}else{
-				location = $("input#newName").val()
-			}
-			$.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
-				dataAppend(data,function(){
-					form.submit()
-				})
-			})
-			e.preventDefault()
+      .col-6.embed-responsive#results_container_right
+        #map-canvas.embed-responsive-item
 
-		})
-		function dataAppend(data,callback){
-			$("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-			$("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
-			$("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
-			callback()
-		}
+  script 
+    include assets/map.js
 
-		$("input#range").change(function(){
-			document.getElementById("rangeVal").value = $(this).val();
-		})
+  script.
+    //- $("form#filters").submit(function(e){
+    //-   var form = this;
+    //-   $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
+    //-     $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
+    //-     $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
+    //-     $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
+    //-   })
+    //-   e.preventDefault();
+    //-   setTimeout(function(){
+    //-     form.submit()
+    //-   },500)
+    //- })
+    $("form#filters").submit(function(){
+      var form = this;
+      var location = ""
+      //console.log(document.cookie)
+      document.cookie += ";"
+      if($("input#newName").val() == ""){
+        location += Cookies.get('lat') + "," + Cookies.get('lng')
+      }else{
+        location = $("input#newName").val()
+      }
+      $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
+        dataAppend(data,function(){
+          form.submit()
+        })
+      })
+      e.preventDefault()
 
-		$("input#rangeVal").change(function(){
-			document.getElementById("range").value = $(this).val();
-		})
-		
+    })
+    function dataAppend(data,callback){
+      $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
+      $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
+      $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
+      callback()
+    }
+
+    $("input#range").change(function(){
+      document.getElementById("rangeVal").value = $(this).val();
+    })
+
+    $("input#rangeVal").change(function(){
+      document.getElementById("range").value = $(this).val();
+    })
+    
+  script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
+

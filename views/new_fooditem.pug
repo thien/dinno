@@ -11,54 +11,76 @@ block container
 			.row
 				.col-lg-6
 					#container
-						h1 Add Fooditem
+						if edit
+							h1 Edit your Dinno
+						else
+							h1 Add a Dinno
 						.form-group
 							label(for='Food Name') Food Name
-							input#exampleInputEmail1.form-control.food-name(name="name" type='foodname', placeholder='Lettuce' value="saiusages")
+
+							input#name.form-control.food-name(name="name" type='foodname', placeholder='Lettuce' value=name)
 						.form-group
 							label(for='exampleSelect1') Food Type
-							select#exampleSelect1.form-control(name="foodtype")
-								option Meal
-								option Ingredient
+							select#foodtype.form-control(name="foodtype")
+								if (isIngredient)
+									option Meal
+									option(selected = true) Ingredient
+								else
+									option(selected = true) Meal
+									option Ingredient
 						.form-group
 							label(for='exampleTextarea') Description
-							textarea#description.form-control(rows='3' maxlength="140" name="description")
+
+							textarea#description.form-control(rows='3' maxlength="140" name="description") #{description}
 							//- small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+							label(for='exampleSelect1') Best Before
 						.form-inline
 							#sr-only
 								label(for='exampleSelect1') Day
-								select(name="day" type="Day" value=day)#bornday
+								select#day.date(name="day" type="Day")
 									- for (var d = 1; d <= 31; d++)
-										option(value=''+d) #{d}
+											if (d == day)
+												if (d < 10)
+													option(value='0'+d selected='selected') #{d}
+												else
+													option(value=''+d selected='selected') #{d}												
+											else
+												if (d < 10)
+													option(value='0'+d) #{d}
+												else
+													option(value=''+d) #{d}		
 							#sr-only
 								label(for='exampleSelect1') Month
-								select(name="month" type="Month" value=month)
-									option(value='01') January
-									option(value='02') Febuary
-									option(value='03') March
-									option(value='04') April
-									option(value='05') May
-									option(value='06') June
-									option(value='07') July
-									option(value='08') August
-									option(value='09') September
-									option(value='10') October
-									option(value='11') November
-									option(value='12') December
+								select#month.date(name="month" type="Month")
+									each m, i in ['January','Febuary','March','April','May','June','July','August','September','October','November','December']
+										if (i + 1 == month)
+											option(value=''+(i+1) selected='selected') #{m}
+										else
+											option(value=''+(i+1)) #{m}
 							#sr-only
 								label(for='exampleSelect1' ) Year
-								select(name="year" type="Year" value=year) 
+								select#year.date(name="year" type="Year") 
 									- for (var y = 2100; y >= 1900; y--)
-										option(value=''+y) #{y}
+											if (y == year)
+												option(value=''+y selected='selected') #{y}
+											else
+												option(value=''+y) #{y}
+						.form-group
+							input#secret-image-input.form-control.password.secret-input(name="image" value=image)
+							input#secret-lat-input.form-control.password.secret-input(name="lat" value=lat)
+							input#secret-lng-input.form-control.password.secret-input(name="lng" value=lng)
 						.form-group
 							label(for='Food Name') Location
-							input#exampleInputEmail1.form-control(name="location" type='location', placeholder='Durham, UK')
+							input#location.form-control(name="location" type='location', placeholder='Durham, UK', value=location)
+							label(for='Food Name') Use current location
+							input.form-control(id='use-current-location', type='checkbox' name='useCurrentLocation')
 
 						
 				.col-lg-4
 					#container
 						.form-group#pictureupload
 							#upload_img_container
+								img(src=image)#profilephoto
 								input(id="input_images" name='images' type="file" multiple="true")
 						//- request button
 						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
@@ -70,5 +92,6 @@ block container
 						
 	script
 		include assets/upload.js
+		include assets/add.js
 		include assets/lib/quagga.js
 		include assets/barcode.js

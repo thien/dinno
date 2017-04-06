@@ -35,6 +35,7 @@
 			display: block;
 			max-width: 100%;
 		}
+
 	}
 	@media(min-width: 720px){
 		.block-left {
@@ -42,6 +43,22 @@
 			max-height: 200px;
 			float:left;
 		}
+	}
+	.man-block-left {
+		padding-right: 20px;
+		max-height: 200px;
+		float:left;
+	}
+	.man-img-container {
+	    width: 120px;
+	    height: 120px;
+	    overflow: hidden;
+	    margin-right: 20px;
+	}
+	.man-img-container img {
+	    height: 140%;
+	    position: relative;
+	    bottom:10%;
 	}
 	.manage-header {
 		padding: 20px 0px 10px 0px;
@@ -306,6 +323,17 @@
 		right: 20px;
 	}
 
+	#fooditem .card-userprofile-img{
+		float: left;
+		border-radius: 50%;
+		border: 3px solid #fff;
+		height: 80px;
+		width: 80px;
+		position: relative;
+		top: -40px;
+		left: -20px;
+	}
+
 
 
 	#dinnosaur {
@@ -355,6 +383,9 @@
 	.fooditem_profile #userrating #user_rating{
 		background-color: #FF5353;
 	}
+	.fooditem_profile .img-fluid{
+		max-height: 50vh;
+	}
 	.tags_container {
 		text-align: center;
 	}
@@ -364,6 +395,10 @@
 		background-color: #FF5353;
 	}
 
+	.row.man-item-entry {
+		height: 100%;
+		display:block;
+	}
 
 	.fooditem_profile .username{
 		/*background-color: #ccc;*/
@@ -408,7 +443,12 @@
     }
 
 	/*upload images*/
-
+	.valid-input {
+	  border-color: #A1E0A8 !important;
+	}
+	.invalid-input {
+	  border-color: #FF5353 !important;
+	}
 	#upload_img_container {
 		margin: 0px 0px 20px 0px;
 		min-height: 250px;
@@ -430,6 +470,12 @@
 	.img_upload_done {
 		border: 1px solid #a1e0a8;
 		background-color: #a1e0a8;
+	}
+	#secret-image-input {
+		display: none;
+	}
+	.secret-input {
+		display: none !important;
 	}
 	#input_images{
 		display: block;
@@ -509,9 +555,6 @@
 
 	.chat-link {
 		padding-right: 15px;
-	}
-	#secret-image-input {
-		display: none;
 	}
 
 	.card-horizontal {    flex-direction: row;}
