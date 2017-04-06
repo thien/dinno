@@ -1,4 +1,4 @@
-
+// var fooditems = JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')
 
 /*
 sorting methods:
@@ -16,13 +16,13 @@ sorting methods:
 function writeCardHolder(){
 	var newContent = '';
 	for(var i=0; i<fooditems.length; i++){
-		newContent += '<div class="col-md-6 col-lg-4"><a class="card" href="/fooditem" id="fooditem_'+fooditems[i].food_id+'">'+
-		'<img class="card-img-top img-fluid" src="https://unsplash.it/600,751/?random" alt="Card image cap">'+
-        '<div class="card-profile-container"><img class="card-userprofile-img" src="https://unsplash.it/80,80/?random" alt="Card image cap"></div>'+
+		newContent += '<div class="col-md-6 col-lg-4"><a class="card" href="/fooditem" id="fooditem_'+fooditems[i].MealID+'">'+
+		'<img class="card-img-top img-fluid" src="'+fooditems[i].Image+'" alt="Card image cap">'+
+        '<div class="card-profile-container"><img class="card-userprofile-img" src="'+fooditems[i].ProfileImage+'" alt="Card image cap"></div>'+
         '<div class="card-block">'+
-        '<h4 class="card-title">'+fooditems[i].foodname+'</h4>'+
-        '<p class="card-text">'+fooditems[i].description+'</p>'+
-        '<p class="card-text"><small class="text-muted">Last updated 6 mins ago</small></p>'+
+        '<h4 class="card-title">'+fooditems[i].Name+'</h4>'+
+        '<p class="card-text">'+fooditems[i].Description+'</p>'+
+        '<p class="card-text"><small class="text-muted">Best before '+fooditems[i].BestBefore+'</small></p>'+
         '</div>'+
         '</a></div>'
 	}
@@ -37,7 +37,7 @@ function distanceRestriction(results, maxDistance){
 	var userLat = 54.78, userLng = -1.52;
 	resultsInRadius = [];
 	for(var i=0;i<results.length;i++){
-		if(Math.sqrt(Math.pow(results[i].marker.lat-userLat,2) + Math.pow(results[i].marker.lng-userLng,2))){
+		if(Math.sqrt(Math.pow(results[i].Latitude-userLat,2) + Math.pow(results[i].Longitude-userLng,2))){
 			resultsInRadius.add(results[i]);
 		}
 	}
@@ -48,7 +48,7 @@ function distanceRestriction(results, maxDistance){
 function byNearest(results){
 	var userLat = 54.78, userLng = -1.52;
 	results.sort(function(a,b){
-		var distanceA = Math.sqrt(Math.pow(a.marker.lat-userLat,2) + Math.pow(a.marker.lng-userLng,2)), distanceB = Math.sqrt(Math.pow(b.marker.lat-userLat,2) + Math.pow(b.marker.lng-userLng,2));
+		var distanceA = Math.sqrt(Math.pow(a.Latitude-userLat,2) + Math.pow(a.Longitude-userLng,2)), distanceB = Math.sqrt(Math.pow(b.Latitude-userLat,2) + Math.pow(b.Longitude-userLng,2));
 		return distanceB - distanceA;
 	});
 }
@@ -68,7 +68,7 @@ function byCategory(results, category){
 function byBestBefore(results){
 	//sorting by best before date
 	results.sort(function(a,b){
-		return Date.parse(a.best_before) - Date.parse(b.best_before);
+		return Date.parse(a.BestBefore) - Date.parse(b.BestBefore);
 	});
 };
 
@@ -76,7 +76,7 @@ function byBestBefore(results){
 function alphabetical(results){
 	//sorting by best before date
 	results.sort(function(a,b){
-		var nameA = a.foodname.toLowerCase(), nameB = b.foodname.toLowerCase();
+		var nameA = a.Name.toLowerCase(), nameB = b.Name.toLowerCase();
 		if(nameA < nameB){
 			return -1;
 		}else if(nameA > nameB){
@@ -94,13 +94,13 @@ $(document).ready(function(){
 			console.log("by alphabetical");
 			alphabetical(fooditems);
 			for (var i = fooditems.length - 1; i >= 0; i--) {
-				console.log(fooditems[i].foodname);
+				console.log(fooditems[i].Name);
 			}
 		}else if(document.getElementById("nearest").checked){
 			console.log("by nearest")
 			byNearest(fooditems);
 			for (var i = fooditems.length - 1; i >= 0; i--) {
-				console.log(Math.sqrt(Math.pow(fooditems[i].marker.lat-54.78,2) + Math.pow(fooditems[i].marker.lng-(-1.52),2)));
+				console.log(Math.sqrt(Math.pow(fooditems[i].Latitude-54.78,2) + Math.pow(fooditems[i].Longitude-(-1.52),2)));
 			}
 		}else if(document.getElementById("newest").checked){
 			console.log("by newest")

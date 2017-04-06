@@ -3,126 +3,123 @@ html(lang="en")
     title Dinno
     include includes/head
     script(src='/socket.io/socket.io.js')
-    script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8')
     script
-      - 
-        var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
+      | var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
       include assets/poachGETVariables.js
       include assets/interactive_sorting.js
       include assets/js-cookie.js
       include assets/map.js
   body
     
-    include includes/nav
+  include includes/nav
 
-	  .container-fluid#display_item_results
-	    .row.display-item-results-baby
-	      .col-6.no-float#results_container_left
-	        #search_item_details 
-	          if results.food
-	            h1 Searching for #{results.food}
-	          else
-	            h1 Searching for anything
-	          #formHolder
-	            form#filters
-	              span Location
-	              input#newName(type='text')
-	              br
-	              span Meal
-	              input#meal(type='radio',name='isMeal',value='true')
-	              span Ingredient
-	              input#ingredient(type="radio",name='isMeal',value='false')
-	              span Either
-	              input#ingredient(type="radio",name='isMeal',value='both')
-	              br
-	              input#range(type='range',name='radius')
-	              input#rangeVal(type='number')
-	              button Filter
-							form
-                span Category: 
-                input#category(type='text')
-                span Best Before: 
-                input#bestBeforeDay(type="text" size="2")
-                input#bestBeforeMonth(type="text" size="2")
-                input#bestBeforeYear(type="text" size="4")
-                span Max Distance:
-                input#maxDistance(type="text")
-                br
-                span Order By:
-                span Newest 
-                input#newest(type="radio" name="orderBy")
-                span Nearest 
-                input#nearest(type="radio" name="orderBy")
-                span A-Z 
-                input#A-Z(type="radio" name="orderBy")
-                span Freshest
-                input#freshest(type="radio" name="orderBy")
-                input#sort(type="button" value="Sort Results")
- 					#list_results_container
-            .row#fooditem_results_card
-              each fooditem in results.fooditems
-                .col-md-6.col-lg-4
-                  a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
-                    img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
-                    .card-profile-container
-                      img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
-                    .card-block
-                      h4.card-title #{fooditem.Name}
-                      p.card-text #{fooditem.Description}
-                      p.card-text
-                        small.text-muted Best before #{fooditem.BestBefore}
+  .container-fluid#display_item_results
+    .row.display-item-results-baby
+      .col-6.no-float#results_container_left
+        #search_item_details 
+          if results.food
+            h1 Searching for #{results.food}
+          else
+            h1 Searching for anything
+          #formHolder
+            form#filters
+              span Location
+              input#newName(type='text')
+              br
+              span Meal
+              input#meal(type='radio',name='isMeal',value='true')
+              span Ingredient
+              input#ingredient(type="radio",name='isMeal',value='false')
+              span Either
+              input#ingredient(type="radio",name='isMeal',value='both')
+              br
+              input#range(type='range',name='radius')
+              input#rangeVal(type='number')
+              button Filter
+            form
+              span Category: 
+              input#category(type='text')
+              span Best Before: 
+              input#bestBeforeDay(type="text" size="2")
+              input#bestBeforeMonth(type="text" size="2")
+              input#bestBeforeYear(type="text" size="4")
+              span Max Distance:
+              input#maxDistance(type="text")
+              br
+              span Order By:
+              span Newest 
+              input#newest(type="radio" name="orderBy")
+              span Nearest 
+              input#nearest(type="radio" name="orderBy")
+              span A-Z 
+              input#A-Z(type="radio" name="orderBy")
+              span Freshest
+              input#freshest(type="radio" name="orderBy")
+              input#sort(type="button" value="Sort Results")
+        #list_results_container
+         .row#fooditem_results_card
+           each fooditem in results.fooditems
+             .col-md-6.col-lg-4
+               a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
+                 img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+                 .card-profile-container
+                   img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+                 .card-block
+                   h4.card-title #{fooditem.Name}
+                   p.card-text #{fooditem.Description}
+                   p.card-text
+                     small.text-muted Best before #{fooditem.BestBefore}
 
 
-	      .col-6.embed-responsive#results_container_right
-	        #map-canvas.embed-responsive-item
+      .col-6.embed-responsive#results_container_right
+        #map-canvas.embed-responsive-item  
 
-	  script.
-	    //- $("form#filters").submit(function(e){
-	    //-   var form = this;
-	    //-   $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
-	    //-     $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-	    //-     $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
-	    //-     $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
-	    //-   })
-	    //-   e.preventDefault();
-	    //-   setTimeout(function(){
-	    //-     form.submit()
-	    //-   },500)
-	    //- })
-	    $("form#filters").submit(function(){
-	      var form = this;
-	      var location = ""
-	      //console.log(document.cookie)
-	      document.cookie += ";"
-	      if($("input#newName").val() == ""){
-	        location += Cookies.get('lat') + "," + Cookies.get('lng')
-	      }else{
-	        location = $("input#newName").val()
-	      }
-	      $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
-	        dataAppend(data,function(){
-	          form.submit()
-	        })
-	      })
-	      e.preventDefault()
+    script.
+      //- $("form#filters").submit(function(e){
+      //-   var form = this;
+      //-   $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
+      //-     $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
+      //-     $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
+      //-     $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
+      //-   })
+      //-   e.preventDefault();
+      //-   setTimeout(function(){
+      //-     form.submit()
+      //-   },500)
+      //- })
+      $("form#filters").submit(function(){
+        var form = this;
+        var location = ""
+        //console.log(document.cookie)
+        document.cookie += ";"
+        if($("input#newName").val() == ""){
+          location += Cookies.get('lat') + "," + Cookies.get('lng')
+        }else{
+          location = $("input#newName").val()
+        }
+        $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
+          dataAppend(data,function(){
+            form.submit()
+          })
+        })
+        e.preventDefault()  
 
-	    })
-	    function dataAppend(data,callback){
-	      $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-	      $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
-	      $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
-	      callback()
-	    }
+      })
+      function dataAppend(data,callback){
+        $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
+        $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
+        $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
+        callback()
+      }  
 
-	    $("input#range").change(function(){
-	      document.getElementById("rangeVal").value = $(this).val();
-	    })
+      $("input#range").change(function(){
+        document.getElementById("rangeVal").value = $(this).val();
+      })  
 
-	    $("input#rangeVal").change(function(){
-	      document.getElementById("range").value = $(this).val();
-	    })
-	    
-	  script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
+      $("input#rangeVal").change(function(){
+        document.getElementById("range").value = $(this).val();
+      })
+  script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
 
 
 

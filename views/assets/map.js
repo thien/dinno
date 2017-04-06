@@ -19,10 +19,11 @@ window.initMap = function() {
     var coord_lng = parseFloat(GETVariable("lng")) || -1.57489;
 
     // load google maps with 
+    console.log('hello');
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
         center: {lat: coord_lat, lng: coord_lng},
-    }, function() {console.log('callback'); });
+    });
 
     console.log()
     console.log('bounds' + map.getBounds());
