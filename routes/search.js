@@ -36,6 +36,8 @@ module.exports = function() {
                 mugshot: result.ProfileImage
             };
 
+            param.foodcheck = true;
+
             req.query.food = req.query.food || "";
             req.query.isMeal = req.query.isMeal || "both";
 
