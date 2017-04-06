@@ -24,6 +24,13 @@ module.exports = function() {
         surname: result.Surname,
         mugshot: result.ProfileImage
       };
+		
+			req.query.food = req.query.food || "";
+			req.query.isMeal = req.query.isMeal || "both";
+			// default to durham when no position given.
+			req.query.lat = parseFloat(req.query.lat) || 54.7731;
+    	req.query.lng = parseFloat(req.query.lng) || -1.57489;
+			
 
       console.log(req.query);
       var query = `SELECT Meal.*, Location.*, User.ProfileImage  
@@ -31,26 +38,27 @@ module.exports = function() {
                    JOIN User 
                    ON Meal.UserID = User.UserID
                    JOIN Location
-                   ON Meal.LocationID = Location.LocationID`;
+                   ON Meal.LocationID = Location.LocationID
+									 WHERE RecipientID IS NULL`;
 
       var latDif = 1 / 69
       var longDif = 1 / 69;
       distance.apiKey = 'AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao';
 
+			console.log(req.query.food != "");
       if(req.query.food != ""){
-        query += ` WHERE(MATCH(Name, Description) 
-                   AGAINST(? IN BOOLEAN MODE))
-                   AND RecipientID IS NULL`;
-        if (req.query.isMeal == 'true') {
-          query += " AND `IsIngredient` = 0"
-        } 
-        else if(req.query.isMeal != 'both'){
-          query += " AND `IsIngredient` = 1"
-        }
+        query += ` AND MATCH(Name, Description) 
+                   AGAINST(? IN BOOLEAN MODE)`;
+      }
+			if (req.query.isMeal == 'true') {
+        query += " AND IsIngredient = 0"
+      } 
+      else if(req.query.isMeal != 'both'){
+        query += " AND IsIngredient = 1"
       }
 
-      query += " AND `Location`.`Latitude` BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
-      query += " AND `Location`.`Longitude` BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
+      query += " AND Latitude BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
+      query += " AND Longitude BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
       query += ";"
       query = mysql.format(query, req.query.food)
       console.log(query);
