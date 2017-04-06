@@ -13,9 +13,9 @@ block container
             h1 Searching for anything
           #formHolder
             form#filters
-              span Location
-              input#newName(type='text')
-              br
+              //- span Location
+              //- input#newName(type='text')
+              //- br
               span Meal
               input#meal(type='radio',name='isMeal',value='true')
               span Ingredient
@@ -55,17 +55,21 @@ block container
               input#sort(type="button" value="Sort Results")
         #list_results_container
          .row#fooditem_results_card
-           each fooditem in results.fooditems
-             .col-md-6.col-lg-4
-               a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
-                 img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
-                 .card-profile-container
-                   img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
-                 .card-block
-                   h4.card-title #{fooditem.Name}
-                   p.card-text #{fooditem.Description}
-                   p.card-text
-                     small.text-muted Best before #{fooditem.BestBefore}
+            if results.fooditems
+             each fooditem in results.fooditems
+               .col-md-6.col-lg-4
+                 a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
+                   img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+                   .card-profile-container
+                     img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+                   .card-block
+                     h4.card-title #{fooditem.Name}
+                     p.card-text #{fooditem.Description}
+                     p.card-text
+                       small.text-muted Best before #{fooditem.BestBefore}
+            else
+              p
+                | theres nothing here pal
 
 
       .col-6.embed-responsive#results_container_right
@@ -104,8 +108,9 @@ block container
       })
       function dataAppend(data,callback){
         $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-        $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
-        $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
+        $("form#filters").append("<input type='text' name='location' value='"+$("#navsearchbarlocation").val()+"'></input>")
+        //- $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
+        //- $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
         callback()
       }  
 

@@ -90,16 +90,21 @@
 		margin-right: auto;
 	}
 	#phatsearchfood{
-		width: 50%;
+		width: 45%;
 	}
 	#phatsearchlocation {
-		width: 45%;
+		width: 55%;
 	}
 	.phatsearch {
 		border: 1px solid #ccc;
 		border-radius: 0px !important;
 		/*width: 60%;*/
 		margin: -1px;
+	}
+	@media (max-width: 720px){
+		#phatsearchlocation, #phatsearchfood {
+			font-size: 0.8em !important;
+		}
 	}
 	#frontpage-container.jumbotron {
 		/*transform: translateY(-50%);*/
@@ -138,7 +143,13 @@
 	.navbar-alt a{
 		color: #222;
 	}
-	#navsearchbar, #navsearchbutton {
+	#navsearchbar {
+		margin-right: -10px;
+	}
+	#navsearchbarlocation {
+		margin-left: -10px;
+	}
+	#navsearchbar, #navsearchbutton, #navsearchbarlocation {
 		background-color: #FF5353;
 		border: 1px solid #fff;
 		color: #fff;
@@ -149,7 +160,10 @@
 	}
 	@media(min-width: 580px){
 		#navsearchbar {
-			width: 400px;
+			width: 175px;
+		}
+		#navsearchbarlocation {
+			width: 225px;
 		}
 		#in-the-searchbar-right {
 			right: 35px;
@@ -158,8 +172,15 @@
 		}
 	}
 	@media(max-width: 580px){
+		#navsearchbar, #navsearchbarlocation, #navsearchbutton {
+			font-size: 0.7em;
+		}
 		#navsearchbar {
-			width: 200px;
+			width: 110px;
+			margin-right: 9px;
+		}
+		#navsearchbarlocation {
+			width: 105px;
 		}
 		#in-the-searchbar-right {
 			right: 25px;
@@ -171,16 +192,16 @@
 		color: #FF5353;
 	}
 
-	#navsearchbar::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	#navsearchbar::-webkit-input-placeholder, #navsearchbarlocation::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 	  color: #eee;
 	}
-	#navsearchbar::-moz-placeholder { /* Firefox 19+ */
+	#navsearchbar::-moz-placeholder, #navsearchbarlocation::-moz-placeholder { /* Firefox 19+ */
 	  color: #eee;
 	}
-	#navsearchbar:-ms-input-placeholder { /* IE 10+ */
+	#navsearchbar:-ms-input-placeholder, #navsearchbarlocation:-ms-input-placeholder { /* IE 10+ */
 	  color: #eee;
 	}
-	#navsearchbar:-moz-placeholder { /* Firefox 18- */
+	#navsearchbar:-moz-placeholder, #navsearchbarlocation:-moz-placeholder { /* Firefox 18- */
 	  color: #eee;
 	}
 
