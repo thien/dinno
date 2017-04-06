@@ -89,29 +89,24 @@ function alphabetical(results){
 
 
 $(document).ready(function(){
-	$("#sort").click(function(){
-		if(document.getElementById("A-Z").checked){
-			console.log("by alphabetical");
-			alphabetical(fooditems);
-			for (var i = fooditems.length - 1; i >= 0; i--) {
-				console.log(fooditems[i].Name);
-			}
-		}else if(document.getElementById("nearest").checked){
-			console.log("by nearest")
-			byNearest(fooditems);
-			for (var i = fooditems.length - 1; i >= 0; i--) {
-				console.log(Math.sqrt(Math.pow(fooditems[i].Latitude-54.78,2) + Math.pow(fooditems[i].Longitude-(-1.52),2)));
-			}
-		}else if(document.getElementById("newest").checked){
-			console.log("by newest")
-		}else if (document.getElementById("freshest").checked){
-			console.log("freshest")
-			byBestBefore(fooditems)
+	$('#orderBy').change( function() {
+		switch($('#orderBy').val()) {
+	    case "A-Z":
+	      console.log("sort by alphabetical");
+				alphabetical(fooditems);
+	      break;	
+	    case "nearest":
+				console.log("sort by nearest")
+				byNearest(fooditems);
+	      break;	
+	    case "newest":
+	      console.log("sort by newest");
+	      break;	
+	    case "freshest":
+				console.log("sort freshest")
+				byBestBefore(fooditems)
+	      break;	
 		}
-		// if(document.getElementById("maxDistance").value != ""){
-		// 	console.log("test max dis");
-		// 	distanceRestriction(fooditems, document.getElementById("maxDistance").value);
-		// }
 		writeCardHolder();
 	});
 });

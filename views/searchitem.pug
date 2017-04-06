@@ -13,16 +13,10 @@ block container
             h1 Searching for anything
           #formHolder
             form#filters
-              //- span Location
-              //- input#newName(type='text')
-              //- br
-              span Meal
-              input#meal(type='radio',name='isMeal',value='true')
-              span Ingredient
-              input#ingredient(type="radio",name='isMeal',value='false')
-              span Either
-              input#ingredient(type="radio",name='isMeal',value='both')
-              br
+              select(name="isMeal")#isMeal
+                option(value='true') Meal
+                option(value='false') Ingredient
+                option(value='both') Either
               input#range(type='range',name='radius')
               input#rangeVal(type='number')
               button Filter
@@ -37,22 +31,12 @@ block container
               //- br
               //- span Max Distance:
               //- input#maxDistance(type="text")
-              br
-              span Order By:
-              br
-              span Newest 
-              input#newest(type="radio" name="orderBy")
-              br
-              span Nearest 
-              input#nearest(type="radio" name="orderBy")
-              br
-              span A-Z 
-              input#A-Z(type="radio" name="orderBy")
-              br
-              span Freshest
-              input#freshest(type="radio" name="orderBy")
-              br
-              input#sort(type="button" value="Sort Results")
+              span Sort by:
+              select(name="orderBy")#orderBy
+                option(value='newest') Newest
+                option(value='nearest') Nearest
+                option(value='A-Z') A-Z 
+                option(value='freshest') Freshest
         #list_results_container
          .row#fooditem_results_card
             if results.fooditems
