@@ -366,7 +366,14 @@
 		top: -40px;
 		left: -20px;
 	}
-
+	
+	.manage-label {
+		margin-right: 10px;
+	}
+		
+	.manage-select {
+		margin-right: 15px;
+	}
 
 
 	#dinnosaur {
