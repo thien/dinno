@@ -3,14 +3,73 @@ extends layout
 block container
   include includes/nav
 
+  //- search options
+  .modal.fade#search-options-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          h5#exampleModalLabel.modal-title Search Options
+          |  
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body  
+          form#filters
+            //- span Location
+            //- input#newName(type='text')
+            //- br
+            span Meal
+            input#meal(type='radio',name='isMeal',value='true')
+            span Ingredient
+            input#ingredient(type="radio",name='isMeal',value='false')
+            span Either
+            input#ingredient(type="radio",name='isMeal',value='both')
+            br
+            .form-group.row
+              label.col-3.col-form-label(for='example-date-input') Radius
+              .col-4
+                input#range(type='range',name='radius')
+              .col-4
+                input#rangeVal(type='number' width='20px')
+                span km
+            .modal-footer
+              button.btn.btn-primary Filter
+          //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+          //- |  
+          //- button.btn.btn-primary(type='button') Save changes
+        .modal-header
+          h5#exampleModalLabel.modal-title Results Filtering
+        .modal-body 
+          form#filtering
+            .form-group.row
+              label.col-3.col-form-label(for='example-date-input') Best Before
+              .col-6
+                input#example-date-input.form-control(type='date', value='2011-08-19')
+            span Newest 
+            input#newest(type="radio" name="orderBy")
+            br
+            span Nearest 
+            input#nearest(type="radio" name="orderBy")
+            br
+            span A-Z 
+            input#A-Z(type="radio" name="orderBy")
+            br
+            span Freshest
+            input#freshest(type="radio" name="orderBy")
+            //- br
+            //- input#sort(type="button" value="Sort Results")
+        .modal-footer
+          button.btn.btn-primary#sort(type='button') Sort Results
+
+  //- search results
   .container-fluid#display_item_results
     .row.display-item-results-baby
       .col-6.no-float#results_container_left
+        button.btn.btn-primary(data-toggle='modal', data-target='#search-options-modal') Search Options
         #search_item_details 
-          if results.food
-            h1 Searching for #{results.food}
-          else
-            h1 Searching for anything
+          //- if results.food
+          //-   h1 Searching for #{results.food}
+          //- else
+          //-   h1 Searching for anything
           #formHolder
             form#filters
               //- span Location
@@ -85,31 +144,26 @@ block container
       //-     form.submit()
       //-   },500)
       //- })
+      //- console.log($("#navsearchbar").val());
+      $("form#filters").append("<input type='hidden' name='food' value='"+$("#navsearchbar").val()+"'></input>")
+      $("form#filters").append("<input type='hidden' name='location' value='"+$("#navsearchbarlocation").val()+"'></input>")
+      
       $("form#filters").submit(function(){
+        e.preventDefault();
         var form = this;
-        var location = ""
-        //console.log(document.cookie)
-        document.cookie += ";"
-        if($("input#newName").val() == ""){
-          location += Cookies.get('lat') + "," + Cookies.get('lng')
-        }else{
-          location = $("input#newName").val()
-        }
-        $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
-          dataAppend(data,function(){
-            form.submit()
-          })
-        })
-        e.preventDefault()  
+        var location = "";
+  
+        //- document.cookie += ";"
 
+        //- if($("input#newName").val() == ""){
+        //-   location += Cookies.get('lat') + "," + Cookies.get('lng')
+        //- }else{
+        //-   location = $("input#newName").val()
+        //- }
+
+
+        form.submit();
       })
-      function dataAppend(data,callback){
-        $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-        $("form#filters").append("<input type='text' name='location' value='"+$("#navsearchbarlocation").val()+"'></input>")
-        //- $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
-        //- $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
-        callback()
-      }  
 
       $("input#range").change(function(){
         document.getElementById("rangeVal").value = $(this).val();
@@ -118,6 +172,7 @@ block container
       $("input#rangeVal").change(function(){
         document.getElementById("range").value = $(this).val();
       })
+
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
 
 
