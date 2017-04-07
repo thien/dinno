@@ -9,7 +9,7 @@ app.locals.basedir = "." + '/views';
 
 function getPostedMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage, User.UserID, Meal.RecipientId
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.UserID, Meal.RecipientId
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.UserID
@@ -27,11 +27,44 @@ function getPostedMeals(userId) {
 
 function getReceivedMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage, Meal.RecipientId, Meal.UserID
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, Meal.RecipientId, Meal.UserID
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.RecipientId
 				  WHERE Meal.RecipientId = ?`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
+
+function removeMeal(userId, mealId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`DELETE FROM Meal
+							WHERE UserID = ? AND MealID = ?;`, 
+							[userId, mealId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
+
+function cancelMeal(userId, mealId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`UPDATE Meal
+							SET RecipientId = NULL
+							WHERE RecipientId = ? AND MealID = ?;`, 
+							[userId, mealId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
@@ -89,9 +122,60 @@ module.exports = function() {
 						param.defaultToggle = true;
 					}
 				}
-				console.log(param);
 				res.render('manage', param);
 
+			},function(err) {
+				param.error_message = {
+					msg: err
+				};
+				res.render('error', param);
+			});
+		}, function(err) {
+			param.error_message = {
+				msg: err
+			};
+			res.render('error', param);
+		});
+	}),
+
+	app.get('/remove', function(req, res) {
+		var param = {
+			loggedin: false,
+		};
+		login.checkLogin(req, res).then(function(result) {
+			param.loggedin = true;
+			userID = result.UserID;
+			var mealId = req.query.id
+			var remove = removeMeal(userID, mealId);
+			Promise.all([remove]).then(function(data) {
+
+				res.redirect('/manage');
+
+			},function(err) {
+				param.error_message = {
+					msg: err
+				};
+				res.render('error', param);
+			});
+		}, function(err) {
+			param.error_message = {
+				msg: err
+			};
+			res.render('error', param);
+		});
+	}),
+
+	app.get('/cancel', function(req, res) {
+		var param = {
+			loggedin: false,
+		};
+		login.checkLogin(req, res).then(function(result) {
+			param.loggedin = true;
+			userID = result.UserID;
+			var mealId = req.query.id
+			var cancel = cancelMeal(userID, mealId);
+			Promise.all([cancel]).then(function(data) {
+				res.redirect('/manage');
 			},function(err) {
 				param.error_message = {
 					msg: err
