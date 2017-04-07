@@ -6,8 +6,9 @@ include style.css
 meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
 
 link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
-link(rel='stylesheet', href='https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css')
 script(src='assets/jquery-ui.min.js')
+script(src='assets/bootstrap-tagsinput.js')
+link(rel='stylesheet', href='/bootstrap-tagsinput/dist/css/bootstrap-tagsinput.css')
 link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
 
 if isSearchResultsPage
@@ -22,8 +23,7 @@ if isSearchResultsPage
 	
 	script.
 		$(function(){
-			var tags = ["Vegetarian"]
-			console.log()
+			var tags = !{JSON.stringify(results.tags).replace(/<\//g, '<\\/')};
 			$("#tags").autocomplete({
 				source: tags
 			});

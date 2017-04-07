@@ -115,7 +115,7 @@ block container
             br
             .ui-widget
               span Tags
-              input#tags
+              input#tag(input='text',data-role='tagsinput')
         #list_results_container
          .row#fooditem_results_card
             each fooditem in results.fooditems
@@ -175,6 +175,10 @@ block container
 
       $("input#rangeVal").change(function(){
         document.getElementById("range").value = $(this).val();
+      })
+
+      $("input#tag").on("itemClicked", function(e){
+        console.log("hello")
       })
 
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
