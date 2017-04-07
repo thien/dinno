@@ -55,21 +55,18 @@ block container
               input#sort(type="button" value="Sort Results")
         #list_results_container
          .row#fooditem_results_card
-            if results.fooditems
-             each fooditem in results.fooditems
-               .col-md-6.col-lg-4
-                 a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
-                   img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
-                   .card-profile-container
-                     img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
-                   .card-block
-                     h4.card-title #{fooditem.Name}
-                     p.card-text #{fooditem.Description}
-                     p.card-text
-                       small.text-muted Best before #{fooditem.BestBefore}
-            else
-              p
-                | theres nothing here pal
+            each fooditem in results.fooditems
+             .col-md-6.col-lg-4
+               a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
+                 img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+                 .card-profile-container
+                   img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+                 .card-block
+                   h4.card-title #{fooditem.Name}
+                   p.card-text #{fooditem.Description}
+                   p.card-text
+                     small.text-muted Best before #{fooditem.BestBefore}
+
 
 
       .col-6.embed-responsive#results_container_right

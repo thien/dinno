@@ -19,11 +19,20 @@ window.initMap = function() {
     var coord_lng = search_location.longitude;
 
     // load google maps with 
-    console.log('hello');
+    // console.log('hello');
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
         center: {lat: coord_lat, lng: coord_lng},
     });
+
+    var image = new google.maps.MarkerImage('../assets/map/map_basemarker.gif');
+    var basePositionMarket = new google.maps.Marker({
+        position: {lat: coord_lat, lng: coord_lng},
+        map: map,
+        title: 'Hello World!',
+        icon: image,
+        optimized: false,
+      });
 
     console.log()
     console.log('bounds' + map.getBounds());
