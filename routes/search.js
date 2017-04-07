@@ -19,14 +19,14 @@ var geocoder = NodeGeocoder(geocoderOptions);
 
 app.locals.basedir = "." + '/views';
 
-module.exports = function() {
+module.exports = function () {
 
-    app.get('/search', function(req, res) {
+    app.get('/search', function (req, res) {
         var param = {
             loggedin: false,
         };
 
-        login.checkLogin(req, res).then(function(result) {
+        login.checkLogin(req, res).then(function (result) {
             param.loggedin = true;
 
             param.user_data = {
@@ -44,31 +44,31 @@ module.exports = function() {
             if (req.query.location && req.query.location !== "Locating Position...") {
                 // get coords from search parameter
 
-               geocoder.geocode(req.query.location, function(err, geo) {
-                  param.location = req.query.location;
-                  // console.log(geo);
-                  console.log("allocating coords");
-                  req.query.lat = geo[0].latitude;
-	                req.query.lng = geo[0].longitude;
-	                // console.log("got,", req.query.lat, "-", req.query.lng)
-	                param.lat = req.query.lat;
-	                param.lng = req.query.lng;
-	                console.log("allocated coordinates.");
-                  dealWithResults(req, res, param);
-              });
+                geocoder.geocode(req.query.location, function (err, geo) {
+                    param.location = req.query.location;
+                    // console.log(geo);
+                    console.log("allocating coords");
+                    req.query.lat = geo[0].latitude;
+                    req.query.lng = geo[0].longitude;
+                    // console.log("got,", req.query.lat, "-", req.query.lng)
+                    param.lat = req.query.lat;
+                    param.lng = req.query.lng;
+                    console.log("allocated coordinates.");
+                    dealWithResults(req, res, param);
+                });
 
             } else {
-              // dude didn't type in a thang
-              // default to durham when no position given.
-              req.query.lat = 54.7731;
-              req.query.lng = -1.57489;
-              param.lat = req.query.lat;
-              param.lng = req.query.lng;
-              dealWithResults(req, res, param);
+                // dude didn't type in a thang
+                // default to durham when no position given.
+                req.query.lat = 54.7731;
+                req.query.lng = -1.57489;
+                param.lat = req.query.lat;
+                param.lng = req.query.lng;
+                dealWithResults(req, res, param);
             }
 
 
-        }, function(err) {
+        }, function (err) {
             param.error_message = {
                 msg: "You're not logged in."
             };
@@ -86,7 +86,7 @@ function iterateDistance(req, results, i) {
             origin: "" + req.query.lat + "," + req.query.lng,
             destination: "" + results[i].Latitude + "," + results[i].Longitude,
             units: 'imperial'
-        }, function(err, distanceData) {
+        }, function (err, distanceData) {
             if (err) return console.log(err);
             if (distanceData.distanceValue <= 1609 * req.query.radius) {
                 data[data.length] = results[i]
@@ -99,7 +99,7 @@ function iterateDistance(req, results, i) {
 }
 
 function dealWithResults(req, res, param) {
-		console.log("--------------------------------------------------------------------------------------")
+    console.log("--------------------------------------------------------------------------------------")
     console.log(req.query);
     var query = `SELECT Meal.*, Location.*, User.ProfileImage  
 									 FROM Meal 
@@ -130,7 +130,7 @@ function dealWithResults(req, res, param) {
     query = mysql.format(query, req.query.food)
     console.log(query);
     // will need to deal with queries
-    db.query(query, req.query.food, function(error, results, fields) {
+    db.query(query, req.query.food, function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
         // fields will contain information about the returned results fields (if any)
@@ -148,7 +148,7 @@ function dealWithResults(req, res, param) {
             var food_item_query = req.query.food;
             // Convert best before date to something readable
             // May need to change later
-            results.forEach(function(x) {
+            results.forEach(function (x) {
                 x.BestBefore = x.BestBefore.toUTCString().substring(0, 17);
             });
             param.results = {
@@ -156,9 +156,17 @@ function dealWithResults(req, res, param) {
                 fooditems: results
             }
             param.isSearchResultsPage = true;
-
-            console.log(param)
-            res.render('searchitem', param);
+            db.query("SELECT * FROM `Tag`", function (e, r, f) {
+                //console.log(r)
+                tag = []
+                for (var i = 0; i < r.length; i++) {
+                    tag[i] = r[i].Name
+                }
+                //console.log(tag)
+                param.results.tags = tag
+                console.log(param)
+                res.render('searchitem', param);
+            })
         }
     });
 }

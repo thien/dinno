@@ -6,6 +6,8 @@ include style.css
 meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
 
 link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+link(rel='stylesheet', href='https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css')
+script(src='assets/jquery-ui.min.js')
 link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
 
 if isSearchResultsPage
@@ -17,3 +19,11 @@ if isSearchResultsPage
 	script(src='assets/interactive_sorting.js')
 	script(src='assets/js-cookie.js')
 	script(src='assets/map.js')
+	
+	script.
+		$(function(){
+			var tags = ["Vegetarian"]
+			$("#tags").autocomplete({
+				source: 
+			});
+		});
