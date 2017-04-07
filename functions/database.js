@@ -25,7 +25,7 @@ db_keys.multipleStatements = true;
 var db = database.createConnection(db_keys);
 db.connect(function(err) {
     if (err) {
-        console.error('error connecting: ' + err.stack);
+        console.error('Error connecting to DB. You probably havent turned MAMP on');
         return;
     } 
     console.log('Connected to Database - ' + db.threadId);
@@ -40,7 +40,7 @@ db.query("DROP DATABASE " + db_keys.database, function (error, results, fields) 
         db = database.createConnection(db_keys);
         db.connect(function(err) {
             if (err) {
-                console.error('error connecting: ' + err.stack);
+                console.error('Error connecting to DB. You probably havent turned MAMP on');
                 return;
             } 
             console.log('Connected to Database - ' + db.threadId);
@@ -65,7 +65,7 @@ db.query("DROP DATABASE " + db_keys.database, function (error, results, fields) 
 db = database.createConnection(db_keys);
 db.connect(function(err) {
     if (err) {
-        console.error('error connecting: ' + err.stack);
+        console.error('Error connecting to DB. You probably havent turned MAMP on');
         return;
     } 
     console.log('Connected to Database - ' + db.threadId);

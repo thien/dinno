@@ -38,6 +38,8 @@ function coord_base_success(position) {
     storeCoordinatesinCookies(latitude,longitude);
     $('input[name="lat"]').val(latitude);
     $('input[name="lng"]').val(longitude);
+    var stringer = latitude + "," + longitude;
+    printEstLocation(stringer);
 }
 
 function coord_base_error() {
@@ -57,5 +59,13 @@ function coord_base_error() {
         storeCoordinatesinCookies(latitude,longitude);
         $('input[name="lat"]').val(latitude);
         $('input[name="lng"]').val(longitude);
+    })
+}
+
+function printEstLocation(coord){
+    $.getJSON('http://maps.google.com/maps/api/geocode/json?latlng=' + coord, function(data){
+        console.log(data.results[2]);
+        console.log(data.results[2].formatted_address);
+        document.getElementById("navsearchbarlocation").value = data.results[2].formatted_address;
     })
 }

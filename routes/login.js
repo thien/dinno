@@ -86,7 +86,7 @@ function setLoginCookie(id, remember, req, res) {
 				});
 				console.log('cookies set with expiry!');
 			}
-			res.redirect('back');
+			res.redirect('/');
 		}
 	});
 }

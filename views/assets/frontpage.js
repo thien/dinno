@@ -10,7 +10,7 @@ $.getJSON("data/random_food_list.json", function(food_list) {
 function generateFoodTyper() {
     var item = getRandomFood(foods);
     // type(item, "phatsearch");
-    writeMagic("phatsearch", item)
+    writeMagic("phatsearchfood", item)
 }
 
 function getRandomFood(food_list) {

@@ -41,14 +41,23 @@ module.exports = function Server(io, server) {
             
         });
 
+        socket.on('user search', function(req) {    
+            var name = req.q;
+            chat.searchUsers(name).then(function(res){
+                socket.emit('user search results', res);
+            });
+        });
+
         socket.on('imageupload', function(img_json) {
             // console.log("upload this pls:", img);
 
             console.log("received an image to upload");
             console.log(img_json.id)
 
-            // console.log(img_json.src)
-            img_json.src = img_json.src.replace("data:image/png;base64,", "");
+            // how nasty is that lol
+            var fileType = img_json.src.split('/')[1].split(';')[0];
+            
+            img_json.src = img_json.src.replace(`data:image/${fileType};base64,`, "");
 
             upload(img_json.src, function(err, response){
             	console.log(response.data.link)
@@ -64,8 +73,7 @@ module.exports = function Server(io, server) {
 
         socket.on('mapUpdate', function(req) {
             var client = req.id;
-            
-            map.getLocations().then(function(locations) {
+            map.getLocations(req.bounds).then(function(locations) {
                 io.sockets.in(client).emit('mapUpdate', locations);
             }, function(err) {
 

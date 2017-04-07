@@ -4,7 +4,8 @@
 
 		//- load image container
 		.card-profile-container
-			img.card-userprofile-img(src=data.ProfileImage, alt='Card image cap')
+			a(href='/profile?id=' + data.UserID)
+				img.card-userprofile-img(src=data.ProfileImage, alt='Card image cap')
 
 		//- food name
 		h2 #{data.Name}
@@ -23,7 +24,8 @@
 		//- 		span.badge.categoriestags #{tag}
 
 		//- request button
-		button.btn.btn-primary.btn-lg.btn-block(type='button') Dinno This
+		form(method="post")
+			button.btn.btn-primary.btn-lg.btn-block(type='submit' value="Submit") Dinno This
 .col-md-4
 	#container
 		- var coord = Latitude + "," + Longitude

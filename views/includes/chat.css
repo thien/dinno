@@ -1,7 +1,7 @@
 .conversation-wrap {
     box-shadow: -2px 0 3px #ddd;
     padding: 0;
-    max-height: 400px;
+    min-height: 400px;
     overflow: auto;
 }
 .conversation {
