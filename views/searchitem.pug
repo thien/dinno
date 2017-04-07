@@ -111,6 +111,9 @@ block container
               input#freshest(type="radio" name="orderBy")
               br
               input#sort(type="button" value="Sort Results")
+              br
+              .ui-widget
+                input#tags
         #list_results_container
          .row#fooditem_results_card
             each fooditem in results.fooditems
