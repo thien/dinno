@@ -30,6 +30,11 @@ block container
               .col-4
                 input#rangeVal(type='number' width='20px')
                 span km
+
+            .ui-widget
+                span Tags
+                input#tags
+            br
             .modal-footer
               button.btn.btn-primary Filter
           //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
@@ -70,50 +75,48 @@ block container
           //- else
           //-   h1 Searching for anything
           #formHolder
-            form#filters
-              //- span Location
-              //- input#newName(type='text')
-              //- br
-              span Meal
-              input#meal(type='radio',name='isMeal',value='true')
-              span Ingredient
-              input#ingredient(type="radio",name='isMeal',value='false')
-              span Either
-              input#ingredient(type="radio",name='isMeal',value='both')
+            //- form#filters
+            //-   //- span Location
+            //-   //- input#newName(type='text')
+            //-   //- br
+            //-   span Meal
+            //-   input#meal(type='radio',name='isMeal',value='true')
+            //-   span Ingredient
+            //-   input#ingredient(type="radio",name='isMeal',value='false')
+            //-   span Either
+            //-   input#ingredient(type="radio",name='isMeal',value='both')
+            //-   br
+            //-   input#range(type='range',name='radius')
+            //-   input#rangeVal(type='number')
+            //-   button Filter
+            //- form
+            //-   span Category: 
+            //-   input#category(type='text')
+            //-   br
+            //-   span Best Before: 
+            //-   input#bestBeforeDay(type="text" size="2")
+            //-   input#bestBeforeMonth(type="text" size="2")
+            //-   input#bestBeforeYear(type="text" size="4")
+            //-   //- br
+            //-   //- span Max Distance:
+            //-   //- input#maxDistance(type="text")
+            //-   br
+            //-   span Order By:
+            //-   br
+            //-   span Newest 
+            //-   input#newest(type="radio" name="orderBy")
+            //-   br
+            //-   span Nearest 
+            //-   input#nearest(type="radio" name="orderBy")
+            //-   br
+            //-   span A-Z 
+            //-   input#A-Z(type="radio" name="orderBy")
+            //-   br
+            //-   span Freshest
+            //-   input#freshest(type="radio" name="orderBy")
+            //-   br
+            //-   input#sort(type="button" value="Sort Results")
               br
-              input#range(type='range',name='radius')
-              input#rangeVal(type='number')
-              button Filter
-            form
-              span Category: 
-              input#category(type='text')
-              br
-              span Best Before: 
-              input#bestBeforeDay(type="text" size="2")
-              input#bestBeforeMonth(type="text" size="2")
-              input#bestBeforeYear(type="text" size="4")
-              //- br
-              //- span Max Distance:
-              //- input#maxDistance(type="text")
-              br
-              span Order By:
-              br
-              span Newest 
-              input#newest(type="radio" name="orderBy")
-              br
-              span Nearest 
-              input#nearest(type="radio" name="orderBy")
-              br
-              span A-Z 
-              input#A-Z(type="radio" name="orderBy")
-              br
-              span Freshest
-              input#freshest(type="radio" name="orderBy")
-              br
-              input#sort(type="button" value="Sort Results")
-              br
-              .ui-widget
-                input#tags
         #list_results_container
          .row#fooditem_results_card
             each fooditem in results.fooditems
