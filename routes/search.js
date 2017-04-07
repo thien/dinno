@@ -46,11 +46,11 @@ module.exports = function() {
 
                geocoder.geocode(req.query.location, function(err, geo) {
                   param.location = req.query.location;
-                  console.log(geo);
+                  // console.log(geo);
                   console.log("allocating coords");
                   req.query.lat = geo[0].latitude;
 	                req.query.lng = geo[0].longitude;
-	                console.log("got,", req.query.lat, "-", req.query.lng)
+	                // console.log("got,", req.query.lat, "-", req.query.lng)
 	                param.lat = req.query.lat;
 	                param.lng = req.query.lng;
 	                console.log("allocated coordinates.");
@@ -99,6 +99,7 @@ function iterateDistance(req, results, i) {
 }
 
 function dealWithResults(req, res, param) {
+		console.log("--------------------------------------------------------------------------------------")
     console.log(req.query);
     var query = `SELECT Meal.*, Location.*, User.ProfileImage  
 									 FROM Meal 
