@@ -75,7 +75,7 @@ function cardEntry(item){
 	card += "<div class='card-footer text-muted'><div class='btn-group'>";
 	if (isYours === "Others"){
 		card += "<a class='btn btn-link btn-sm' href='/chat?id="+item.UserID+"'>Message</a>";
-		card += "<a class='btn btn-link btn-sm' href='#'>Cancel</a>";
+		card += "<a class='btn btn-link btn-sm' href='/cancel?id="+item.MealID+"'>Cancel</a>";
 	} else {
 		card += "<a class='btn btn-link btn-sm' href='/edit/"+item.MealID+"'>Edit</a>";
 		card += "<a class='btn btn-link btn-sm' href='/remove?id="+item.MealID+"'>Remove</a>";
