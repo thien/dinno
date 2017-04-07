@@ -78,7 +78,7 @@ function cardEntry(item){
 		card += "<a class='btn btn-link btn-sm' href='#'>Cancel</a>";
 	} else {
 		card += "<a class='btn btn-link btn-sm' href='/edit/"+item.MealID+"'>Edit</a>";
-		card += "<a class='btn btn-link btn-sm' href='#'>Remove</a>";
+		card += "<a class='btn btn-link btn-sm' href='/remove?id="+item.MealID+"'>Remove</a>";
 	}
 	card += "</div></div></div></div>";
 
