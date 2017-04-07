@@ -9,7 +9,7 @@ app.locals.basedir = "." + '/views';
 
 function getPostedMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage, User.UserID, Meal.RecipientId
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.UserID, Meal.RecipientId
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.UserID
@@ -27,7 +27,7 @@ function getPostedMeals(userId) {
 
 function getReceivedMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage, Meal.RecipientId, Meal.UserID
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, Meal.RecipientId, Meal.UserID
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.RecipientId
@@ -89,7 +89,6 @@ module.exports = function() {
 						param.defaultToggle = true;
 					}
 				}
-				console.log(param);
 				res.render('manage', param);
 
 			},function(err) {

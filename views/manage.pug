@@ -1,102 +1,84 @@
 extends layout
 
 block container
-	include includes/nav
-	script.
-		var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')}
+  include includes/nav
+  script.
+    var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')}
 
-	.container-padder
-		.col-sm-12.container-vp
-			.user-fooditem-cardlist 
-				h1.manage-header Manage Dinnos
+  .container-padder
+    .col-sm-12.container-vp
+      .user-fooditem-cardlist 
+        h1.manage-header Manage Dinnos
 
-	.row.container-padder(style='padding-right: 0px;margin-right: 0px;')
-		.col-lg-3.container-vp
-			.user-fooditem-cardlist
-				.sort-select-optiontype
-					.btn-group(role='group', aria-label='Dinno Type')
-						button.btn.btn-primary#buttonsort_others(type='button' onclick="toggleSearchItemRequestType(false)") Others
-						|  
-						button.btn.btn-secondary#buttonsort_yours(type='button' onclick="toggleSearchItemRequestType(true)") Yours
+  .row.container-padder(style='padding-right: 0px;margin-right: 0px;')
 
-				ul.list-group
-					a.list-group-item.active(href='#' onclick="toggleEntryType('requested')").justify-content-between#entry_requested
-						| Requested
-						span.badge.badge-default.badge-pill 2
-					a.list-group-item(href='#' onclick="toggleEntryType('active')").justify-content-between#entry_active
-						| Active
-						span.badge.badge-default.badge-pill 5
-					a.list-group-item(href='#' onclick="toggleEntryType('history')").justify-content-between#entry_history
-						| History
-						span.badge.badge-default.badge-pill 25
-					.list-group-item
-						.col-12
-							input#search-input.form-control(type='search', placeholder='Search Items')
-		.col-lg-8.container-vp
-			.user-fooditem-cardlist#fooditemlist
-				.card
-					.card-header
-						ul.nav.nav-pills.card-header-pills
-							li.nav-item
-								a.nav-link.active(href='#' onclick="sortResults('recent')")#sort_recent Recent
-							li.nav-item
-								a.nav-link(href='#' onclick="sortResults('alphabetical')")#sort_alphabetical Alphabetical
-							li.nav-item
-								a.nav-link(href='#' onclick="sortResults('expiry')")#sort_expiry Expiry Date
+    .col-lg-12.container-vp
+      .user-fooditem-cardlist#fooditemlist
+        .card
+          .card-header
+            select#isYours(name="isYours")
+              option(value="Yours") Yours
+              option(value="Others") Others
+            select#sortBy(name="sortBy")
+              option(value="Recent") Recent
+              option(value="A-Z") A-Z
+              option(value="Expiry") Expiry
 
-					.card-block#itemdata
-						//- .container-vp
-						//- 	.card
-						//- 		.row
-						//- 			.col-md-12
-						//- 				img.h-100.block-left(src='https://placeholdit.imgix.net/~text?txtsize=38&txt=200%C3%97400&w=200&h=200')
-						//- 				.card-block.item-details
-						//- 					h4.card-title Hot dogs
-						//- 					p.card-text
-						//- 						| Something about Chicken!
-						//- 					span.badge.categoriestags Hot
-						//- 					span.badge.categoriestags Hot
-						//- 					span.badge.categoriestags Hot
-						//- 					span.badge.categoriestags Hot
 
-						//- 		.card-footer.text-muted 
-						//- 			.btn-group
-						//- 					a.btn.btn-link.btn-sm(href='#') Chat
-						//- 					a.btn.btn-link.btn-sm(href='#') Edit
-						//- 					a.btn.btn-link.btn-sm(href='#') Delete
-						//- 					a.btn.btn-link.btn-sm(href='#') Cancel
 
-						//- .container-vp
-						//- 	.card
-						//- 		.row
-						//- 			.col-sm-4
-						//- 				img.h-100(src='https://placeholdit.imgix.net/~text?txtsize=38&txt=200%C3%97400&w=200&h=200')
-						//- 			.col-md-8
-						//- 				.card-block
-						//- 					h4.card-title Hot dogs
-						//- 					p.card-text
-						//- 						| Something about Chicken!
-						//- 					span.badge.categoriestags Hot
-						//- 					span.badge.categoriestags Hot
-						//- 					span.badge.categoriestags Hot
-						//- 					span.badge.categoriestags Hot
-											
+          .card-block#itemdata
+            //- .container-vp
+            //-   .card
+            //-     .row
+            //-       .col-md-12
+            //-         img.h-100.block-left(src='https://placeholdit.imgix.net/~text?txtsize=38&txt=200%C3%97400&w=200&h=200')
+            //-         .card-block.item-details
+            //-           h4.card-title Hot dogs
+            //-           p.card-text
+            //-             | Something about Chicken!
+            //-           span.badge.categoriestags Hot
+            //-           span.badge.categoriestags Hot
+            //-           span.badge.categoriestags Hot
+            //-           span.badge.categoriestags Hot
 
-						//- 				.btn-group
-						//- 					a.btn.btn-link.btn-sm(href='#') Chat
-						//- 					a.btn.btn-link.btn-sm(href='#') Edit
-						//- 					a.btn.btn-link.btn-sm(href='#') Delete
-						//- 					a.btn.btn-link.btn-sm(href='#') Cancel
+            //-     .card-footer.text-muted 
+            //-       .btn-group
+            //-           a.btn.btn-link.btn-sm(href='#') Chat
+            //-           a.btn.btn-link.btn-sm(href='#') Edit
+            //-           a.btn.btn-link.btn-sm(href='#') Delee
+            //-           a.btn.btn-link.btn-sm(href='#') Cancel
 
-	script
-		include assets/manage.js
-	if defaultToggle
-		script(type='text/javascript')
-			|if (#{defaultToggle}) {
-			|	toggleSearchItemRequestType(true);
-			|}
-	else
-		script(type='text/javascript')
-			|if (#{defaultToggle}) {
-			|	toggleSearchItemRequestType(false);
-			|}
+            //- .container-vp
+            //-   .card
+            //-     .row
+            //-       .col-sm-4
+            //-         img.h-100(src='https://placeholdit.imgix.net/~text?txtsize=38&txt=200%C3%97400&w=200&h=200')
+            //-       .col-md-8
+            //-         .card-block
+            //-           h4.card-title Hot dogs
+            //-           p.card-text
+            //-             | Something about Chicken!
+            //-           span.badge.categoriestags Hot
+            //-           span.badge.categoriestags Hot
+            //-           span.badge.categoriestags Hot
+            //-           span.badge.categoriestags Hot
+                      
+
+            //-         .btn-group
+            //-           a.btn.btn-link.btn-sm(href='#') Chat
+            //-           a.btn.btn-link.btn-sm(href='#') Edit
+            //-           a.btn.btn-link.btn-sm(href='#') Delete
+            //-           a.btn.btn-link.btn-sm(href='#') Cancel
+
+  script
+    include assets/manage.js
+  if defaultToggle
+    script(type='text/javascript')
+      |if (#{defaultToggle}) {
+      | toggleSearchItemRequestType(true);
+      |}
+  else
+    script(type='text/javascript')
+      |if (#{defaultToggle}) {
+      | toggleSearchItemRequestType(false);
+      |}

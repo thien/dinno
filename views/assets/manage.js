@@ -3,120 +3,28 @@
 Client Side Management for /manage
 
 */
+var isYours = true;
+var sortBy = 'recent';
 
-var search_parameters = {
-	req_type : "others",
-	filter : "requested",
-	sorting : "recent"
-}
-
-function toggleSearchItemRequestType(check){
-	// if false, show the stuff they want
-	// if true, show the stuff they added
-	if (check == true){
-		$( "#buttonsort_others" ).removeClass('btn-primary').addClass('btn-secondary');
-		$( "#buttonsort_yours" ).removeClass('btn-secondary').addClass('btn-primary');
-		$( "#entry_active" ).show();
-		search_parameters.req_type = "yours";
-	} else {
-		$( "#buttonsort_yours" ).removeClass('btn-primary').addClass('btn-secondary');
-		$( "#buttonsort_others" ).removeClass('btn-secondary').addClass('btn-primary');
-		$( "#entry_active" ).hide();
-		search_parameters.req_type = "others";
-	}
-	FilterData();
-}
-
-function toggleEntryType(input){
-	// requested, active or history
-	switch(input) {
-		case "requested":
-			// code block
-			search_parameters.filter = "requested";
-			$( "#entry_requested" ).addClass('active');
-			$( "#entry_active" ).removeClass('active');
-			$( "#entry_history" ).removeClass('active');
-			break;
-		case "active":
-			// code block
-			search_parameters.filter = "active";
-			$( "#entry_active" ).addClass('active');
-			$( "#entry_requested" ).removeClass('active');
-			$( "#entry_history" ).removeClass('active');
-			break;
-		case "history":
-			// code block
-			search_parameters.filter = "history";
-			$( "#entry_history" ).addClass('active');
-			$( "#entry_requested" ).removeClass('active');
-			$( "#entry_active" ).removeClass('active');
-			break;
-		default:
-			// code block
-	}
-	FilterData();
-}
-
-function sortResults(input){
-	// recent, alphabetical or by expiry
-	switch(input) {
-		case "recent":
-			// code block
-			search_parameters.sorting = "recent";
-			$( "#sort_recent" ).addClass('active');
-			$( "#sort_alphabetical" ).removeClass('active');
-			$( "#sort_expiry" ).removeClass('active');
-			break;
-		case "alphabetical":
-			// code block
-			search_parameters.sorting = "alphabetical";
-			$( "#sort_alphabetical" ).addClass('active');
-			$( "#sort_recent" ).removeClass('active');
-			$( "#sort_expiry" ).removeClass('active');
-			break;
-		case "expiry":
-			// code block
-			search_parameters.sorting = "expiry";
-			$( "#sort_expiry" ).addClass('active');
-			$( "#sort_recent" ).removeClass('active');
-			$( "#sort_alphabetical" ).removeClass('active');
-			break;
-		default:
-			// code block
-	}
-	FilterData();
-}
 
 function FilterData() {
 	var data;
-	if (search_parameters.req_type === "others"){
+	if (isYours == "Others"){
 		data = fooditems.theirs;
 	} else {
 		data = fooditems.yours;
 	}
 
-	// filtering
-	if (search_parameters.filter === "active"){
-		data.filter(function (i,n){
-	        return n.active===true;
-	    });
-	}
-	if (search_parameters.filter === "history"){
-		data.filter(function (i,n){
-	        return n.active===false;
-	    });
-	}
-
 	// sorting
-	if (search_parameters.sorting === "recent"){
+	if (sortBy === "Recent"){
 		data.sort(sort_added);
 	}
-	if (search_parameters.sorting === "alphabetical"){
+	if (sortBy === "A-Z"){
 		data.sort(function(a, b) {
 		  return stringsComparison(a.Name, b.Name);
 		})
 	}
-	if (search_parameters.sorting === "expiry"){
+	if (sortBy === "Expiry"){
 		data.sort(sort_expiry);
 	}
 
@@ -125,6 +33,7 @@ function FilterData() {
 
 function displayGoods(data){
 	var results = "";
+	console.log(data);
 	for (var i in data){
 		results += cardEntry(data[i]);
 	}
@@ -132,7 +41,6 @@ function displayGoods(data){
 }
 
 function cardEntry(item){
-		console.log(item);
 // .container-vp
 // 	.card
 // 		.row
@@ -156,17 +64,17 @@ function cardEntry(item){
 	var card = "<div class='container-vp'><div class='card'><div class='row man-item-entry'><div class='col-md-12'>";
 	card += "<div class='man-img-container man-block-left'><img src='"+item.Image+"'></div><div class='card-block item-details'>";
 	card += "<h4 class='card-title'>"+item.Name+"</h4>";
-	if (search_parameters.req_type === "others"){
-		card += "<h6 class='card-subtitle mb-2 text-muted'>Submitted by "+item.Forename+"</h6>";
-	}
+	// if (search_parameters.req_type === "others"){
+	// 	card += "<h6 class='card-subtitle mb-2 text-muted'>Submitted by "+item.Firstname+"</h6>";
+	// }
 	card += "<p class='card-text'>" + item.Description +"</p>";
 	for (var i in item.tags){
 		card += "<span class='badge categoriestags'>"+item.tags[i]+"</span>";
 	}
 	card += "</div></div></div>";
 	card += "<div class='card-footer text-muted'><div class='btn-group'>";
-	if (search_parameters.req_type === "others"){
-		card += "<a class='btn btn-link btn-sm' href='/chat/"+item.UserID+"'>Message</a>";
+	if (isYours === "Others"){
+		card += "<a class='btn btn-link btn-sm' href='/chat?id="+item.UserID+"'>Message</a>";
 		card += "<a class='btn btn-link btn-sm' href='#'>Cancel</a>";
 	} else {
 		card += "<a class='btn btn-link btn-sm' href='/edit/"+item.MealID+"'>Edit</a>";
@@ -178,7 +86,15 @@ function cardEntry(item){
 }
 
 $(document).ready(function(){
-	toggleSearchItemRequestType(false);
+	console.log(fooditems);
+	$('#isYours').change(function(){
+		isYours = $('#isYours').val();
+		FilterData();
+	});
+	$('#sortBy').change(function(){
+		sortBy = $('#sortBy').val();
+		FilterData();
+	});
 	FilterData();
 });
 
@@ -187,11 +103,11 @@ JSON Sorter Functions
 */
 
 function sort_expiry(a, b) {
-    return new Date(a.date_expiry).getTime() - new Date(b.date_expiry).getTime();
+    return new Date(a.BestBefore).getTime() - new Date(b.BestBefore).getTime();
 }
 
 function sort_added(a, b) {
-    return new Date(a.date_added).getTime() - new Date(b.date_added).getTime();
+    return a.MealID - b.MealID;
 }
 
 function stringsComparison(a, b) {
