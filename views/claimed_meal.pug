@@ -1,0 +1,18 @@
+extends layout
+
+block container
+
+  include includes/nav
+  .container 
+    .row
+      #container
+        center
+          img(src=foodInfo.Image style="max-height: 50vh;")
+          br
+          br
+          h3 You've claimed #{foodInfo.Name}!
+          p
+          | Bon appétit!
+          br
+          br
+          a.btn.btn-outline-danger(href='/') Find more tasty food!
