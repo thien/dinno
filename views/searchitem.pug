@@ -30,10 +30,6 @@ block container
               .col-4
                 input#rangeVal(type='number' width='20px')
                 span km
-
-            .ui-widget
-                span Tags
-                input#tags
             br
             .modal-footer
               button.btn.btn-primary Filter
@@ -116,7 +112,10 @@ block container
             //-   input#freshest(type="radio" name="orderBy")
             //-   br
             //-   input#sort(type="button" value="Sort Results")
-              br
+            br
+            .ui-widget
+              span Tags
+              input#tags
         #list_results_container
          .row#fooditem_results_card
             each fooditem in results.fooditems
