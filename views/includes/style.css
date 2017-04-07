@@ -107,17 +107,18 @@
 		}
 	}
 	#frontpage-container.jumbotron {
+		/*transform: translateY(-50%);*/
 		margin-top: 10%;
-    position: absolute;
-    top: 5vh;
-    background-color: rgba(220,220,220,0.9);
-    width: 100vw;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+		width: 80%;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
 	}
-	.map-background {
-		z-index: -2;
+	@media(max-width: 680px){
+		#frontpage-container.jumbotron{
+			background-color: #fff;
+			width: 100%;
+		}
 	}
 
 	html, body, .container-fluid, .row { height: 100% }
@@ -125,7 +126,6 @@
 		padding: 20px;
 		font-weight: bold;
 		margin-bottom: -80px;
-		background-color: #f5f5f5;
 	}
 	.navbar {
 		font-weight: bold;
