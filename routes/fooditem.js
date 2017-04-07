@@ -98,13 +98,12 @@ module.exports = function() {
 	}),
 
 	app.post('/fooditem', function(req, res) {
-
 		var param = {
 			loggedin: false,
 		};
 
 		login.checkLogin(req, res).then(function(result) {
-
+		
 			param.loggedin = true;
 
 			param.user_data = {
@@ -117,9 +116,12 @@ module.exports = function() {
 			var mealId = req.query.id;
 
 			if (mealId) {
-				claimMeal(mealId, result.UserID).then(function(data) {
-					param.data = data;
-					res.render('frontpage', param);
+				var claim = claimMeal(mealId, result.UserID);
+				var getInfo = getFoodInfo(mealId);
+
+				Promise.all([claim, getInfo]).then(function(data) {
+					param.foodInfo = data[1];
+					res.render('claimed_meal', param);
 
 				}, function(err) {
 					param.error_message = {

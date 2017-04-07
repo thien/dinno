@@ -5,6 +5,7 @@ html(lang="en")
 		include includes/head
 	body
 		include includes/alt-nav
+		#map-canvas.embed-responsive-item.map-background
 		#frontpage-container.jumbotron
 			h1.frontpage-logo-banner dinno.club
 			p
@@ -27,3 +28,6 @@ html(lang="en")
 		script
 			include assets/js-cookie.js
 			include assets/frontpage.js
+			include assets/map_background.js
+		script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
+			

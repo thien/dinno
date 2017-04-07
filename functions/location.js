@@ -18,7 +18,6 @@ function getLocationInformation(lat, lng) {
             acc[x.types[0]] = x.long_name;
             return acc;
           }, {});
-          console.log(res);
           resolve(res);
         }
       });
@@ -41,7 +40,6 @@ function checkLocationExists(lat, lng) {
         resolve(0);
       }
       else {
-        console.log(results);
         resolve(results[0].LocationID);
       }
     });
