@@ -35,7 +35,6 @@ function verifyPassword(p1, p2) {
 function addNewUser(userData, res) {
 	// TODO: get location properly
 	//				validate dob
-	var locationId = 1;
 	var firstname = userData['forename'];
 	var surname = userData['surname'];
 	var emailAddress = userData['email'];
@@ -63,8 +62,8 @@ function addNewUser(userData, res) {
 	var verificationCode = encrypt.hash(userData['password'], userData['email']);
 	var encryptedPass = encrypt.hash(userData['password'], verificationCode);
 
-	db.query(`INSERT INTO User (UserID, LocationID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, IsVerified, VerificationCode, Rating, ProfileImage)
-						VALUES (0, ?, ?, ?, ?, ?, ?, 0, ?, 5.0, ?)`, [locationId, firstname, surname, emailAddress, dob, encryptedPass, verificationCode, profileImage],
+	db.query(`INSERT INTO User (UserID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, IsVerified, VerificationCode, Rating, ProfileImage)
+						VALUES (0, ?, ?, ?, ?, ?, 0, ?, 5.0, ?)`, [firstname, surname, emailAddress, dob, encryptedPass, verificationCode, profileImage],
 		function(error, results, fields) {
 			if (error) {
 				console.log(error);
@@ -88,7 +87,6 @@ function addNewUser(userData, res) {
 function updateUser(userId, userData, res) {
 	// TODO: get location properly
 	//				validate dob
-	var locationId = 1;
 	var firstname = userData['forename'];
 	var surname = userData['surname'];
 	var emailAddress = userData['email'];
@@ -117,8 +115,8 @@ function updateUser(userId, userData, res) {
 	var encryptedPass = encrypt.hash(userData['password'], verificationCode);
 
 	db.query(`UPDATE User 
-						SET LocationID = ?, Firstname = ?, Surname = ?, EmailAddress = ?, DOB = ?, EncryptedPass = ?, ProfileImage = ?
-						WHERE UserID = ?`, [locationId, firstname, surname, emailAddress, dob, encryptedPass, profileImage, userId],
+						SET Firstname = ?, Surname = ?, EmailAddress = ?, DOB = ?, EncryptedPass = ?, ProfileImage = ?
+						WHERE UserID = ?`, [firstname, surname, emailAddress, dob, encryptedPass, profileImage, userId],
 		function(error, results, fields) {
 			if (error) {
 				console.log(error);
@@ -128,6 +126,7 @@ function updateUser(userId, userData, res) {
 				res.render('register', userData);
 			} else {
 				console.log(`Updated user ${emailAddress}`);
+				console.log(userData);
 				res.render('register', userData);
 			}
 		});
@@ -228,7 +227,6 @@ module.exports = function() {
 	app.post('/register', function(req, res) {
 		// get results
 		var userData = req.body;
-		console.log(userData);
 
 		var isValidUser = addNewUser(userData, res);
 
@@ -252,7 +250,7 @@ module.exports = function() {
 			param.loggedin = true;
 			param.edit = true;
 			param.user_data = {
-				userID: result.userID,
+				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage

@@ -36,6 +36,12 @@ app.engine('pug', require('pug').__express)
 app.set('view engine', 'pug')
 app.locals.basedir = __dirname + '/views';
 
+app.get('*',function(req,res,next){
+  if(port != 8080 && req.headers['x-forwarded-proto']!='https')
+    res.redirect('https://'+req.headers.host+req.url);
+  else
+    next();
+})
 // search item
 app.use('/', require('./routes/search'));  
 
@@ -52,16 +58,16 @@ app.use('/', require('./routes/login'));
 app.use('/', require('./routes/register'));  
 
 // profile page
-app.use('/', require('./routes/profile'));  
+app.use('/', require('./routes/profile'));
+
+// report user
+app.use('/', require('./routes/report'));  
 
 // food item profile
 app.use('/', require('./routes/fooditem'));  
 
 // add food item
 app.use('/', require('./routes/add'));  
-
-// edit food item
-app.use('/', require('./routes/editfood'));  
 
 // manage fooditems
 app.use('/', require('./routes/manage'));  
@@ -71,6 +77,8 @@ app.use('/assets', express.static('./views/assets'))
 
 // add error message - THIS MUST BE THE LAST ROUTE TO BE DEFINED
 app.use('/', require('./routes/error'));  
+
+
 
 server.listen(port, function () {
     // notify user that server is running
