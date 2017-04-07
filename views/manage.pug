@@ -16,9 +16,11 @@ block container
       .user-fooditem-cardlist#fooditemlist
         .card
           .card-header
+            span Posted By:
             select#isYours(name="isYours")
-              option(value="Yours") Yours
+              option(value="You") You
               option(value="Others") Others
+            span Sort By:
             select#sortBy(name="sortBy")
               option(value="Recent") Recent
               option(value="A-Z") A-Z
