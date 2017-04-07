@@ -68,6 +68,7 @@ function cardEntry(item){
 	// 	card += "<h6 class='card-subtitle mb-2 text-muted'>Submitted by "+item.Firstname+"</h6>";
 	// }
 	card += "<p class='card-text'>" + item.Description +"</p>";
+	card += "<p class='card-text'> Best before " + new Date(item.BestBefore).toUTCString().substring(0, 17); +"</p>";
 	for (var i in item.tags){
 		card += "<span class='badge categoriestags'>"+item.tags[i]+"</span>";
 	}
