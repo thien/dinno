@@ -30,7 +30,8 @@ block container
               .col-4
                 input#rangeVal(type='number' width='20px')
                 span km
-            br
+              input#tag(input='text',data-role='tagsinput',name='tags')
+              br
             .modal-footer
               button.btn.btn-primary Filter
           //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
@@ -115,7 +116,6 @@ block container
             br
             .ui-widget
               span Tags
-              input#tag(input='text',data-role='tagsinput')
         #list_results_container
          .row#fooditem_results_card
             each fooditem in results.fooditems
@@ -136,6 +136,8 @@ block container
         #map-canvas.embed-responsive-item  
 
     script.
+      var k = "#{results.tags}".split(",")
+      //console.log(k)
       //- $("form#filters").submit(function(e){
       //-   var form = this;
       //-   $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
@@ -176,10 +178,35 @@ block container
       $("input#rangeVal").change(function(){
         document.getElementById("range").value = $(this).val();
       })
-
-      $("input#tag").on("itemClicked", function(e){
-        console.log("hello")
-      })
+      var tags = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: "#{results.tags}".split(",")
+        //- prefetch: {
+        //-   url: 'assets/tags.json',
+        //-   filter: function(list) {
+        //-     return $.map(list, function(tags) {
+        //-       return { name: tags }; });
+        //-     }
+        //-   }
+      });
+      tags.initialize();
+      //console.log(k)
+      $('input#tag').tagsinput({
+        typeaheadjs: {
+          source: tags.ttAdapter()
+        }
+        //attempted to use freeInput: false, but doesnt work, hence event handler below
+      });
+      $('input').on('beforeItemAdd', function(event) {
+        var exists = false
+        if(k.indexOf(event.item) > -1){
+          exists = true;
+        }
+        event.cancel = !exists
+        // event.item: contains the item
+        // event.cancel: set to true to prevent the item getting added
+      });
 
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
 

@@ -8,6 +8,7 @@ meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-sc
 link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
 script(src='assets/jquery-ui.min.js')
 script(src='assets/bootstrap-tagsinput.js')
+script(src='/typeahead.js/dist/typeahead.bundle.js')
 link(rel='stylesheet', href='/bootstrap-tagsinput/dist/css/bootstrap-tagsinput.css')
 link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
 
@@ -20,11 +21,3 @@ if isSearchResultsPage
 	script(src='assets/interactive_sorting.js')
 	script(src='assets/js-cookie.js')
 	script(src='assets/map.js')
-	
-	script.
-		$(function(){
-			var tags = !{JSON.stringify(results.tags).replace(/<\//g, '<\\/')};
-			$("#tags").autocomplete({
-				source: tags
-			});
-		});
