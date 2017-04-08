@@ -182,16 +182,8 @@ block container
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         local: "#{results.tags}".split(",")
-        //- prefetch: {
-        //-   url: 'assets/tags.json',
-        //-   filter: function(list) {
-        //-     return $.map(list, function(tags) {
-        //-       return { name: tags }; });
-        //-     }
-        //-   }
       });
       tags.initialize();
-      //console.log(k)
       $('input#tag').tagsinput({
         typeaheadjs: {
           source: tags.ttAdapter()
