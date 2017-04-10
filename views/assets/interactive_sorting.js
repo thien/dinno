@@ -1,9 +1,4 @@
-
-// sorted results variable
-var sortedResults = fooditems.slice();
-
-// var fooditems = JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')
-
+var sorted = [];
 /*
 sorting methods:
  - best before
@@ -16,18 +11,17 @@ sorting methods:
 
 //event trigger, when some constraint clicked
 
-
 //rewrite the card holder div
-function writeCardHolder(sortedResults){
+function writeCardHolder(sorted){
 	var newContent = '';
-	for(var i=0; i<sortedResults.length; i++){
-		newContent += '<div class="col-md-6 col-lg-4"><a class="card" href="/fooditem" id="fooditem_'+sortedResults[i].MealID+'">'+
-		'<img class="card-img-top img-fluid" src="'+sortedResults[i].Image+'" alt="Card image cap">'+
-        '<div class="card-profile-container"><img class="card-userprofile-img" src="'+sortedResults[i].ProfileImage+'" alt="Card image cap"></div>'+
+	for(var i=0; i<sorted.length; i++){
+		newContent += '<div class="col-md-6 col-lg-4"><a class="card" href="/fooditem" id="fooditem_'+sorted[i].MealID+'">'+
+		'<img class="card-img-top img-fluid" src="'+sorted[i].Image+'" alt="Card image cap">'+
+        '<div class="card-profile-container"><img class="card-userprofile-img" src="'+sorted[i].ProfileImage+'" alt="Card image cap"></div>'+
         '<div class="card-block">'+
-        '<h4 class="card-title">'+sortedResults[i].Name+'</h4>'+
-        '<p class="card-text">'+sortedResults[i].Description+'</p>'+
-        '<p class="card-text"><small class="text-muted">Best before '+sortedResults[i].BestBefore+'</small></p>'+
+        '<h4 class="card-title">'+sorted[i].Name+'</h4>'+
+        '<p class="card-text">'+sorted[i].Description+'</p>'+
+        '<p class="card-text"><small class="text-muted">Best before '+sorted[i].BestBefore+'</small></p>'+
         '</div>'+
         '</a></div>'
 	}
@@ -35,13 +29,12 @@ function writeCardHolder(sortedResults){
 }
 
 
-// restrict results by distance
+//restrict results by distance
 function distanceRestriction(results, maxDistance){
 	//do stuff
 	maxDistance = maxDistance/111;	//do kilometers to degrees (positioning done in lat/log)
 	var userLat = 54.78, userLng = -1.52;
 	resultsInRadius = [];
-	console.log(maxDistance)
 	for(var i=0;i<results.length;i++){
 		if(Math.sqrt(Math.pow(results[i].Latitude-userLat,2) + Math.pow(results[i].Longitude-userLng,2))){
 			resultsInRadius.push(results[i]);
@@ -51,20 +44,26 @@ function distanceRestriction(results, maxDistance){
 }
 
 // restrict results by best before
-function bestBeforeRestriction(results, day, month, year){
+function bestBeforeRestriction(results, date){
 	resultsInDate = [];
-	var chosenDate = (new Date(year, month, day, 0, 0, 0, 0)).getTime();
+	var year = parseInt(date.split("-")[0]);
+	var month = parseInt(date.split("-")[1]);
+	var day = parseInt(date.split("-")[2]);
+	console.log(year);
+	console.log(month);
+	console.log(day);
+	console.log(new Date(year, month - 1, day, 0, 0, 0, 0));
+	var chosenDate = (new Date(year, month - 1, day, 0, 0, 0, 0)).getTime();
 	for(var i=0;i<results.length;i++){
-		console.log(new Date(results[i].BestBefore).getTime());
+		console.log(results[i].BestBefore);
 		if(new Date(results[i].BestBefore).getTime()>chosenDate){
-			console.log(results[i].BestBefore);
 			resultsInDate.push(results[i]);
 		}
 	}
 	return resultsInDate;
 }
 
-//order results by distance
+//restrict results by distance
 function byNearest(results){
 	var userLat = 54.78, userLng = -1.52;
 	results.sort(function(a,b){
@@ -73,15 +72,26 @@ function byNearest(results){
 	});
 }
 
-// order by best before
+//constraint is category
+function byCategory(results, category){
+	//do stuff
+	for(var i=0;i<results.length;i++){
+		if(results[i].category == category){
+			//add to div or whatever
+		}
+	}
+};
+
+
+//constraint is best before
 function byBestBefore(results){
 	//sorting by best before date
 	results.sort(function(a,b){
-		return Date.parse(a.BestBefore) - Date.parse(b.BestBefore);
+		return Date.parse(b.BestBefore) - Date.parse(a.BestBefore);
 	});
 };
 
-// order alphabetically
+//constraint is alphabetical
 function alphabetical(results){
 	//sorting by best before date
 	results.sort(function(a,b){
@@ -98,46 +108,22 @@ function alphabetical(results){
 
 
 $(document).ready(function(){
-	$("#sort").click(function(){
-		var altered = false;
-		sortedResults = fooditems.slice();
-		// if(document.getElementById("maxDistance").value != ""){
-		// 	console.log("test max dis");
-		// 	sortedResults = distanceRestriction(sortedResults, document.getElementById("maxDistance").value);
-		// 	altered = true;
-		// }
-		if(document.getElementById('bestBeforeDay').value != '' && document.getElementById('bestBeforeMonth').value != '' && document.getElementById('bestBeforeYear').value != ''){
-			sortedResults = bestBeforeRestriction(sortedResults, document.getElementById('bestBeforeDay').value, document.getElementById('bestBeforeMonth').value, document.getElementById('bestBeforeYear').value);
-			console.log(sortedResults);
-			altered = true;
+	$('.filter').change( function() {
+		var sorted = bestBeforeRestriction(fooditems.slice(), $('#bestBefore').val());
+		switch($('#orderBy').val()) {
+	    case "A-Z":
+	      console.log("sort by alphabetical");
+				alphabetical(sorted);
+	      break;	
+	    case "nearest":
+				console.log("sort by nearest")
+				byNearest(sorted);
+	      break;	
+	    case "freshest":
+				console.log("sort freshest")
+				byBestBefore(sorted)
+	      break;	
 		}
-		if(document.getElementById("A-Z").checked){
-			console.log("by alphabetical");
-			alphabetical(sortedResults);
-			altered = true;
-		}else if(document.getElementById("nearest").checked){
-			console.log("by nearest")
-			byNearest(sortedResults);
-			altered = true;
-			for (var i = fooditems.length - 1; i >= 0; i--) {
-				console.log(fooditems[i].Name);
-			}
-		}else if(document.getElementById("nearest").checked){
-			console.log("by nearest")
-			byNearest(fooditems);
-			for (var i = fooditems.length - 1; i >= 0; i--) {
-				console.log(Math.sqrt(Math.pow(fooditems[i].Latitude-54.78,2) + Math.pow(fooditems[i].Longitude-(-1.52),2)));
-			}
-		}else if (document.getElementById("freshest").checked){
-			console.log("freshest")
-			byBestBefore(sortedResults)
-			altered = true;
-		}
-
-		// if(document.getElementById("maxDistance").value != ""){
-		// 	console.log("test max dis");
-		// 	distanceRestriction(fooditems, document.getElementById("maxDistance").value);
-		// }
-		writeCardHolder(sortedResults);
+		writeCardHolder(sorted);
 	});
 });
