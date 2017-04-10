@@ -202,7 +202,8 @@ INSERT INTO `Tag` (`TagID`,`Name`) VALUES
 (3,'Pescatarian'),
 (4,'Gluten free'),
 (5,'Dairy free'),
-(6,'Nut free');
+(6,'Nut free'),
+(7,'Fruit');
 
 --
 -- Test data for table `TagMeal`
@@ -218,7 +219,11 @@ INSERT INTO `TagMeal` (`TagMealID`,`MealID`,`TagID`) VALUES
 -- Chicken wings
 (4,4,1),
 (5,4,5),
-(6,4,6);
+(6,4,6),
+
+-- Lime
+(7,5,7),
+(8,5,6);
 
 --
 -- Table structure for table `Report`

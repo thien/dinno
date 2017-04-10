@@ -17,11 +17,9 @@ block container
             //- input#newName(type='text')
             //- br
             span Meal
-            input#meal(type='radio',name='isMeal',value='true')
+            input#meal(type='checkbox',name='meal')
             span Ingredient
-            input#ingredient(type="radio",name='isMeal',value='false')
-            span Either
-            input#ingredient(type="radio",name='isMeal',value='both')
+            input#ingredient(type="checkbox",name='ingredient')
             br
             .form-group.row
               label.col-3.col-form-label(for='example-date-input') Radius

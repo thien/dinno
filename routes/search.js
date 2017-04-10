@@ -39,7 +39,6 @@ module.exports = function () {
             param.foodcheck = true;
 
             req.query.food = req.query.food || "";
-            req.query.isMeal = req.query.isMeal || "both";
 
             if (req.query.location && req.query.location !== "Locating Position...") {
                 // get coords from search parameter
@@ -101,13 +100,19 @@ function iterateDistance(req, results, i) {
 function dealWithResults(req, res, param) {
     console.log("--------------------------------------------------------------------------------------")
     console.log(req.query);
-    var query = `SELECT Meal.*, Location.*, User.ProfileImage  
+    var query = `SELECT Meal.*, Location.*, User.ProfileImage, COUNT(Tag.TagID) AS MatchingTags  
 									 FROM Meal 
 									 JOIN User 
 									 ON Meal.UserID = User.UserID
 									 JOIN Location
 									 ON Meal.LocationID = Location.LocationID
-									 WHERE RecipientID IS NULL`;
+                                     LEFT JOIN TagMeal
+                                     ON Meal.MealID = TagMeal.MealID
+                                     LEFT JOIN Tag
+                                     ON TagMeal.TagID = Tag.TagID
+									 WHERE RecipientID IS NULL
+                                     `
+        ;
 
     var latDif = 1 / 69
     var longDif = 1 / 69;
@@ -115,17 +120,32 @@ function dealWithResults(req, res, param) {
 
     console.log(req.query.food != "");
     if (req.query.food != "") {
-        query += ` AND MATCH(Name, Description) 
+        query += ` AND MATCH(Meal.Name, Description) 
 									 AGAINST(? IN BOOLEAN MODE)`;
     }
-    if (req.query.isMeal == 'true') {
+    if (req.query.meal == 'on' && req.query.ingredient == undefined) {
         query += " AND IsIngredient = 0"
-    } else if (req.query.isMeal != 'both') {
+    } else if (req.query.ingredient == 'on' && req.query.meal == undefined) {
         query += " AND IsIngredient = 1"
     }
 
     query += " AND Latitude BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
     query += " AND Longitude BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
+    //query to find all tags containing
+    var tags = []
+    if (req.query.tags != undefined) {
+        query += " AND ("
+        tags = req.query.tags.split(",") || []
+        for (var i = 0; i < tags.length; i++) {
+            query += "`Tag`.`Name` = \"" + tags[i] +"\" OR "
+        }
+        query = query.substring(0,query.length-4) + ")"
+    }
+
+
+
+    query += " GROUP BY Meal.MealID";
+    query += " HAVING COUNT(Tag.TagID) >= " + tags.length
     query += ";"
     query = mysql.format(query, req.query.food)
     console.log(query);
