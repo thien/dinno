@@ -120,20 +120,20 @@ function dealWithResults(req, res, param) {
 
     console.log(req.query.food != "");
     if (req.query.food != "") {
-        query += ` AND MATCH(Meal.Name, Description) 
+        query += ` AND MATCH(Meal.Name, Meal.Description) 
 									 AGAINST(? IN BOOLEAN MODE)`;
     }
     if (req.query.meal == 'on' && req.query.ingredient == undefined) {
-        query += " AND IsIngredient = 0"
+        query += " AND Meal.IsIngredient = 0"
     } else if (req.query.ingredient == 'on' && req.query.meal == undefined) {
-        query += " AND IsIngredient = 1"
+        query += " AND Meal.IsIngredient = 1"
     }
 
-    query += " AND Latitude BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
-    query += " AND Longitude BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
+    query += " AND Location.Latitude BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
+    query += " AND Location.Longitude BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
     //query to find all tags containing
     var tags = []
-    if (req.query.tags != undefined) {
+    if (req.query.tags != "" && req.query.tags != undefined) {
         query += " AND ("
         tags = req.query.tags.split(",") || []
         for (var i = 0; i < tags.length; i++) {
@@ -171,6 +171,8 @@ function dealWithResults(req, res, param) {
             results.forEach(function (x) {
                 x.BestBefore = x.BestBefore.toUTCString().substring(0, 17);
             });
+            param.food = req.query.food;
+            param.location = req.query.location;
             param.results = {
                 food: food_item_query,
                 fooditems: results
