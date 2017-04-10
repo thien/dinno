@@ -30,8 +30,8 @@ block container
               .col-4
                 input#rangeVal(type='number' width='20px')
                 span km
-              input#tag(input='text',data-role='tagsinput',name='tags')
-              br
+            span Tags
+            input#tag(input='text',data-role='tagsinput',name='tags')
             .modal-footer
               button.btn.btn-primary Filter
           //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
@@ -71,51 +71,7 @@ block container
           //-   h1 Searching for #{results.food}
           //- else
           //-   h1 Searching for anything
-          #formHolder
-            //- form#filters
-            //-   //- span Location
-            //-   //- input#newName(type='text')
-            //-   //- br
-            //-   span Meal
-            //-   input#meal(type='radio',name='isMeal',value='true')
-            //-   span Ingredient
-            //-   input#ingredient(type="radio",name='isMeal',value='false')
-            //-   span Either
-            //-   input#ingredient(type="radio",name='isMeal',value='both')
-            //-   br
-            //-   input#range(type='range',name='radius')
-            //-   input#rangeVal(type='number')
-            //-   button Filter
-            //- form
-            //-   span Category: 
-            //-   input#category(type='text')
-            //-   br
-            //-   span Best Before: 
-            //-   input#bestBeforeDay(type="text" size="2")
-            //-   input#bestBeforeMonth(type="text" size="2")
-            //-   input#bestBeforeYear(type="text" size="4")
-            //-   //- br
-            //-   //- span Max Distance:
-            //-   //- input#maxDistance(type="text")
-            //-   br
-            //-   span Order By:
-            //-   br
-            //-   span Newest 
-            //-   input#newest(type="radio" name="orderBy")
-            //-   br
-            //-   span Nearest 
-            //-   input#nearest(type="radio" name="orderBy")
-            //-   br
-            //-   span A-Z 
-            //-   input#A-Z(type="radio" name="orderBy")
-            //-   br
-            //-   span Freshest
-            //-   input#freshest(type="radio" name="orderBy")
-            //-   br
-            //-   input#sort(type="button" value="Sort Results")
-            br
-            .ui-widget
-              span Tags
+
         #list_results_container
          .row#fooditem_results_card
             each fooditem in results.fooditems
@@ -178,6 +134,7 @@ block container
       $("input#rangeVal").change(function(){
         document.getElementById("range").value = $(this).val();
       })
+
       var tags = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -185,6 +142,7 @@ block container
       });
       tags.initialize();
       $('input#tag').tagsinput({
+        tagClass: 'badge-danger',
         typeaheadjs: {
           source: tags.ttAdapter()
         }
@@ -201,6 +159,7 @@ block container
       });
 
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
+
 
 
 
