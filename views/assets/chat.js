@@ -29,6 +29,7 @@ socket.emit('join', {
     name: Cookies.get('id')
 });
 
+
 $('#message_send').submit(function() {
     var message = $('#messagebox').val();
     console.log(Cookies.get());
@@ -48,16 +49,16 @@ $('#btn-message-send').click(function() {
 });
 
 
-
-$('#user-search').submit(function() {
-    var q = $('#user-search-box').val();
-    socket.emit('user search', {
-        q: q
-    });
+$('#user-search').keyup(function() {
+  var q = $('#user-search-box').val();
+  socket.emit('user search', {
+    q: q
+  });
 });
 
+
 $('#btn-user-search').click(function() {
-   $('#user-search').submit();
+   $('#user-search').keyup();
 });
 
 
@@ -100,16 +101,9 @@ socket.on('server message', function(msg) {
 });
 
 socket.on('user search results', function(res) {
-    console.log("from server", res);
   var users = '';
   res.forEach(function(u) {
-    // .media.conversation
-    //             a.pull-left(href='/chat?id=' + convo.UserID)
-    //               img.media-object.contact_photo.sm(src=convo.ProfileImage)
-    //             .media-body.message-list-box
-    //               h5.media-heading #{convo.Firstname}
-    //               small #{convo.Contents}
-    users += ` <div class='media conversation'>
+    users += ` <div class='media conversation user-search-result' onclick="location.href='/chat?id=${u.UserID}';">
                   <a class='pull-left' href='/chat?id=${u.UserID}'>
                     <img class='media-object contact_photo sm' src='${u.ProfileImage}'>
                   </a>
@@ -118,6 +112,12 @@ socket.on('user search results', function(res) {
                   </div>
                 </div>`;
   });
+  if (res.length > 0 ) {
+    $('#user-search-results').addClass('found');
+  }
+  else {
+    $('#user-search-results').removeClass('found');
+  }
   var resBox = document.getElementById('user-search-results');
   resBox.innerHTML = users;
   
