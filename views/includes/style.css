@@ -550,6 +550,9 @@
 		max-width: 100px;
 	}
 
+	#barcode {
+		width: 100%;
+	}
 
 	/*profile*/
 
@@ -570,6 +573,7 @@
 	.barcode-scanner-container{
 		padding: 20px 0px;
 	}
+  
 
 	/*map stuf*/
 	.map-control {
