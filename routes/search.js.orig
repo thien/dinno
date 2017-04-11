@@ -127,7 +127,7 @@ function dealWithResults(req, res, param) {
 
     console.log(req.query.food != "");
     if (req.query.food != "") {
-        query += ` AND MATCH(Meal.Name, Description) 
+        query += ` AND MATCH(Meal.Name, Meal.Description) 
 									 AGAINST(? IN BOOLEAN MODE)`;
     }
     if (req.query.meal == 'on' && req.query.ingredient == undefined) {
@@ -171,6 +171,7 @@ function dealWithResults(req, res, param) {
             var count = 0
             var i = 0
             data = []
+<<<<<<< HEAD
             iterateDistance(req, results, 0, function (data) {
                 console.log(data)
                 var food_item_query = req.query.food;
@@ -179,6 +180,27 @@ function dealWithResults(req, res, param) {
                 param.results = {
                     food: food_item_query,
                     fooditems: results
+=======
+            iterateDistance(req, results, 0)
+            var food_item_query = req.query.food;
+            // Convert best before date to something readable
+            // May need to change later
+            results.forEach(function (x) {
+                x.BestBefore = x.BestBefore.toUTCString().substring(0, 17);
+            });
+            param.food = req.query.food;
+            param.location = req.query.location;
+            param.results = {
+                food: food_item_query,
+                fooditems: results
+            }
+            param.isSearchResultsPage = true;
+            db.query("SELECT * FROM `Tag`", function (e, r, f) {
+                //console.log(r)
+                tag = []
+                for (var i = 0; i < r.length; i++) {
+                    tag[i] = r[i].Name
+>>>>>>> 9eac5bf2fc439748ec83a1181b7373a3c8d90199
                 }
                 param.isSearchResultsPage = true;
                 db.query("SELECT * FROM `Tag`", function (e, r, f) {

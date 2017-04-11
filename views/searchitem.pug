@@ -35,43 +35,30 @@ block container
           //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
           //- |  
           //- button.btn.btn-primary(type='button') Save changes
-        .modal-header
-          h5#exampleModalLabel.modal-title Results Filtering
-        .modal-body 
-          form#filtering
-            .form-group.row
-              label.col-3.col-form-label(for='example-date-input') Best Before
-              .col-6
-                input#example-date-input.form-control(type='date', value='2011-08-19')
-            span Newest 
-            input#newest(type="radio" name="orderBy")
-            br
-            span Nearest 
-            input#nearest(type="radio" name="orderBy")
-            br
-            span A-Z 
-            input#A-Z(type="radio" name="orderBy")
-            br
-            span Freshest
-            input#freshest(type="radio" name="orderBy")
-            //- br
-            //- input#sort(type="button" value="Sort Results")
-        .modal-footer
-          button.btn.btn-primary#sort(type='button') Sort Results
+
 
   //- search results
   .container-fluid#display_item_results
     .row.display-item-results-baby
       .col-6.no-float#results_container_left
-        button.btn.btn-primary(data-toggle='modal', data-target='#search-options-modal') Search Options
+      
         #search_item_details 
-          //- if results.food
-          //-   h1 Searching for #{results.food}
-          //- else
-          //-   h1 Searching for anything
+          if results.food
+            h1 Searching for #{results.food} 
+          else
+            h1 Searching for anything
+          button.btn.btn-primary(data-toggle='modal', data-target='#search-options-modal') Search Options
 
+        form#filtering.form-inline.pull-right
+          label(for='example-date-input') Best Before
+          input.form-control#bestBefore.filter(type='date', value='2017-02-19')
+          label(for='example-date-input') Sort By
+          select(name="orderBy")#orderBy.filter
+            option(value='A-Z') A-Z 
+            option(value='nearest') Nearest
+            option(value='freshest') Freshest
         #list_results_container
-         .row#fooditem_results_card
+          .row#fooditem_results_card
             each fooditem in results.fooditems
              .col-md-6.col-lg-4
                a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
