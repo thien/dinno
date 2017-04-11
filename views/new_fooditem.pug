@@ -116,7 +116,12 @@ block container
 					locate: true,
 					src: reader.result
 				},function(result){
-					console.log(result.codeResult.code)
+					if (result && result.codeResult) {
+						console.log(result.codeResult.code);
+					}
+					else {
+						console.log('no barcode detected');
+					}
 				})
 			}, false);
 			reader.readAsDataURL(barcode)
