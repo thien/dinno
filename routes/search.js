@@ -84,10 +84,11 @@ function iterateDistance(req, results, i, done) {
         distance.get({
             origin: "" + req.query.lat + "," + req.query.lng,
             destination: "" + results[i].Latitude + "," + results[i].Longitude,
-            units: 'imperial'
+            units: 'metric'
         }, function (err, distanceData) {
             if (err) return console.log(err);
-            if (distanceData.distanceValue <= 1609 * req.query.radius) {
+            if (distanceData.distanceValue <= req.query.radius * 1000) {
+                
                 results[i].BestBefore = results[i].BestBefore.toUTCString().substring(0, 17);
                 data[data.length] = results[i]
                 //console.log(distanceData)
@@ -181,6 +182,8 @@ function dealWithResults(req, res, param) {
                     food: food_item_query,
                     fooditems: data
                 }
+                param.food = req.query.food;
+                param.location = req.query.location;
                 param.isSearchResultsPage = true;
                 db.query("SELECT * FROM `Tag`", function (e, r, f) {
                     //console.log(r)
