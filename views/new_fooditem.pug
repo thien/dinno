@@ -83,6 +83,7 @@ block container
 								img(src=image)#profilephoto
 								input(id="input_images" name='images' type="file" multiple="true")
 							#barcode_img_container
+								img#barcode
 								input(id="barcode_image" name='barcode' type='file' multiple="false")
 						//- request button
 						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
@@ -102,9 +103,11 @@ block container
 		var b = document.getElementById("barcode_image")
 		$(b).change(function(){
 			var barcode = $("#barcode_image")[0].files[0]
+			var preview = document.getElementById("barcode")
 			reader = new FileReader()
 			reader.addEventListener("load", function () {
 				console.log("barcode URL: " + reader.result)
+				preview.src = reader.result
 				Quagga.decodeSingle({
 					decoder: { // or code_39, codabar, ean_13, ean_8, upc_a, upc_e
 						readers: ["code_128_reader",'ean_reader', 'ean_8_reader', 'code_39_reader', 'code_39_vin_reader', 'codabar_reader', 'upc_reader', 'upc_e_reader', 'i2of5_reader'],
