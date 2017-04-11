@@ -79,7 +79,7 @@ module.exports = function () {
     return app;
 }();
 
-function iterateDistance(req, results, i, done) {
+function iterateDistance(req, results, i, callback) {
     if (i < results.length) {
         distance.get({
             origin: "" + req.query.lat + "," + req.query.lng,
@@ -92,11 +92,11 @@ function iterateDistance(req, results, i, done) {
                 data[data.length] = results[i]
                 //console.log(distanceData)
             }
-            iterateDistance(req, results, i + 1,done)
+            iterateDistance(req, results, i + 1)
         })
     } else {
         //console.log(data)
-        done(data);
+        callback(data);
     }
 }
 
@@ -127,7 +127,7 @@ function dealWithResults(req, res, param) {
 
     console.log(req.query.food != "");
     if (req.query.food != "") {
-        query += ` AND MATCH(Meal.Name, Description) 
+        query += ` AND MATCH(Meal.Name, Meal.Description) 
 									 AGAINST(? IN BOOLEAN MODE)`;
     }
     if (req.query.meal == 'on' && req.query.ingredient == undefined) {
@@ -171,15 +171,36 @@ function dealWithResults(req, res, param) {
             var count = 0
             var i = 0
             data = []
-
-
-            iterateDistance(req, results, 0, function(data) {
+<<<<<<< HEAD
+            iterateDistance(req, results, 0, function (data) {
+                console.log(data)
                 var food_item_query = req.query.food;
                 // Convert best before date to something readable
                 // May need to change later -- Moved to within iterateDistance function - Simeon
                 param.results = {
                     food: food_item_query,
-                    fooditems: data
+                    fooditems: results
+=======
+            iterateDistance(req, results, 0)
+            var food_item_query = req.query.food;
+            // Convert best before date to something readable
+            // May need to change later
+            results.forEach(function (x) {
+                x.BestBefore = x.BestBefore.toUTCString().substring(0, 17);
+            });
+            param.food = req.query.food;
+            param.location = req.query.location;
+            param.results = {
+                food: food_item_query,
+                fooditems: results
+            }
+            param.isSearchResultsPage = true;
+            db.query("SELECT * FROM `Tag`", function (e, r, f) {
+                //console.log(r)
+                tag = []
+                for (var i = 0; i < r.length; i++) {
+                    tag[i] = r[i].Name
+>>>>>>> 9eac5bf2fc439748ec83a1181b7373a3c8d90199
                 }
                 param.isSearchResultsPage = true;
                 db.query("SELECT * FROM `Tag`", function (e, r, f) {
@@ -191,8 +212,8 @@ function dealWithResults(req, res, param) {
                     //console.log(tag)
                     param.results.tags = tag
                     console.log(param)
-                    res.render('searchitem', param);
                 })
+                res.render('searchitem', param);
             })
         }
     });
