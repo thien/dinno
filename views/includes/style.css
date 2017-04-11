@@ -570,6 +570,9 @@
 	.barcode-scanner-container{
 		padding: 20px 0px;
 	}
+  #barcode {
+		width: 100%;
+	}
 
 	/*map stuf*/
 	.map-control {

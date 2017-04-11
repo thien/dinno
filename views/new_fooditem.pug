@@ -83,14 +83,15 @@ block container
 								img(src=image)#profilephoto
 								input(id="input_images" name='images' type="file" multiple="true")
 							#barcode_img_container
+								h3 Scan your barcode here!
+								#barcodeContainer
 								img#barcode
 								input(id="barcode_image" name='barcode' type='file' multiple="false")
+								
+								
 						//- request button
 						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
-			.row
-				.form-group.barcode-scanner-container
-					h3 Scan your barcode here!
-					#barcodeContainer
+					
 									
 						
 	script
