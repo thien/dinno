@@ -79,7 +79,7 @@ module.exports = function () {
     return app;
 }();
 
-function iterateDistance(req, results, i) {
+function iterateDistance(req, results, i, callback) {
     if (i < results.length) {
         distance.get({
             origin: "" + req.query.lat + "," + req.query.lng,
@@ -88,12 +88,15 @@ function iterateDistance(req, results, i) {
         }, function (err, distanceData) {
             if (err) return console.log(err);
             if (distanceData.distanceValue <= 1609 * req.query.radius) {
+                results[i].BestBefore = results[i].BestBefore.toUTCString().substring(0, 17);
                 data[data.length] = results[i]
+                //console.log(distanceData)
             }
             iterateDistance(req, results, i + 1)
         })
     } else {
-        console.log(data)
+        //console.log(data)
+        callback(data);
     }
 }
 
@@ -114,8 +117,12 @@ function dealWithResults(req, res, param) {
                                      `
         ;
 
-    var latDif = 1 / 69
-    var longDif = 1 / 69;
+
+    if (req.query.radius == undefined || req.query.radius == "") {
+        req.query.radius = 1
+    }
+    var latDif = req.query.radius / 69
+    var longDif = req.query.radius / 69;
     distance.apiKey = 'AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao';
 
     console.log(req.query.food != "");
@@ -137,9 +144,9 @@ function dealWithResults(req, res, param) {
         query += " AND ("
         tags = req.query.tags.split(",") || []
         for (var i = 0; i < tags.length; i++) {
-            query += "`Tag`.`Name` = \"" + tags[i] +"\" OR "
+            query += "`Tag`.`Name` = \"" + tags[i] + "\" OR "
         }
-        query = query.substring(0,query.length-4) + ")"
+        query = query.substring(0, query.length - 4) + ")"
     }
 
 
@@ -164,27 +171,26 @@ function dealWithResults(req, res, param) {
             var count = 0
             var i = 0
             data = []
-            iterateDistance(req, results, 0)
-            var food_item_query = req.query.food;
-            // Convert best before date to something readable
-            // May need to change later
-            results.forEach(function (x) {
-                x.BestBefore = x.BestBefore.toUTCString().substring(0, 17);
-            });
-            param.results = {
-                food: food_item_query,
-                fooditems: results
-            }
-            param.isSearchResultsPage = true;
-            db.query("SELECT * FROM `Tag`", function (e, r, f) {
-                //console.log(r)
-                tag = []
-                for (var i = 0; i < r.length; i++) {
-                    tag[i] = r[i].Name
+            iterateDistance(req, results, 0, function (data) {
+                console.log(data)
+                var food_item_query = req.query.food;
+                // Convert best before date to something readable
+                // May need to change later -- Moved to within iterateDistance function - Simeon
+                param.results = {
+                    food: food_item_query,
+                    fooditems: results
                 }
-                //console.log(tag)
-                param.results.tags = tag
-                console.log(param)
+                param.isSearchResultsPage = true;
+                db.query("SELECT * FROM `Tag`", function (e, r, f) {
+                    //console.log(r)
+                    tag = []
+                    for (var i = 0; i < r.length; i++) {
+                        tag[i] = r[i].Name
+                    }
+                    //console.log(tag)
+                    param.results.tags = tag
+                    console.log(param)
+                })
                 res.render('searchitem', param);
             })
         }
