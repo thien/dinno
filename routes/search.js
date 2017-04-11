@@ -79,7 +79,7 @@ module.exports = function () {
     return app;
 }();
 
-function iterateDistance(req, results, i, callback) {
+function iterateDistance(req, results, i, done) {
     if (i < results.length) {
         distance.get({
             origin: "" + req.query.lat + "," + req.query.lng,
@@ -92,11 +92,11 @@ function iterateDistance(req, results, i, callback) {
                 data[data.length] = results[i]
                 //console.log(distanceData)
             }
-            iterateDistance(req, results, i + 1)
+            iterateDistance(req, results, i + 1,done)
         })
     } else {
         //console.log(data)
-        callback(data);
+        done(data);
     }
 }
 
@@ -171,14 +171,15 @@ function dealWithResults(req, res, param) {
             var count = 0
             var i = 0
             data = []
-            iterateDistance(req, results, 0, function (data) {
-                console.log(data)
+
+
+            iterateDistance(req, results, 0, function(data) {
                 var food_item_query = req.query.food;
                 // Convert best before date to something readable
                 // May need to change later -- Moved to within iterateDistance function - Simeon
                 param.results = {
                     food: food_item_query,
-                    fooditems: results
+                    fooditems: data
                 }
                 param.isSearchResultsPage = true;
                 db.query("SELECT * FROM `Tag`", function (e, r, f) {
@@ -190,8 +191,8 @@ function dealWithResults(req, res, param) {
                     //console.log(tag)
                     param.results.tags = tag
                     console.log(param)
+                    res.render('searchitem', param);
                 })
-                res.render('searchitem', param);
             })
         }
     });
