@@ -56,7 +56,7 @@
 	    margin-right: 20px;
 	}
 	.man-img-container img {
-	    height: 140%;
+	    height: 80%;
 	    position: relative;
 	    bottom:10%;
 	}
@@ -629,5 +629,13 @@
 		margin: 10px 0px 0px 0px;
 	}
 
+	.cardphoto{
+		width: 90%;
+		height: 80%;
+		margin-top: 30px;
+		margin-left: 20px;
+		background-color: #00ff00;
+		border-radius: 50%;
+	}
 	
 </style>

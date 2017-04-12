@@ -73,7 +73,7 @@ function getReportCount(userId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT COUNT(*) AS reportCount 
 				  FROM Report
-				  WHERE Report.RecipientID = ?`, [userId],
+				  WHERE Report.RecipientID = ? AND Report.IsVerified = 1`, [userId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
@@ -104,7 +104,9 @@ module.exports = function() {
 				userID: userId,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
+				
 			};
 
 			var profileInfo = getProfileInfo(userId);
@@ -161,7 +163,8 @@ module.exports = function() {
 				userID: userId,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			Promise.all([profileInfo]).then(function(data) {

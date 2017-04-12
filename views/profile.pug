@@ -17,6 +17,7 @@ block container
 				h6 Has been reported #{page_data.reportCount} times.
 				if page_data.ownProfile
 					a.chat-link(href='editprofile') Edit profile
+					a.chat-link(href='reporthistory') View Report Record
 				else
 					a.chat-link(href='/chat?id=' + page_data.userId) Send me a message
 					a(href="/report?id=" + page_data.userId) Report me
