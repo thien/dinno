@@ -121,8 +121,9 @@ function dealWithResults(req, res, param) {
 
 
     if (req.query.radius == undefined || req.query.radius == "") {
-        req.query.radius = 1
+        req.query.radius = 10
     }
+    console.log(req.query.radius);
     var latDif = req.query.radius / 69
     var longDif = req.query.radius / 69;
     distance.apiKey = 'AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao';

@@ -39,7 +39,8 @@ CREATE TABLE IF NOT EXISTS `Location` (
 
 INSERT INTO `Location` (`LocationID`, `Postcode`, `HouseNoName`, `Street`, `Town`, `County`, `IsDropbox`, `Latitude`, `Longitude`) VALUES
 (1, 'DH13RH', '18', 'North Bailey', 'Durham', 'County Durham', 0, 54.7731, -1.57489),
-(2, 'DH13LE', 'Bill Bryson Library', 'South Road', 'Durham', 'County Durham', 0, 54.7683, -1.57322);
+(2, 'DH13LE', 'Bill Bryson Library', 'South Road', 'Durham', 'County Durham', 0, 54.7683, -1.57322),
+(3, 'DH1 4BG' ,'12', 'Waddington Street' , 'Durham ','County Durham', 0, 54.7781, -1.58723);
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,8 @@ INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `RecipientID`, `Name`, `Be
 (9, 2, 4, NULL,'Burrito', '2017-01-29', 'La he lamido', 'http://i.imgur.com/wx1aQh8.png',0),
 (10, 1, 9, 4,'Pineapple', '2017-02-02', 'Took the photo in a field because I\'m artistic', 'http://i.imgur.com/GseR7AL.jpg',0),
 (11, 1, 6, NULL,'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'http://i.imgur.com/9uVJuWZ.jpg',0),
-(12, 2, 8, 2, 'Apples', '2017-02-08', 'Found from some dudes back garden', 'http://i.imgur.com/FgSGTwD.png',1);
+(12, 2, 8, 2, 'Apples', '2017-02-08', 'Found from some dudes back garden', 'http://i.imgur.com/FgSGTwD.png',1),
+(13, 3, 16,  NULL,  'Bacon Sandwich',  '2017-08-05', 'An exciting new collaboration between myself and the Earl of Sandwich', 'http://i.imgur.com/w8TWhXW.jpg',  0);
 -- --------------------------------------------------------
 
 ALTER TABLE Meal
@@ -128,10 +130,15 @@ INSERT INTO `User` (`UserID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `En
 (8,'Simeon',  'Chan',  'simeon@simeon.simeon' , '1991-06-09 ',  '98f3113f9c3068336e6e43cf4abca28c84e25a79f39d9234ed5349780270e320' , 5, 1 ,'c696005063d7dcea6530b574fb76e00b7e6b7fcaa8b2098ee7474d9bb73da870','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/mdn3p1t.jpg', '1x'),
 (9,'Rob',  'Shipley',  'rob@rob.rob' , '1984-09-13',  'bcc86146ac38d786abddd0e608a8348a2686626ede21e544b839044f4c88deac' , 5, 1 ,'d065974710c9461de2cf4edded78b95a3621e352f4266595fd37d84b6d0fa502','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/SEYDQ7G.jpg', '1x'),
 (10, 'George', 'Price', 'georgeprice@gmail.com', '2003-10-27',  '721d0ca17aa3d735fe2026ee8edc9940aa7b381e20385c2cb2a6e1f88abf58ce',  5, 1, 'a0c6e4ac901792094e77f81635365bbacca36f170271b5ca67db7a738ff53396',  '07e3a0e4ec49b6244bf4241cbacd207480c5124531d833e30f68b97ce4e3d636',  'http://i.imgur.com/MC1Rf1f.jpg', '1x'),
-(11, 'Ben', 'Griffiths', 'bengriffiths@gmail.com',  '1943-08-18',  '698fe0983ea5edee4ce388902a1b4d7176dc0c70a93b20fe912856cbc20ff081',  5, 1 ,'41cbc751d124a49cc6ae70ae14756cf1cb321c68e6c60e52a39db4aab04c3569','20955964e045b5c656efdff04a25c50631c8eb4e922d93581e805b397c7a4faf', 'http://i.imgur.com/j51V5zs.jpg', '1x');
--- --------------------------------------------------------
-
---
+(11, 'Ben', 'Griffiths', 'bengriffiths@gmail.com',  '1943-08-18',  '698fe0983ea5edee4ce388902a1b4d7176dc0c70a93b20fe912856cbc20ff081',  5, 1 ,'41cbc751d124a49cc6ae70ae14756cf1cb321c68e6c60e52a39db4aab04c3569','20955964e045b5c656efdff04a25c50631c8eb4e922d93581e805b397c7a4faf', 'http://i.imgur.com/j51V5zs.jpg', '1x'),
+(12, 'Andy',  'Jennings',  'andyjennings@gmail.com',  '1967-02-26',  'a8b626f81b10bf922b4a2224f2eecf07379cc7d2e16ad4ccc9446e618009de03',  5, 1, 'b5044c658aa130f91eb2f95fe261ce281704bf1db3affe488690484be7d92302',  '1e54aadc8064d52a7e7c58f37135bc28d077c70ee3f6a90dfd8a84e26bce3a5e',  'http://i.imgur.com/KoOk9AP.jpg', '1x'),
+(13, 'Bill',  'Gates', 'billgates@gmail.com', '1938-09-09', 'c40a8104f7a824236a62baa8c8aa9721a549e3bfc4730f86919e3e0f6c3d74b1', 5, 1, '17603e3176c43ebeb6e6a8f458b6b2cf20a8a6b5166e571d788d74d696c8171f', '','http://i.imgur.com/d6QJ9mv.jpg', '1x'),
+(14, 'Bill',  'Bryson',  'billbryson@gmail.com', '1952-11-08', '7c321ad963eb1cba5702d5ce88289597b4c5d71ebb5aaf8c6d9cb933648db53d', 5, 1, '404eb81f4a87dacc0f41353f07f7e92b9ed11eafcd50b9874d071b64a4071d92', '','http://i.imgur.com/K04F7de.jpg', '1x'),
+(15, 'Edsger',  'Dijkstra',  'edsgerdijsktra@gmail.com', '1960-05-20', '2b255f04150b029d3c44509b8f29c4ed84296078bd3861a3061254f3bbfd7777', 5, 1, '19c71fcf7c51610371ce3c614dfd76bd43c42f3a100dc9d5cbd811dfca3e3854', '','http://i.imgur.com/z6S1gyd.jpg', '1x'),
+(16, 'Francis', 'Bacon', 'francisbacon@gmail.com',  '1903-06-02', 'bffa9646210cc0908a2104cf17285009cbe64a50572acc8cfd0e55ba0004c3d2', 5, 1, '35238b0a6be5df0e7b5191c88b047e3802a71cb2bf1aa339af35d31d7933f279', '','http://i.imgur.com/ENVS6KH.jpg', '1x'),
+(17, 'John',  'Carmack', 'johncarmack@gmail.com', '1938-06-18', 'bb2f88f69e3564bb72d792a575129ee97554fff267f22f27784c8b7f0ba87bcf', 5, 1, 'e555800b720ce68f453d3294595a495fe9da69168a9a9fac46127b912b182b7b', '','http://i.imgur.com/giyhk1y.jpg', '1x'),
+(18, 'Steve', 'Wozniak', 'stevewozniak@gmail.com' , '1970-08-24', '109137a724229fd538371f3ae46fbcdcf7556224200a9e25a55bb48834d14c0d', 5, 1, 'da385b691ccddfa2c17846e85581de4632f47a23ce7e9be4a16dba9ef7535313', '','http://i.imgur.com/sVC69g4.jpg', '1x');
+-- --
 -- Table structure for table `Tag`
 --
 
