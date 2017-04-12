@@ -112,7 +112,8 @@ module.exports = function() {
 					userID: userID,
 					firstname: result.Firstname,
 					surname: result.Surname,
-					mugshot: result.ProfileImage
+					mugshot: result.ProfileImage,
+					textSize: result.TextSize
 				};
 				
 				if (req.query.type){

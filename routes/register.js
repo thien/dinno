@@ -253,7 +253,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			var cookies = new Cookies(req, res);
