@@ -126,8 +126,9 @@ INSERT INTO `User` (`UserID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `En
 (6,'Thien',  'Nguyen',  'thien@thien.thien' , '2004-07-06',  '0ddb868c67e94f1f6aa7cbd2924a569639df64cdd2575511e41333d9cd384488' , 5, 1 ,'8c93436961bcdb5bbb9a9d4502f6f89d8b7a6c86cc855d2d3e96f8ddd7e4f962','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/fzYJAEz.png', '1x'),
 (7,'Josh',  'Bremner',  'josh@josh.josh' , '1985-10-09',  '07e5713321c2281ee54d7079b0fa7a479b5f81366d46b562de81a2dc2213a2ce' , 5, 1 ,'6abcc73ff8e1827d4be242b32e566ce9d21c53aa1a244a35cd6bebaf5a9d3e1d','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/5uGHDQ7.png', '1.5x'),
 (8,'Simeon',  'Chan',  'simeon@simeon.simeon' , '1991-06-09 ',  '98f3113f9c3068336e6e43cf4abca28c84e25a79f39d9234ed5349780270e320' , 5, 1 ,'c696005063d7dcea6530b574fb76e00b7e6b7fcaa8b2098ee7474d9bb73da870','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/mdn3p1t.jpg', '1x'),
-(9,'Rob',  'Shipley',  'rob@rob.rob' , '1984-09-13',  'bcc86146ac38d786abddd0e608a8348a2686626ede21e544b839044f4c88deac' , 5, 1 ,'d065974710c9461de2cf4edded78b95a3621e352f4266595fd37d84b6d0fa502','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/SEYDQ7G.jpg', '1x');
-
+(9,'Rob',  'Shipley',  'rob@rob.rob' , '1984-09-13',  'bcc86146ac38d786abddd0e608a8348a2686626ede21e544b839044f4c88deac' , 5, 1 ,'d065974710c9461de2cf4edded78b95a3621e352f4266595fd37d84b6d0fa502','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/SEYDQ7G.jpg', '1x'),
+(10, 'George', 'Price', 'georgeprice@gmail.com', '2003-10-27',  '721d0ca17aa3d735fe2026ee8edc9940aa7b381e20385c2cb2a6e1f88abf58ce',  5, 1, 'a0c6e4ac901792094e77f81635365bbacca36f170271b5ca67db7a738ff53396',  '07e3a0e4ec49b6244bf4241cbacd207480c5124531d833e30f68b97ce4e3d636',  'http://i.imgur.com/MC1Rf1f.jpg', '1x'),
+(11, 'Ben', 'Griffiths', 'bengriffiths@gmail.com',  '1943-08-18',  '698fe0983ea5edee4ce388902a1b4d7176dc0c70a93b20fe912856cbc20ff081',  5, 1 ,'41cbc751d124a49cc6ae70ae14756cf1cb321c68e6c60e52a39db4aab04c3569','20955964e045b5c656efdff04a25c50631c8eb4e922d93581e805b397c7a4faf', 'http://i.imgur.com/j51V5zs.jpg', '1x');
 -- --------------------------------------------------------
 
 --
