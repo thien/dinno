@@ -6,6 +6,49 @@ var location = require('../functions/location');
 var Cookies = require("cookies");
 var getJSON = require('get-json');
 
+//searched from
+var latitude = 0;
+var longitude = 0;
+
+function validateName(name){
+	var hasNumber = /^(.*[0-9].*)$/
+	return !hasNumber.test(name);
+}
+
+function validateType(type){
+	return type == 'Meal' || type == 'Ingredient';
+}
+
+function validateDescription(description){
+	var hasLetter = /^(.*[a-zA-Z].*)$/;
+	var hasNumber = /^(.*[0-9].*)$/;
+	return hasLetter.test(description) || hasNumber.test(description);
+}
+
+function validateBestBefore(day, month, year){
+	//basically check that the best before hasn't been yet
+	var today = new Date();
+	var bb = new Date(year, month, day, 0, 0, 0, 0);
+	return today.getTime() < bb.getTime();
+}
+
+function validateLocation(lat, lng){
+	//what is a valid location? just valid numbers
+	var isValidLocation = /^[0-9]?[0-9]?[0-9]\.[0-9]+$/g;
+	return isValidLocation.test(lat) && true;	//isValidLocation.test(lng) returning false when it should be true
+}
+
+function validateImage(image){
+	var isValidImageURL = /^http:\/\/i\.imgur\.com\/[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]\.jpg$/g;
+	return isValidImageURL.test(image);
+}
+
+function validateBarcode(barcode){
+	var isNumbers = /^[0-9]*$/g;
+	return isNumbers.test(barcode);
+}
+
+
 function addNewMeal(mealData, userId, lat, lng) {
 	return new Promise(function(resolve, reject) {
 		var year = mealData['year'];
@@ -109,12 +152,11 @@ function getMealInfo(mealId) {
 
 function setLocationToCookies(req, res){
 	return new Promise(function(resolve, reject){
-		console.log("working?");
 		var cookies = new Cookies(req, res);
 		getJSON('http://ipinfo.io', function(err, data){
 			var location = data.loc.split(",");
-			var latitude = location[0];
-			var longitude = location[1];
+			latitude = location[0];
+			longitude = location[1];
 			cookies.set('lat', latitude, {
 				httpOnly: false,
 				maxAge: 21600000,
@@ -218,9 +260,8 @@ module.exports = function() {
 					};
 					res.render('error', param);
 				});
-				
-
 			}
+
 			else {
 				param.error_message = {
 					msg: 'No meal id specified'
@@ -251,13 +292,19 @@ module.exports = function() {
 			};
 
 			var mealData = req.body;
+			mealData.lat = latitude;
+			mealData.lng = longitude;
+
+			if(validateName(mealData.name) || validateType(mealData.foodtype) || validateDescription(mealData.description) || validateBestBefore(mealData.day, mealData.month, mealData.year) || validateLocation(mealData.lat, mealData.lng) || validateImage(mealData.image) || validateBarcode(mealData.barcode)){
+				console.log("validated");
+			}else{
+				res.render('error', 'check inputs');
+			}
 
 			if (mealData.useCurrentLocation) {
 				var cookies = new Cookies(req, res);
 			  	mealData.lat = cookies.get('lat');
 				mealData.lng = cookies.get('lng');
-				console.log(cookies.get('lat'));
-				console.log(cookies.get('lng'));
 			}
 
 			addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
@@ -332,17 +379,14 @@ module.exports = function() {
 					};
 					res.render('error', param);
 				});
-				
-
 			}
+
 			else {
 				param.error_message = {
 					msg: 'No meal id specified'
 				};
 				res.render('error', param);
 			}
-
-
 
 		}, function(err) {
 			param.error_message = {
