@@ -4,6 +4,7 @@ const db = require('../functions/database');
 var login = require('../functions/login');
 var location = require('../functions/location');
 var Cookies = require("cookies");
+var getJSON = require('get-json');
 
 function addNewMeal(mealData, userId, lat, lng) {
 	return new Promise(function(resolve, reject) {
@@ -106,6 +107,32 @@ function getMealInfo(mealId) {
 	});
 }
 
+function setLocationToCookies(req, res){
+	return new Promise(function(resolve, reject){
+		console.log("working?");
+		var cookies = new Cookies(req, res);
+		getJSON('http://ipinfo.io', function(err, data){
+			var location = data.loc.split(",");
+			var latitude = location[0];
+			var longitude = location[1];
+			cookies.set('lat', latitude, {
+				httpOnly: false,
+				maxAge: 21600000,
+			});
+			cookies.set('lng', longitude, {
+				httpOnly: false,
+				maxAge: 21600000,
+			});
+			if(true){
+				resolve();
+			}
+			else{
+				reject(err);
+			}
+		});
+	});
+}
+
 module.exports = function() {
 	var express = require('express');
 	var app = express();
@@ -117,19 +144,26 @@ module.exports = function() {
 			loggedin: false,
 		};
 
-		login.checkLogin(req, res).then(function(result) {
-			param.loggedin = true;
+		setLocationToCookies(req, res).then(function(result){
+			login.checkLogin(req, res).then(function(result) {
+				param.loggedin = true;
 
-			param.user_data = {
-				userID: result.UserID,
-				firstname: result.Firstname,
-				surname: result.Surname,
-				mugshot: result.ProfileImage,
-				textSize: result.TextSize
-			};
+				param.user_data = {
+					userID: result.UserID,
+					firstname: result.Firstname,
+					surname: result.Surname,
+					mugshot: result.ProfileImage,
+					textSize: result.TextSize
+				};
 
-			res.render('new_fooditem', param);
-		}, function(err) {
+				res.render('new_fooditem', param);
+			}, function(err) {
+				param.error_message = {
+					msg: err
+				};
+				res.render('error', param);
+			});
+		}, function(err){
 			param.error_message = {
 				msg: err
 			};
@@ -217,13 +251,13 @@ module.exports = function() {
 			};
 
 			var mealData = req.body;
-		
-			
 
 			if (mealData.useCurrentLocation) {
 				var cookies = new Cookies(req, res);
-			  mealData.lat = cookies.get('lat');
+			  	mealData.lat = cookies.get('lat');
 				mealData.lng = cookies.get('lng');
+				console.log(cookies.get('lat'));
+				console.log(cookies.get('lng'));
 			}
 
 			addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
