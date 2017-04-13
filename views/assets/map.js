@@ -25,29 +25,38 @@ window.initMap = function() {
         center: {lat: coord_lat, lng: coord_lng},
     });
 
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function() { continueInit(map); });
+}
+
+function continueInit(map){
+    var coord_lat = search_location.latitude;
+    var coord_lng = search_location.longitude;
+
     var image = new google.maps.MarkerImage('../assets/map/map_basemarker.gif');
     var basePositionMarket = new google.maps.Marker({
         position: {lat: coord_lat, lng: coord_lng},
         map: map,
-        title: 'Hello World!',
+        title: 'Your position',
         icon: image,
         optimized: false,
       });
 
-    console.log()
+    socket.emit('join', {
+        name: Cookies.get('id')
+    });
+
+
+    socket.on('mapUpdate', function(locations) {
+        console.log('recieved');
+        updateMap(map, locations);
+    });
+
     console.log('bounds' + map.getBounds());
+    console.log(Cookies.get('id'));
     socket.emit('mapUpdate', {
         id: Cookies.get('id'),
         bounds: map.getBounds(),
-    });
-
-     socket.emit('join', {
-        name: Cookies.get('id')
-    });
-    
-    socket.on('mapUpdate', function(locations) {
-        updateMap(map, locations);
-    });
+    });    
 
     window.setInterval(function () {
         socket.emit('mapUpdate', {
@@ -55,8 +64,6 @@ window.initMap = function() {
             bounds: map.getBounds(),
         });
     }, 5000);
-
-    return map;
 }
 
 

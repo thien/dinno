@@ -61,7 +61,10 @@ app.use('/', require('./routes/register'));
 app.use('/', require('./routes/profile'));
 
 // report user
-app.use('/', require('./routes/report'));  
+app.use('/', require('./routes/report')); 
+
+// settings
+app.use('/', require('./routes/settings'));  
 
 // food item profile
 app.use('/', require('./routes/fooditem'));  

@@ -25,7 +25,8 @@ module.exports = function() {
 				userID: senderId,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 			if (senderId) {
 

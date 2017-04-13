@@ -124,7 +124,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			res.render('new_fooditem', param);
@@ -148,7 +149,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 		
 			var mealId = req.params.id;
@@ -210,7 +212,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			var mealData = req.body;
@@ -257,7 +260,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			var mealData = req.body;

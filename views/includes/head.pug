@@ -3,9 +3,19 @@ include scripts
 //- including .html, .css, etc works
 include style.css
 
+if loggedin
+	if user_data.textSize == "1.5x"
+		include style1_5.css
+	else if user_data.textSize == "2x"
+		include style2.css
+
 meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
 
 link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+script(src='assets/jquery-ui.min.js')
+script(src='/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
+script(src='/typeahead.js/dist/typeahead.bundle.js')
+link(rel='stylesheet', href='/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
 link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
 
 if isSearchResultsPage

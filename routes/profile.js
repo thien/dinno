@@ -43,8 +43,9 @@ function getLastPostedLocation(userId) {
 					reject(error);
 				} else if (results.length == 0) {
 					console.log('UserID not found');
-					resolve();
+					resolve({Town : ""});
 				} else {
+					console.log(results);
 					resolve(results[0]);
 				}
 			});
@@ -73,13 +74,12 @@ function getReportCount(userId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT COUNT(*) AS reportCount 
 				  FROM Report
-				  WHERE Report.RecipientID = ?`, [userId],
+				  WHERE Report.RecipientID = ? AND Report.IsVerified = 1`, [userId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
 					reject();
 				} else {
-					console.log(results);
 					resolve(results);
 				}
 			});
@@ -104,7 +104,9 @@ module.exports = function() {
 				userID: userId,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
+				
 			};
 
 			var profileInfo = getProfileInfo(userId);
@@ -113,7 +115,7 @@ module.exports = function() {
 			var lastLocation = getLastPostedLocation(userId);
 
 			Promise.all([profileInfo, userMeals, lastLocation, reportCount]).then(function(data) {
-				console.log(data);
+				console.log('called');
 				param.page_data = {
 					name: `${data[0].Firstname} ${data[0].Surname}`,
 					age: data[0].Age,
@@ -161,11 +163,12 @@ module.exports = function() {
 				userID: userId,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			Promise.all([profileInfo]).then(function(data) {
-
+				
 				var dob = data[0].DOB.toString().split(' ');
 				param.forename =  `${data[0].Firstname}`,
 				param.surname = `${data[0].Surname}`,

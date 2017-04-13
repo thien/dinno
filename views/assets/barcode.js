@@ -16,8 +16,8 @@ function run() {
             type: "LiveStream",
             target: document.querySelector('#barcodeContainer'),
             constraints: {
-                width: 640,
-                height: 480,
+                width: $('#upload_img_container').width(),
+                height: $('#upload_img_container').height(),
                 facing: "environment", // or user
             },
             debug: true,
