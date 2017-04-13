@@ -8,6 +8,11 @@ if loggedin
 		include style1_5.css
 	else if user_data.textSize == "2x"
 		include style2.css
+		
+	if user_data.colourScheme == "Blue"
+		include styleblue.css
+	else if user_data.colourScheme == "Orange"
+		include styleorange.css
 
 meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
 

@@ -11,7 +11,7 @@ module.exports = {
         var cookies = new Cookies(req, res);
         var loginCode = cookies.get('loginCode');
         var id = cookies.get('id');
-        db.query(`SELECT LoginCode = ? AS isValidLogin, Firstname, Surname, ProfileImage, UserID, TextSize
+        db.query(`SELECT LoginCode = ? AS isValidLogin, Firstname, Surname, ProfileImage, UserID, TextSize, ColourScheme
                   FROM User
                   WHERE UserID = ?`, 
                 [loginCode, id], 

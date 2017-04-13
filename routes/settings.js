@@ -8,15 +8,15 @@ function updateUserSettings(settingsData, userId) {
 	return new Promise(function(resolve, reject) {
 
 		db.query(`UPDATE User
-					SET TextSize = ?
+					SET TextSize = ?, ColourScheme = ?
 					WHERE UserID = ?`, 
-					[settingsData.textSize, userId],
+					[settingsData.textSize, settingsData.colourScheme, userId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
 					reject(error);
 				} else {
-					console.log(`Updated user ${userId}'s text size to ${settingsData.textSize}`);
+					console.log(`Updated user ${userId}'s text size to ${settingsData.textSize} and colour scheme ${settingsData.colourScheme}`);
 					resolve(results);
 				}
 		});
@@ -27,7 +27,7 @@ function updateUserSettings(settingsData, userId) {
 
 function getUserSettings(userId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT TextSize
+        db.query(`SELECT TextSize, ColourScheme
                   FROM User
                   WHERE UserID = ?`, 
                 [userId], 
@@ -67,7 +67,8 @@ module.exports = function() {
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme
 			};
 					
 			res.render('settings',param);
@@ -92,7 +93,8 @@ module.exports = function() {
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme
 			};
 			
 			var settingsData = req.body;
@@ -100,6 +102,7 @@ module.exports = function() {
 			updateUserSettings(settingsData, param.user_data.userID).then(function(result) {	
 				
 				param.user_data.textSize = settingsData.textSize;
+				param.user_data.colourScheme = settingsData.colourScheme;
 				
 				console.log(param)
 				

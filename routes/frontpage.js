@@ -22,7 +22,8 @@ module.exports = function() {
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme
 			};
 
 
