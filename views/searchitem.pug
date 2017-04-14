@@ -64,10 +64,11 @@ block container
             h1 Searching for #{results.food} 
           else
             h1 Searching for anything
-          button.btn.btn-primary(data-toggle='modal', data-target='#search-options-modal') Options
-          button.btn.btn-primary(data-toggle='modal', data-target='#search-filters-modal') Filters
-          button#mobile-display-results-toggle.btn.btn-secondary(type='button' data-toggle="button" onclick="toggleMobileResultsButton()" value="1")
-            i.fa.fa-map-o(aria-hidden='true')
+          #search_item_buttons
+            button.btn.btn-primary#searchOptionsButton(data-toggle='modal', data-target='#search-options-modal') Options
+            button.btn.btn-primary#searchFiltersButton(data-toggle='modal', data-target='#search-filters-modal') Filters
+            //- button#mobile-display-results-toggle.btn.btn-secondary(type='button' data-toggle="button" onclick="toggleMobileResultsButton()" value="1")
+            //-   i.fa.fa-map-o(aria-hidden='true')
 
 
         #list_results_container

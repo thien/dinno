@@ -14,12 +14,25 @@ addEvent(window, "resize", mobileResultsViewHandler);
 var LHSContainer = document.getElementById('results_container_left');
 var RHSContainer = document.getElementById('results_container_right');
 var mobileSearchContainer = document.getElementById('mobile_details_handler');
-var searchOptionsContainer = document.getElementById('search_item_details');
-var mobileResultsToggleButton = document.getElementById('mobile-display-results-toggle');
+var itemDetailsContainer = document.getElementById('search_item_details');
+var searchButtonContainer = document.getElementById('search_item_buttons');
+var mobileResultsToggleButton = null;
+var headNavContainer = document.getElementById('head-nav').innerHTML;
+
+
+var optButton = document.getElementById('searchOptionsButton');
+var filButton = document.getElementById('searchFiltersButton');
 
 window.onload = function(e){ 
     mobileResultsViewHandler();
-    mobileSearchContainer.innerHTML = searchOptionsContainer.innerHTML;
+    mobileSearchContainer.insertAdjacentHTML('beforeend', headNavContainer);
+    mobileSearchContainer.insertAdjacentHTML('beforeend',searchButtonContainer.innerHTML);
+
+    // add button to the mobileSearchContainer > searchButtonContainer;
+    var togButton = '<button class="btn btn-secondary" id="mobile-display-results-toggle" type="button" data-toggle="button" onclick="toggleMobileResultsButton()" value="1" style="visibility: visible;"><i class="fa fa-map-o" aria-hidden="true"></i></button>';
+	mobileSearchContainer.insertAdjacentHTML('beforeend', togButton);
+	// allocate variable for use on the rest of the page
+	mobileResultsToggleButton = document.getElementById('mobile-display-results-toggle');
 }
 
 function mobileResultsViewHandler(){
@@ -35,18 +48,27 @@ function showMobileAssets(){
 	RHSContainer.classList.remove("col-6");
 	LHSContainer.style.display = "none";
 	mobileSearchContainer.style.display = "initial";
-	mobileResultsToggleButton.style.visibility = "visible";
-	searchOptionsContainer.style.visibility = "hidden";
+	itemDetailsContainer.style.visibility = "hidden";
+	document.getElementById('head-nav').innerHTML = "";
+	optButton.classList.remove('btn-primary');
+	filButton.classList.remove('btn-primary');
+	optButton.classList.add('btn-danger');
+	filButton.classList.add('btn-danger');
 }
 
 function hideMobileAssets(){
+	optButton.classList.add('btn-primary');
+	filButton.classList.add('btn-primary');
+	optButton.classList.remove('btn-danger');
+	filButton.classList.remove('btn-danger');
+
 	LHSContainer.style.display = "initial"; 
 	RHSContainer.style.display = "initial";
 
-	mobileResultsToggleButton.style.display = "none";
+	// mobileResultsToggleButton.style.display = "none";
 	mobileSearchContainer.style.display = "none";
-	mobileResultsToggleButton.style.visibility = "hidden";
-	searchOptionsContainer.style.visibility = "visible";
+	itemDetailsContainer.style.visibility = "visible";
+	document.getElementById('head-nav').innerHTML = headNavContainer;
 
 	if (LHSContainer.classList.contains("col-6") === false){
 		LHSContainer.classList.add("col-6");
