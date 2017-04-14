@@ -186,26 +186,19 @@ module.exports = function() {
 			loggedin: false,
 		};
 
-		setLocationToCookies(req, res).then(function(result){
-			login.checkLogin(req, res).then(function(result) {
-				param.loggedin = true;
+		login.checkLogin(req, res).then(function(result) {
+			param.loggedin = true;
 
-				param.user_data = {
-					userID: result.UserID,
-					firstname: result.Firstname,
-					surname: result.Surname,
-					mugshot: result.ProfileImage,
-					textSize: result.TextSize
-				};
+			param.user_data = {
+				userID: result.UserID,
+				firstname: result.Firstname,
+				surname: result.Surname,
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
+			};
 
-				res.render('new_fooditem', param);
-			}, function(err) {
-				param.error_message = {
-					msg: err
-				};
-				res.render('error', param);
-			});
-		}, function(err){
+			res.render('new_fooditem', param);
+		}, function(err) {
 			param.error_message = {
 				msg: err
 			};
@@ -295,7 +288,7 @@ module.exports = function() {
 			mealData.lat = latitude;
 			mealData.lng = longitude;
 
-			if(validateName(mealData.name) || validateType(mealData.foodtype) || validateDescription(mealData.description) || validateBestBefore(mealData.day, mealData.month, mealData.year) || validateLocation(mealData.lat, mealData.lng) || validateImage(mealData.image) || validateBarcode(mealData.barcode)){
+			if(validateName(mealData.name) && validateType(mealData.foodtype) && validateDescription(mealData.description) && validateBestBefore(mealData.day, mealData.month, mealData.year) && validateLocation(mealData.lat, mealData.lng) && validateImage(mealData.image) && validateBarcode(mealData.barcode)){
 				console.log("validated");
 			}else{
 				res.render('error', 'check inputs');
@@ -304,7 +297,7 @@ module.exports = function() {
 			if (mealData.useCurrentLocation) {
 				var cookies = new Cookies(req, res);
 			  	mealData.lat = cookies.get('lat');
-				mealData.lng = cookies.get('lng');
+					mealData.lng = cookies.get('lng');
 			}
 
 			addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
