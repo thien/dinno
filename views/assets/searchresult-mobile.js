@@ -25,14 +25,17 @@ window.onload = function(e){
 	// allocate variable for use on the rest of the page
 	mobileResultsToggleButton = document.getElementById('mobile-display-results-toggle');
 
-	mobileResultsViewHandler();
 	// deal with gmaps rendering issue on mobile (half the map is grey)
 	google.maps.event.trigger(map, "resize");
+
+	mobileResultsViewHandler();
 }
 
 function mobileResultsViewHandler(){
 	if (window.innerWidth <= 420){
 		showMobileAssets();
+		filButton.classList.add('btn-danger');
+		console.log("you dumb mofo")
 
 		if (mapToggleCheck === 0){
 			// on map mode
@@ -43,7 +46,8 @@ function mobileResultsViewHandler(){
 
 		// deal with gmaps rendering issue on mobile (half the map is grey)
 		google.maps.event.trigger(map, "resize");
-		map.setCenter(new google.maps.LatLng(search_location.latitude, search_location.longitude), 3);
+		map.setCenter(new google.maps.LatLng(search_location.latitude, search_location.longitude), 1);
+		// map.setCenter(marker.getPosition());
 	} else {
 		hideMobileAssets();
 	}
