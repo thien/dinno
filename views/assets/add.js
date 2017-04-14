@@ -72,10 +72,10 @@ function validateDate() {
 
 function validateLocation() {
   var location = $("#location").val();
-  if ($("#use-current-location").is(':checked')){
+  if ($("#use-current-location").is(':checked')  && $("#secret-lat-input").val() && $("#secret-lat-input").val() ){
     updateValidity("#location", true);
   }
-  else {
+  else if (!$("#use-current-location").is(':checked')){
     $.ajax({
       dataType: "json",
       url: 'https://maps.googleapis.com/maps/api/geocode/json',
@@ -96,6 +96,9 @@ function validateLocation() {
         updateValidity("#location", false);
       }
     });
+  }
+  else {
+    updateValidity("#location", false);
   }
 }
 
