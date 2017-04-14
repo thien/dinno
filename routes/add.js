@@ -6,13 +6,10 @@ var location = require('../functions/location');
 var Cookies = require("cookies");
 var getJSON = require('get-json');
 
-//searched from
-var latitude = 0;
-var longitude = 0;
-
 function validateName(name){
-	var hasNumber = /^(.*[0-9].*)$/
-	return !hasNumber.test(name);
+	// no reason why you couldnt have numbers
+	// var hasNumber = /^(.*[0-9].*)$/
+	return name.length > 0;
 }
 
 function validateType(type){
@@ -20,32 +17,35 @@ function validateType(type){
 }
 
 function validateDescription(description){
-	var hasLetter = /^(.*[a-zA-Z].*)$/;
-	var hasNumber = /^(.*[0-9].*)$/;
-	return hasLetter.test(description) || hasNumber.test(description);
+	return description.length > 0;
 }
 
 function validateBestBefore(day, month, year){
 	//basically check that the best before hasn't been yet
 	var today = new Date();
-	var bb = new Date(year, month, day, 0, 0, 0, 0);
+	var bb = new Date(year, month - 1, day, 0, 0, 0, 0);
 	return today.getTime() < bb.getTime();
 }
 
 function validateLocation(lat, lng){
 	//what is a valid location? just valid numbers
+	return true;
 	var isValidLocation = /^[0-9]?[0-9]?[0-9]\.[0-9]+$/g;
 	return isValidLocation.test(lat) && true;	//isValidLocation.test(lng) returning false when it should be true
 }
 
 function validateImage(image){
-	var isValidImageURL = /^http:\/\/i\.imgur\.com\/[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]\.jpg$/g;
-	return isValidImageURL.test(image);
+	// Needs to support more file extensions than just jpg
+	return true;
+	// var isValidImageURL = /^http:\/\/i\.imgur\.com\/[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]\.jpg$/g;
+	// return isValidImageURL.test(image);
 }
 
 function validateBarcode(barcode){
-	var isNumbers = /^[0-9]*$/g;
-	return isNumbers.test(barcode);
+	// barcodes are optional and should be processed on the client side anyway
+	return true;
+	// var isNumbers = /^[0-9]*$/g;
+	// return isNumbers.test(barcode);
 }
 
 
@@ -147,31 +147,6 @@ function getMealInfo(mealId) {
 				resolve(results[0]);
 			}
 		});	
-	});
-}
-
-function setLocationToCookies(req, res){
-	return new Promise(function(resolve, reject){
-		var cookies = new Cookies(req, res);
-		getJSON('http://ipinfo.io', function(err, data){
-			var location = data.loc.split(",");
-			latitude = location[0];
-			longitude = location[1];
-			cookies.set('lat', latitude, {
-				httpOnly: false,
-				maxAge: 21600000,
-			});
-			cookies.set('lng', longitude, {
-				httpOnly: false,
-				maxAge: 21600000,
-			});
-			if(true){
-				resolve();
-			}
-			else{
-				reject(err);
-			}
-		});
 	});
 }
 
@@ -285,37 +260,40 @@ module.exports = function() {
 			};
 
 			var mealData = req.body;
-			mealData.lat = latitude;
-			mealData.lng = longitude;
-
+			
+			// console.log(validateName(mealData.name)); console.log(validateType(mealData.foodtype));  console.log(validateDescription(mealData.description));  console.log(validateBestBefore(mealData.day, mealData.month, mealData.year));  console.log(validateLocation(mealData.lat, mealData.lng));  console.log(validateImage(mealData.image));  console.log(validateBarcode(mealData.barcode));
+	
 			if(validateName(mealData.name) && validateType(mealData.foodtype) && validateDescription(mealData.description) && validateBestBefore(mealData.day, mealData.month, mealData.year) && validateLocation(mealData.lat, mealData.lng) && validateImage(mealData.image) && validateBarcode(mealData.barcode)){
-				console.log("validated");
-			}else{
-				res.render('error', 'check inputs');
+
+				if (mealData.useCurrentLocation) {
+					var cookies = new Cookies(req, res);
+				  	mealData.lat = cookies.get('lat');
+						mealData.lng = cookies.get('lng');
+				}
+
+				addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
+
+						param.new_item = {
+							name: mealData.name,
+							image: mealData.image,
+							id: result.insertId
+						}
+						res.render('added_fooditem', param);
+
+
+				}, function(err) {
+						param.error_message = {
+							msg: err
+						};
+						res.render('error', param);
+				});
 			}
-
-			if (mealData.useCurrentLocation) {
-				var cookies = new Cookies(req, res);
-			  	mealData.lat = cookies.get('lat');
-					mealData.lng = cookies.get('lng');
+			else{
+				param.error_message = {
+					msg: 'check inputs'
+				};
+				res.render('error', param);
 			}
-
-			addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
-
-					param.new_item = {
-						name: mealData.name,
-						image: mealData.image,
-						id: result.insertId
-					}
-					res.render('added_fooditem', param);
-
-
-			}, function(err) {
-					param.error_message = {
-						msg: err
-					};
-					res.render('error', param);
-			});
 
 		}, function(err) {
 			param.error_message = {

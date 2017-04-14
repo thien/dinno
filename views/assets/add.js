@@ -82,6 +82,7 @@ function validateLocation() {
       data: {address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},
       success: function(data){
         var res = data.results;
+        console.log(res);
         if (res.length > 0) {
           $('#secret-lat-input').val(res[0].geometry.location.lat);
           $('#secret-lng-input').val(res[0].geometry.location.lng);
