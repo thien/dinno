@@ -7,7 +7,7 @@ app.locals.basedir = "." + '/views';
 
 function getFoodInfo(mealId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.Name, Meal.Description, Meal.Image, Location.HouseNoName, Location.Street, Location.Latitude, Location.Longitude, User.Firstname, User.Surname, User.ProfileImage, User.Rating, User.UserID
+		db.query(`SELECT Meal.Name, Meal.Description, Meal.Image, Meal.IsAvailable, Location.HouseNoName, Location.Street, Location.Latitude, Location.Longitude, User.Firstname, User.Surname, User.ProfileImage, User.Rating, User.UserID
 				FROM Meal
 				JOIN User 
 				ON User.UserID = Meal.UserID
@@ -60,18 +60,35 @@ module.exports = function() {
 			param.loggedin = true;
 
 			param.user_data = {
-				userID: 123,
+				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 
 			var mealId = req.query.id;
 
 			if (mealId) {
 				getFoodInfo(mealId).then(function(data) {
-					param.data = data;
-					res.render('fooditem', param);
+					
+					if (data.IsAvailable == 0){
+						
+						param.error_message = {
+							msg: "You cannot access this fooditem as the user possessing it is currently suspended from dinno."
+						};
+						res.render('error', param);
+						
+					}
+					else{
+						param.data = data;
+						res.render('fooditem', param);
+						
+					}
+					
+					
 
 				}, function(err) {
 					param.error_message = {
@@ -90,7 +107,7 @@ module.exports = function() {
 
 		}, function(err) {
 			param.error_message = {
-				msg: "You're not logged in."
+				msg: "You need to be logged in to access this page."
 			};
 			res.render('error', param);
 		});
@@ -110,7 +127,10 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 
 			var mealId = req.query.id;
@@ -140,7 +160,7 @@ module.exports = function() {
 
 		}, function(err) {
 			param.error_message = {
-				msg: "You're not logged in."
+				msg: "You need to be logged in to access this page."
 			};
 			res.render('error', param);
 		});

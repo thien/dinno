@@ -56,7 +56,7 @@
 	    margin-right: 20px;
 	}
 	.man-img-container img {
-	    height: 140%;
+	    height: 80%;
 	    position: relative;
 	    bottom:10%;
 	}
@@ -297,15 +297,22 @@
 		display: table-cell;
 		/*height:calc(100% - 60px);*/
 	}
+	#filtering {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.filter{
+		margin-left: 5px;
+		margin-right: 15px;
+	}
 	#list_results_container {
 		/*background-color: #eee;*/
 		margin: 0px;
 		padding: 10px;
-		max-height: 60%;
+		max-height: 65%;
 		/*height:500px;*/
 		width: 100%;
-		position: absolute;
-		bottom: 0;
+
 
 		overflow: hidden;
 		overflow-y: scroll;
@@ -398,9 +405,9 @@
 
 	#profilephoto{
 		display:block;
-    margin:auto;
+		margin:auto;
 		max-width: 70vw;
-		background-color: #00ff00;
+		background-color: #f0f0f0;
 		border-radius: 50%;
 	}
 
@@ -490,11 +497,18 @@
 	  border-color: #FF5353 !important;
 	}
 	#upload_img_container {
-		margin: 0px 0px 20px 0px;
+		margin: 20px 0px 20px 0px;
 		min-height: 250px;
 		width: 100%;
 		border: 3px dashed #ccc;
 		text-align: center;
+	}
+	#dropdown-text {
+		margin: 0px !important;
+		width: 80px;
+	}
+	#dropdown-img {
+		padding-top:10px;
 	}
 
 	.img_uploading{
@@ -521,7 +535,7 @@
 		display: block;
 		padding: 10px 0px;
 		margin: 0px auto;
-		width: 150px;
+		width: 220px;
 	}
 
 	pre {
@@ -543,6 +557,9 @@
 		max-width: 100px;
 	}
 
+	#barcode {
+		width: 100%;
+	}
 
 	/*profile*/
 
@@ -563,6 +580,7 @@
 	.barcode-scanner-container{
 		padding: 20px 0px;
 	}
+  
 
 	/*map stuf*/
 	.map-control {
@@ -618,5 +636,13 @@
 		margin: 10px 0px 0px 0px;
 	}
 
+	.cardphoto{
+		width: 90%;
+		height: 80%;
+		margin-top: 30px;
+		margin-left: 20px;
+		background-color: #00ff00;
+		border-radius: 50%;
+	}
 	
 </style>

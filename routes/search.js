@@ -33,13 +33,15 @@ module.exports = function () {
                 userID: result.UserID,
                 firstname: result.Firstname,
                 surname: result.Surname,
-                mugshot: result.ProfileImage
+                mugshot: result.ProfileImage,
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
             };
 
             param.foodcheck = true;
 
             req.query.food = req.query.food || "";
-            req.query.isMeal = req.query.isMeal || "both";
 
             if (req.query.location && req.query.location !== "Locating Position...") {
                 // get coords from search parameter
@@ -80,52 +82,82 @@ module.exports = function () {
     return app;
 }();
 
-function iterateDistance(req, results, i) {
+function iterateDistance(req, results, i, done) {
     if (i < results.length) {
         distance.get({
             origin: "" + req.query.lat + "," + req.query.lng,
             destination: "" + results[i].Latitude + "," + results[i].Longitude,
-            units: 'imperial'
+            units: 'metric'
         }, function (err, distanceData) {
             if (err) return console.log(err);
-            if (distanceData.distanceValue <= 1609 * req.query.radius) {
+            if (distanceData.distanceValue <= req.query.radius * 1000) {
+                
+                results[i].BestBefore = results[i].BestBefore.toUTCString().substring(0, 17);
                 data[data.length] = results[i]
+                //console.log(distanceData)
             }
-            iterateDistance(req, results, i + 1)
+            iterateDistance(req, results, i + 1,done)
         })
     } else {
-        console.log(data)
+        //console.log(data)
+        done(data);
     }
 }
 
 function dealWithResults(req, res, param) {
     console.log("--------------------------------------------------------------------------------------")
     console.log(req.query);
-    var query = `SELECT Meal.*, Location.*, User.ProfileImage  
+    var query = `SELECT Meal.*, Location.*, User.ProfileImage, COUNT(Tag.TagID) AS MatchingTags  
 									 FROM Meal 
 									 JOIN User 
 									 ON Meal.UserID = User.UserID
 									 JOIN Location
 									 ON Meal.LocationID = Location.LocationID
-									 WHERE RecipientID IS NULL`;
+                                     LEFT JOIN TagMeal
+                                     ON Meal.MealID = TagMeal.MealID
+                                     LEFT JOIN Tag
+                                     ON TagMeal.TagID = Tag.TagID
+									 WHERE RecipientID IS NULL AND Meal.IsAvailable = 1
+                                     `
+        ;
 
-    var latDif = 1 / 69
-    var longDif = 1 / 69;
+
+    if (req.query.radius == undefined || req.query.radius == "") {
+        req.query.radius = 10
+    }
+    console.log(req.query.radius);
+    var latDif = req.query.radius / 69
+    var longDif = req.query.radius / 69;
     distance.apiKey = 'AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao';
 
     console.log(req.query.food != "");
     if (req.query.food != "") {
-        query += ` AND MATCH(Name, Description) 
+        query += ` AND MATCH(Meal.Name, Description) 
 									 AGAINST(? IN BOOLEAN MODE)`;
     }
-    if (req.query.isMeal == 'true') {
-        query += " AND IsIngredient = 0"
-    } else if (req.query.isMeal != 'both') {
-        query += " AND IsIngredient = 1"
+    if (req.query.meal == 'on' && req.query.ingredient == undefined) {
+        query += " AND Meal.IsIngredient = 0"
+    } else if (req.query.ingredient == 'on' && req.query.meal == undefined) {
+        query += " AND Meal.IsIngredient = 1"
     }
 
-    query += " AND Latitude BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
-    query += " AND Longitude BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
+    query += " AND Location.Latitude BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
+    query += " AND Location.Longitude BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
+    //query to find all tags containing
+    var tags = []
+    if (req.query.tags != "" && req.query.tags != undefined) {
+        query += " AND ("
+        tags = req.query.tags.split(",") || []
+        for (var i = 0; i < tags.length; i++) {
+            query += "`Tag`.`Name` = \"" + tags[i] + "\" OR "
+        }
+        query = query.substring(0, query.length - 4) + ")"
+    }
+
+
+
+    query += " GROUP BY Meal.MealID";
+    query += " HAVING COUNT(Tag.TagID) >= " + tags.length
     query += ";"
     query = mysql.format(query, req.query.food)
     console.log(query);
@@ -144,28 +176,30 @@ function dealWithResults(req, res, param) {
             var count = 0
             var i = 0
             data = []
-            iterateDistance(req, results, 0)
-            var food_item_query = req.query.food;
-            // Convert best before date to something readable
-            // May need to change later
-            results.forEach(function (x) {
-                x.BestBefore = x.BestBefore.toUTCString().substring(0, 17);
-            });
-            param.results = {
-                food: food_item_query,
-                fooditems: results
-            }
-            param.isSearchResultsPage = true;
-            db.query("SELECT * FROM `Tag`", function (e, r, f) {
-                //console.log(r)
-                tag = []
-                for (var i = 0; i < r.length; i++) {
-                    tag[i] = r[i].Name
+
+
+            iterateDistance(req, results, 0, function(data) {
+                var food_item_query = req.query.food;
+                // Convert best before date to something readable
+                // May need to change later -- Moved to within iterateDistance function - Simeon
+                param.results = {
+                    food: food_item_query,
+                    fooditems: data
                 }
-                //console.log(tag)
-                param.results.tags = tag
-                console.log(param)
-                res.render('searchitem', param);
+                param.food = req.query.food;
+                param.location = req.query.location;
+                param.isSearchResultsPage = true;
+                db.query("SELECT * FROM `Tag`", function (e, r, f) {
+                    //console.log(r)
+                    tag = []
+                    for (var i = 0; i < r.length; i++) {
+                        tag[i] = r[i].Name
+                    }
+                    //console.log(tag)
+                    param.results.tags = tag
+                    console.log(param)
+                    res.render('searchitem', param);
+                })
             })
         }
     });
