@@ -21,6 +21,8 @@ window.initMap = function() {
     // load google maps with 
     // console.log('hello');
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        mapTypeControl: false,
+        fullscreenControl: false,
         zoom: 15,
         center: {lat: coord_lat, lng: coord_lng},
     });

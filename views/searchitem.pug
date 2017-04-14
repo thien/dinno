@@ -55,6 +55,7 @@ block container
 
   //- search results
   .container-fluid#display_item_results
+    #mobile_details_handler
     .row.display-item-results-baby
       .col-6.no-float#results_container_left
       
@@ -65,6 +66,8 @@ block container
             h1 Searching for anything
           button.btn.btn-primary(data-toggle='modal', data-target='#search-options-modal') Options
           button.btn.btn-primary(data-toggle='modal', data-target='#search-filters-modal') Filters
+          button#mobile-display-results-toggle.btn.btn-secondary(type='button' data-toggle="button" onclick="toggleMobileResultsButton()" value="1")
+            i.fa.fa-map-o(aria-hidden='true')
 
 
         #list_results_container
@@ -81,10 +84,8 @@ block container
                    p.card-text
                      small.text-muted Best before #{fooditem.BestBefore}
 
-
-
       .col-6.embed-responsive#results_container_right
         #map-canvas.embed-responsive-item  
-
+  script(src='/assets/searchresult-mobile.js')
   script(src='/assets/searchresult-filters.js')
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
