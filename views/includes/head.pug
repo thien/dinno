@@ -1,7 +1,9 @@
 //- including other pug works
 include scripts
 //- including .html, .css, etc works
-include style.css
+
+style
+	include style.css
 
 if loggedin
 	if user_data.textSize == "1.5x"
