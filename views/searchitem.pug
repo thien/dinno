@@ -6,35 +6,35 @@ block container
   .modal.fade#search-options-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
     .modal-dialog(role='document')
       .modal-content
-        .modal-header
-          h5#exampleModalLabel.modal-title Search Options
-          |  
-          button.close(type='button', data-dismiss='modal', aria-label='Close')
-            span(aria-hidden='true') &times;
-        .modal-body  
-          form#filters
-            //- span Location
-            //- input#newName(type='text')
-            //- br
-            span Meal
-            input#meal(type='checkbox',name='meal')
-            span Ingredient
-            input#ingredient(type="checkbox",name='ingredient')
-            br
-            .form-group.row
-              label.col-3.col-form-label(for='example-date-input') Radius
-              .col-4
-                input#range(type='range',name='radius')
-              .col-4
-                input#rangeVal(type='number' width='20px')
-                span km
-            span Tags
-            input#tag(input='text',data-role='tagsinput',name='tags')
-        .modal-footer
-          button.btn.btn-primary Filter
-          //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-          //- |  
-          //- button.btn.btn-primary(type='button') Save changes
+        form#filters
+          .modal-header
+            h5#exampleModalLabel.modal-title Search Options
+            |  
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+          .modal-body  
+              //- span Location
+              //- input#newName(type='text')
+              //- br
+              span Meal
+              input#meal(type='checkbox',name='meal')
+              span Ingredient
+              input#ingredient(type="checkbox",name='ingredient')
+              br
+              .form-group.row
+                label.col-3.col-form-label(for='example-date-input') Radius
+                .col-4
+                  input#range(type='range',name='radius')
+                .col-4
+                  input#rangeVal(type='number' width='20px')
+                  span km
+              span Tags
+              input#tag(input='text',data-role='tagsinput',name='tags')
+          .modal-footer
+            button.btn.btn-primary Filter
+            //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+            //- |  
+            //- button.btn.btn-primary(type='button') Save changes
   .modal.fade#search-filters-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
     .modal-dialog(role='document')
       .modal-content
@@ -93,4 +93,5 @@ block container
   script(src='/assets/searchresult-mobile.js')
   script(src='/assets/searchresult-filters.js')
   script(src='/assets/searchresult-misc.js')
+  script(src='assets/map.js')
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
