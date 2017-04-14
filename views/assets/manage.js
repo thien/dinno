@@ -82,10 +82,16 @@ function cardEntry(item) {
 		card += "<a class='btn btn-link btn-sm' href='/edit/" + item.MealID + "'>Edit</a>";
 		card += "<a class='btn btn-link btn-sm' href='/remove?id=" + item.MealID + "'>Remove</a>";
 	}
-	if (item.Rating != null) {
-		card += '<select class="rating">'
+	if (item.Rating != null || isYours == "Others") {
+		console.log(item.Rating)
+		var classes = "rating"
+		if(isYours == "Others" && item.Rating != null){
+			classes += " rated"
+		}
+		console.log(classes)
+		card += '<select class="'+classes+'">'
+
 		for (var i = 1; i < 6; i++) {
-			console.log(item.Rating)
 			if (item.Rating == i) {
 				card += "<option value=\"" + i + "\" selected>" + i + "</option>"
 			} else {
@@ -136,8 +142,12 @@ function stringsComparison(a, b) {
 }
 
 function initRating() {
+	$(".rated").barrating({
+		theme: 'css-stars',
+		readonly: true
+	})
 	$(".rating").barrating({
 		theme: 'css-stars',
-		readonly: isYours != "Others"
+		readonly: (isYours != "Others")
 	})
 }
