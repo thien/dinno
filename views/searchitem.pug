@@ -30,12 +30,28 @@ block container
                 span km
             span Tags
             input#tag(input='text',data-role='tagsinput',name='tags')
-            .modal-footer
-              button.btn.btn-primary Filter
+        .modal-footer
+          button.btn.btn-primary Filter
           //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
           //- |  
           //- button.btn.btn-primary(type='button') Save changes
-
+  .modal.fade#search-filters-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          h5#exampleModalLabel.modal-title Search Filters
+          |  
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body  
+          form#filtering.form-inline
+          label(for='example-date-input') Best Before
+          input.form-control#bestBefore.filter(type='date', value='2017-02-19')
+          label(for='example-date-input') Sort By
+          select(name="orderBy")#orderBy.filter
+            option(value='A-Z') A-Z 
+            option(value='nearest') Nearest
+            option(value='freshest') Freshest
 
   //- search results
   .container-fluid#display_item_results
@@ -47,16 +63,10 @@ block container
             h1 Searching for #{results.food} 
           else
             h1 Searching for anything
-          button.btn.btn-primary(data-toggle='modal', data-target='#search-options-modal') Search Options
+          button.btn.btn-primary(data-toggle='modal', data-target='#search-options-modal') Options
+          button.btn.btn-primary(data-toggle='modal', data-target='#search-filters-modal') Filters
 
-        form#filtering.form-inline.pull-right
-          label(for='example-date-input') Best Before
-          input.form-control#bestBefore.filter(type='date', value='2017-02-19')
-          label(for='example-date-input') Sort By
-          select(name="orderBy")#orderBy.filter
-            option(value='A-Z') A-Z 
-            option(value='nearest') Nearest
-            option(value='freshest') Freshest
+
         #list_results_container
           .row#fooditem_results_card
             each fooditem in results.fooditems
@@ -76,75 +86,5 @@ block container
       .col-6.embed-responsive#results_container_right
         #map-canvas.embed-responsive-item  
 
-    script.
-      var k = "#{results.tags}".split(",")
-      //console.log(k)
-      //- $("form#filters").submit(function(e){
-      //-   var form = this;
-      //-   $.getJSON('https://maps.googleapis.com/maps/api/geocode/json',{address: $("input#newName").val(), key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},function(data){
-      //-     $("form#filters").append("<input type='text' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-      //-     $("form#filters").append("<input type='text' name='lat' value='"+data.results[0].geometry.location.lat+"'></input>")
-      //-     $("form#filters").append("<input type='text' name='lng' value='"+data.results[0].geometry.location.lng+"'></input>")
-      //-   })
-      //-   e.preventDefault();
-      //-   setTimeout(function(){
-      //-     form.submit()
-      //-   },500)
-      //- })
-      //- console.log($("#navsearchbar").val());
-      $("form#filters").append("<input type='hidden' name='food' value='"+$("#navsearchbar").val()+"'></input>")
-      $("form#filters").append("<input type='hidden' name='location' value='"+$("#navsearchbarlocation").val()+"'></input>")
-      
-      $("form#filters").submit(function(){
-        e.preventDefault();
-        var form = this;
-        var location = "";
-  
-        //- document.cookie += ";"
-
-        //- if($("input#newName").val() == ""){
-        //-   location += Cookies.get('lat') + "," + Cookies.get('lng')
-        //- }else{
-        //-   location = $("input#newName").val()
-        //- }
-
-
-        form.submit();
-      })
-
-      $("input#range").change(function(){
-        document.getElementById("rangeVal").value = $(this).val();
-      })  
-
-      $("input#rangeVal").change(function(){
-        document.getElementById("range").value = $(this).val();
-      })
-
-      var tags = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        local: "#{results.tags}".split(",")
-      });
-      tags.initialize();
-      $('input#tag').tagsinput({
-        tagClass: 'badge-danger',
-        typeaheadjs: {
-          source: tags.ttAdapter()
-        }
-        //attempted to use freeInput: false, but doesnt work, hence event handler below
-      });
-      $('input').on('beforeItemAdd', function(event) {
-        var exists = false
-        if(k.indexOf(event.item) > -1){
-          exists = true;
-        }
-        event.cancel = !exists
-        // event.item: contains the item
-        // event.cancel: set to true to prevent the item getting added
-      });
-
+  script(src='/assets/searchresult-filters.js')
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
-
-
-
-
