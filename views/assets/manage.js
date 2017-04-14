@@ -77,10 +77,12 @@ function cardEntry(item){
 	if (isYours === "Others"){
 		card += "<a class='btn btn-link btn-sm' href='/chat?id="+item.UserID+"'>Message</a>";
 		card += "<a class='btn btn-link btn-sm' href='/cancel?id="+item.MealID+"'>Cancel</a>";
+
 	} else {
 		card += "<a class='btn btn-link btn-sm' href='/edit/"+item.MealID+"'>Edit</a>";
 		card += "<a class='btn btn-link btn-sm' href='/remove?id="+item.MealID+"'>Remove</a>";
 	}
+	card += '<select class="rating"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>'
 	card += "</div></div></div></div>";
 
 	return card;
@@ -91,12 +93,15 @@ $(document).ready(function(){
 	$('#isYours').change(function(){
 		isYours = $('#isYours').val();
 		FilterData();
+		initRating();
 	});
 	$('#sortBy').change(function(){
 		sortBy = $('#sortBy').val();
 		FilterData();
+		initRating();
 	});
 	FilterData();
+	initRating();
 });
 
 /*
@@ -117,4 +122,11 @@ function stringsComparison(a, b) {
   b = b.toLowerCase();
 
   return (a < b) ? -1 : (a > b) ? 1 : 0;
+}
+
+function initRating(){
+	$(".rating").barrating({
+		theme: 'css-stars',
+		readonly: isYours != "Others"
+	})
 }
