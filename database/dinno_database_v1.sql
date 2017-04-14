@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `Meal` (
   `Description` varchar(500) NOT NULL,
   `Image` varchar(70) NOT NULL,
   `IsIngredient` int(1) NOT NULL,
+  `IsAvailable` int(1) NOT NULL,
   PRIMARY KEY (`MealID`),
   KEY `UserID` (`UserID`),
   KEY `LocationID` (`LocationID`)
@@ -67,20 +68,20 @@ CREATE TABLE IF NOT EXISTS `Meal` (
 -- Test data for table `Meal`
 --
 
-INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `RecipientID`, `Name`, `BestBefore`, `Description`, `Image`, `IsIngredient`) VALUES
-(1, 2, 6, 8, 'Birds', '2017-01-12', 'They keep me up at night. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0),
-(2, 1, 8, 2, 'Apples', '2017-02-08', 'Fresh from my back garden', 'http://i.imgur.com/FgSGTwD.png',1),
-(3, 2, 6, 9,'Bread', '2017-03-02', 'Baked it yesterday', 'http://i.imgur.com/0b4FxjX.png',1),
-(4, 1, 9, NULL,'Chicken Wings', '2017-03-03', 'Too spicy for my little baby mouth', 'http://i.imgur.com/BZO1dmk.png',0),
-(5, 1, 6, NULL,'Lime', '2017-03-03', 'Put in coconut and shake it all up', 'http://i.imgur.com/qGwqKyk.png',1),
-(6, 2, 7, NULL,'Burger', '2017-02-12', 'Get it quick or I might just eat it', 'http://i.imgur.com/TN27JVi.png',0),
-(7, 2, 8, NULL,'Pizza', '2017-01-26', 'P-I-Z-Z-A', 'http://i.imgur.com/W50LFXw.png',0),
-(8, 1, 4, 5,'Raspberries', '2017-01-28', 'Stole them from a farmer when he wasn\'t looking', 'http://i.imgur.com/KtUoI1n.png',1),
-(9, 2, 4, NULL,'Burrito', '2017-01-29', 'La he lamido', 'http://i.imgur.com/wx1aQh8.png',0),
-(10, 1, 9, 4,'Pineapple', '2017-02-02', 'Took the photo in a field because I\'m artistic', 'http://i.imgur.com/GseR7AL.jpg',0),
-(11, 1, 6, NULL,'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'http://i.imgur.com/9uVJuWZ.jpg',0),
-(12, 2, 8, 2, 'Apples', '2017-02-08', 'Found from some dudes back garden', 'http://i.imgur.com/FgSGTwD.png',1),
-(13, 3, 16,  NULL,  'Bacon Sandwich',  '2017-08-05', 'An exciting new collaboration between myself and the Earl of Sandwich', 'http://i.imgur.com/w8TWhXW.jpg',  0);
+INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `RecipientID`, `Name`, `BestBefore`, `Description`, `Image`, `IsIngredient`,`IsAvailable`) VALUES
+(1, 2, 6, 8, 'Birds', '2017-01-12', 'They keep me up at night. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,1),
+(2, 1, 8, 2, 'Apples', '2017-02-08', 'Fresh from my back garden', 'http://i.imgur.com/FgSGTwD.png',1,1),
+(3, 2, 6, 9,'Bread', '2017-03-02', 'Baked it yesterday', 'http://i.imgur.com/0b4FxjX.png',1,1),
+(4, 1, 9, NULL,'Chicken Wings', '2017-03-03', 'Too spicy for my little baby mouth', 'http://i.imgur.com/BZO1dmk.png',0,1),
+(5, 1, 6, NULL,'Lime', '2017-03-03', 'Put in coconut and shake it all up', 'http://i.imgur.com/qGwqKyk.png',1,1),
+(6, 2, 7, NULL,'Burger', '2017-02-12', 'Get it quick or I might just eat it', 'http://i.imgur.com/TN27JVi.png',0,1),
+(7, 2, 8, NULL,'Pizza', '2017-01-26', 'P-I-Z-Z-A', 'http://i.imgur.com/W50LFXw.png',0,1),
+(8, 1, 4, 5,'Raspberries', '2017-01-28', 'Stole them from a farmer when he wasn\'t looking', 'http://i.imgur.com/KtUoI1n.png',1,1),
+(9, 2, 4, NULL,'Burrito', '2017-01-29', 'La he lamido', 'http://i.imgur.com/wx1aQh8.png',0,1),
+(10, 1, 9, 4,'Pineapple', '2017-02-02', 'Took the photo in a field because I\'m artistic', 'http://i.imgur.com/GseR7AL.jpg',0,1),
+(11, 1, 6, NULL,'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'http://i.imgur.com/9uVJuWZ.jpg',0,1),
+(12, 2, 8, 2, 'Apples', '2017-02-08', 'Found from some dudes back garden', 'http://i.imgur.com/FgSGTwD.png',1,1),
+(13, 3, 16,  NULL,  'Bacon Sandwich',  '2017-08-05', 'An exciting new collaboration between myself and the Earl of Sandwich', 'http://i.imgur.com/w8TWhXW.jpg',  0,1);
 -- --------------------------------------------------------
 
 ALTER TABLE Meal
@@ -126,10 +127,10 @@ INSERT INTO `User` (`UserID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `En
 (1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png' , '1.5x', 'Default', 0, 0),
 (2, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png', '1.5x', 'Default', 0, 0),
 (3, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png', '2x', 'Default', 0, 0),
-(4, 'John' , 'Jennings' , 'johnmjennings97@gmail.com', '1997-03-21',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9', 'http://i.imgur.com/cnErTA2.jpg', '1x', 'Default', 0, 0), 
+(4, 'John' , 'Jennings' , 'johnmjennings97@gmail.com', '1997-03-21',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9', 'http://i.imgur.com/cnErTA2.jpg', '1x', 'Default', 1, 0), 
 (5,'not john',  'jennings',  'juanuncalcetin@gmail.com' , '2017-01-01',  'b328473224ad100b5021818149d79347cbf5217490cb65959626a54b47089cb4' , 5, 1 ,'b256f0aa70f968d1a5b0ebefde8da550ea852359330b81ac3d59da6fbe5f0c4a','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/VLT6AOi.png', '1x', 'Default', 0, 0),
 (6,'Thien',  'Nguyen',  'thien@thien.thien' , '2004-07-06',  '0ddb868c67e94f1f6aa7cbd2924a569639df64cdd2575511e41333d9cd384488' , 5, 1 ,'8c93436961bcdb5bbb9a9d4502f6f89d8b7a6c86cc855d2d3e96f8ddd7e4f962','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/fzYJAEz.png', '1x', 'Default', 0, 0),
-(7,'Josh',  'Bremner',  'josh@josh.josh' , '1985-10-09',  '07e5713321c2281ee54d7079b0fa7a479b5f81366d46b562de81a2dc2213a2ce' , 5, 1 ,'6abcc73ff8e1827d4be242b32e566ce9d21c53aa1a244a35cd6bebaf5a9d3e1d','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/5uGHDQ7.png', '1.5x', 'Default', 0, 0),
+(7,'Josh',  'Bremner',  'josh@josh.josh' , '1985-10-09',  '07e5713321c2281ee54d7079b0fa7a479b5f81366d46b562de81a2dc2213a2ce' , 5, 1 ,'6abcc73ff8e1827d4be242b32e566ce9d21c53aa1a244a35cd6bebaf5a9d3e1d','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/5uGHDQ7.png', '1.5x', 'Default', 1, 0),
 (8,'Simeon',  'Chan',  'simeon@simeon.simeon' , '1991-06-09 ',  '98f3113f9c3068336e6e43cf4abca28c84e25a79f39d9234ed5349780270e320' , 5, 1 ,'c696005063d7dcea6530b574fb76e00b7e6b7fcaa8b2098ee7474d9bb73da870','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/mdn3p1t.jpg', '1x', 'Default', 0, 0),
 (9,'Rob',  'Shipley',  'rob@rob.rob' , '1984-09-13',  'bcc86146ac38d786abddd0e608a8348a2686626ede21e544b839044f4c88deac' , 5, 1 ,'d065974710c9461de2cf4edded78b95a3621e352f4266595fd37d84b6d0fa502','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/SEYDQ7G.jpg', '1x', 'Default', 0, 0),
 (10, 'George', 'Price', 'georgeprice@gmail.com', '2003-10-27',  '721d0ca17aa3d735fe2026ee8edc9940aa7b381e20385c2cb2a6e1f88abf58ce',  5, 1, 'a0c6e4ac901792094e77f81635365bbacca36f170271b5ca67db7a738ff53396',  '07e3a0e4ec49b6244bf4241cbacd207480c5124531d833e30f68b97ce4e3d636',  'http://i.imgur.com/MC1Rf1f.jpg', '1x', 'Default', 0, 0),
@@ -246,7 +247,7 @@ CREATE TABLE `Report` (
   `RecipientID` int(11) NOT NULL,
   `Reason` varchar(40) NOT NULL,
   `Comment` varchar(400) NOT NULL,
-  `IsVerified` int(1) NOT NULL,
+  `VerificationStatus` int(11) NOT NULL,
   PRIMARY KEY (`ReportID`),
   KEY `SenderID` (`SenderID`),
   KEY `RecipientID` (`RecipientID`)
@@ -258,10 +259,11 @@ CREATE TABLE `Report` (
 -- Test data for table `Report`
 --
 
-INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`, `IsVerified`) VALUES
+INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`, `VerificationStatus`) VALUES
 (1, 4, 7, 'Misleading Food Descriptions', 'Item listed as a cake, was actually a severed arm', 1),
 (2, 7, 4, 'Other', 'He looked at me funny', 1),
 (3, 8, 7, 'Harassment', 'Called me a doo doo head', 0);
+
 
 --
 -- Constraints for dumped tables

@@ -8,11 +8,11 @@ function addNewReport(reportData, userId, recipientId) {
 	return new Promise(function(resolve, reject) {
 		var reason = reportData['reason'];
 		var comment = reportData['comment'];
-		var isVerified = 1; //All are set to verified straight away right now - later when admins are added reports have to be verified by admins
+		var verificationStatus = 0; //All are set to verified straight away right now - later when admins are added reports have to be verified by admins
 
-		db.query(`INSERT INTO Report (ReportID, SenderID, RecipientID, Reason, Comment, IsVerified)
+		db.query(`INSERT INTO Report (ReportID, SenderID, RecipientID, Reason, Comment, VerificationStatus)
 							VALUES (0, ?, ?, ?, ?, ?)`, 
-						[userId, recipientId, reason, comment, isVerified],
+						[userId, recipientId, reason, comment, verificationStatus],
 		function(error, results, fields) {
 			if (error) {
 				console.log(error);
@@ -27,11 +27,11 @@ function addNewReport(reportData, userId, recipientId) {
 
 function getVerifiedReportList(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Report.ReportID, Report.SenderID, Report.RecipientID, Report.Reason, Report.Comment, Report.IsVerified, User.ProfileImage, User.Firstname, User.Surname
+		db.query(`SELECT Report.ReportID, Report.SenderID, Report.RecipientID, Report.Reason, Report.Comment, Report.VerificationStatus, User.ProfileImage, User.Firstname, User.Surname
 				  FROM Report
 				  JOIN User 
 				  ON User.UserID = Report.SenderID
-				  WHERE Report.RecipientID = ? AND Report.IsVerified = 1`, [userId],
+				  WHERE Report.RecipientID = ? AND Report.VerificationStatus = 1`, [userId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
@@ -45,11 +45,11 @@ function getVerifiedReportList(userId) {
 
 function getUnverifiedReportList(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Report.ReportID, Report.SenderID, Report.RecipientID, Report.Reason, Report.Comment, Report.IsVerified, User.ProfileImage, User.Firstname, User.Surname
+		db.query(`SELECT Report.ReportID, Report.SenderID, Report.RecipientID, Report.Reason, Report.Comment, Report.VerificationStatus, User.ProfileImage, User.Firstname, User.Surname
 				  FROM Report
 				  JOIN User 
 				  ON User.UserID = Report.SenderID
-				  WHERE Report.RecipientID = ? AND Report.IsVerified = 0`, [userId],
+				  WHERE Report.RecipientID = ? AND Report.VerificationStatus = 0`, [userId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
@@ -64,7 +64,7 @@ function getUnverifiedReportList(userId) {
 //Robbed from John
 function getRecipientInfo(recipientId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT Firstname, Surname, ProfileImage
+        db.query(`SELECT Firstname, Surname, ProfileImage, IsSuspended, IsAdmin
                   FROM User
                   WHERE UserID = ?`, 
                 [recipientId], 
@@ -107,20 +107,32 @@ module.exports = function() {
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
 				textSize: result.TextSize,
-				colourScheme: result.ColourScheme
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 			
 			var recipientInfo = getRecipientInfo(recipientId);
 			
 			Promise.all([recipientInfo]).then(function(data) {
-
-					param.recipient_data = {
-						name: `${data[0].Firstname} ${data[0].Surname}`,
-						profileImage: data[0].ProfileImage,
-						theirId: recipientId
-					};
 					
-					res.render('report',param)
+					if (data[0].IsSuspended == 1 || data[0].IsAdmin == 1){
+						
+						param.error_message = {
+							msg: "You cannot report suspended users or admins."
+						};
+						res.render('error', param);
+						
+					}
+					else{
+					
+						param.recipient_data = {
+							name: `${data[0].Firstname} ${data[0].Surname}`,
+							profileImage: data[0].ProfileImage,
+							theirId: recipientId
+						};
+					
+						res.render('report',param)
+					}
 
 				}, function(err) {
 					param.error_message = {
@@ -160,7 +172,8 @@ module.exports = function() {
 					surname: result.Surname,
 					mugshot: result.ProfileImage,
 					textSize: result.TextSize,
-					colourScheme: result.ColourScheme
+					colourScheme: result.ColourScheme,
+					isAdmin: result.IsAdmin
 				};
 				
 				res.render('reporthistory', param);
@@ -190,7 +203,9 @@ module.exports = function() {
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 
 			var reportData = req.body;

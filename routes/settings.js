@@ -68,7 +68,8 @@ module.exports = function() {
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
 				textSize: result.TextSize,
-				colourScheme: result.ColourScheme
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 					
 			res.render('settings',param);
@@ -94,7 +95,9 @@ module.exports = function() {
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
 				textSize: result.TextSize,
-				colourScheme: result.ColourScheme
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
+				
 			};
 			
 			var settingsData = req.body;

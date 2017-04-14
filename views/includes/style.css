@@ -503,6 +503,13 @@
 		border: 3px dashed #ccc;
 		text-align: center;
 	}
+	#dropdown-text {
+		margin: 0px !important;
+		width: 80px;
+	}
+	#dropdown-img {
+		padding-top:10px;
+	}
 
 	.img_uploading{
 		-webkit-transition: background 0.5s ease-in-out;
