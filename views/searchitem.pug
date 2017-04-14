@@ -67,11 +67,14 @@ block container
           #search_item_buttons
             button.btn.btn-primary#searchOptionsButton(data-toggle='modal', data-target='#search-options-modal') Options
             button.btn.btn-primary#searchFiltersButton(data-toggle='modal', data-target='#search-filters-modal') Filters
-            //- button#mobile-display-results-toggle.btn.btn-secondary(type='button' data-toggle="button" onclick="toggleMobileResultsButton()" value="1")
-            //-   i.fa.fa-map-o(aria-hidden='true')
 
 
         #list_results_container
+          #dud_spacing
+          if results.food
+            #itemCountMsg Theres 100 items found for #{results.food}. 
+          else
+            h5#itemCountMsg Theres 100 assorted dinnos found around you! 
           .row#fooditem_results_card
             each fooditem in results.fooditems
              .col-md-6.col-lg-4
@@ -89,4 +92,5 @@ block container
         #map-canvas.embed-responsive-item  
   script(src='/assets/searchresult-mobile.js')
   script(src='/assets/searchresult-filters.js')
+  script(src='/assets/searchresult-misc.js')
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolQNICyc37wST4Zb_4KN378HnkeymL8&callback=initMap')
