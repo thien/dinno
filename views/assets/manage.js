@@ -5,10 +5,9 @@ Client Side Management for /manage
 */
 var isYours = true;
 var sortBy = 'recent';
-
+var data;
 
 function FilterData() {
-	var data;
 	if (isYours == "Others") {
 		data = fooditems.theirs;
 	} else {
@@ -83,13 +82,16 @@ function cardEntry(item) {
 		card += "<a class='btn btn-link btn-sm' href='/remove?id=" + item.MealID + "'>Remove</a>";
 	}
 	if (item.Rating != null || isYours == "Others") {
-		console.log(item.Rating)
+		//console.log(item.Rating)
 		var classes = "rating"
-		if(isYours == "Others" && item.Rating != null){
+		if (isYours == "Others" && item.Rating != null) {
 			classes += " rated"
+		}else if(isYours == "Others"){
+			console.log(item.MealID)
+			card += "<form id=mealID" + item.MealID + ">"
 		}
-		console.log(classes)
-		card += '<select class="'+classes+'">'
+		
+		card += '<select class="' + classes + '">'
 
 		for (var i = 1; i < 6; i++) {
 			if (item.Rating == i) {
@@ -99,9 +101,12 @@ function cardEntry(item) {
 			}
 		}
 		card += '</select>'
+		if (isYours == "Others" && item.Rating == null) {
+			//console.log(user_data)
+			card += "<button class='rating-button' type='button''>Rate!</button></form>"
+		}
 	}
 	card += "</div></div></div></div>";
-
 	return card;
 }
 
@@ -149,5 +154,27 @@ function initRating() {
 	$(".rating").barrating({
 		theme: 'css-stars',
 		readonly: (isYours != "Others")
+	})
+	$('.rating-button').on("click", function (e) {
+		console.log($(this.form).attr("id"))
+		var mealID = parseInt($(this.form).attr("id").substring(6))
+		var rating = parseInt($(this.form).find(":selected").val())
+		$(this.form).find("select").barrating("readonly",true)
+		var button = this
+		console.log("ID: " + mealID)
+		console.log("Value: " + rating)
+		$.post("/manage", { mealID: mealID, rating: rating }, function (response) {
+			if (response.success) {
+				console.log("Successfully rated")
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].MealID == mealID) {
+						data[i].Rating = rating
+					}
+				}
+				$(button).remove()
+			} else {
+				console.log("Something went wrong...")
+			}
+		})
 	})
 }

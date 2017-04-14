@@ -4,6 +4,7 @@ block container
   include includes/nav
   script.
     var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')}
+    var user_data = !{JSON.stringify(user_data).replace(/<\//g, '<\\/')}
 
   .container-padder
     .col-sm-12.container-vp
