@@ -290,7 +290,7 @@ module.exports = function() {
 			}
 			else{
 				param.error_message = {
-					msg: 'check inputs'
+					msg: 'Some of the information you entered was not valid'
 				};
 				res.render('error', param);
 			}
