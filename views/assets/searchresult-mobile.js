@@ -43,6 +43,7 @@ function mobileResultsViewHandler(){
 
 		// deal with gmaps rendering issue on mobile (half the map is grey)
 		google.maps.event.trigger(map, "resize");
+		map.setCenter(new google.maps.LatLng(search_location.latitude, search_location.longitude), 3);
 	} else {
 		hideMobileAssets();
 	}
