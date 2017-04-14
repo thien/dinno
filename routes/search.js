@@ -34,7 +34,9 @@ module.exports = function () {
                 firstname: result.Firstname,
                 surname: result.Surname,
                 mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
             };
 
             param.foodcheck = true;
@@ -115,7 +117,7 @@ function dealWithResults(req, res, param) {
                                      ON Meal.MealID = TagMeal.MealID
                                      LEFT JOIN Tag
                                      ON TagMeal.TagID = Tag.TagID
-									 WHERE RecipientID IS NULL
+									 WHERE RecipientID IS NULL AND Meal.IsAvailable = 1
                                      `
         ;
 

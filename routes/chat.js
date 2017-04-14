@@ -19,14 +19,16 @@ module.exports = function() {
 
 			var cookies = new Cookies(req, res);
 			var senderId = cookies.get('id');
-			var recipientId = req.query.id || 1;
+			var recipientId = req.query.id || 4;
 
 			param.user_data = {
 				userID: senderId,
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 			if (senderId) {
 
@@ -38,8 +40,10 @@ module.exports = function() {
 
 					param.chat = {
 						theirName: `${data[0].Firstname} ${data[0].Surname}`,
-            profileImage: data[0].ProfileImage,
-            theirId: recipientId,
+						profileImage: data[0].ProfileImage,
+						isSuspended: data[0].IsSuspended,
+						isAdmin: data[0].IsAdmin,
+						theirId: recipientId,
 						messages: data[1],
 					};
 					param.convos = data[2];
@@ -60,7 +64,7 @@ module.exports = function() {
 			}
 		}, function(err) {
 			param.error_message = {
-				msg: "You're not logged in."
+				msg: "You need to be logged in to access this page."
 			};
 			res.render('error', param);
 		});

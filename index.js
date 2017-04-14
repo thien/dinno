@@ -73,7 +73,10 @@ app.use('/', require('./routes/fooditem'));
 app.use('/', require('./routes/add'));  
 
 // manage fooditems
-app.use('/', require('./routes/manage'));  
+app.use('/', require('./routes/manage')); 
+
+// admin
+app.use('/', require('./routes/admin'));  
 
 // add static assets for public access
 app.use('/assets', express.static('./views/assets'))

@@ -405,9 +405,9 @@
 
 	#profilephoto{
 		display:block;
-    margin:auto;
+		margin:auto;
 		max-width: 70vw;
-		background-color: #00ff00;
+		background-color: #f0f0f0;
 		border-radius: 50%;
 	}
 
@@ -497,11 +497,18 @@
 	  border-color: #FF5353 !important;
 	}
 	#upload_img_container {
-		margin: 0px 0px 20px 0px;
+		margin: 20px 0px 20px 0px;
 		min-height: 250px;
 		width: 100%;
 		border: 3px dashed #ccc;
 		text-align: center;
+	}
+	#dropdown-text {
+		margin: 0px !important;
+		width: 80px;
+	}
+	#dropdown-img {
+		padding-top:10px;
 	}
 
 	.img_uploading{
@@ -528,7 +535,7 @@
 		display: block;
 		padding: 10px 0px;
 		margin: 0px auto;
-		width: 150px;
+		width: 220px;
 	}
 
 	pre {

@@ -31,11 +31,30 @@ block container
 								else
 									option 2x
 							small#passwordHelpBlock.form-text.text-muted Set the standard font size for labels/text across the website.
-						
+						.form-group
+							label(for='exampleSelect1') Website Color Scheme
+							select#exampleSelect1.form-control(name="colourScheme")
+								if user_data.colourScheme == "Default"
+									option(selected="selected") Default (Pink)
+								else
+									option Default (Pink)
+									
+								if user_data.colourScheme == "Blue"
+									option(selected="selected") Blue
+								else
+									option Blue
+									
+								if user_data.colourScheme == "Orange"
+									option(selected="selected") Orange
+								else
+									option Orange
+							small#passwordHelpBlock.form-text.text-muted Customise the colour scheme for the website.
 						
 						//- request button
 						br
 						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Update Settings
 						br
 						h5 Updated text size to #{user_data.textSize}.
+						br
+						h5 Updated color scheme to #{user_data.colourScheme}.
 						
