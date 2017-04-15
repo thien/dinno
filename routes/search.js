@@ -38,43 +38,11 @@ module.exports = function () {
 				colourScheme: result.ColourScheme,
 				isAdmin: result.IsAdmin
             };
+            processQuery(req, res, param);
 
-            param.foodcheck = true;
+        }, function(err) {
+            processQuery(req, res, param);
 
-            req.query.food = req.query.food || "";
-
-            if (req.query.location && req.query.location !== "Locating Position...") {
-                // get coords from search parameter
-
-                geocoder.geocode(req.query.location, function (err, geo) {
-                    param.location = req.query.location;
-                    // console.log(geo);
-                    console.log("allocating coords");
-                    req.query.lat = geo[0].latitude;
-                    req.query.lng = geo[0].longitude;
-                    // console.log("got,", req.query.lat, "-", req.query.lng)
-                    param.lat = req.query.lat;
-                    param.lng = req.query.lng;
-                    console.log("allocated coordinates.");
-                    dealWithResults(req, res, param);
-                });
-
-            } else {
-                // dude didn't type in a thang
-                // default to durham when no position given.
-                req.query.lat = 54.7731;
-                req.query.lng = -1.57489;
-                param.lat = req.query.lat;
-                param.lng = req.query.lng;
-                dealWithResults(req, res, param);
-            }
-
-
-        }, function (err) {
-            param.error_message = {
-                msg: "You're not logged in."
-            };
-            res.render('error', param);
         });
 
     })
@@ -102,6 +70,39 @@ function iterateDistance(req, results, i, done) {
         //console.log(data)
         done(data);
     }
+}
+
+function processQuery(req, res, param) {
+	param.foodcheck = true;
+
+  req.query.food = req.query.food || "";
+  req.query.isMeal = req.query.isMeal || "both";
+
+  if (req.query.location && req.query.location !== "Locating Position...") {
+      // get coords from search parameter
+
+     geocoder.geocode(req.query.location, function(err, geo) {
+        param.location = req.query.location;
+        console.log(geo);
+        console.log("allocating coords");
+        req.query.lat = geo[0].latitude;
+        req.query.lng = geo[0].longitude;
+        console.log("got,", req.query.lat, "-", req.query.lng)
+        param.lat = req.query.lat;
+        param.lng = req.query.lng;
+        console.log("allocated coordinates.");
+        dealWithResults(req, res, param);
+    });
+
+  } else {
+    // dude didn't type in a thang
+    // default to durham when no position given.
+    req.query.lat = 54.7731;
+    req.query.lng = -1.57499;
+    param.lat = req.query.lat;
+    param.lng = req.query.lng;
+    dealWithResults(req, res, param);
+  }
 }
 
 function dealWithResults(req, res, param) {
