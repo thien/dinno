@@ -7,14 +7,30 @@ var bf = require('../functions/basefunctions');
 
 app.locals.basedir = "." + '/views';
 
-function getPostedMeals(userId) {
-	return new Promise(function (resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.UserID, Meal.RecipientId, Meal.Rating
+function getPostedClaimedMeals(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.Firstname, User.Surname, User.UserID, Meal.RecipientID
 				  FROM Meal
 				  JOIN User 
-				  ON User.UserID = Meal.UserID
+				  ON User.UserID = Meal.RecipientID
 				  WHERE Meal.UserID = ?`, [userId],
-			function (error, results, fields) {
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
+
+function getPostedUnclaimedMeals(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, Meal.RecipientID
+				  FROM Meal
+				  WHERE Meal.UserID = ? AND Meal.RecipientID IS NULL`, [userId],
+			function(error, results, fields) {
 				if (error) {
 					console.log(error);
 					reject();
@@ -26,13 +42,15 @@ function getPostedMeals(userId) {
 }
 
 function getReceivedMeals(userId) {
-	return new Promise(function (resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, Meal.RecipientId, Meal.UserID, Meal.Rating
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.Firstname, User.Surname, Meal.RecipientID, Meal.UserID, Location.HouseNoName, Location.Street, Location.Town, Location.LocationID
 				  FROM Meal
 				  JOIN User 
-				  ON User.UserID = Meal.RecipientId
-				  WHERE Meal.RecipientId = ?`, [userId],
-			function (error, results, fields) {
+				  ON User.UserID = Meal.UserID
+				  JOIN Location
+				  ON Location.LocationID = Meal.LocationID
+				  WHERE Meal.RecipientID = ?`, [userId],
+			function(error, results, fields) {
 				if (error) {
 					console.log(error);
 					reject();
@@ -44,11 +62,11 @@ function getReceivedMeals(userId) {
 }
 
 function removeMeal(userId, mealId) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(function(resolve, reject) {
 		db.query(`DELETE FROM Meal
-							WHERE UserID = ? AND MealID = ?;`,
-			[userId, mealId],
-			function (error, results, fields) {
+							WHERE UserID = ? AND MealID = ?;`, 
+							[userId, mealId],
+			function(error, results, fields) {
 				if (error) {
 					console.log(error);
 					reject();
@@ -60,12 +78,12 @@ function removeMeal(userId, mealId) {
 }
 
 function cancelMeal(userId, mealId) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(function(resolve, reject) {
 		db.query(`UPDATE Meal
 							SET RecipientId = NULL
-							WHERE RecipientId = ? AND MealID = ?;`,
-			[userId, mealId],
-			function (error, results, fields) {
+							WHERE RecipientId = ? AND MealID = ?;`, 
+							[userId, mealId],
+			function(error, results, fields) {
 				if (error) {
 					console.log(error);
 					reject();
@@ -92,22 +110,24 @@ This is obviously a template; implementation is absent
 
 */
 
-module.exports = function () {
+module.exports = function() {
 
-	app.get('/manage', function (req, res) {
+	app.get('/manage', function(req, res) {
 		var param = {
 			loggedin: false,
 		};
-		login.checkLogin(req, res).then(function (result) {
+		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
 			userID = result.UserID;
-			var posted = getPostedMeals(userID);
+			var postedclaimed = getPostedClaimedMeals(userID);
+			var postedunclaimed = getPostedUnclaimedMeals(userID);
 			var received = getReceivedMeals(userID);
-			Promise.all([posted, received]).then(function (data) {
-
+			Promise.all([postedclaimed, postedunclaimed, received]).then(function(data) {
+				
 				param.fooditems = {};
-				param.fooditems.yours = data[0];
-				param.fooditems.theirs = data[1];
+				param.fooditems.postedclaimed = data[0];
+				param.fooditems.postedunclaimed = data[1];
+				param.fooditems.received = data[2];
 				param.user_data = {
 					userID: userID,
 					firstname: result.Firstname,
@@ -117,9 +137,9 @@ module.exports = function () {
 					colourScheme: result.ColourScheme,
 					isAdmin: result.IsAdmin
 				};
-
-				if (req.query.type) {
-					if (req.query.type === "others") {
+				
+				if (req.query.type){
+					if (req.query.type === "others"){
 						param.defaultToggle = false;
 					} else {
 						param.defaultToggle = true;
@@ -127,13 +147,13 @@ module.exports = function () {
 				}
 				res.render('manage', param);
 
-			}, function (err) {
+			},function(err) {
 				param.error_message = {
 					msg: err
 				};
 				res.render('error', param);
 			});
-		}, function (err) {
+		}, function(err) {
 			param.error_message = {
 				msg: err
 			};
@@ -141,32 +161,6 @@ module.exports = function () {
 		});
 	}),
 
-		app.post('/manage', function (req, res) {
-			var param = {
-				loggedin: false,
-			};
-			login.checkLogin(req, res).then(function (result) {
-				param.loggedin = true;
-				userID = result.UserID;
-				db.query('UPDATE Meal SET Rating = ? WHERE MealID = ? AND Rating IS NULL', [req.body.rating,req.body.mealID], function (err, results, fields) {
-					if (err) {
-						res.status(200).send({ success: false , error_message:err})
-					} else {
-						res.status(200).send({ success: true })
-					}
-				}, function (err) {
-					param.error_message = {
-						msg: err
-					};
-					res.render('error', param);
-				});
-			}, function (err) {
-				param.error_message = {
-					msg: err
-				};
-				res.send('error', param);
-			});
-		}),
 	app.get('/remove', function(req, res) {
 		var param = {
 			loggedin: false,
@@ -197,24 +191,21 @@ module.exports = function () {
 		});
 	}),
 
-		app.get('/cancel', function (req, res) {
-			var param = {
-				loggedin: false,
-			};
-			login.checkLogin(req, res).then(function (result) {
-				param.loggedin = true;
-				userID = result.UserID;
-				var mealId = req.query.id
-				var cancel = cancelMeal(userID, mealId);
-				Promise.all([cancel]).then(function (data) {
-					res.redirect('/manage');
-				}, function (err) {
-					param.error_message = {
-						msg: err
-					};
-					res.render('error', param);
-				});
-			}, function (err) {
+	app.get('/cancel', function(req, res) {
+		var param = {
+			loggedin: false,
+		};
+		login.checkLogin(req, res).then(function(result) {
+			param.loggedin = true;
+			userID = result.UserID;
+			var mealId = req.query.id
+			var cancel = cancelMeal(userID, mealId);
+				
+			Promise.all([cancel]).then(function(data) {
+
+				res.redirect('/manage');
+
+			},function(err) {
 				param.error_message = {
 					msg: err
 				};
@@ -228,5 +219,6 @@ module.exports = function () {
 			};
 			res.render('error', param);
 		});
+	})
 	return app;
 }();

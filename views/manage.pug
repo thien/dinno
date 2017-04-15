@@ -4,7 +4,6 @@ block container
   include includes/nav
   script.
     var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')}
-    var user_data = !{JSON.stringify(user_data).replace(/<\//g, '<\\/')}
 
   .container-padder
     .col-sm-12.container-vp
@@ -18,10 +17,10 @@ block container
       .user-fooditem-cardlist#fooditemlist
         .card
           .card-header
-            span.manage-label Posted By:
+            span.manage-label Show Dinnos:
             select.manage-select#isYours(name="isYours")
-              option(value="You") You
-              option(value="Others") Others
+              option(value="You") Posted by You
+              option(value="Others") Claimed by You
             span.manage-label Sort By:
             select.manage-select#sortBy(name="sortBy")
               option(value="Recent") Recent
