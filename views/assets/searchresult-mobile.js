@@ -35,7 +35,6 @@ function mobileResultsViewHandler(){
 	if (window.innerWidth <= 420){
 		showMobileAssets();
 		filButton.classList.add('btn-danger');
-		console.log("you dumb mofo")
 
 		if (mapToggleCheck === 0){
 			// on map mode
