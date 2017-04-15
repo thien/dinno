@@ -80,6 +80,11 @@ module.exports = function Server(io, server) {
             });
         });
 
+        socket.on('notification', function(content) {
+            console.log('notification getting to here');
+            console.log('content: ',content);
+        });
+
         socket.on('disconnect', function() {
             console.log('A user has disconnected')
         });

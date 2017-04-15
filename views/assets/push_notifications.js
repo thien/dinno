@@ -1,4 +1,4 @@
-var notifications_socket = notifications_io();
+var notifications_socket = io();
 
 function sendNotification(content){
 	console.log(content);

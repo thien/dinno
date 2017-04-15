@@ -1,14 +1,14 @@
 var bf = require('../functions/basefunctions');
 var express = require('express');
 var app = express();
-const notifications_server = require('http').Server(app);
-const notifications_io = require('socket.io')(notifications_server);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 var login = require('../functions/login');
 const db = require('../functions/database');
 app.locals.basedir = "." + '/views';
 
 // load socket file from functions folder
-require('./functions/notifications_socket')(notifications_io, notifications_server);
+require('./functions/socket')(io, server);
 
 module.exports = function() {
 	app.get('/test_notifications', function(req, res) {
