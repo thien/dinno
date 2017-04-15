@@ -7,7 +7,7 @@ $.getJSON("data/random_food_list.json", function(food_list) {
 });
 
 $(window).on('keydown', function(event) {
-    if(document.activeElement.id === 'phatsearchfood'{
+    if(document.activeElement.id === 'phatsearchfood'){
         if(event.which == 13) {
             document.getElementById('bigsearchform').submit();
             return false;
