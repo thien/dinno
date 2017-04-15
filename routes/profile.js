@@ -11,9 +11,13 @@ app.locals.basedir = "." + '/views';
 function getProfileInfo(userId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT *,
-				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) + 1 as Age
+				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) + 1 as Age,
+				  CEILING((SUM(Meal.Rating) + 5 ) / (COUNT(Meal.Rating) + 1)) as UserRating
 				  FROM User
-				  WHERE UserID = ?`, [userId],
+				  JOIN Meal
+				  ON User.UserID = Meal.UserID
+				  WHERE User.UserID = ?
+				  GROUP BY Meal.UserID;`, [userId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
@@ -110,7 +114,7 @@ module.exports = function() {
 					userId: userId,
 					profile_photo: data[0].ProfileImage,
 					user_location: data[2].Town,
-					rating: data[0].Rating,
+					rating: data[0].UserRating,
 					no_reviews: 17,
 					reviews: 'review',
 					fooditems: data[1],
