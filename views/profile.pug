@@ -22,8 +22,10 @@ block container
 				else
 					h6 Has been reported #{page_data.reportCount} times.
 					if page_data.ownProfile
-						a.chat-link(href='editprofile') Edit profile
-						a.chat-link(href='reporthistory') View Report Record
+						span.chat-link-wrapper
+							a.chat-link(href='editprofile') Edit profile
+						span.chat-link-wrapper
+							a.chat-link(href='reporthistory') View Report Record
 					else if page_data.isAdmin
 						a.chat-link(href='/chat?id=' + page_data.userId) Send me a message
 					else
