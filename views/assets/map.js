@@ -13,6 +13,8 @@ function GETVariable(variable){
     }
 }
 
+var map = null;
+
 window.initMap = function() {
     // get latitude and longitude from GET variables
     var coord_lat = search_location.latitude;
@@ -20,7 +22,9 @@ window.initMap = function() {
 
     // load google maps with 
     // console.log('hello');
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+        mapTypeControl: false,
+        fullscreenControl: false,
         zoom: 15,
         center: {lat: coord_lat, lng: coord_lng},
     });
@@ -82,9 +86,8 @@ function updateMap(map, locations) {
                         </a>
                         <div class="popup-food-data">
                             <a href='/fooditem?id=${food.MealID}''> 
-                                <h3> ${food.Name} </h5>
+                                <b> ${food.Name} </b>
                             </a>
-                            <p> ${food.Description} </p>
                         </div>
                     </div>`;
         });
