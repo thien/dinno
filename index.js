@@ -81,8 +81,11 @@ app.use('/', require('./routes/admin'));
 // add static assets for public access
 app.use('/assets', express.static('./views/assets'))
 
+app.use('/favicon.ico', express.static('./views/assets/icons/favicon.ico'));
+
 // add error message - THIS MUST BE THE LAST ROUTE TO BE DEFINED
-app.use('/', require('./routes/error'));  
+app.use('/', require('./routes/error'));
+  
 
 
 
