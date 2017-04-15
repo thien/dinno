@@ -80,7 +80,7 @@ function updateMap(map, locations) {
         var markerId = `${loc[0].Latitude}${loc[0].Longitude}`;
         var popup = `<div class='row popup-food'>`;
         loc.forEach(function(food) {
-            popup += `<div class='col-md-6'>
+            popup += `<div class='col-md-4 map-popup-detail'>
                         <a href='/fooditem?id=${food.MealID}''> 
                             <img src='${food.Image}' class='marker-image'>  
                         </a>
