@@ -39,7 +39,8 @@ CREATE TABLE IF NOT EXISTS `Location` (
 
 INSERT INTO `Location` (`LocationID`, `Postcode`, `HouseNoName`, `Street`, `Town`, `County`, `IsDropbox`, `Latitude`, `Longitude`) VALUES
 (1, 'DH13RH', '18', 'North Bailey', 'Durham', 'County Durham', 0, 54.7731, -1.57489),
-(2, 'DH13LE', 'Bill Bryson Library', 'South Road', 'Durham', 'County Durham', 0, 54.7683, -1.57322);
+(2, 'DH13LE', 'Bill Bryson Library', 'South Road', 'Durham', 'County Durham', 0, 54.7683, -1.57322),
+(3, 'DH1 4BG' ,'12', 'Waddington Street' , 'Durham ','County Durham', 0, 54.7781, -1.58723);
 
 -- --------------------------------------------------------
 
@@ -58,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `Meal` (
   `Image` varchar(70) NOT NULL,
   `IsIngredient` int(1) NOT NULL,
   `Rating` int(1),
+  `IsAvailable` int(1) NOT NULL,
   PRIMARY KEY (`MealID`),
   KEY `UserID` (`UserID`),
   KEY `LocationID` (`LocationID`)
@@ -117,7 +119,10 @@ CREATE TABLE IF NOT EXISTS `User` (
   `VerificationCode` varchar(70) NOT NULL,
   `LoginCode` varchar(70) NOT NULL,
   `ProfileImage` varchar(70) NOT NULL,
-  `TextSize` int(11) NOT NULL,
+  `TextSize` varchar(5) NOT NULL,
+  `ColourScheme` varchar(10) NOT NULL,
+  `IsAdmin` boolean NOT NULL,
+  `IsSuspended` boolean NOT NULL,
   PRIMARY KEY (`UserID`),
   KEY `LocationID` (`LocationID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
@@ -131,20 +136,26 @@ ADD FULLTEXT INDEX `Name`
 (`Firstname` ASC, 
  `Surname` ASC);
 
-INSERT INTO `User` (`UserID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`, `LoginCode`, `ProfileImage`, `TextSize`) VALUES
-(1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png' , 1),
-(2, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png', 1),
-(3, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png', 1),
-(4, 'John' , 'Jennings' , 'johnmjennings97@gmail.com', '1997-03-21',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9', 'http://i.imgur.com/cnErTA2.jpg', 1), 
-(5,'not john',  'jennings',  'juanuncalcetin@gmail.com' , '2017-01-01',  'b328473224ad100b5021818149d79347cbf5217490cb65959626a54b47089cb4' , 5, 1 ,'b256f0aa70f968d1a5b0ebefde8da550ea852359330b81ac3d59da6fbe5f0c4a','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/VLT6AOi.png', 1),
-(6,'Thien',  'Nguyen',  'thien@thien.thien' , '2004-07-06',  '0ddb868c67e94f1f6aa7cbd2924a569639df64cdd2575511e41333d9cd384488' , 5, 1 ,'8c93436961bcdb5bbb9a9d4502f6f89d8b7a6c86cc855d2d3e96f8ddd7e4f962','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/fzYJAEz.png', 1),
-(7,'Josh',  'Bremner',  'josh@josh.josh' , '1985-10-09',  '07e5713321c2281ee54d7079b0fa7a479b5f81366d46b562de81a2dc2213a2ce' , 5, 1 ,'6abcc73ff8e1827d4be242b32e566ce9d21c53aa1a244a35cd6bebaf5a9d3e1d','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/5uGHDQ7.png', 1),
-(8,'Simeon',  'Chan',  'simeon@simeon.simeon' , '1991-06-09 ',  '98f3113f9c3068336e6e43cf4abca28c84e25a79f39d9234ed5349780270e320' , 5, 1 ,'c696005063d7dcea6530b574fb76e00b7e6b7fcaa8b2098ee7474d9bb73da870','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/mdn3p1t.jpg', 1),
-(9,'Rob',  'Shipley',  'rob@rob.rob' , '1984-09-13',  'bcc86146ac38d786abddd0e608a8348a2686626ede21e544b839044f4c88deac' , 5, 1 ,'d065974710c9461de2cf4edded78b95a3621e352f4266595fd37d84b6d0fa502','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/SEYDQ7G.jpg', 1);
-
--- --------------------------------------------------------
-
---
+INSERT INTO `User` (`UserID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`, `LoginCode`, `ProfileImage`, `TextSize`, `ColourScheme`, `IsAdmin`, `IsSuspended`) VALUES
+(1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png' , '1.5x', 'Default', 0, 0),
+(2, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png', '1.5x', 'Default', 0, 0),
+(3, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1, 0, NULL, NULL, 'http://i.imgur.com/VLT6AOi.png', '2x', 'Default', 0, 0),
+(4, 'John' , 'Jennings' , 'johnmjennings97@gmail.com', '1997-03-21',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9', 'http://i.imgur.com/cnErTA2.jpg', '1x', 'Default', 1, 0), 
+(5,'not john',  'jennings',  'juanuncalcetin@gmail.com' , '2017-01-01',  'b328473224ad100b5021818149d79347cbf5217490cb65959626a54b47089cb4' , 5, 1 ,'b256f0aa70f968d1a5b0ebefde8da550ea852359330b81ac3d59da6fbe5f0c4a','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/VLT6AOi.png', '1x', 'Default', 0, 0),
+(6,'Thien',  'Nguyen',  'thien@thien.thien' , '2004-07-06',  '0ddb868c67e94f1f6aa7cbd2924a569639df64cdd2575511e41333d9cd384488' , 5, 1 ,'8c93436961bcdb5bbb9a9d4502f6f89d8b7a6c86cc855d2d3e96f8ddd7e4f962','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/fzYJAEz.png', '1x', 'Default', 0, 0),
+(7,'Josh',  'Bremner',  'josh@josh.josh' , '1985-10-09',  '07e5713321c2281ee54d7079b0fa7a479b5f81366d46b562de81a2dc2213a2ce' , 5, 1 ,'6abcc73ff8e1827d4be242b32e566ce9d21c53aa1a244a35cd6bebaf5a9d3e1d','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/5uGHDQ7.png', '1.5x', 'Default', 1, 0),
+(8,'Simeon',  'Chan',  'simeon@simeon.simeon' , '1991-06-09 ',  '98f3113f9c3068336e6e43cf4abca28c84e25a79f39d9234ed5349780270e320' , 5, 1 ,'c696005063d7dcea6530b574fb76e00b7e6b7fcaa8b2098ee7474d9bb73da870','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/mdn3p1t.jpg', '1x', 'Default', 0, 0),
+(9,'Rob',  'Shipley',  'rob@rob.rob' , '1984-09-13',  'bcc86146ac38d786abddd0e608a8348a2686626ede21e544b839044f4c88deac' , 5, 1 ,'d065974710c9461de2cf4edded78b95a3621e352f4266595fd37d84b6d0fa502','a3dd40fd0e0e2b75c88757004682a629c2e16eb2ae9ecfb9e2975ae1bb01adef', 'http://i.imgur.com/SEYDQ7G.jpg', '1x', 'Default', 0, 0),
+(10, 'George', 'Price', 'georgeprice@gmail.com', '2003-10-27',  '721d0ca17aa3d735fe2026ee8edc9940aa7b381e20385c2cb2a6e1f88abf58ce',  5, 1, 'a0c6e4ac901792094e77f81635365bbacca36f170271b5ca67db7a738ff53396',  '07e3a0e4ec49b6244bf4241cbacd207480c5124531d833e30f68b97ce4e3d636',  'http://i.imgur.com/MC1Rf1f.jpg', '1x', 'Default', 0, 0),
+(11, 'Ben', 'Griffiths', 'bengriffiths@gmail.com',  '1943-08-18',  '698fe0983ea5edee4ce388902a1b4d7176dc0c70a93b20fe912856cbc20ff081',  5, 1 ,'41cbc751d124a49cc6ae70ae14756cf1cb321c68e6c60e52a39db4aab04c3569','20955964e045b5c656efdff04a25c50631c8eb4e922d93581e805b397c7a4faf', 'http://i.imgur.com/j51V5zs.jpg', '1x', 'Default', 0, 0),
+(12, 'Andy',  'Jennings',  'andyjennings@gmail.com',  '1967-02-26',  'a8b626f81b10bf922b4a2224f2eecf07379cc7d2e16ad4ccc9446e618009de03',  5, 1, 'b5044c658aa130f91eb2f95fe261ce281704bf1db3affe488690484be7d92302',  '1e54aadc8064d52a7e7c58f37135bc28d077c70ee3f6a90dfd8a84e26bce3a5e',  'http://i.imgur.com/KoOk9AP.jpg', '1x', 'Default', 0, 0),
+(13, 'Bill',  'Gates', 'billgates@gmail.com', '1938-09-09', 'c40a8104f7a824236a62baa8c8aa9721a549e3bfc4730f86919e3e0f6c3d74b1', 5, 1, '17603e3176c43ebeb6e6a8f458b6b2cf20a8a6b5166e571d788d74d696c8171f', '','http://i.imgur.com/d6QJ9mv.jpg', '1x', 'Default', 0, 0),
+(14, 'Bill',  'Bryson',  'billbryson@gmail.com', '1952-11-08', '7c321ad963eb1cba5702d5ce88289597b4c5d71ebb5aaf8c6d9cb933648db53d', 5, 1, '404eb81f4a87dacc0f41353f07f7e92b9ed11eafcd50b9874d071b64a4071d92', '','http://i.imgur.com/K04F7de.jpg', '1x', 'Default', 0, 0),
+(15, 'Edsger',  'Dijkstra',  'edsgerdijsktra@gmail.com', '1960-05-20', '2b255f04150b029d3c44509b8f29c4ed84296078bd3861a3061254f3bbfd7777', 5, 1, '19c71fcf7c51610371ce3c614dfd76bd43c42f3a100dc9d5cbd811dfca3e3854', '','http://i.imgur.com/z6S1gyd.jpg', '1x', 'Default', 0, 0),
+(16, 'Francis', 'Bacon', 'francisbacon@gmail.com',  '1903-06-02', 'bffa9646210cc0908a2104cf17285009cbe64a50572acc8cfd0e55ba0004c3d2', 5, 1, '35238b0a6be5df0e7b5191c88b047e3802a71cb2bf1aa339af35d31d7933f279', '','http://i.imgur.com/ENVS6KH.jpg', '1x', 'Default', 0, 0),
+(17, 'John',  'Carmack', 'johncarmack@gmail.com', '1938-06-18', 'bb2f88f69e3564bb72d792a575129ee97554fff267f22f27784c8b7f0ba87bcf', 5, 1, 'e555800b720ce68f453d3294595a495fe9da69168a9a9fac46127b912b182b7b', '','http://i.imgur.com/giyhk1y.jpg', '1x', 'Default', 0, 0),
+(18, 'Steve', 'Wozniak', 'stevewozniak@gmail.com' , '1970-08-24', '109137a724229fd538371f3ae46fbcdcf7556224200a9e25a55bb48834d14c0d', 5, 1, 'da385b691ccddfa2c17846e85581de4632f47a23ce7e9be4a16dba9ef7535313', '','http://i.imgur.com/sVC69g4.jpg', '1x', 'Default', 0, 0);
+-- --
 -- Table structure for table `Tag`
 --
 
@@ -249,13 +260,22 @@ CREATE TABLE `Report` (
   `RecipientID` int(11) NOT NULL,
   `Reason` varchar(40) NOT NULL,
   `Comment` varchar(400) NOT NULL,
-  `IsVerified` int(1) NOT NULL,
+  `VerificationStatus` int(11) NOT NULL,
   PRIMARY KEY (`ReportID`),
   KEY `SenderID` (`SenderID`),
   KEY `RecipientID` (`RecipientID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
+--
+-- Test data for table `Report`
+--
+
+INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`, `VerificationStatus`) VALUES
+(1, 4, 7, 'Misleading Food Descriptions', 'Item listed as a cake, was actually a severed arm', 1),
+(2, 7, 4, 'Other', 'He looked at me funny', 1),
+(3, 8, 7, 'Harassment', 'Called me a doo doo head', 0);
 
 
 --

@@ -1,7 +1,20 @@
 //- including other pug works
 include scripts
 //- including .html, .css, etc works
-include style.css
+
+style
+	include style.css
+
+if loggedin
+	if user_data.textSize == "1.5x"
+		include style1_5.css
+	else if user_data.textSize == "2x"
+		include style2.css
+		
+	if user_data.colourScheme == "Blue"
+		include styleblue.css
+	else if user_data.colourScheme == "Orange"
+		include styleorange.css
 
 meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
 
@@ -19,7 +32,6 @@ if isSearchResultsPage
 	script
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
+	script(src='assets/js-cookie.js')
 	script(src='assets/poachGETVariables.js')
 	script(src='assets/interactive_sorting.js')
-	script(src='assets/js-cookie.js')
-	script(src='assets/map.js')

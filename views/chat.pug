@@ -33,7 +33,12 @@ html(lang="en")
 								a.pull-right(href='/profile?id=' + chat.theirId)
 									img.media-object#contact_photo( src=chat.profileImage)
 								.pull-left#contact_details
-									h5.media-heading #{chat.theirName}
+									if chat.isAdmin
+										h5.media-heading #{chat.theirName} [ADMIN]
+									else if chat.isSuspended
+										h5.media-heading #{chat.theirName} [SUSPENDED]
+									else
+										h5.media-heading #{chat.theirName}
 					.msg-wrap
 						//- display messages
 						
@@ -56,12 +61,15 @@ html(lang="en")
 
 
 					.send-wrap
-						form(action='' onsubmit="return false")#message_send
-							.pull-left
-								input.form-control.send-message#messagebox(name="message" type='text', placeholder='Write a reply..')
-							.pull-right
-								button.btn.btn-outline-primary#btn-message-send(type='button') 
-									i.fa.fa-paper-plane(aria-hidden='true')
+						if chat.isSuspended
+							p.text-muted This user is suspended and so cannot be messaged.
+						else
+							form(action='' onsubmit="return false")#message_send
+								.pull-left
+									input.form-control.send-message#messagebox(name="message" type='text', placeholder='Write a reply..')
+								.pull-right
+									button.btn.btn-outline-primary#btn-message-send(type='button') 
+										i.fa.fa-paper-plane(aria-hidden='true')
 
 		script(src='/socket.io/socket.io.js')
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
