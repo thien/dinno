@@ -44,7 +44,7 @@ $("input#rangeVal").change(function() {
 var tags = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: "#{results.tags}".split(",")
+    local: k
 });
 
 // deals with tags
