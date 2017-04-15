@@ -11,7 +11,6 @@ module.exports = {
                   ON Meal.LocationID = Location.LocationID
                   WHERE Location.Longitude > ? AND Location.Longitude < ?
                   AND Location.Latitude > ? AND  Location.Latitude < ? 
-                  AND Meal.RecipientID IS NULL AND Meal.IsAvailable
                   ORDER BY Location.Latitude, Location.Longitude`,
                   [bounds.west, bounds.east, bounds.south, bounds.north],
                 function (error, results, fields) {

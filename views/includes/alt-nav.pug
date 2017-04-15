@@ -18,22 +18,11 @@ nav.navbar-alt.navbar-light.navbar-toggleable-md
 					a.nav-link(href='/manage?type=others') Dinnos
 				li.nav-item
 					a.nav-link(href='/chat') Messages
-				if user_data.isAdmin
-					li.nav-item.dropdown.nav-profile-dropdown
-						a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-text")  
-							label.nav-link(for='First Name') Admin 
-						.dropdown-menu.dropdown-menu-right
-							a.dropdown-item(href='/reviewreports') Review Reports
-							|  
-							a.dropdown-item(href='/manageusers') Ban/Unban Users
-				li.nav-item.dropdown.nav-profile-dropdown
-					a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-img")  
+				.dropdown.nav-profile-dropdown
+					a.dropdown-toggle.nav-profile(data-toggle='dropdown')  
 						img(src=user_data.mugshot).navbar-mugshot
 					.dropdown-menu.dropdown-menu-right
-						if user_data.isAdmin
-							h6.dropdown-header Hi, #{user_data.firstname} (ADMIN)
-						else
-							h6.dropdown-header Hi, #{user_data.firstname}
+						h6.dropdown-header Hi, #{user_data.firstname}
 						a.dropdown-item(href='/profile') Profile
 						|  
 						a.dropdown-item(href='/manage?type=yours') Your Dinnos

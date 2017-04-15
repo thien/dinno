@@ -62,8 +62,8 @@ function addNewUser(userData, res) {
 	var verificationCode = encrypt.hash(userData['password'], userData['email']);
 	var encryptedPass = encrypt.hash(userData['password'], verificationCode);
 
-	db.query(`INSERT INTO User (UserID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, IsVerified, VerificationCode, Rating, ProfileImage,TextSize, ColourScheme, IsAdmin, IsSuspended)
-						VALUES (0, ?, ?, ?, ?, ?, 0, ?, 5.0, ?, '1x', 'Default', 0, 0)`, [firstname, surname, emailAddress, dob, encryptedPass, verificationCode, profileImage],
+	db.query(`INSERT INTO User (UserID, Firstname, Surname, EmailAddress, DOB, EncryptedPass, IsVerified, VerificationCode, Rating, ProfileImage)
+						VALUES (0, ?, ?, ?, ?, ?, 0, ?, 5.0, ?)`, [firstname, surname, emailAddress, dob, encryptedPass, verificationCode, profileImage],
 		function(error, results, fields) {
 			if (error) {
 				console.log(error);
@@ -253,10 +253,7 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage,
-				textSize: result.TextSize,
-				colourScheme: result.ColourScheme,
-				isAdmin: result.IsAdmin
+				mugshot: result.ProfileImage
 			};
 
 			var cookies = new Cookies(req, res);

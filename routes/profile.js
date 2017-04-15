@@ -3,7 +3,6 @@ var app = express();
 var Cookies = require("cookies");
 var login = require('../functions/login');
 var db = require('../functions/database');
-var report = require('../functions/report');
 var bf = require('../functions/basefunctions');
 
 app.locals.basedir = "." + '/views';
@@ -44,9 +43,8 @@ function getLastPostedLocation(userId) {
 					reject(error);
 				} else if (results.length == 0) {
 					console.log('UserID not found');
-					resolve({Town : ""});
+					resolve();
 				} else {
-					console.log(results);
 					resolve(results[0]);
 				}
 			});
@@ -59,7 +57,7 @@ function getUserMeals(userId) {
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.UserID
-				  WHERE Meal.UserID = ? AND Meal.IsAvailable = 1`, [userId],
+				  WHERE Meal.UserID = ?`, [userId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
@@ -71,6 +69,22 @@ function getUserMeals(userId) {
 	});
 }
 
+function getReportCount(userId) {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT COUNT(*) AS reportCount 
+				  FROM Report
+				  WHERE Report.RecipientID = ?`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					console.log(results);
+					resolve(results);
+				}
+			});
+	});
+}
 
 module.exports = function() {
 	app.get('/profile', function(req, res) {
@@ -87,23 +101,19 @@ module.exports = function() {
 				userId = cookies.get('id');
 			}
 			param.user_data = {
-				userID: result.UserID,
+				userID: userId,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage,
-				textSize: result.TextSize,
-				colourScheme: result.ColourScheme,
-				isAdmin: result.IsAdmin
-				
+				mugshot: result.ProfileImage
 			};
 
 			var profileInfo = getProfileInfo(userId);
 			var userMeals = getUserMeals(userId);
-			var reportCount = report.getReportCount(userId);
+			var reportCount = getReportCount(userId);
 			var lastLocation = getLastPostedLocation(userId);
 
 			Promise.all([profileInfo, userMeals, lastLocation, reportCount]).then(function(data) {
-				console.log('called');
+				console.log(data);
 				param.page_data = {
 					name: `${data[0].Firstname} ${data[0].Surname}`,
 					age: data[0].Age,
@@ -115,8 +125,6 @@ module.exports = function() {
 					reviews: 'review',
 					fooditems: data[1],
 					reportCount: data[3][0].reportCount,
-					isAdmin: data[0].IsAdmin,
-					isSuspended: data[0].IsSuspended,
 					ownProfile: !req.query.id
 				};
 
@@ -132,7 +140,7 @@ module.exports = function() {
 			});
 		}, function(err) {
 			param.error_message = {
-				msg: "You need to be logged in to access this page."
+				msg: "You're not logged in."
 			};
 			res.render('error', param);
 		});
@@ -153,14 +161,11 @@ module.exports = function() {
 				userID: userId,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage,
-				textSize: result.TextSize,
-				colourScheme: result.ColourScheme,
-				isAdmin: result.IsAdmin
+				mugshot: result.ProfileImage
 			};
 
 			Promise.all([profileInfo]).then(function(data) {
-				
+
 				var dob = data[0].DOB.toString().split(' ');
 				param.forename =  `${data[0].Firstname}`,
 				param.surname = `${data[0].Surname}`,
@@ -187,7 +192,7 @@ module.exports = function() {
 			});
 		}, function(err) {
 			param.error_message = {
-				msg: "You need to be logged in to access this page."
+				msg: "You're not logged in."
 			};
 			res.render('error', param);
 		});

@@ -29,7 +29,7 @@ module.exports = {
 
   getRecipientInfo: function(recipientId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT Firstname, Surname, ProfileImage, IsAdmin, IsSuspended
+        db.query(`SELECT Firstname, Surname, ProfileImage
                   FROM User
                   WHERE UserID = ?`, 
                 [recipientId], 

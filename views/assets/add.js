@@ -72,17 +72,16 @@ function validateDate() {
 
 function validateLocation() {
   var location = $("#location").val();
-  if ($("#use-current-location").is(':checked')  && $("#secret-lat-input").val() && $("#secret-lat-input").val() ){
+  if ($("#use-current-location").is(':checked')){
     updateValidity("#location", true);
   }
-  else if (!$("#use-current-location").is(':checked')){
+  else {
     $.ajax({
       dataType: "json",
       url: 'https://maps.googleapis.com/maps/api/geocode/json',
       data: {address: location, key: "AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao"},
       success: function(data){
         var res = data.results;
-        console.log(res);
         if (res.length > 0) {
           $('#secret-lat-input').val(res[0].geometry.location.lat);
           $('#secret-lng-input').val(res[0].geometry.location.lng);
@@ -96,9 +95,6 @@ function validateLocation() {
         updateValidity("#location", false);
       }
     });
-  }
-  else {
-    updateValidity("#location", false);
   }
 }
 

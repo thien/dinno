@@ -112,10 +112,7 @@ module.exports = function () {
 					userID: userID,
 					firstname: result.Firstname,
 					surname: result.Surname,
-					mugshot: result.ProfileImage,
-					textSize: result.TextSize,
-					colourScheme: result.ColourScheme,
-					isAdmin: result.IsAdmin
+					mugshot: result.ProfileImage
 				};
 
 				if (req.query.type) {
@@ -167,23 +164,6 @@ module.exports = function () {
 				res.send('error', param);
 			});
 		}),
-	app.get('/remove', function(req, res) {
-		var param = {
-			loggedin: false,
-		};
-		login.checkLogin(req, res).then(function(result) {
-			param.loggedin = true;
-			userID = result.UserID;
-			var mealId = req.query.id
-			var remove = removeMeal(userID, mealId);
-				
-			Promise.all([remove]).then(function(data) {
-
-				res.redirect('/manage');
-
-			})
-		})
-	}),
 
 		app.get('/remove', function (req, res) {
 			var param = {
@@ -230,42 +210,11 @@ module.exports = function () {
 					res.render('error', param);
 				});
 			}, function (err) {
-			
-			
-		}, function(err) {
-			param.error_message = {
-				msg: err
-			};
-			res.render('error', param);
-		});
-	}),
-
-	app.get('/cancel', function(req, res) {
-		var param = {
-			loggedin: false,
-		};
-		login.checkLogin(req, res).then(function(result) {
-			param.loggedin = true;
-			userID = result.UserID;
-			var mealId = req.query.id
-			var cancel = cancelMeal(userID, mealId);
-				
-			Promise.all([cancel]).then(function(data) {
-
-				res.redirect('/manage');
-
-			},function(err) {
 				param.error_message = {
 					msg: err
 				};
 				res.render('error', param);
 			});
-		})			
-		}, function(err) {
-			param.error_message = {
-				msg: err
-			};
-			res.render('error', param);
-		});
+		})
 	return app;
 }();

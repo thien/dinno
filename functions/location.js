@@ -13,9 +13,6 @@ function getLocationInformation(lat, lng) {
           console.log(error);
           reject(error);
         }
-        else if (JSON.parse(body).results.length == 0){
-          reject('No location found');
-        }
         else {
           var res = JSON.parse(body).results[0].address_components.reduce(function(acc , x) {
             acc[x.types[0]] = x.long_name;

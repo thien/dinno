@@ -6,16 +6,6 @@ $.getJSON("data/random_food_list.json", function(food_list) {
     setInterval(generateFoodTyper, 2000);
 });
 
-$(window).on('keydown', function(event) {
-    if(document.activeElement.id === 'phatsearchfood'){
-        if(event.which == 13) {
-            document.getElementById('bigsearchform').submit();
-            return false;
-        }
-    }
-    console.log(document.activeElement.id === 'phatsearchfood');
-});
-
 
 function generateFoodTyper() {
     var item = getRandomFood(foods);

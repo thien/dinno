@@ -33,10 +33,7 @@ module.exports = function () {
                 userID: result.UserID,
                 firstname: result.Firstname,
                 surname: result.Surname,
-                mugshot: result.ProfileImage,
-				textSize: result.TextSize,
-				colourScheme: result.ColourScheme,
-				isAdmin: result.IsAdmin
+                mugshot: result.ProfileImage
             };
 
             param.foodcheck = true;
@@ -117,15 +114,14 @@ function dealWithResults(req, res, param) {
                                      ON Meal.MealID = TagMeal.MealID
                                      LEFT JOIN Tag
                                      ON TagMeal.TagID = Tag.TagID
-									 WHERE RecipientID IS NULL AND Meal.IsAvailable = 1
+									 WHERE RecipientID IS NULL
                                      `
         ;
 
 
     if (req.query.radius == undefined || req.query.radius == "") {
-        req.query.radius = 10
+        req.query.radius = 1
     }
-    console.log(req.query.radius);
     var latDif = req.query.radius / 69
     var longDif = req.query.radius / 69;
     distance.apiKey = 'AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao';

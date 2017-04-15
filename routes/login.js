@@ -5,7 +5,7 @@ const encrypt = require('../functions/encrypt');
 const db = require('../functions/database');
 
 function login(email, pass, remember, req, res) {
-	db.query(`SELECT VerificationCode, EncryptedPass, UserID, IsSuspended
+	db.query(`SELECT VerificationCode, EncryptedPass, UserID
 						FROM User
 						WHERE EmailAddress = ?`, [email],
 	function(error, results, fields) {
@@ -19,7 +19,7 @@ function login(email, pass, remember, req, res) {
 		else if (results.length == 0) {
 				console.log('Email not found');
 				var error_message = {
-					msg: 'Email address not found!'
+					msg: 'Email address not found'
 				};
 				res.render('error', {error_message: error_message});
 		} 
@@ -27,25 +27,16 @@ function login(email, pass, remember, req, res) {
 			var verificationCode = results[0].VerificationCode;
 			var theirHash = encrypt.hash(pass, verificationCode);
 			var id = results[0].UserID;
-			if (theirHash == results[0].EncryptedPass && results[0].IsSuspended == 0) {
+			if (theirHash == results[0].EncryptedPass) {
 				console.log(`Login legit`);
 				setLoginCookie(id, remember, req, res);
-			}
-			else if (results[0].IsSuspended == 1) {
-				console.log(`Login bad`);	
-				console.log(theirHash);
-				console.log(results[0].EncryptedPass);
-				var error_message = {
-					msg: 'You have been suspended from Dinno for breaching our terms of service. Please email mail@dinno.com for details.'
-				};
-				res.render('error', {error_message: error_message});
-			}
+			} 
 			else {
 				console.log(`Login bad`);	
 				console.log(theirHash);
 				console.log(results[0].EncryptedPass);
 				var error_message = {
-					msg: 'Incorrect Password!'
+					msg: 'Login unsuccessful'
 				};
 				res.render('error', {error_message: error_message});
 			}

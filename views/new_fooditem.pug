@@ -13,16 +13,14 @@ block container
 					#container
 						if edit
 							h1 Edit your Dinno
-							p.text-muted Edit your food item using this form. Please try to fill in all listed fields.
 						else
 							h1 Add a Dinno
-							p.text-muted Add a new food item to the dinno system. Please try to fill in all listed fields.
 						.form-group
-							label(for='name') Food Name
+							label(for='Food Name') Food Name
 
-							input#name.form-control.food-name(name="name" type='foodname', placeholder='eg. Lettuce' value=name)
+							input#name.form-control.food-name(name="name" type='foodname', placeholder='Lettuce' value=name)
 						.form-group
-							label(for='foodtype') Food Type
+							label(for='exampleSelect1') Food Type
 							select#foodtype.form-control(name="foodtype")
 								if (isIngredient)
 									option Meal
@@ -31,15 +29,14 @@ block container
 									option(selected = true) Meal
 									option Ingredient
 						.form-group
-							label(for='description') Description
+							label(for='exampleTextarea') Description
 
-							textarea#description.form-control(rows='3' maxlength="140" name="description", placeholder="eg. A nutritious head of iceberg lettuce.") #{description}
+							textarea#description.form-control(rows='3' maxlength="140" name="description") #{description}
 							//- small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-						label(for='bestbefore') Best Before
-						br
-						#bestbefore.form-inline
+							label(for='exampleSelect1') Best Before
+						.form-inline
 							#sr-only
-								label(for='day') Day
+								label(for='exampleSelect1') Day
 								select#day.date(name="day" type="Day")
 									- for (var d = 1; d <= 31; d++)
 											if (d == day)
@@ -53,7 +50,7 @@ block container
 												else
 													option(value=''+d) #{d}		
 							#sr-only
-								label(for='month') Month
+								label(for='exampleSelect1') Month
 								select#month.date(name="month" type="Month")
 									each m, i in ['January','Febuary','March','April','May','June','July','August','September','October','November','December']
 										if (i + 1 == month)
@@ -61,7 +58,7 @@ block container
 										else
 											option(value=''+(i+1)) #{m}
 							#sr-only
-								label(for='year' ) Year
+								label(for='exampleSelect1' ) Year
 								select#year.date(name="year" type="Year") 
 									- for (var y = 2100; y >= 1900; y--)
 											if (y == year)
@@ -73,31 +70,27 @@ block container
 							input#secret-lat-input.form-control.password.secret-input(name="lat" value=lat)
 							input#secret-lng-input.form-control.password.secret-input(name="lng" value=lng)
 						.form-group
-							label(for='location') Location
-							input#location.form-control(name="location" type='location', placeholder='eg. 18 North Bailey, Durham, UK', value=location)
-							br
-							label(for='use-current-location') Use current location
+							label(for='Food Name') Location
+							input#location.form-control(name="location" type='location', placeholder='Durham, UK', value=location)
+							label(for='Food Name') Use current location
 							input.form-control(id='use-current-location', type='checkbox' name='useCurrentLocation')
 
 						
 				.col-lg-4
 					#container
 						.form-group#pictureupload
-							h3 Add an Image
 							#upload_img_container
 								img(src=image)#profilephoto
 								input(id="input_images" name='images' type="file" multiple="true")
 							#barcode_img_container
-								h3 Scan your barcode here
-								#barcodeContainer
 								img#barcode
 								input(id="barcode_image" name='barcode' type='file' multiple="false")
-								
-								
 						//- request button
-						br
 						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
-					
+			.row
+				.form-group.barcode-scanner-container
+					h3 Scan your barcode here!
+					#barcodeContainer
 									
 						
 	script
@@ -122,12 +115,7 @@ block container
 					locate: true,
 					src: reader.result
 				},function(result){
-					if (result && result.codeResult) {
-						console.log(result.codeResult.code);
-					}
-					else {
-						console.log('no barcode detected');
-					}
+					console.log(result.codeResult.code)
 				})
 			}, false);
 			reader.readAsDataURL(barcode)
