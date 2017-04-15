@@ -113,7 +113,7 @@ block container
 			var preview = document.getElementById("barcode")
 			reader = new FileReader()
 			reader.addEventListener("load", function () {
-				console.log("barcode URL: " + reader.result)
+				//console.log("barcode URL: " + reader.result)
 				preview.src = reader.result
 				Quagga.decodeSingle({
 					decoder: { // or code_39, codabar, ean_13, ean_8, upc_a, upc_e
@@ -124,6 +124,9 @@ block container
 				},function(result){
 					if (result && result.codeResult) {
 						console.log(result.codeResult.code);
+						$.get("http://eandata.com/feed/",{v:3,keycode:"C3AA45D258F231CD", mode:"json",find:result.codeResult.code},function(data){
+							$("input#name").val(data.product.attributes.product)
+						})
 					}
 					else {
 						console.log('no barcode detected');
