@@ -84,9 +84,7 @@ function cardEntry(item) {
 	if (item.Rating != null || isYours == "Others") {
 		//console.log(item.Rating)
 		var classes = "rating"
-		if (isYours == "Others" && item.Rating != null) {
-			classes += " rated"
-		}else if(isYours == "Others"){
+		if(isYours == "Others"){
 			console.log(item.MealID)
 			card += "<form id=mealID" + item.MealID + ">"
 		}
@@ -101,9 +99,12 @@ function cardEntry(item) {
 			}
 		}
 		card += '</select>'
-		if (isYours == "Others" && item.Rating == null) {
-			//console.log(user_data)
-			card += "<button class='rating-button' type='button''>Rate!</button></form>"
+		if(isYours == "Others"){
+			if(item.Rating ==null){
+				card += "<button class='rating-button' type='button''>Rate!</button></form>"
+			}else{
+				card += "<button class='rating-button' type='button''>Change rating!</button></form>"
+			}
 		}
 	}
 	card += "</div></div></div></div>";
@@ -147,10 +148,6 @@ function stringsComparison(a, b) {
 }
 
 function initRating() {
-	$(".rated").barrating({
-		theme: 'css-stars',
-		readonly: true
-	})
 	$(".rating").barrating({
 		theme: 'css-stars',
 		readonly: (isYours != "Others")
@@ -160,7 +157,6 @@ function initRating() {
 		var mealID = parseInt($(this.form).attr("id").substring(6))
 		var rating = parseInt($(this.form).find(":selected").val())
 		$(this.form).find("select").barrating("readonly",true)
-		var button = this
 		console.log("ID: " + mealID)
 		console.log("Value: " + rating)
 		$.post("/manage", { mealID: mealID, rating: rating }, function (response) {
@@ -171,7 +167,6 @@ function initRating() {
 						data[i].Rating = rating
 					}
 				}
-				$(button).remove()
 			} else {
 				console.log("Something went wrong...")
 			}

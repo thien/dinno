@@ -148,7 +148,7 @@ module.exports = function () {
 			login.checkLogin(req, res).then(function (result) {
 				param.loggedin = true;
 				userID = result.UserID;
-				db.query('UPDATE Meal SET Rating = ? WHERE MealID = ? AND Rating IS NULL', [req.body.rating,req.body.mealID], function (err, results, fields) {
+				db.query('UPDATE Meal SET Rating = ? WHERE MealID = ?', [req.body.rating,req.body.mealID], function (err, results, fields) {
 					if (err) {
 						res.status(200).send({ success: false , error_message:err})
 					} else {
