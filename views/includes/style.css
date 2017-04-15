@@ -171,6 +171,7 @@ html, body, .container-fluid, .row { height: 100% }
 		margin-right: -10px;
 	}
 }
+
 .head-nav-container {
 	margin: auto;
 	width: 100%;
@@ -235,6 +236,16 @@ h1.frontpage-logo-banner {
 }
 #navsearchbar:-moz-placeholder, #navsearchbarlocation:-moz-placeholder { /* Firefox 18- */
   color: #eee;
+}
+
+.navbar-nav {
+    position:  relative;
+    top: -5px;
+
+}
+
+.nav-link {
+	margin-top: 8px;
 }
 
 .navbar-collapse{
