@@ -260,6 +260,7 @@ INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`
 (2, 7, 4, 'Other', 'He looked at me funny', 1),
 (3, 8, 7, 'Harassment', 'Called me a doo doo head', 0);
 
+
 --
 -- Constraints for dumped tables
 --

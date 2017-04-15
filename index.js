@@ -9,11 +9,14 @@ const database = require('mysql');
 // initiate express and database
 const app = express();
 const server = require('http').Server(app);
+const notifications_server = require('http').Server(app);
 
-//set up socket
+//set up sockets
 const io = require('socket.io')(server);
+const notifications_io = require('socket.io')(server);
 // load socket files from functions directory
 require('./functions/socket')(io, server);
+require('./functions/notifications_socket')(notifications_io, notifications_server);
 
 // deal with port
 const port = process.env.PORT || 8080;
@@ -73,7 +76,10 @@ app.use('/', require('./routes/fooditem'));
 app.use('/', require('./routes/add'));  
 
 // manage fooditems
-app.use('/', require('./routes/manage'));  
+app.use('/', require('./routes/manage'));
+
+// push notifications
+app.use('/', require('./routes/push_notifications'));
 
 // add static assets for public access
 app.use('/assets', express.static('./views/assets'))
