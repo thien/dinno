@@ -1,29 +1,35 @@
 doctype html
 html(lang="en")
-	head
-		title Dinno
-		include includes/head
-	body(style='background-image: url("' + background + '"); background-size: cover;')
-		include includes/alt-nav
-		#frontpage-container.jumbotron
-			h1.frontpage-logo-banner dinno.club
-			p
-				| Look for free food from our lovely humans.
-			p
-				include assets/big_search
-				//- a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »	
+  head
+    title Dinno
+    include includes/head
+  body(style='background-image: url("' + background + '"); background-size: cover;')
+    include includes/alt-nav
+    #frontpage-container.jumbotron
+      h1.frontpage-logo-banner dinno.club
+      p
+        | Look for free food from our lovely humans.
+      p
+        include assets/big_search
+        //- a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »  
 
-			p.center
-				//- if !loggedin
-				//- 	a(href="/register") Register
-				//- 	|	or Sign In with 
-				//- 	a(href="/facebook") Facebook
-				//- 	|	(or 
-				//- 	a(href="/login"  data-toggle='modal', data-target='#myModal') Email
-				//- 	| )
-
-		include includes/foot
-		include includes/login
-		script
-			include assets/js-cookie.js
-			include assets/frontpage.js
+      p.center
+        //- if !loggedin
+        //-   a(href="/register") Register
+        //-   | or Sign In with 
+        //-   a(href="/facebook") Facebook
+        //-   | (or 
+        //-   a(href="/login"  data-toggle='modal', data-target='#myModal') Email
+        //-   | )
+    #frontpage_showcase
+     .card-columns#frontpage-card-cols
+      each val in backgrounds
+        .card
+          img.card-img-top.frontpage-img-card(src=val)
+    .frontpage_showcase_overlay
+      
+    //- include includes/foot
+    include includes/login
+    script
+      include assets/js-cookie.js
+      include assets/frontpage.js
