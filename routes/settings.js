@@ -106,10 +106,16 @@ module.exports = function() {
 				
 				param.user_data.textSize = settingsData.textSize;
 				param.user_data.colourScheme = settingsData.colourScheme;
+				param.alerts = {
+					warning: [],
+					info : [],
+					error : [],
+					success : ["Your settings have been successfully updated."]
+				}
 				
 				console.log(param)
 				
-				res.render('settings_updated', param);
+				res.render('settings', param);
 
 
 			}, function(err) {

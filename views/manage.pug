@@ -2,6 +2,7 @@ extends layout
 
 block container
   include includes/nav
+  include includes/status
   script.
     var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')}
     var user_data = !{JSON.stringify(user_data).replace(/<\//g, '<\\/')}
