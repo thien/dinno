@@ -19,9 +19,8 @@ nav.navbar-alt.navbar-light.navbar-toggleable-md
 				li.nav-item
 					a.nav-link(href='/chat') Messages
 				if user_data.isAdmin
-					li.nav-item.dropdown.nav-profile-dropdown
-						a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-text")  
-							label.nav-link(for='First Name') Admin 
+					li.nav-item.dropdown
+						a.dropdown-toggle.nav-link(data-toggle='dropdown' id="dropdown-text") Admin
 						.dropdown-menu.dropdown-menu-right
 							a.dropdown-item(href='/reviewreports') Review Reports
 							|  

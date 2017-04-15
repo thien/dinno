@@ -224,6 +224,9 @@
 	.nav-profile::after{
 		display:none !important;
 	}
+	.dropdown-toggle::after {
+		display:none !important;
+	}
 
 	.nav-profile-dropdown .dropdown-header{
 		font-size: 1em;
