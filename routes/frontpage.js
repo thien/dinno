@@ -1,7 +1,25 @@
 var express = require('express');
-	var app = express();
-	var login = require('../functions/login');
-	var Cookies = require("cookies");
+var app = express();
+var login = require('../functions/login');
+var db = require('../functions/database');
+var Cookies = require("cookies");
+
+function getBackgroundImage() {
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Image FROM Meal
+							ORDER BY RAND()
+							LIMIT 1`,
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject(error);
+				} else {
+					resolve(results[0].Image);
+				}
+			});
+	});
+}
+
 module.exports = function() {
 	app.locals.basedir = "." + '/views';
 
@@ -10,25 +28,34 @@ module.exports = function() {
 			loggedin: false,
 		};
 
-		login.checkLogin(req, res).then(function(result) {
-			param.loggedin = true;
-			var cookies = new Cookies(req, res);
-			userId = cookies.get('id');
+		getBackgroundImage().then(function(background) {
+			param.background = background;
 
-			// var profileInfo = getProfileInfo(userId);
+			login.checkLogin(req, res).then(function(result) {
+		
+				param.loggedin = true;
+				var cookies = new Cookies(req, res);
+				userId = cookies.get('id');
 
-			param.user_data = {
-				userID: userId,
-				firstname: result.Firstname,
-				surname: result.Surname,
-				mugshot: result.ProfileImage,
-				textSize: result.TextSize,
-				colourScheme: result.ColourScheme,
-				isAdmin: result.IsAdmin
-			};
+				// var profileInfo = getProfileInfo(userId);
+
+				param.user_data = {
+					userID: userId,
+					firstname: result.Firstname,
+					surname: result.Surname,
+					mugshot: result.ProfileImage,
+					textSize: result.TextSize,
+					colourScheme: result.ColourScheme,
+					isAdmin: result.IsAdmin
+				};
+				
 
 
-			res.render('frontpage', param);
+				res.render('frontpage', param);
+
+			}, function(err) {
+				res.render('frontpage',param);
+			});
 		}, function(err) {
 			res.render('frontpage',param);
 		});
