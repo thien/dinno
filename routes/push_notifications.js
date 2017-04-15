@@ -7,9 +7,6 @@ var login = require('../functions/login');
 const db = require('../functions/database');
 app.locals.basedir = "." + '/views';
 
-// load socket file from functions folder
-require('./functions/socket')(io, server);
-
 module.exports = function() {
 	app.get('/test_notifications', function(req, res) {
 
