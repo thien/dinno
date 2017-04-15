@@ -7,7 +7,7 @@ app.locals.basedir = "." + '/views';
 
 function getFoodInfo(mealId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.Name, Meal.Description, Meal.Image, Meal.IsAvailable, Location.HouseNoName, Location.Street, Location.Latitude, Location.Longitude, User.Firstname, User.Surname, User.ProfileImage, User.Rating, User.UserID
+		db.query(`SELECT Meal.Name, Meal.Description, Meal.Image, Meal.IsAvailable, Location.HouseNoName, Location.Street, Location.Town, Location.Latitude, Location.Longitude, User.Firstname, User.Surname, User.ProfileImage, User.Rating, User.UserID
 				FROM Meal
 				JOIN User 
 				ON User.UserID = Meal.UserID
@@ -31,7 +31,7 @@ function getFoodInfo(mealId) {
 function claimMeal(mealId, userID) {
 	return new Promise(function(resolve, reject) {
 		db.query(`UPDATE Meal 	
-							SET RecipientID = ?
+							SET RecipientID = ?, IsAvailable = 0
 							WHERE MealID = ?`, 	
 						[userID, mealId],
 			function(error, results, fields) {
@@ -77,7 +77,7 @@ module.exports = function() {
 					if (data.IsAvailable == 0){
 						
 						param.error_message = {
-							msg: "You cannot access this fooditem as the user possessing it is currently suspended from dinno."
+							msg: "You cannot access this fooditem as it is currently unavailable. It may have been claimed by another user."
 						};
 						res.render('error', param);
 						

@@ -19,10 +19,9 @@ nav.navbar-alt.navbar-light.navbar-toggleable-md
 				li.nav-item
 					a.nav-link(href='/chat') Messages
 				if user_data.isAdmin
-					li.nav-item.dropdown.nav-profile-dropdown
-						a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-text")  
-							label.nav-link(for='First Name') Admin 
-						.dropdown-menu.dropdown-menu-right
+					li.nav-item.dropdown
+						a#navbarAdmin.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Admin
+						.dropdown-menu(aria-labelledby='navbarAdmin')
 							a.dropdown-item(href='/reviewreports') Review Reports
 							|  
 							a.dropdown-item(href='/manageusers') Ban/Unban Users
@@ -47,16 +46,6 @@ nav.navbar-alt.navbar-light.navbar-toggleable-md
 					a.nav-link(href='/register') Register
 				li.nav-item
 					a.nav-link(href='/#' data-toggle='modal', data-target='#myModal') Login
-
-
-			//- li.nav-item.dropdown
-			//- 	img(src=user_data.mugshot).navbar-mugshot
-			//- 	.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-			//- 		a.dropdown-item(href='#') Action
-			//- 		|  
-			//- 		a.dropdown-item(href='#') Another action
-			//- 		|  
-			//- 		a.dropdown-item(href='#') Something else here
 
 		//- form.form-inline.my-2.my-lg-0
 		//- 	input.form-control.mr-sm-2(type='text', placeholder='Search')

@@ -13,14 +13,12 @@ script
 					button.close(type='button', data-dismiss='modal', aria-label='Close')
 						span(aria-hidden='true') ×
 				.modal-body
-					.form-group.row
-						label.col-2.col-form-label(for='example-email-input') Email
-						.col-10
-							input#example-email-input.form-control(type='email', name="user", placeholder='bootstrap@example.com')
-					.form-group.row
-						label.col-2.col-form-label(for='example-password-input') Password
-						.col-10
-							input#example-password-input.form-control(type='password', name='pass', placeholder='hunter2')
+					.form-group
+						label(for='exampleInputEmail1') Email address
+						input#example-email-input.form-control(type='email', name="user", placeholder='bootstrap@example.com')
+					.form-group
+						label(for='exampleInputEmail1') Password
+						input#example-password-input.form-control(type='password', name='pass', placeholder='Your password')
 					.form-group-row
 						label.custom-control.custom-checkbox.mb-2.mr-sm-2.mb-sm-0
 							input.custom-control-input(type='checkbox' name='remember')
