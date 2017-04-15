@@ -7,25 +7,25 @@ script
 #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
 	.modal-dialog(role='document')
 		.modal-content
-			.modal-header
-				h5#exampleModalLabel.modal-title Log into dinno.club
-				button.close(type='button', data-dismiss='modal', aria-label='Close')
-					span(aria-hidden='true') ×
-			.modal-body
-				form(method="post" id="form1" action="/login")
+			form(method="post" id="form1" action="/login")
+				.modal-header
+					h5#exampleModalLabel.modal-title Log into dinno.club
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') ×
+				.modal-body
 					.form-group
-						label(for='exampleInputEmail1') Email address
-						input#example-email-input.form-control(type='email', name="user", placeholder='bootstrap@example.com')
-					.form-group
-						label(for='exampleInputEmail1') Password
-						input#example-password-input.form-control(type='password', name='pass', placeholder='hunter2')
+ +						label(for='exampleInputEmail1') Email address
+ +						input#example-email-input.form-control(type='email', name="user", placeholder='bootstrap@example.com')
+ +					.form-group
+ +						label(for='exampleInputEmail1') Password
+ +						input#example-password-input.form-control(type='password', name='pass', placeholder='Your password')
 					.form-group-row
 						label.custom-control.custom-checkbox.mb-2.mr-sm-2.mb-sm-0
 							input.custom-control-input(type='checkbox' name='remember')
 							span.custom-control-indicator
 							span.custom-control-description Remember me
 					input(type='submit' value="Submit" style='display:none;')
-			.modal-footer
-				a(href="/register")
-					button.btn.btn-secondary(type='button' href='/register') Register
-				button.btn.btn-primary( type="submit" form="form1" value="Submit") Log in
+				.modal-footer
+					a(href="/register")
+						button.btn.btn-secondary(type='button' href='/register') Register
+					button.btn.btn-primary( type="submit" form="form1" value="Submit") Log in
