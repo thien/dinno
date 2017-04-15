@@ -69,31 +69,31 @@ CREATE TABLE IF NOT EXISTS `Meal` (
 -- Test data for table `Meal`
 --
 
-INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `RecipientID`, `Name`, `BestBefore`, `Description`, `Image`, `IsIngredient`,`Rating`) VALUES
-(1, 2, 6, 8, 'Birds', '2017-01-12', 'They keep me up at night. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,NULL),
-(2, 1, 8, 2, 'Apples', '2017-02-08', 'Fresh from my back garden', 'http://i.imgur.com/FgSGTwD.png',1,1),
-(3, 2, 6, 9,'Bread', '2017-03-02', 'Baked it yesterday', 'http://i.imgur.com/0b4FxjX.png',1,2),
-(4, 1, 9, 6,'Chicken Wings', '2017-03-03', 'Too spicy for my little baby mouth', 'http://i.imgur.com/BZO1dmk.png',0,4),
-(5, 1, 6, NULL,'Lime', '2017-03-03', 'Put in coconut and shake it all up', 'http://i.imgur.com/qGwqKyk.png',1,NULL),
-(6, 2, 7, NULL,'Burger', '2017-02-12', 'Get it quick or I might just eat it', 'http://i.imgur.com/TN27JVi.png',0,NULL),
-(7, 2, 8, NULL,'Pizza', '2017-01-26', 'P-I-Z-Z-A', 'http://i.imgur.com/W50LFXw.png',0,NULL),
-(8, 1, 4, 5,'Raspberries', '2017-01-28', 'Stole them from a farmer when he wasn\'t looking', 'http://i.imgur.com/KtUoI1n.png',1,2),
-(9, 2, 4, NULL,'Burrito', '2017-01-29', 'La he lamido', 'http://i.imgur.com/wx1aQh8.png',0,NULL),
-(10, 1, 9, 4,'Pineapple', '2017-02-02', 'Took the photo in a field because I\'m artistic', 'http://i.imgur.com/GseR7AL.jpg',0,5),
-(11, 1, 6, NULL,'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'http://i.imgur.com/9uVJuWZ.jpg',0,NULL),
-(12, 2, 4, 8, 'Apples', '2017-02-08', 'Found from John\'s back garden', 'http://i.imgur.com/FgSGTwD.png',1,4),
-(13, 2, 6, 8, 'Apples', '2017-02-08', 'Found from Thien\'s back garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL),
-(14, 2, 7, 8, 'Apples', '2017-02-08', 'Found from Josh\'s back garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL),
-(15, 2, 4, 8, 'Apples', '2017-02-08', 'Found from John\'s front garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL),
-(16, 2, 6, 8, 'Apples', '2017-02-08', 'Found from Thien\'s front garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL),
-(17, 2, 7, 8, 'Apples', '2017-02-08', 'Found from Josh\'s dudes front garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL),
-(18, 2, 9, 8, 'Apples', '2017-02-08', 'Found from Rob\'s back garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL),
-(19, 2, 9, 8, 'Apples', '2017-02-08', 'Found from Robs\'s front garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL),
-(20, 2, 8, 4, 'Birds', '2017-01-12', 'They keep me up at night 1. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,1),
-(21, 2, 8, 6, 'Birds', '2017-01-12', 'They keep me up at night 2. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,2),
-(22, 2, 8, 7, 'Birds', '2017-01-12', 'They keep me up at night 3. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,3),
-(23, 2, 8, 9, 'Birds', '2017-01-12', 'They keep me up at night 4. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,4),
-(24, 2, 8, 8, 'Birds', '2017-01-12', 'They keep me up at night 5. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,5);
+INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `RecipientID`, `Name`, `BestBefore`, `Description`, `Image`, `IsIngredient`,`Rating`,`IsAvailable`) VALUES
+(1, 2, 6, 8, 'Birds', '2017-01-12', 'They keep me up at night. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,NULL,1),
+(2, 1, 8, 2, 'Apples', '2017-02-08', 'Fresh from my back garden', 'http://i.imgur.com/FgSGTwD.png',1,1,1),
+(3, 2, 6, 9,'Bread', '2017-03-02', 'Baked it yesterday', 'http://i.imgur.com/0b4FxjX.png',1,2,1),
+(4, 1, 9, 6,'Chicken Wings', '2017-03-03', 'Too spicy for my little baby mouth', 'http://i.imgur.com/BZO1dmk.png',0,4,1),
+(5, 1, 6, NULL,'Lime', '2017-03-03', 'Put in coconut and shake it all up', 'http://i.imgur.com/qGwqKyk.png',1,NULL,1),
+(6, 2, 7, NULL,'Burger', '2017-02-12', 'Get it quick or I might just eat it', 'http://i.imgur.com/TN27JVi.png',0,NULL,1),
+(7, 2, 8, NULL,'Pizza', '2017-01-26', 'P-I-Z-Z-A', 'http://i.imgur.com/W50LFXw.png',0,NULL,1),
+(8, 1, 4, 5,'Raspberries', '2017-01-28', 'Stole them from a farmer when he wasn\'t looking', 'http://i.imgur.com/KtUoI1n.png',1,2,1),
+(9, 2, 4, NULL,'Burrito', '2017-01-29', 'La he lamido', 'http://i.imgur.com/wx1aQh8.png',0,NULL,1),
+(10, 1, 9, 4,'Pineapple', '2017-02-02', 'Took the photo in a field because I\'m artistic', 'http://i.imgur.com/GseR7AL.jpg',0,5,1),
+(11, 1, 6, NULL,'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'http://i.imgur.com/9uVJuWZ.jpg',0,NULL,1),
+(12, 2, 4, 8, 'Apples', '2017-02-08', 'Found from John\'s back garden', 'http://i.imgur.com/FgSGTwD.png',1,4,1),
+(13, 2, 6, 8, 'Apples', '2017-02-08', 'Found from Thien\'s back garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL,1),
+(14, 2, 7, 8, 'Apples', '2017-02-08', 'Found from Josh\'s back garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL,1),
+(15, 2, 4, 8, 'Apples', '2017-02-08', 'Found from John\'s front garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL,1),
+(16, 2, 6, 8, 'Apples', '2017-02-08', 'Found from Thien\'s front garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL,1),
+(17, 2, 7, 8, 'Apples', '2017-02-08', 'Found from Josh\'s dudes front garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL,1),
+(18, 2, 9, 8, 'Apples', '2017-02-08', 'Found from Rob\'s back garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL,1),
+(19, 2, 9, 8, 'Apples', '2017-02-08', 'Found from Robs\'s front garden', 'http://i.imgur.com/FgSGTwD.png',1,NULL,1),
+(20, 2, 8, 4, 'Birds', '2017-01-12', 'They keep me up at night 1. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,1,1),
+(21, 2, 8, 6, 'Birds', '2017-01-12', 'They keep me up at night 2. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,2,1),
+(22, 2, 8, 7, 'Birds', '2017-01-12', 'They keep me up at night 3. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,3,1),
+(23, 2, 8, 9, 'Birds', '2017-01-12', 'They keep me up at night 4. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,4,1),
+(24, 2, 8, 8, 'Birds', '2017-01-12', 'They keep me up at night 5. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,5,1);
 
 -- --------------------------------------------------------
 

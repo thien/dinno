@@ -3,6 +3,6 @@ function storeCoordinatesinCookies(latitude,longitude){
 	Cookies.set('lng',longitude);
 }
 function setHTMLCoordResults(latitude, longitude){
-	document.getElementById("lat").value = latitude;
-	document.getElementById("lng").value = longitude;
+	// document.getElementById("lat").value = latitude;
+	// document.getElementById("lng").value = longitude;
 }

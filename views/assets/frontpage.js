@@ -7,13 +7,12 @@ $.getJSON("data/random_food_list.json", function(food_list) {
 });
 
 $(window).on('keydown', function(event) {
-    if(document.activeElement.id === 'phatsearchfood'{
+    if(document.activeElement.id === 'phatsearchfood' || document.activeElement.id === 'phatsearchlocation' ){
         if(event.which == 13) {
             document.getElementById('bigsearchform').submit();
             return false;
         }
     }
-    console.log(document.activeElement.id === 'phatsearchfood');
 });
 
 
