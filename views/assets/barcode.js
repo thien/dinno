@@ -18,7 +18,7 @@ function run() {
             constraints: {
                 width: $('#upload_img_container').width(),
                 height: $('#upload_img_container').height(),
-                facing: "environment", // or user
+                facingMode: "environment", // or user
             },
             debug: true,
         },
