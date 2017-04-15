@@ -1,10 +1,12 @@
-var socket = notifications_io();
+var notifications_socket = notifications_io();
 
 function sendNotification(content){
 	console.log(content);
-	socket.emit('notification', content);
+	//socket.emit('notification', content);
 }
 
-$('#send').click(function(){
-	console.log("hi");
-});	//sendNotification(document.getElementById('content').val()
+$('document').ready(function(){
+	$('#send').click(function(){
+		sendNotification(document.getElementById('content').value);
+	});
+});

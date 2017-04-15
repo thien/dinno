@@ -14,9 +14,9 @@ block container
 						.form-group
 							label(for='Content') Content
 
-							input#name.form-control.content(name="content" type='content', placeholder='Notification Content' value=content)
+							input#content.form-control.content(name="content" type='content', placeholder='Notification Content' value=content)
 
-						button.btn.btn-primary.btn-lg.btn-block#send( type='submit' value="send") Send Notification
+						button.btn.btn-primary.btn-lg.btn-block#send( type='button' value="send") Send Notification
 
 	script
 		include assets/push_notifications.js
