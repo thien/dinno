@@ -56,8 +56,22 @@ block container
               label.col-sm-3.col-form-label Tags
               .col-sm-9
                 input#tag.form-control.tag-textbox-container(input='text',data-role='tagsinput',name='tags')
+            //- .form-group.row
+            //-   .col-sm-12
+                
+
+
           .modal-footer
-            button.btn.btn-primary Filter
+            .row
+              .col-sm-12
+                small
+                  i
+                    | Clicking 
+                    b Update Search
+                    |  will reload the page.
+            .row
+              .col-sm-12
+                button.btn.btn-primary Update Search
             //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
             //- |  
             //- button.btn.btn-primary(type='button') Save changes
@@ -70,15 +84,21 @@ block container
           button.close(type='button', data-dismiss='modal', aria-label='Close')
             span(aria-hidden='true') &times;
         .modal-body  
-          form#filtering.form-inline
-          label(for='example-date-input') Best Before
-          input.form-control#bestBefore.filter(type='date', value='2017-02-19')
-          label(for='example-date-input') Sort By
-          select(name="orderBy")#orderBy.filter
-            option(value='A-Z') A-Z 
-            option(value='nearest') Nearest
-            option(value='freshest') Freshest
-
+          form#filtering
+            .form-group.row
+              label.col-sm-3.col-form-label Best Before
+              .col-sm-9
+                input.form-control#bestBefore.filter(type='date', value='2017-02-19')
+            .form-group.row
+              label.col-sm-3.col-form-label Sort By
+              .col-sm-9
+                select(name="orderBy")#orderBy.filter.form-control
+                  option(value='A-Z') Alphabetical Order (A-Z)
+                  option(value='nearest') Nearest Items First
+                  option(value='freshest') Freshest Items First
+        .modal-footer
+          small
+            i Filtering will be live, so the page won't reload.
   //- search results
   .container-fluid#display_item_results
     #mobile_details_handler
