@@ -61,7 +61,10 @@ app.use('/', require('./routes/register'));
 app.use('/', require('./routes/profile'));
 
 // report user
-app.use('/', require('./routes/report'));  
+app.use('/', require('./routes/report')); 
+
+// settings
+app.use('/', require('./routes/settings'));  
 
 // food item profile
 app.use('/', require('./routes/fooditem'));  
@@ -70,7 +73,10 @@ app.use('/', require('./routes/fooditem'));
 app.use('/', require('./routes/add'));  
 
 // manage fooditems
-app.use('/', require('./routes/manage'));  
+app.use('/', require('./routes/manage')); 
+
+// admin
+app.use('/', require('./routes/admin'));  
 
 // add static assets for public access
 app.use('/assets', express.static('./views/assets'))

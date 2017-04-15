@@ -1,0 +1,28 @@
+extends layout
+
+block container
+  include includes/nav
+  script.
+    var reportList = !{JSON.stringify(reportList).replace(/<\//g, '<\\/')}
+	
+  .container-padder
+    .col-sm-12.container-vp
+      .user-fooditem-cardlist 
+        h1.manage-header Admin - Manage/Review Reports
+        p.text-muted View all reports in the system as well as verify or reject any unverified reports.
+
+  .row.container-padder(style='padding-right: 0px;margin-right: 0px;')
+
+    .col-lg-12.container-vp
+      .user-fooditem-cardlist#fooditemlist
+        .card
+          .card-header
+            span.manage-label Showing:
+            select.manage-select#showingVerified(name="showingVerified")
+              option(value="Unverified") Unverified Reports
+              option(value="Verified") Verified Reports
+              option(value="Rejected") Rejected Reports
+          .card-block#itemdata
+
+  script
+    include assets/reviewreports.js
