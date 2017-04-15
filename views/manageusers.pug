@@ -1,0 +1,27 @@
+extends layout
+
+block container
+  include includes/nav
+  script.
+    var userList = !{JSON.stringify(userList).replace(/<\//g, '<\\/')}
+	
+  .container-padder
+    .col-sm-12.container-vp
+      .user-fooditem-cardlist 
+        h1.manage-header Admin - Manage Users
+        p.text-muted View all users in the system and suspend/unsuspend selected users.
+
+  .row.container-padder(style='padding-right: 0px;margin-right: 0px;')
+
+    .col-lg-12.container-vp
+      .user-fooditem-cardlist#fooditemlist
+        .card
+          .card-header
+            span.manage-label Showing:
+            select.manage-select#showingSuspended(name="showingSuspended")
+              option(value="notsuspended") Non-Suspended Users
+              option(value="suspended") Suspended Users
+          .card-block#itemdata
+
+  script
+    include assets/manageusers.js
