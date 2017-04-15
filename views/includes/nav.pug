@@ -7,23 +7,23 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 	#navbarTogglerDemo02.collapse.navbar-collapse
 
 		#head-nav.form-inline.mr-auto.mt-2.mt-md-0
-			if loggedin
-				form(method="get" action="/search").form-inline.head-nav-container
-					input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=food)
-					input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
-					input(type='hidden', name='lat')
-					input(type='hidden', name='lng')
-					#in-the-searchbar-right
-						i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Find your location")
+	
+			form(method="get" action="/search").form-inline.head-nav-container
+				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=food)
+				input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
+				input(type='hidden', name='lat')
+				input(type='hidden', name='lng')
+				#in-the-searchbar-right
+					i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Find your location")
 
-					button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
-						i.fa.fa-search(aria-hidden='true')
+				button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
+					i.fa.fa-search(aria-hidden='true')
 
 			//- else
 			//- 	.mr-auto.mt-2.mt-md-0
 
 
-		ul.navbar-nav.my-2.my-lg-0 
+		ul.navbar-nav
 			//- li.nav-item
 			//- 	h5 #{loggedin}
 		

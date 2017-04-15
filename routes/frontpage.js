@@ -8,13 +8,19 @@ function getBackgroundImage() {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT Image FROM Meal
 							ORDER BY RAND()
-							LIMIT 1`,
+							LIMIT 20`,
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
 					reject(error);
 				} else {
-					resolve(results[0].Image);
+					var k = []
+					for (var i in results){
+						// console.log(i);
+						// console.log(results[i].image)
+						k.push(results[i].Image);
+					}
+					resolve(k);
 				}
 			});
 	});
@@ -28,8 +34,9 @@ module.exports = function() {
 			loggedin: false,
 		};
 
-		getBackgroundImage().then(function(background) {
-			param.background = background;
+		getBackgroundImage().then(function(backgrounds) {
+			// param.background = background;
+			param.backgrounds = backgrounds;
 
 			login.checkLogin(req, res).then(function(result) {
 		

@@ -1,4 +1,4 @@
-var k = "#{results.tags}".split(",")
+
     //console.log(k)
     //- $("form#filters").submit(function(e){
     //-   var form = this;
@@ -44,8 +44,10 @@ $("input#rangeVal").change(function() {
 var tags = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: "#{results.tags}".split(",")
+    local: k
 });
+
+// deals with tags
 tags.initialize();
 $('input#tag').tagsinput({
     tagClass: 'badge-danger',
@@ -63,3 +65,29 @@ $('input').on('beforeItemAdd', function(event) {
         // event.item: contains the item
         // event.cancel: set to true to prevent the item getting added
 });
+
+// range slider
+
+
+var rangeSlider = function(){
+  var slider = $('.range-slider'),
+      range = $('.range-slider__range'),
+      value = $('.range-slider__value');
+
+  // value.html(range.value + "km");
+    
+  slider.each(function(){
+
+    value.each(function(){
+      var value = $(this).prev().attr('value');
+      $(this).html(value);
+    });
+
+    range.on('input', function(){
+      $(this).next(value).html(this.value + "km");
+    });
+  });
+};
+
+rangeSlider();
+document.getElementsByClassName('range-slider__value')[0].innerHTML =  document.getElementsByClassName('range-slider__range')[0].value + "km";
