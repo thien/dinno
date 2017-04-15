@@ -150,6 +150,23 @@ function getMealInfo(mealId) {
 	});
 }
 
+function getUsersSearchingForFood(foodname){
+	console.log(foodname);
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Recents.UserID 
+				  FROM Recents
+				  WHERE Recents.One LIKE ?`, ['%'+foodname+'%'],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject(error);
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
+
 module.exports = function() {
 	var express = require('express');
 	var app = express();
@@ -259,6 +276,8 @@ module.exports = function() {
 				textSize: result.TextSize
 			};
 
+
+
 			var mealData = req.body;
 			
 			// console.log(validateName(mealData.name)); console.log(validateType(mealData.foodtype));  console.log(validateDescription(mealData.description));  console.log(validateBestBefore(mealData.day, mealData.month, mealData.year));  console.log(validateLocation(mealData.lat, mealData.lng));  console.log(validateImage(mealData.image));  console.log(validateBarcode(mealData.barcode));
@@ -268,18 +287,28 @@ module.exports = function() {
 				if (mealData.useCurrentLocation) {
 					var cookies = new Cookies(req, res);
 				  	mealData.lat = cookies.get('lat');
-						mealData.lng = cookies.get('lng');
+					mealData.lng = cookies.get('lng');
 				}
 
 				addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
 
-						param.new_item = {
-							name: mealData.name,
-							image: mealData.image,
-							id: result.insertId
-						}
-						res.render('added_fooditem', param);
+					param.new_item = {
+						name: mealData.name,
+						image: mealData.image,
+						id: result.insertId
+					}
+				
+					var hungryUsers = getUsersSearchingForFood(mealData.name);
 
+					Promise.all(hungryUsers).then(function(results){
+						console.log(results);
+						res.render('added_fooditem', param);
+					},function(err) {
+						param.error_message = {
+							msg: err
+						};
+						res.render('error', param);
+					});
 
 				}, function(err) {
 						param.error_message = {

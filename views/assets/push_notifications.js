@@ -1,4 +1,6 @@
 var notifications_socket = io();
+var db = require('../functions/database');
+var login = require('../functions/login');
 
 function sendNotification(content){
 	/*console.log(content);
@@ -11,7 +13,7 @@ function sendNotification(content){
 	var notification = new Notification("Dinno",options);
 }
 
-function notifyMe(){
+function notify(){
 	if (!("Notification" in window)) {
 		alert("This browser does not support desktop notification");
 	}
@@ -42,9 +44,25 @@ function notifyMe(){
 	}
 }
 
+function getRecents(userID){
+	return new Promise(function(resolve, reject) {
+		db.query(`SELECT Recents.One, Recents.Two, Recents.Three, Recents.Four, Recents.Five, Recents.Six, Recents.Seven, Recents.Eight, Recents.Nine, Recents.Ten
+				  FROM Recents
+				  WHERE Recents.UserID = ?`, [userId],
+			function(error, results, fields) {
+				if (error) {
+					console.log(error);
+					reject();
+				} else {
+					resolve(results);
+				}
+			});
+	});
+}
+
 $('document').ready(function(){
 	$('#send').click(function(){
-		notifyMe();
+		notify();
 		sendNotification(document.getElementById('content').value);
 	});
 });

@@ -238,7 +238,7 @@ INSERT INTO `TagMeal` (`TagMealID`,`MealID`,`TagID`) VALUES
 --
 
 CREATE TABLE `Report` (
-  `ReportID` int(11) NOT NULL AUTO_INCREMENT,
+  `ReportID` int(11) NOT NULL,
   `SenderID` int(11) NOT NULL,
   `RecipientID` int(11) NOT NULL,
   `Reason` varchar(40) NOT NULL,
@@ -262,6 +262,32 @@ INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`
 
 
 --
+-- Table structure for `Recents`
+--
+
+CREATE TABLE `Recents` (
+  `UserID` int(11) NOT NULL,
+  `One` varchar(32) NOT NULL,
+  `Two` varchar(32) NOT NULL,
+  `Three` varchar(32) NOT NULL,
+  `Four` varchar(32) NOT NULL,
+  `Five` varchar(32) NOT NULL,
+  `Six` varchar(32) NOT NULL,
+  `Seven` varchar(32) NOT NULL,
+  `Eight` varchar(32) NOT NULL,
+  `Nine` varchar(32) NOT NULL,
+  `Ten` varchar(32) NOT NULL,
+  PRIMARY KEY (`UserID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Test data for table `Recents`
+--
+
+INSERT INTO `Recents` (`UserID`, `One`, `Two`, `Three`, `Four`, `Five`, `Six`, `Seven`, `Eight`, `Nine`, `Ten`) VALUES
+(9, 'Cheese', 'Eggs', 'Cake', 'Steak', 'Kebabs', '', '', '', '', '');
+
+--
 -- Constraints for dumped tables
 --
 
@@ -274,7 +300,7 @@ ALTER TABLE `Meal`
 
 --
 -- Constraints for table `User`
-
+--
   
 --
 -- Constraints for table `TagMeal`
@@ -297,6 +323,12 @@ ALTER TABLE `Chat`
 ALTER TABLE `Report`
   ADD CONSTRAINT `fk_Report_RecipientID` FOREIGN KEY (`RecipientID`) REFERENCES `user` (`UserID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_Report_SenderID` FOREIGN KEY (`SenderID`) REFERENCES `user` (`UserID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Recents`
+--
+ALTER TABLE `Recents`
+  ADD CONSTRAINT `fk_Recents_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
