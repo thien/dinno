@@ -9,7 +9,7 @@ app.locals.basedir = "." + '/views';
 
 function getPostedClaimedMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.Firstname, User.Surname, User.UserID, Meal.RecipientID
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.Firstname, User.Surname, User.UserID, Meal.RecipientID, Meal.Rating
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.RecipientID
@@ -27,7 +27,7 @@ function getPostedClaimedMeals(userId) {
 
 function getPostedUnclaimedMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, Meal.RecipientID
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, Meal.RecipientID, Meal.Rating
 				  FROM Meal
 				  WHERE Meal.UserID = ? AND Meal.RecipientID IS NULL`, [userId],
 			function(error, results, fields) {
@@ -43,7 +43,7 @@ function getPostedUnclaimedMeals(userId) {
 
 function getReceivedMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.Firstname, User.Surname, Meal.RecipientID, Meal.UserID, Location.HouseNoName, Location.Street, Location.Town, Location.LocationID
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, Meal.BestBefore, User.ProfileImage, User.Firstname, User.Surname, Meal.RecipientID, Meal.UserID, Location.HouseNoName, Location.Street, Location.Town, Location.LocationID, Meal.Rating
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.UserID
@@ -161,6 +161,33 @@ module.exports = function() {
 		});
 	}),
 
+	app.post('/manage', function (req, res) {
+			var param = {
+				loggedin: false,
+			};
+			login.checkLogin(req, res).then(function (result) {
+				param.loggedin = true;
+				userID = result.UserID;
+				db.query('UPDATE Meal SET Rating = ? WHERE MealID = ? AND Rating IS NULL', [req.body.rating,req.body.mealID], function (err, results, fields) {
+					if (err) {
+						res.status(200).send({ success: false , error_message:err})
+					} else {
+						res.status(200).send({ success: true })
+					}
+				}, function (err) {
+					param.error_message = {
+						msg: err
+					};
+					res.render('error', param);
+				});
+			}, function (err) {
+				param.error_message = {
+					msg: err
+				};
+				res.send('error', param);
+			});
+		}),
+	
 	app.get('/remove', function(req, res) {
 		var param = {
 			loggedin: false,
