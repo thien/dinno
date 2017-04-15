@@ -3,7 +3,7 @@ html(lang="en")
 	head
 		title Dinno
 		include includes/head
-	body
+	body(style='background-image: url("' + background + '"); background-size: cover;')
 		include includes/alt-nav
 		#frontpage-container.jumbotron
 			h1.frontpage-logo-banner dinno.club
@@ -27,3 +27,4 @@ html(lang="en")
 		script
 			include assets/js-cookie.js
 			include assets/frontpage.js
+			include assets/map_background.js
