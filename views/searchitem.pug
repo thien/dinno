@@ -137,6 +137,8 @@ block container
       .col-6.embed-responsive#results_container_right
         #map-canvas.embed-responsive-item  
   script(src='/assets/searchresult-mobile.js')
+  script.
+    var k = "#{results.tags}".split(",")
   script(src='/assets/searchresult-filters.js')
   script(src='/assets/searchresult-misc.js')
   script(src='assets/map.js')

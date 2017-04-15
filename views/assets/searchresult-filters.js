@@ -1,4 +1,4 @@
-var k = "#{results.tags}".split(",")
+
     //console.log(k)
     //- $("form#filters").submit(function(e){
     //-   var form = this;
