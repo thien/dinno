@@ -473,7 +473,7 @@ margin: 0px 10px 0px 0px;
 
 @media (max-width: 700px){
 	#frontpage-card-cols {
-	  column-count: 4;
+	  column-count: 3;
 	}
 	.frontpage-img-card {
 		max-width: 200px;
@@ -481,7 +481,7 @@ margin: 0px 10px 0px 0px;
 }
 @media (max-width: 400px){
 	#frontpage-card-cols {
-	  column-count: 3;
+	  column-count: 2;
 	}
 	.frontpage-img-card {
 		max-width: 150px;
