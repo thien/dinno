@@ -37,13 +37,16 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 					a.nav-link(href='/manage?type=others') Dinnos
 				li.nav-item
 					a.nav-link(href='/chat') Messages
+
 				if user_data.isAdmin
-					li.nav-item.dropdown
-						a.dropdown-toggle.nav-link(data-toggle='dropdown' id="dropdown-text") Admin
-						.dropdown-menu.dropdown-menu-right
+					li.nav-item.dropdown.nav-profile-dropdown
+						a#navbarAdmin.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Admin
+						.dropdown-menu(aria-labelledby='navbarAdmin').dropdown-menu-right
 							a.dropdown-item(href='/reviewreports') Review Reports
 							|  
 							a.dropdown-item(href='/manageusers') Ban/Unban Users
+
+
 				li.nav-item.dropdown.nav-profile-dropdown
 					a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-img")  
 						img(src=user_data.mugshot).navbar-mugshot
@@ -62,12 +65,17 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 						a.dropdown-item(href='/logout') Log Out
 			else
 				li.nav-item
-					a.nav-link(href='/register') Register
+					a.nav-link(href='/register') Registers
 				li.nav-item
 					a.nav-link(href='/#' data-toggle='modal', data-target='#myModal') Login
-
-
-			
+				li.nav-item.dropdown
+					a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown link
+					.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+						a.dropdown-item(href='#') Action
+						|  
+						a.dropdown-item(href='#') Another action
+						|  
+						a.dropdown-item(href='#') Something else here
 
 		//- form.form-inline.my-2.my-lg-0
 		//- 	input.form-control.mr-sm-2(type='text', placeholder='Search')
