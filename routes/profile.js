@@ -107,7 +107,6 @@ module.exports = function() {
 			var lastLocation = getLastPostedLocation(userId);
 
 			Promise.all([profileInfo, userMeals, lastLocation, reportCount]).then(function(data) {
-				console.log(":"+data[0].UserRating);
 				param.page_data = {
 					name: `${data[0].Firstname} ${data[0].Surname}`,
 					age: data[0].Age,
