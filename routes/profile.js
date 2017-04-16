@@ -12,9 +12,9 @@ function getProfileInfo(userId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT *,
 				  YEAR(CURRENT_TIMESTAMP) - YEAR(DOB) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(DOB, 5)) + 1 as Age,
-				  CEILING((SUM(Meal.Rating) + 5 ) / (COUNT(Meal.Rating) + 1)) as UserRating
+				  CEILING((COALESCE(SUM(Meal.Rating),0) + 5 ) / (COALESCE(COUNT(Meal.Rating),0) + 1)) as UserRating
 				  FROM User
-				  JOIN Meal
+				  LEFT JOIN Meal
 				  ON User.UserID = Meal.UserID
 				  WHERE User.UserID = ?
 				  GROUP BY Meal.UserID;`, [userId],
@@ -107,7 +107,7 @@ module.exports = function() {
 			var lastLocation = getLastPostedLocation(userId);
 
 			Promise.all([profileInfo, userMeals, lastLocation, reportCount]).then(function(data) {
-				console.log('called');
+				console.log(":"+data[0].UserRating);
 				param.page_data = {
 					name: `${data[0].Firstname} ${data[0].Surname}`,
 					age: data[0].Age,
