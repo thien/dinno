@@ -1,9 +1,8 @@
-var socket = io();
-
 function updateSubmitButton() {
 	// All 5 form inputs must be valid
 	if ($(".valid-input").length == 8) {
 		$("#submitter").prop("disabled", false);
+
 	}
 }
 
@@ -116,58 +115,6 @@ function validateImage() {
 	}
 }
 
-function notify(){
-    if (!("Notification" in window)) {
-        alert("This browser does not support desktop notification");
-    }
-    else if (Notification.permission === "granted") {
-        /*var options = {
-                    body: "Welcome to Dinno!",
-                    icon: "icon.jpg",
-                    dir : "ltr"
-                };
-        var notification = new Notification("Dinno",options);*/
-        //do nothing but we can send notifications!
-    }
-    else if (Notification.permission !== 'denied') {
-        Notification.requestPermission(function (permission) {
-            if (!('permission' in Notification)) {
-                Notification.permission = permission;
-            }
-
-            if (permission === "granted") {
-                var options = {
-                    body: "Welcome to Dinno Notifications!",
-                    icon: 'http://127.0.0.1:8080/assets/dinnosaur/bw.svg',
-                    dir : "ltr"
-                };
-                var notification = new Notification("Dinno",options);
-            }
-        });
-    }
-}
-
-function foodNotification(notification_content){
-	socket.emit('food_added', {
-    	userID: 9,
-    	body: notification_content.body,
-    	icon: 'https://pbs.twimg.com/profile_images/777472209459773440/0O0LmDIy.jpg', //soon to be... $('#secret-image-input').val()
-    	dir: 'ltr',
-    	name: notification_content.name
-	});
-
-	if (!("Notification" in window)) {
-        alert("This browser does not support desktop notification");
-    }
-    else if (Notification.permission === "granted") {
-        socket.on('new_food_notification', function(notification_content){
-        	if (notification_content.userID == Cookies.get('id')) {
-        		var notification = new Notification('Dinno', notification_content);
-        	}
-		});
-    }
-}
-
 
 $(document).ready(function(){
 	$("#submitter").prop("disabled", true);
@@ -182,17 +129,4 @@ $(document).ready(function(){
 	$(".form-control").keyup();
 	$(".form-control").change();
 	$('.date').change();
-
-	notify();
-
-	var new_food = "Kebabs";
-	
-	var notification_content = {
-        body: "Some new tasty "+new_food+" is now avaiable!",
-        icon: "icon.jpg",
-        dir : "ltr",
-        name: new_food
-    }
-
-	foodNotification(notification_content);
 });

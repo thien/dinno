@@ -1,6 +1,8 @@
 extends layout
 
 block container
+	script(src='/socket.io/socket.io.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
 
 	include includes/nav
 	.container 
@@ -18,12 +20,14 @@ block container
 						br
 						a.btn.btn-outline-danger(href='/fooditem?id='+new_item.id) Take me there!
 					else
-						img(src=new_item.image width="600px")
+						img#foodimageurl(src=new_item.image width="600px")
 						br
 						br
-						h3 Well would you look at that!
-						p
-						| #{new_item.name} is now added into dinno.club. It won't be long until someone hits<br> you up about it!
+						h3#lovelymsg Well would you look at that!
+						p#smallmsg #{new_item.name} is now added into dinno.club. It won't be long until someone hits<br> you up about it!
 						br
 						br
-						a.btn.btn-outline-danger(href='/fooditem?id='+new_item.id) Take me there!						
+						a.btn.btn-outline-danger(href='/fooditem?id='+new_item.id) Take me there!
+	script
+		include assets/push_notifications.js
+		include assets/js-cookie.js					
