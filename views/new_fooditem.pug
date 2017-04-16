@@ -139,7 +139,9 @@ block container
 		})
 
 		var k = "#{allTags}"
+		var currentTags = "#{tags}"
 		k = JSON.parse(k.replace(/&quot;/g,'"'))
+		currentTags = JSON.parse(currentTags.replace(/&quot;/g,'"'))
 		var tagNames = []
 		for(var i = 0; i < k.length ; i++){
 			tagNames[i] = k[i].text
@@ -163,3 +165,6 @@ block container
 			},
 			//attempted to use freeInput: false, but doesnt work, hence event handler below
 		});
+		for(var i = 0; i < currentTags.length ; i++){
+			$('input#tags').tagsinput('add',currentTags[i])
+		}

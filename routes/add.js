@@ -92,7 +92,7 @@ function addNewMeal(mealData, userId, lat, lng,tags) {
 	});
 }
 
-function updateMeal(mealData, mealId, lat, lng) {
+function updateMeal(mealData, mealId, lat, lng, tags) {
 	return new Promise(function(resolve, reject) {
 		var year = mealData['year'];
 		var month = mealData['month'];
@@ -121,6 +121,24 @@ function updateMeal(mealData, mealId, lat, lng) {
 	});
 }
 
+function addTags(tags){
+	if(tags != ""){
+		tags = tags.split(",")
+		var query = `INSERT INTO TagMeal (TagMealID, MealID, TagID) VALUES (0,` + results.insertId + `,?)`
+		for(var i = 1; i < tags.length ; i++){
+			query += `, (0,` + results.insertId + `,?)`
+		}
+		console.log(query)
+		db.query(query,tags,function(e,r,f){
+			if(e){
+				console.log(e)
+			}else{
+				console.log(r)
+			}
+		})
+	}
+}
+
 function checkMealOwner(mealId, userId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT COUNT(*) AS isOwner
@@ -144,10 +162,13 @@ function checkMealOwner(mealId, userId) {
 
 function getMealInfo(mealId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.*, Location.Latitude, Location.Longitude, Location.HouseNoName, Location.Street, Location.Postcode
+		db.query(`SELECT Meal.*, Location.Latitude, Location.Longitude, Location.HouseNoName, Location.Street, Location.Postcode, GROUP_CONCAT(Tag.TagID) as \`value\`, GROUP_CONCAT(Tag.\`Name\`) as \`text\`
 							FROM Meal
 							JOIN Location 
 							ON Meal.LocationID = Location.LocationID
+							JOIN TagMeal 
+							ON Meal.MealID = TagMeal.MealID 
+                            JOIN Tag on TagMeal.TagID = Tag.TagID
 							WHERE Meal.MealID = ?`, 
 						[mealId],
 		function(error, results, fields) {
@@ -246,7 +267,33 @@ module.exports = function() {
 						param.year = bb.substring(0,4)
 						param.month = bb.substring(5,7)
 						param.day = bb.substring(8,10)
-						res.render('new_fooditem', param);
+						//param.tags.ID = mealInfo.tags.ID			
+						if(mealInfo.value != null){
+							mealInfo.value = mealInfo.value.split(",")
+							mealInfo.text = mealInfo.text.split(",")
+							console.log(mealInfo)
+							param.tags = []
+							for(var i = 0; i < mealInfo.value.length ; i++){
+								var temp = {}
+								temp.value = parseInt(mealInfo.value[i])
+								temp.text = mealInfo.text[i]
+								param.tags[i] = temp
+							}
+							param.tags = JSON.stringify(param.tags)
+							console.log(param.tags)
+						}
+						db.query(`SELECT * FROM Tag`,function(error,result,fields){
+							param.allTags = []
+							for(var i = 0; i < result.length; i++){
+								var tag = {}
+								tag.value = result[i].TagID
+								tag.text = result[i].Name
+								param.allTags[i] = tag
+							}
+							console.log(param.allTags)
+							param.allTags = JSON.stringify(param.allTags)
+							res.render('new_fooditem', param);
+						})
 					}, function(err) {
 						param.error_message = {
 							msg: err
@@ -364,7 +411,7 @@ module.exports = function() {
 						mealData.lng = cookies.get('lng');
 					}
 
-					updateMeal(mealData, mealId, mealData.lat, mealData.lng).then(function(result) {	
+					updateMeal(mealData, mealId, mealData.lat, mealData.lng,mealData.tags).then(function(result) {	
 							param.new_item = {
 								name: mealData.name,
 								image: mealData.image,
