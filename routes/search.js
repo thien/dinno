@@ -198,10 +198,33 @@ function dealWithResults(req, res, param) {
                     }
                     //console.log(tag)
                     param.results.tags = tag
-                    console.log(param)
-                    res.render('searchitem', param);
+                    console.log(param);
+                    addSearchToRecents(param.user_data.userID, param.food).then(function(){
+                        res.render('searchitem', param);
+                    }, function(){
+                        res.render('searchitem', param);
+                    });
+                    //res.render('searchitem', param);
                 })
             })
         }
     });
+
+    function addSearchToRecents(userID, foodname){
+        return new Promise(function(){
+            console.log(userID);
+            console.log(foodname);
+            db.query("INSERT INTO `Recents` (`UserID`, `One`, `Two, `Three`, `Four`, `Five`, `Six`, `Seven`, `Eight`, `Nine`, `Ten`) VALUES (?, ?)", [userID, foodname], function (err, row, fields) {
+                if(err){
+                    console.log("error in insert into");
+                    reject();
+                }
+                else{
+                    resolve();
+                }
+            })
+        },function(){
+            reject();
+        });
+    }
 }

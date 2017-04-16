@@ -2,17 +2,10 @@ if(!socket){
 	var socket = io();
 }
 
-if(document.getElementById('lovelymsg')){
-	var new_food = document.getElementById('smallmsg').innerHTML.split(' is now added')[0];
-	
-	var notification_content = {
-        body: "Some new tasty "+new_food+" is now avaiable!",
-        icon: document.getElementById('foodimageurl').src,
-        dir : "ltr",
-        name: new_food
-    }
+// only sends the notification out if on added_page, this tests if it is this page
 
-	foodNotification(notification_content);
+if(document.getElementById('lovelymsg')){
+	foodNotification(getNotificationContent());
 }
 
 // waits for socket event and notifies user if applicatable i.e. they want it and it is for them
@@ -63,15 +56,16 @@ function foodNotification(notification_content){
     	dir: 'ltr',
     	name: notification_content.name
 	});
+}
 
-	if (!("Notification" in window)) {
-        alert("This browser does not support desktop notification");
+function getNotificationContent(){
+	var new_food = document.getElementById('smallmsg').innerHTML.split(' is now added')[0];
+	
+	var notification_content = {
+        body: "Some new tasty "+new_food+" is now avaiable!",
+        icon: document.getElementById('foodimageurl').src,
+        dir : "ltr",
+        name: new_food
     }
-    else if (Notification.permission === "granted") {
-        /*socket.on('new_food_notification', function(notification_content){
-        	if (notification_content.userID == Cookies.get('id')) {
-        		var notification = new Notification('Dinno', notification_content);
-        	}
-		});*/
-    }
+    return notification_content;
 }
