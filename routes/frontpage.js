@@ -30,8 +30,9 @@ function getRandomUser(userID){
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT Firstname, Surname, UserID 
 							FROM User
+							WHERE User.UserID <> ?
 							ORDER BY RAND()
-							LIMIT 1`,
+							LIMIT 1`,[userID],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
