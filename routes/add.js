@@ -49,7 +49,7 @@ function validateBarcode(barcode){
 }
 
 
-function addNewMeal(mealData, userId, lat, lng) {
+function addNewMeal(mealData, userId, lat, lng,tags) {
 	return new Promise(function(resolve, reject) {
 		var year = mealData['year'];
 		var month = mealData['month'];
@@ -67,6 +67,21 @@ function addNewMeal(mealData, userId, lat, lng) {
 					reject(error);
 				} else {
 					console.log(`Added meal ${mealData.name}`);
+					if(tags != ""){
+						tags = tags.split(",")
+						var query = `INSERT INTO TagMeal (TagMealID, MealID, TagID) VALUES (0,` + results.insertId + `,?)`
+						for(var i = 1; i < tags.length ; i++){
+							query += `, (0,` + results.insertId + `,?)`
+						}
+						console.log(query)
+						db.query(query,tags,function(e,r,f){
+							if(e){
+								console.log(e)
+							}else{
+								console.log(r)
+							}
+						})
+					}
 					resolve(results);
 				}
 			});
@@ -174,7 +189,18 @@ module.exports = function() {
 				isAdmin: result.IsAdmin
 			};
 
-			res.render('new_fooditem', param);
+			db.query(`SELECT * FROM Tag`,function(error,result,fields){
+				param.allTags = []
+				for(var i = 0; i < result.length; i++){
+					var tag = {}
+					tag.value = result[i].TagID
+					tag.text = result[i].Name
+					param.allTags[i] = tag
+				}
+				console.log(param.allTags)
+				param.allTags = JSON.stringify(param.allTags)
+				res.render('new_fooditem', param);
+			})
 		}, function(err) {
 			param.error_message = {
 				msg: err
@@ -278,7 +304,7 @@ module.exports = function() {
 						mealData.lng = cookies.get('lng');
 				}
 
-				addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
+				addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng,mealData.tags).then(function(result) {	
 
 						param.new_item = {
 							name: mealData.name,
