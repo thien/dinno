@@ -147,17 +147,24 @@ function notify(){
     }
 }
 
-function foodNotification(content){
+function foodNotification(notification_content){
+	socket.emit('prompt_notification', {
+    	userID: [9],
+    	body: notification_content.body,
+    	icon: 'foodicon.jpg',
+    	dir: 'ltr'
+	});
+
 	if (!("Notification" in window)) {
         alert("This browser does not support desktop notification");
     }
     else if (Notification.permission === "granted") {
-        var options = {
-                    body: "Welcome to Dinno!",
-                    icon: "icon.jpg",
-                    dir : "ltr"
-                };
-        var notification = new Notification("Dinno",options);
+        socket.on('new_food_notification', function(notification_content){
+        	if (notification_content.userID[0] == Cookies.get('id')) {
+        		var notification = new Notification('Dinno', notification_content);
+        	}
+		});
+        //var notification = new Notification("Dinno",options);
         //do nothing but we can send notifications!
     }
 }
@@ -177,17 +184,15 @@ $(document).ready(function(){
 	$(".form-control").change();
 	$('.date').change();
 
-	/*socket.emit('prompt_notification', {
-    	name: '9',
-    	body: 'this is the body',
-    	icon: 'foodicon.jpg',
-    	dir: 'ltr'
-	});
+	var new_food = "Cheese";
 
-	socket.on('new_food_notification', function(options){
-		var notification = new Notification('Dinno', options);
-	});*/
+	console.log(Cookies.get('id'));
 
-	//yay!
+	var notification_content = {
+        body: "Some new tasty "+new_food+" is now avaiable!",
+        icon: "icon.jpg",
+        dir : "ltr"
+    }
 
+	foodNotification(notification_content);
 });
