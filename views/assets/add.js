@@ -138,7 +138,7 @@ function notify(){
             if (permission === "granted") {
                 var options = {
                     body: "Welcome to Dinno Notifications!",
-                    icon: "icon.jpg",
+                    icon: 'http://127.0.0.1:8080/assets/dinnosaur/bw.svg',
                     dir : "ltr"
                 };
                 var notification = new Notification("Dinno",options);
@@ -148,11 +148,12 @@ function notify(){
 }
 
 function foodNotification(notification_content){
-	socket.emit('prompt_notification', {
-    	userID: [9],
+	socket.emit('food_added', {
+    	userID: 9,
     	body: notification_content.body,
-    	icon: 'foodicon.jpg',
-    	dir: 'ltr'
+    	icon: 'https://pbs.twimg.com/profile_images/777472209459773440/0O0LmDIy.jpg', //soon to be... $('#secret-image-input').val()
+    	dir: 'ltr',
+    	name: notification_content.name
 	});
 
 	if (!("Notification" in window)) {
@@ -160,12 +161,10 @@ function foodNotification(notification_content){
     }
     else if (Notification.permission === "granted") {
         socket.on('new_food_notification', function(notification_content){
-        	if (notification_content.userID[0] == Cookies.get('id')) {
+        	if (notification_content.userID == Cookies.get('id')) {
         		var notification = new Notification('Dinno', notification_content);
         	}
 		});
-        //var notification = new Notification("Dinno",options);
-        //do nothing but we can send notifications!
     }
 }
 
@@ -184,12 +183,15 @@ $(document).ready(function(){
 	$(".form-control").change();
 	$('.date').change();
 
-	var new_food = "Cheese";
+	notify();
+
+	var new_food = "Kebabs";
 	
 	var notification_content = {
         body: "Some new tasty "+new_food+" is now avaiable!",
         icon: "icon.jpg",
-        dir : "ltr"
+        dir : "ltr",
+        name: new_food
     }
 
 	foodNotification(notification_content);

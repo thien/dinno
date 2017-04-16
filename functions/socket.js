@@ -80,10 +80,14 @@ module.exports = function Server(io, server) {
             });
         });
 
-        socket.on('prompt_notification', function(content) {
-            console.log('notification getting to here');
+        socket.on('food_added', function(content) {
             console.log('content: ',content);
-            socket.emit('new_food_notification', content);
+            getUsersSearchingForFood(content.name).then(function(hungryUsers) {
+                for (var i = 0; i<hungryUsers.length; i++) {
+                    content.userID = hungryUsers[i];
+                    socket.emit('new_food_notification', content);
+                }
+            });
         });
 
         socket.on('disconnect', function() {
@@ -112,4 +116,26 @@ function upload(file, done) {
 	var upload = post.form();
 	upload.append('type', 'base64');
 	upload.append('image', file);
+}
+
+function getUsersSearchingForFood(foodname){
+    console.log(foodname);
+    return new Promise(function(resolve, reject) {
+        db.query(`SELECT Recents.UserID 
+                  FROM Recents
+                  WHERE Recents.One LIKE ? OR Recents.Two LIKE ? OR Recents.Three LIKE ? OR Recents.Four LIKE ? OR Recents.Five LIKE ? OR Recents.Six LIKE ? OR Recents.Seven LIKE ? OR Recents.Eight LIKE ? OR Recents.Nine Like ? Or Recents.Ten LIKE ?`, ['%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%'],
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                } else {
+                    var hungryUsers = [];
+                    var n = results.length;
+                    for (var i = 0; i < n; i++) {
+                        hungryUsers.push(results[i].UserID);
+                    }
+                    resolve(hungryUsers);
+                }
+            });
+    });
 }
