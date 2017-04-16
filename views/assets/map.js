@@ -13,6 +13,8 @@ function GETVariable(variable){
     }
 }
 
+var map = null;
+
 window.initMap = function() {
     // get latitude and longitude from GET variables
     var coord_lat = search_location.latitude;
@@ -20,7 +22,9 @@ window.initMap = function() {
 
     // load google maps with 
     // console.log('hello');
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+        mapTypeControl: false,
+        fullscreenControl: false,
         zoom: 15,
         center: {lat: coord_lat, lng: coord_lng},
     });
@@ -76,15 +80,14 @@ function updateMap(map, locations) {
         var markerId = `${loc[0].Latitude}${loc[0].Longitude}`;
         var popup = `<div class='row popup-food'>`;
         loc.forEach(function(food) {
-            popup += `<div class='col-md-6'>
+            popup += `<div class='col-md-4 map-popup-detail'>
                         <a href='/fooditem?id=${food.MealID}''> 
                             <img src='${food.Image}' class='marker-image'>  
                         </a>
                         <div class="popup-food-data">
                             <a href='/fooditem?id=${food.MealID}''> 
-                                <h3> ${food.Name} </h5>
+                                <b> ${food.Name} </b>
                             </a>
-                            <p> ${food.Description} </p>
                         </div>
                     </div>`;
         });

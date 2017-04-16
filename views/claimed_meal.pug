@@ -10,9 +10,11 @@ block container
           img(src=foodInfo.Image style="max-height: 50vh;")
           br
           br
-          h3 You've claimed #{foodInfo.Name}!
+          h3 You've claimed #{foodInfo.Firstname}'s #{foodInfo.Name}!
+          h6 Found at #{foodInfo.HouseNoName}, #{foodInfo.Street}, #{foodInfo.Town}
           p
           | Bon appétit!
           br
           br
-          a.btn.btn-outline-danger(href='/') Find more tasty food!
+          a.btn.btn-outline-danger(href='/chat?id='+foodInfo.UserID) Message #{foodInfo.Firstname} about collection
+          a.btn.btn-outline-danger(href='/') Find more tasty food

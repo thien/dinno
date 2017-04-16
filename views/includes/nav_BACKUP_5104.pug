@@ -1,0 +1,87 @@
+include login
+
+nav.navbar.navbar-inverse.navbar-toggleable-md
+	button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo02', aria-controls='navbarTogglerDemo02', aria-expanded='false', aria-label='Toggle navigation')
+		span.navbar-toggler-icon
+	a.navbar-brand(href='/') dinno.club
+	#navbarTogglerDemo02.collapse.navbar-collapse
+		if loggedin
+			form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
+		#head-nav.form-inline.mr-auto.mt-2.mt-md-0
+	
+			form(method="get" action="/search").form-inline.head-nav-container
+				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=food)
+				input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
+				input(type='hidden', name='lat')
+				input(type='hidden', name='lng')
+				#in-the-searchbar-right
+					i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Find your location")
+
+				button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
+					i.fa.fa-search(aria-hidden='true')
+
+		else
+			.form-inline.mr-auto.mt-2.mt-md-0
+
+
+		ul.navbar-nav
+			//- li.nav-item
+			//- 	h5 #{loggedin}
+		
+			if loggedin
+				li.nav-item
+					a.nav-link(href='/')
+						| Home 
+						span.sr-only (current)
+				li.nav-item
+					a.nav-link(href='/add') Add
+				li.nav-item
+					a.nav-link(href='/manage?type=others') Dinnos
+				li.nav-item
+					a.nav-link(href='/chat') Messages
+
+				if user_data.isAdmin
+					li.nav-item.dropdown.nav-profile-dropdown
+						a#navbarAdmin.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Admin
+						.dropdown-menu(aria-labelledby='navbarAdmin').dropdown-menu-right
+							a.dropdown-item(href='/reviewreports') Review Reports
+							|  
+							a.dropdown-item(href='/manageusers') Ban/Unban Users
+
+
+				li.nav-item.dropdown.nav-profile-dropdown
+					a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-img")  
+						img(src=user_data.mugshot).navbar-mugshot
+					.dropdown-menu.dropdown-menu-right
+						if user_data.isAdmin
+							h6.dropdown-header Hi, #{user_data.firstname} (ADMIN)
+						else
+							h6.dropdown-header Hi, #{user_data.firstname}
+						a.dropdown-item(href='/profile') Profile
+						|  
+						a.dropdown-item(href='/manage?type=yours') Your Dinnos
+						|  
+						a.dropdown-item(href='/settings') Settings
+						|  
+						.dropdown-divider
+						a.dropdown-item(href='/logout') Log Out
+			else
+				li.nav-item
+					a.nav-link(href='/register') Registers
+				li.nav-item
+					a.nav-link(href='/#' data-toggle='modal', data-target='#myModal') Login
+				li.nav-item.dropdown
+					a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown link
+					.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+						a.dropdown-item(href='#') Action
+						|  
+						a.dropdown-item(href='#') Another action
+						|  
+						a.dropdown-item(href='#') Something else here
+
+		//- form.form-inline.my-2.my-lg-0
+		//- 	input.form-control.mr-sm-2(type='text', placeholder='Search')
+		//- 	button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+if loggedin
+	script
+		include /assets/navbar-location.js

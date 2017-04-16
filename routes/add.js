@@ -60,8 +60,8 @@ function addNewMeal(mealData, userId, lat, lng) {
 		var isIngredient = mealData.foodtype == 'Ingredient';
 
 		location.addNewLocation(lat,lng).then(function(locationId) { 
-			db.query(`INSERT INTO Meal (MealID, LocationID, UserID, RecipientID, Name, BestBefore, Description, Image, IsIngredient)
-								VALUES (0, ?, ?, NULL, ?, ?, ?, ?, ?)`, 
+			db.query(`INSERT INTO Meal (MealID, LocationID, UserID, RecipientID, Name, BestBefore, Description, Image, IsIngredient,IsAvailable)
+								VALUES (0, ?, ?, NULL, ?, ?, ?, ?, ?, 1)`, 
 							[locationId, userId, mealData.name, bestBefore, mealData.description, mealData.image, isIngredient],
 			function(error, results, fields) {
 				if (error) {
@@ -193,7 +193,9 @@ module.exports = function() {
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 
 			res.render('new_fooditem', param);
@@ -218,7 +220,10 @@ module.exports = function() {
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
+				
 			};
 		
 			var mealId = req.params.id;
@@ -280,7 +285,9 @@ module.exports = function() {
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 
 
@@ -349,7 +356,9 @@ module.exports = function() {
 				firstname: result.Firstname,
 				surname: result.Surname,
 				mugshot: result.ProfileImage,
-				textSize: result.TextSize
+				textSize: result.TextSize,
+				colourScheme: result.ColourScheme,
+				isAdmin: result.IsAdmin
 			};
 
 			var mealData = req.body;
