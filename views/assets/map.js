@@ -77,27 +77,27 @@ function updateMap(map, locations) {
     
     Object.keys(locations).forEach(function(k) {
         var loc = locations[k];
-        var markerId = `${loc[0].Latitude}${loc[0].Longitude}`;
-        var popup = `<div class='row popup-food'>`;
+        var markerId = loc[0].Latitude+''+loc[0].Longitude;
+        var popup = "<div class='row popup-food'>";
         loc.forEach(function(food) {
-            popup += `<div class='col-md-4 map-popup-detail'>
-                        <a href='/fooditem?id=${food.MealID}''> 
-                            <img src='${food.Image}' class='marker-image'>  
-                        </a>
-                        <div class="popup-food-data">
-                            <a href='/fooditem?id=${food.MealID}''> 
-                                <b> ${food.Name} </b>
-                            </a>
-                        </div>
-                    </div>`;
+            popup += "<div class='col-md-4 map-popup-detail'>"+
+                       "<a href='/fooditem?id="+food.MealID+"'>"+ 
+                            "<img src='"+food.Image+"' class='marker-image'>"+  
+                        "</a>"+
+                        "<div class='popup-food-data'>"+
+                            "<a href='/fooditem?id="+food.MealID+"'>"+ 
+                                "<b> "+food.Name+" </b>"+
+                            "</a>"+
+                        "</div>"+
+                    "</div>";
         });
-        popup += `</div>`;
+        popup += '</div>';
 
         if (!oldMarkers[markerId]) {
             var marker = new google.maps.Marker({
                 position: {lat: loc[0].Latitude, lng: loc[0].Longitude},
                 map: map,
-                title: `${loc[0].HouseNoName} ${loc[0].Street}`,
+                title: loc[0].HouseNoName+' '+loc[0].Street,
             });
 
             google.maps.event.addListener(marker, 'click', function(event) {
@@ -108,7 +108,7 @@ function updateMap(map, locations) {
                 coordInfoWindow.open(map);
             });
             newMarkers[markerId] = marker;
-            console.log(`Added ${markerId}`);
+            console.log('Added '+markerId);
         }
         else {
             var marker = oldMarkers[markerId];
