@@ -123,7 +123,7 @@ function getUsersSearchingForFood(foodname){
     return new Promise(function(resolve, reject) {
         db.query(`SELECT Recents.UserID 
                   FROM Recents
-                  WHERE Recents.One LIKE ? OR Recents.Two LIKE ? OR Recents.Three LIKE ? OR Recents.Four LIKE ? OR Recents.Five LIKE ? OR Recents.Six LIKE ? OR Recents.Seven LIKE ? OR Recents.Eight LIKE ? OR Recents.Nine Like ? Or Recents.Ten LIKE ?`, ['%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%','%'+foodname+'%'],
+                  WHERE Recents.Foodname LIKE ?`, ['%'+foodname+'%'],
             function(error, results, fields) {
                 if (error) {
                     console.log(error);
@@ -134,6 +134,10 @@ function getUsersSearchingForFood(foodname){
                     for (var i = 0; i < n; i++) {
                         hungryUsers.push(results[i].UserID);
                     }
+                    //get unqiue array of users
+                    /*uniqueArray = myArray.filter(function(elem, pos) {
+                        return myArray.indexOf(elem) == pos;
+                    })*/
                     resolve(hungryUsers);
                 }
             });

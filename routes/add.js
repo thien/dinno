@@ -152,28 +152,6 @@ function getMealInfo(mealId) {
 	});
 }
 
-function getUsersSearchingForFood(foodname){
-	console.log(foodname);
-	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Recents.UserID 
-				  FROM Recents
-				  WHERE Recents.One LIKE ?`, ['%'+foodname+'%'],
-			function(error, results, fields) {
-				if (error) {
-					console.log(error);
-					reject(error);
-				} else {
-					var hungryUsers = [];
-					var n = results.length;
-					for (var i = 0; i < n; i++) {
-						hungryUsers.push(results[i].UserID);
-					}
-					resolve(hungryUsers);
-				}
-			});
-	});
-}
-
 module.exports = function() {
 	var express = require('express');
 	var app = express();
@@ -311,18 +289,8 @@ module.exports = function() {
 						image: mealData.image,
 						id: result.insertId
 					}
-				
-					//var hungryUsers = getUsersSearchingForFood(mealData.name);
-
-					getUsersSearchingForFood(mealData.name).then(function(hungryUsers){
-						console.log(hungryUsers);
-						res.render('added_fooditem', param);
-					},function(err) {
-						param.error_message = {
-							msg: err
-						};
-						res.render('error', param);
-					});
+					
+					res.render('added_fooditem', param);
 
 				}, function(err) {
 						param.error_message = {

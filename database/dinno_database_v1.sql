@@ -284,27 +284,18 @@ INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`
 
 CREATE TABLE `Recents` (
   `UserID` int(11) NOT NULL,
-  `One` varchar(32) NOT NULL,
-  `Two` varchar(32) NOT NULL,
-  `Three` varchar(32) NOT NULL,
-  `Four` varchar(32) NOT NULL,
-  `Five` varchar(32) NOT NULL,
-  `Six` varchar(32) NOT NULL,
-  `Seven` varchar(32) NOT NULL,
-  `Eight` varchar(32) NOT NULL,
-  `Nine` varchar(32) NOT NULL,
-  `Ten` varchar(32) NOT NULL,
-  PRIMARY KEY (`UserID`)
+  `Foodname` varchar(32) NOT NULL,
+  `Date` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Test data for table `Recents`
 --
 
-INSERT INTO `Recents` (`UserID`, `One`, `Two`, `Three`, `Four`, `Five`, `Six`, `Seven`, `Eight`, `Nine`, `Ten`) VALUES
-(3, 'Cheese', 'Eggs', 'Cake', 'Steak', 'Kebabs', '', '', '', '', ''),
-(5, 'Cheese', 'Eggs', 'Cake', 'Steak', 'Kebabs', '', '', '', '', ''),
-(9, 'Cheese', 'Eggs', 'Cake', 'Steak', 'Kebabs', '', '', '', '', '');
+INSERT INTO `Recents` (`UserID`, `Foodname`, `Date`) VALUES
+(3, 'Cheese', '2017-01-01'),
+(5, 'Cheese', '2017-02-01'),
+(9, 'Cheese', '2016-12-25');
 
 --
 -- Constraints for dumped tables

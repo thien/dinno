@@ -199,7 +199,8 @@ function dealWithResults(req, res, param) {
                     //console.log(tag)
                     param.results.tags = tag
                     console.log(param);
-                    addSearchToRecents(param.user_data.userID, param.food).then(function(){
+                    addSearchToRecents(param.user_data.userID, param.food).then(function(results){
+                        console.log(results);
                         res.render('searchitem', param);
                     }, function(){
                         res.render('searchitem', param);
@@ -214,15 +215,18 @@ function dealWithResults(req, res, param) {
         return new Promise(function(){
             console.log(userID);
             console.log(foodname);
-            db.query("INSERT INTO `Recents` (`UserID`, `One`, `Two, `Three`, `Four`, `Five`, `Six`, `Seven`, `Eight`, `Nine`, `Ten`) VALUES (?, ?)", [userID, foodname], function (err, row, fields) {
+            var results;
+            var myDate = new Date();
+            db.query("INSERT INTO `Recents` (`UserID`, `Foodname`, `Date`) VALUES (?, ?, ?)", [userID, foodname, myDate], function (err, rows, fields) {
                 if(err){
-                    console.log("error in insert into");
+                    console.log("error in insert into: "+err);
                     reject();
                 }
                 else{
-                    resolve();
+                    results = rows
                 }
             })
+            resolve(results);
         },function(){
             reject();
         });
