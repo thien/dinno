@@ -143,6 +143,7 @@ block container
 		var tagNames = []
 		for(var i = 0; i < k.length ; i++){
 			tagNames[i] = k[i].text
+			tagNames[i].value = k[i].value
 		}
 		var tags = new Bloodhound({
 			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
@@ -164,6 +165,7 @@ block container
 			//attempted to use freeInput: false, but doesnt work, hence event handler below
 		});
 		$('input#tags').on('beforeItemAdd', function(event) {
+			console.log("Hello")
 			var exists = false
 			if (tagNames.indexOf(event.item) > -1) {
 				exists = true;
