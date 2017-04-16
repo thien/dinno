@@ -35,7 +35,7 @@ function cardEntry(item){
 	card += "<p class='card-text'> <b>Comments:</b> " + item.Comment +"</p>";
 	card += "</div>";
 	card += "<div class='card-footer text-muted'><p class='card-text'>ReportID: " + item.ReportID +"<span class='pull-right'>";
-	if (item.IsVerified == 1){
+	if (item.VerificationStatus == 1){
 		card += "Verified by Admin";
 	}
 	else{

@@ -75,14 +75,20 @@ app.use('/', require('./routes/add'));
 // manage fooditems
 app.use('/', require('./routes/manage'));
 
+// admin
+app.use('/', require('./routes/admin'));  
+
 // push notifications
 app.use('/', require('./routes/push_notifications'));
 
 // add static assets for public access
 app.use('/assets', express.static('./views/assets'))
 
+app.use('/favicon.ico', express.static('./views/assets/icons/favicon.ico'));
+
 // add error message - THIS MUST BE THE LAST ROUTE TO BE DEFINED
-app.use('/', require('./routes/error'));  
+app.use('/', require('./routes/error'));
+  
 
 
 

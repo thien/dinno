@@ -1,29 +1,40 @@
 //- including other pug works
 include scripts
 //- including .html, .css, etc works
-include style.css
+
+style
+	include style.css
 
 if loggedin
 	if user_data.textSize == "1.5x"
 		include style1_5.css
 	else if user_data.textSize == "2x"
 		include style2.css
+		
+	if user_data.colourScheme == "Blue"
+		include styleblue.css
+	else if user_data.colourScheme == "Orange"
+		include styleorange.css
 
 meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
 
 link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+link(href='/favicon.ico', rel='icon')
 script(src='assets/jquery-ui.min.js')
 script(src='/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
 script(src='/typeahead.js/dist/typeahead.bundle.js')
+script(src='/jquery-bar-rating/dist/jquery.barrating.min.js')
 link(rel='stylesheet', href='/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
+link(rel='stylesheet', href='/jquery-bar-rating/dist/themes/css-stars.css')
 link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
+
+script(src='/holderjs/holder.js')
 
 if isSearchResultsPage
 	script(src='/socket.io/socket.io.js')
 	script
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
+	script(src='assets/js-cookie.js')
 	script(src='assets/poachGETVariables.js')
 	script(src='assets/interactive_sorting.js')
-	script(src='assets/js-cookie.js')
-	script(src='assets/map.js')

@@ -9,18 +9,28 @@ block container
 			.col-md-4.col-lg-3
 				img(src=page_data.profile_photo)#profilephoto
 			.col-md-6.col-lg-6
-				h1#profile-title Hi, I'm #{page_data.name}
+				if page_data.isAdmin
+					h1#profile-title Hi, I'm #{page_data.name} [ADMIN]
+				else
+					h1#profile-title Hi, I'm #{page_data.name}
 				h4 
 					span.badge.badge-default #{page_data.rating}
 					|	 #{page_data.user_location}
 				h6 #{page_data.age} years old
-				h6 Has been reported #{page_data.reportCount} times.
-				if page_data.ownProfile
-					a.chat-link(href='editprofile') Edit profile
-					a.chat-link(href='reporthistory') View Report Record
+				if page_data.isSuspended
+					h6 This user has been suspended from Dinno for violating our terms of service.
 				else
-					a.chat-link(href='/chat?id=' + page_data.userId) Send me a message
-					a(href="/report?id=" + page_data.userId) Report me
+					h6 Has been reported #{page_data.reportCount} times.
+					if page_data.ownProfile
+						span.chat-link-wrapper
+							a.chat-link(href='editprofile') Edit profile
+						span.chat-link-wrapper
+							a.chat-link(href='reporthistory') View Report Record
+					else if page_data.isAdmin
+						a.chat-link(href='/chat?id=' + page_data.userId) Send me a message
+					else
+						a.chat-link(href='/chat?id=' + page_data.userId) Send me a message
+						a(href="/report?id=" + page_data.userId) Report me
 		.dinnos
 				h3 Dinnos
 				.row
