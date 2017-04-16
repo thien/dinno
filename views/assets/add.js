@@ -185,9 +185,7 @@ $(document).ready(function(){
 	$('.date').change();
 
 	var new_food = "Cheese";
-
-	console.log(Cookies.get('id'));
-
+	
 	var notification_content = {
         body: "Some new tasty "+new_food+" is now avaiable!",
         icon: "icon.jpg",

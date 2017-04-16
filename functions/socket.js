@@ -67,7 +67,7 @@ module.exports = function Server(io, server) {
             	}
             	socket.emit('img_uploaded', resp_img);
             	console.log("sent back image uploaded.");
-            })
+            });
 
         });
 
