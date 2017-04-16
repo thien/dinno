@@ -285,6 +285,8 @@ CREATE TABLE `Recents` (
 --
 
 INSERT INTO `Recents` (`UserID`, `One`, `Two`, `Three`, `Four`, `Five`, `Six`, `Seven`, `Eight`, `Nine`, `Ten`) VALUES
+(3, 'Cheese', 'Eggs', 'Cake', 'Steak', 'Kebabs', '', '', '', '', ''),
+(5, 'Cheese', 'Eggs', 'Cake', 'Steak', 'Kebabs', '', '', '', '', ''),
 (9, 'Cheese', 'Eggs', 'Cake', 'Steak', 'Kebabs', '', '', '', '', '');
 
 --

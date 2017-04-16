@@ -1,7 +1,9 @@
 var express = require('express');
-	var app = express();
-	var login = require('../functions/login');
-	var Cookies = require("cookies");
+var app = express();
+var login = require('../functions/login');
+var Cookies = require("cookies");
+
+
 module.exports = function() {
 	app.locals.basedir = "." + '/views';
 
@@ -24,7 +26,6 @@ module.exports = function() {
 				mugshot: result.ProfileImage,
 				textSize: result.TextSize
 			};
-
 
 			res.render('frontpage', param);
 		}, function(err) {

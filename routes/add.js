@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const db = require('../functions/database');
 var login = require('../functions/login');
 var location = require('../functions/location');
@@ -161,7 +163,12 @@ function getUsersSearchingForFood(foodname){
 					console.log(error);
 					reject(error);
 				} else {
-					resolve(results);
+					var hungryUsers = [];
+					var n = results.length;
+					for (var i = 0; i < n; i++) {
+						hungryUsers.push(results[i].UserID);
+					}
+					resolve(hungryUsers);
 				}
 			});
 	});
@@ -298,10 +305,10 @@ module.exports = function() {
 						id: result.insertId
 					}
 				
-					var hungryUsers = getUsersSearchingForFood(mealData.name);
+					//var hungryUsers = getUsersSearchingForFood(mealData.name);
 
-					Promise.all(hungryUsers).then(function(results){
-						console.log(results);
+					getUsersSearchingForFood(mealData.name).then(function(hungryUsers){
+						console.log(hungryUsers);
 						res.render('added_fooditem', param);
 					},function(err) {
 						param.error_message = {

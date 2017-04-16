@@ -80,9 +80,10 @@ module.exports = function Server(io, server) {
             });
         });
 
-        socket.on('notification', function(content) {
+        socket.on('prompt_notification', function(content) {
             console.log('notification getting to here');
             console.log('content: ',content);
+            socket.emit('new_food_notification', content);
         });
 
         socket.on('disconnect', function() {
