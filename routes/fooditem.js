@@ -63,7 +63,8 @@ module.exports = function() {
 				userID: 123,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			var mealId = req.query.id;
@@ -110,7 +111,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			var mealId = req.query.id;

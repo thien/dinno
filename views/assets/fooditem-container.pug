@@ -28,11 +28,11 @@
 			button.btn.btn-primary.btn-lg.btn-block(type='submit' value="Submit") Dinno This
 .col-md-4
 	#container
-		- var coord = Latitude + "," + Longitude
+		- var coord = data.Latitude + "," + data.Longitude
 		- var mapsrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCFfZX6iV4dWsBxUQ45EnobLYATI3WfXtw&q=Space+Needle,Seattle+WA&zoom=15&center="
 		- mapsrc = mapsrc + coord
 
-		- var staticimg = "https://maps.googleapis.com/maps/api/staticmap?size=300x400&style=element:labels|visibility:off&style=element:geometry.stroke|visibility:off&style=feature:landscape|element:geometry|saturation:-100&style=feature:water|saturation:-100|invert_lightness:true&key=AIzaSyBAQr_cnQ9oAQT1tlJtG5HV59pswwR5gAg"
+		- var staticimg = "https://maps.googleapis.com/maps/api/staticmap?size=300x400&key=AIzaSyBAQr_cnQ9oAQT1tlJtG5HV59pswwR5gAg"
 
 		- staticimg += "&zoom=15"
 		- staticimg += "&center="+coord

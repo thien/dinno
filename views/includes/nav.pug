@@ -8,12 +8,8 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 
 		if loggedin
 			form(method="get" action="/search").form-inline.mr-auto.mt-2.mt-md-0
-				if foodcheck
-					input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=results.food)
-					input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
-				else
-					input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food')
-					input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location')
+				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=food)
+				input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
 				input(type='hidden', name='lat')
 				input(type='hidden', name='lng')
 				#in-the-searchbar-right

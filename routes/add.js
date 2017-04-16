@@ -4,6 +4,50 @@ const db = require('../functions/database');
 var login = require('../functions/login');
 var location = require('../functions/location');
 var Cookies = require("cookies");
+var getJSON = require('get-json');
+
+function validateName(name){
+	// no reason why you couldnt have numbers
+	// var hasNumber = /^(.*[0-9].*)$/
+	return name.length > 0;
+}
+
+function validateType(type){
+	return type == 'Meal' || type == 'Ingredient';
+}
+
+function validateDescription(description){
+	return description.length > 0;
+}
+
+function validateBestBefore(day, month, year){
+	//basically check that the best before hasn't been yet
+	var today = new Date();
+	var bb = new Date(year, month - 1, day, 0, 0, 0, 0);
+	return today.getTime() < bb.getTime();
+}
+
+function validateLocation(lat, lng){
+	//what is a valid location? just valid numbers
+	return true;
+	var isValidLocation = /^[0-9]?[0-9]?[0-9]\.[0-9]+$/g;
+	return isValidLocation.test(lat) && true;	//isValidLocation.test(lng) returning false when it should be true
+}
+
+function validateImage(image){
+	// Needs to support more file extensions than just jpg
+	return true;
+	// var isValidImageURL = /^http:\/\/i\.imgur\.com\/[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]\.jpg$/g;
+	// return isValidImageURL.test(image);
+}
+
+function validateBarcode(barcode){
+	// barcodes are optional and should be processed on the client side anyway
+	return true;
+	// var isNumbers = /^[0-9]*$/g;
+	// return isNumbers.test(barcode);
+}
+
 
 function addNewMeal(mealData, userId, lat, lng) {
 	return new Promise(function(resolve, reject) {
@@ -124,7 +168,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			res.render('new_fooditem', param);
@@ -148,7 +193,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 		
 			var mealId = req.params.id;
@@ -182,9 +228,8 @@ module.exports = function() {
 					};
 					res.render('error', param);
 				});
-				
-
 			}
+
 			else {
 				param.error_message = {
 					msg: 'No meal id specified'
@@ -210,35 +255,45 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			var mealData = req.body;
-		
 			
+			// console.log(validateName(mealData.name)); console.log(validateType(mealData.foodtype));  console.log(validateDescription(mealData.description));  console.log(validateBestBefore(mealData.day, mealData.month, mealData.year));  console.log(validateLocation(mealData.lat, mealData.lng));  console.log(validateImage(mealData.image));  console.log(validateBarcode(mealData.barcode));
+	
+			if(validateName(mealData.name) && validateType(mealData.foodtype) && validateDescription(mealData.description) && validateBestBefore(mealData.day, mealData.month, mealData.year) && validateLocation(mealData.lat, mealData.lng) && validateImage(mealData.image) && validateBarcode(mealData.barcode)){
 
-			if (mealData.useCurrentLocation) {
-				var cookies = new Cookies(req, res);
-			  mealData.lat = cookies.get('lat');
-				mealData.lng = cookies.get('lng');
+				if (mealData.useCurrentLocation) {
+					var cookies = new Cookies(req, res);
+				  	mealData.lat = cookies.get('lat');
+						mealData.lng = cookies.get('lng');
+				}
+
+				addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
+
+						param.new_item = {
+							name: mealData.name,
+							image: mealData.image,
+							id: result.insertId
+						}
+						res.render('added_fooditem', param);
+
+
+				}, function(err) {
+						param.error_message = {
+							msg: err
+						};
+						res.render('error', param);
+				});
 			}
-
-			addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng).then(function(result) {	
-
-					param.new_item = {
-						name: mealData.name,
-						image: mealData.image,
-						id: result.insertId
-					}
-					res.render('added_fooditem', param);
-
-
-			}, function(err) {
-					param.error_message = {
-						msg: err
-					};
-					res.render('error', param);
-			});
+			else{
+				param.error_message = {
+					msg: 'Some of the information you entered was not valid'
+				};
+				res.render('error', param);
+			}
 
 		}, function(err) {
 			param.error_message = {
@@ -257,7 +312,8 @@ module.exports = function() {
 				userID: result.UserID,
 				firstname: result.Firstname,
 				surname: result.Surname,
-				mugshot: result.ProfileImage
+				mugshot: result.ProfileImage,
+				textSize: result.TextSize
 			};
 
 			var mealData = req.body;
@@ -294,17 +350,14 @@ module.exports = function() {
 					};
 					res.render('error', param);
 				});
-				
-
 			}
+
 			else {
 				param.error_message = {
 					msg: 'No meal id specified'
 				};
 				res.render('error', param);
 			}
-
-
 
 		}, function(err) {
 			param.error_message = {

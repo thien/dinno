@@ -1,0 +1,28 @@
+extends layout
+
+block container
+  include includes/nav
+  script.
+    var reportList = !{JSON.stringify(reportList).replace(/<\//g, '<\\/')}
+    console.log('testtestets1111')
+	
+  .container-padder
+    .col-sm-12.container-vp
+      .user-fooditem-cardlist 
+        h1.manage-header Your Report Record
+        p.text-muted All reports which have been made against you. Verified Reports show up on your profile. 5+ Verified reports will result in suspension.
+
+  .row.container-padder(style='padding-right: 0px;margin-right: 0px;')
+
+    .col-lg-12.container-vp
+      .user-fooditem-cardlist#fooditemlist
+        .card
+          .card-header
+            span.manage-label Showing:
+            select.manage-select#showingVerified(name="showingVerified")
+              option(value="Verified") Verified Reports
+              option(value="Unverified") Unverified Reports
+          .card-block#itemdata
+
+  script
+    include assets/reporthistory.js
