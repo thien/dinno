@@ -92,7 +92,7 @@ function addNewMeal(mealData, userId, lat, lng,tags) {
 	});
 }
 
-function updateMeal(mealData, mealId, lat, lng, tags) {
+function updateMeal(mealData, mealId, lat, lng, oldtags,tags) {
 	return new Promise(function(resolve, reject) {
 		var year = mealData['year'];
 		var month = mealData['month'];
@@ -111,6 +111,35 @@ function updateMeal(mealData, mealId, lat, lng, tags) {
 					reject(error);
 				} else {
 					console.log(`Updated meal ${mealData.name}`);
+					oldtags = oldtags.split(",")
+					tags = tags.split(",")
+
+					oldtags = oldtags.map(function(x){return parseInt(x)})
+					tags = tags.map(function(x){return parseInt(x)})
+
+					var removedTags = oldtags.filter(function(id){return tags.indexOf(id) < 0})
+					var addedTags = tags.filter(function(id){return oldtags.indexOf(id) < 0})
+
+					console.log(removedTags)
+					console.log(addedTags)
+					if(removedTags.length > 0){
+						var query = `DELETE FROM TagMeal WHERE TagID IN (?`
+						for(var i = 1 ; i < removedTags.length;i++){
+							query += `,?`
+						}
+						query += `) AND MealID = ?`
+						console.log(query)
+						db.query(query,removedTags.concat([mealId]),function(e,r,f){
+							if(e){
+								console.log(e)
+							}else{
+								console.log(r)
+							}
+						})
+					}
+					if(addedTags.length > 0){
+
+					}
 					resolve(results);
 				}
 			});
@@ -271,7 +300,6 @@ module.exports = function() {
 						if(mealInfo.value != null){
 							mealInfo.value = mealInfo.value.split(",")
 							mealInfo.text = mealInfo.text.split(",")
-							console.log(mealInfo)
 							param.tags = []
 							for(var i = 0; i < mealInfo.value.length ; i++){
 								var temp = {}
@@ -280,7 +308,6 @@ module.exports = function() {
 								param.tags[i] = temp
 							}
 							param.tags = JSON.stringify(param.tags)
-							console.log(param.tags)
 						}
 						db.query(`SELECT * FROM Tag`,function(error,result,fields){
 							param.allTags = []
@@ -411,7 +438,7 @@ module.exports = function() {
 						mealData.lng = cookies.get('lng');
 					}
 
-					updateMeal(mealData, mealId, mealData.lat, mealData.lng,mealData.tags).then(function(result) {	
+					updateMeal(mealData, mealId, mealData.lat, mealData.lng,mealData.oldtags,mealData.tags).then(function(result) {	
 							param.new_item = {
 								name: mealData.name,
 								image: mealData.image,
