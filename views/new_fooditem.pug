@@ -119,6 +119,7 @@ block container
 					decoder: { // or code_39, codabar, ean_13, ean_8, upc_a, upc_e
 						readers: ["code_128_reader",'ean_reader', 'ean_8_reader', 'code_39_reader', 'code_39_vin_reader', 'codabar_reader', 'upc_reader', 'upc_e_reader', 'i2of5_reader'],
 					},
+					numOfWorkers: 0,
 					locate: true,
 					src: reader.result
 				},function(result){
