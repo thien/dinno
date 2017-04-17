@@ -73,7 +73,6 @@ function addNewMeal(mealData, userId, lat, lng,tags) {
 						for(var i = 1; i < tags.length ; i++){
 							query += `, (0,` + results.insertId + `,?)`
 						}
-						console.log(query)
 						db.query(query,tags,function(e,r,f){
 							if(e){
 								console.log(e)
@@ -120,15 +119,12 @@ function updateMeal(mealData, mealId, lat, lng, oldtags,tags) {
 					var removedTags = oldtags.filter(function(id){return tags.indexOf(id) < 0})
 					var addedTags = tags.filter(function(id){return oldtags.indexOf(id) < 0})
 
-					console.log(removedTags)
-					console.log(addedTags)
 					if(removedTags.length > 0){
 						var query = `DELETE FROM TagMeal WHERE TagID IN (?`
 						for(var i = 1 ; i < removedTags.length;i++){
 							query += `,?`
 						}
 						query += `) AND MealID = ?`
-						console.log(query)
 						db.query(query,removedTags.concat([mealId]),function(e,r,f){
 							if(e){
 								console.log(e)
@@ -138,7 +134,19 @@ function updateMeal(mealData, mealId, lat, lng, oldtags,tags) {
 						})
 					}
 					if(addedTags.length > 0){
-
+						var query = `INSERT INTO TagMeal (TagMealID,MealID,TagID) VALUES (0,?,?)`
+						var inserts = addedTags.map(function(x){return [mealId,x]})
+						for(var i = 1 ; i < addedTags.length;i++){
+							query += `,(0,?,?)`
+						}
+						inserts = [].concat.apply([],inserts)
+						db.query(query,inserts,function(e,r,f){
+							if(e){
+								console.log(e)
+							}else{
+								console.log(r)
+							}
+						})
 					}
 					resolve(results);
 				}
@@ -157,7 +165,6 @@ function addTags(tags){
 		for(var i = 1; i < tags.length ; i++){
 			query += `, (0,` + results.insertId + `,?)`
 		}
-		console.log(query)
 		db.query(query,tags,function(e,r,f){
 			if(e){
 				console.log(e)
