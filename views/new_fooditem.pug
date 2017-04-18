@@ -73,16 +73,18 @@ block container
 							input#secret-lat-input.form-control.password.secret-input(name="lat" value=lat)
 							input#secret-lng-input.form-control.password.secret-input(name="lng" value=lng)
 						.form-group
+							label(for='description') Tags
 							input#tags(name="tags", data-role="tagsinput",type="text")
 							if edit
 								input#oldTags(name='oldtags',type='hidden')
 						.form-group
 							label(for='location') Location
 							input#location.form-control(name="location" type='location', placeholder='eg. 18 North Bailey, Durham, UK', value=location)
-							br
-							label(for='use-current-location') Use current location
-							input.form-control(id='use-current-location', type='checkbox' name='useCurrentLocation')
-
+							
+							.form-check
+								label.form-check-label(for='use-current-location')
+									input.form-check-input(id='use-current-location', type='checkbox' name='useCurrentLocation')
+									|  Use current location
 
 				.col-lg-4
 					#container
