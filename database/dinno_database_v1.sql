@@ -40,8 +40,12 @@ CREATE TABLE IF NOT EXISTS `Location` (
 INSERT INTO `Location` (`LocationID`, `Postcode`, `HouseNoName`, `Street`, `Town`, `County`, `IsDropbox`, `Latitude`, `Longitude`) VALUES
 (1, 'DH13RH', '18', 'North Bailey', 'Durham', 'County Durham', 0, 54.7731, -1.57489),
 (2, 'DH13LE', 'Bill Bryson Library', 'South Road', 'Durham', 'County Durham', 0, 54.7683, -1.57322),
-(3, 'DH1 4BG' ,'12', 'Waddington Street' , 'Durham ','County Durham', 0, 54.7781, -1.58723);
-
+(3, 'DH1 4BG' ,'12', 'Waddington Street' , 'Durham ','County Durham', 0, 54.7781, -1.58723),
+(4, 'DH1 4BG', '12',  'Waddington Street', 'Durham', 'County Durham', 0 ,54.7781, -1.58723),
+(5, 'DH6 1AX', '1', 'Saint Lawrence Road', 'High Pittington', 'County Durham', 0, 54.7928 ,-1.489),
+(6, 'DH3 3TS', '5', 'Newcastle Road',  'Chester-le-Street', 'County Durham', 0, 54.8591, -1.57409),
+(7, 'DH1 1HS', '50-51', 'The Sidings', 'Durham',  'County Durham', 0, 54.7792 ,-1.56137),
+(8, 'DH1 1JA', '110', 'Gilesgate', 'Durham', 'County Durham' ,0, 54.7792, -1.55808);
 -- --------------------------------------------------------
 
 --
@@ -93,8 +97,12 @@ INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `RecipientID`, `Name`, `Be
 (21, 2, 8, 6, 'Birds', '2017-01-12', 'They keep me up at night 2. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,2,1),
 (22, 2, 8, 7, 'Birds', '2017-01-12', 'They keep me up at night 3. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,3,1),
 (23, 2, 8, 9, 'Birds', '2017-01-12', 'They keep me up at night 4. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,4,1),
-(24, 2, 8, 8, 'Birds', '2017-01-12', 'They keep me up at night 5. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,5,1);
-
+(24, 2, 8, 8, 'Birds', '2017-01-12', 'They keep me up at night 5. Free to a good home.', 'http://i.imgur.com/RIi7RlF.png',0,5,1),
+(25, 4, 16,   NULL,  'Bacon Sandwich',  '2019-07-16',  'An exciting collaboration between myself and the Earl of Sandwich','http://i.imgur.com/nB9yrCI.jpg'  ,0 ,NULL  ,1),
+(26, 5, 16,   NULL,  'Bacon', '2017-08-06',  'A single delicate rasher of the good stuff.','http://i.imgur.com/fbmySfW.jpg'  ,0 ,NULL  ,1),
+(27, 6, 16,   NULL,  'Bacon Burger',  '2017-11-25',  'The important bit is that there\'s bacon in it.' ,'http://i.imgur.com/Ai9Qa8z.jpg'  ,0 ,NULL  ,1),
+(28, 7, 10,   NULL,  'Chicken Burger',  '2017-07-05',  'Bought last night after a heavy sesh at Klute. Only ate half of it.','http://i.imgur.com/kiCpwca.jpg'  ,0 ,NULL  ,1),
+(29, 8, 4 , NULL  , 'Carbonara', '2017-06-01',  'The only thing I can actually cook' ,'http://i.imgur.com/4tinYjL.jpg'  ,0 ,NULL  ,1);
 -- --------------------------------------------------------
 
 ALTER TABLE Meal
