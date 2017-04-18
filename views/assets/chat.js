@@ -72,21 +72,21 @@ socket.on('chat message', function(msg) {
       
       if (msg.day !== lastDay) {
         lastDay = msg.day;
-        var dayHeader = `<div class='alert alert-info msg-date'> <strong> ${msg.day} </strong> </div>`;
+        var dayHeader = "<div class='alert alert-info msg-date'> <strong> "+msg.day+" </strong> </div>";
         $('.msg-wrap').append(dayHeader);
       }
 
       // create message container
       var message_container =
-      `<div class="media msg">
-        <div class="media-body">
-          <small class="pull-right time">
-            <i class="fa fa-clock-o"></i> ${msg.timestamp}
-          </small>
-          <h5 class="media-heading"> ${msg.sendername} </h5>
-          <small class="col-lg-10"> ${msg.contents} </small>
-        </div>
-      </div>`;
+'      <div class="media msg">'+
+'        <div class="media-body">'+
+'          <small class="pull-right time">'+
+'            <i class="fa fa-clock-o"></i> '+msg.timestamp+
+'          </small>'+
+'          <h5 class="media-heading"> '+msg.sendername+' </h5>'+
+'          <small class="col-lg-10"> '+msg.contents+' </small>'+
+'        </div>'+
+'      </div>';
       // append to client's messagebox
 
       $('.msg-wrap').append(message_container);
@@ -103,14 +103,14 @@ socket.on('server message', function(msg) {
 socket.on('user search results', function(res) {
   var users = '';
   res.forEach(function(u) {
-    users += ` <div class='media conversation user-search-result' onclick="location.href='/chat?id=${u.UserID}';">
-                  <a class='pull-left' href='/chat?id=${u.UserID}'>
-                    <img class='media-object contact_photo sm' src='${u.ProfileImage}'>
-                  </a>
-                  <div class='media-body message-list-box'>
-                    <h5>${u.Firstname} ${u.Surname}</h5>
-                  </div>
-                </div>`;
+    users +=  "<div class='media conversation user-search-result' onclick=\"location.href='/chat?id="+u.UserID+"';\">"+
+                  "<a class='pull-left' href='/chat?id="+u.UserID+"'>"+
+                    "<img class='media-object contact_photo sm' src='"+u.ProfileImage+"'>"+
+                  "</a>"+
+                  "<div class='media-body message-list-box'>"+
+                    "<h5>"+u.Firstname+" "+u.Surname+"</h5>"+
+                  "</div>"+
+                "</div>";
   });
   if (res.length > 0 ) {
     $('#user-search-results').addClass('found');
