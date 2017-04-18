@@ -6,7 +6,9 @@ if(!socket){
 /*script
 	include assets/push_notifications.js
 	include assets/js-cookie.js*/
-socket.emit('notify_me', Cookies.get('id'));
+
+// joins the users private room
+socket.emit('join', {name: Cookies.get('id')});
 
 // only sends the notification out if on added_page, this tests if it is this page
 
@@ -59,6 +61,7 @@ function notify(){
 // used to send the event to the server via the socket, called on the added_fooditem page
 
 function foodNotification(notification_content){
+	console.log(Cookies.get('id'));
 	socket.emit('food_added', {
     	userID: Cookies.get('id'),
     	body: notification_content.body,
