@@ -13,6 +13,8 @@ html(lang="en")
         include assets/big_search
         //- a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »  
       p.center
+        if tip
+          a(href=tip.link) #{tip.msg}
         //- if !loggedin
         //-   a(href="/register") Register
         //-   | or Sign In with 
