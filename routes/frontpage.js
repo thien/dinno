@@ -176,19 +176,6 @@ module.exports = function() {
       loggedin: false,
     };
 
-<<<<<<< HEAD
-				param.user_data = {
-					userID: userId,
-					firstname: result.Firstname,
-					surname: result.Surname,
-					mugshot: result.ProfileImage,
-					textSize: result.TextSize,
-					colourScheme: result.ColourScheme,
-					isAdmin: result.IsAdmin
-				};
-				
-				res.render('frontpage', param);
-=======
     getBackgroundImage().then(function(backgrounds) {
       // param.background = background;
       param.backgrounds = backgrounds;
@@ -218,7 +205,6 @@ module.exports = function() {
 						res.render('frontpage', param);
 					})
 				})
->>>>>>> refs/remotes/origin/master
 
       }, function(err) {
         res.render('frontpage',param);
