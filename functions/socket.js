@@ -82,10 +82,6 @@ module.exports = function Server(io, server) {
             });
         });
 
-        socket.on('notify_me', function(userID){
-            users[userID] = socket.id;
-        });
-
         socket.on('food_added', function(content) {
             getUsersSearchingForFood(content.name).then(function(hungryUsers) {
                 for (var i = 0; i<hungryUsers.length; i++) {

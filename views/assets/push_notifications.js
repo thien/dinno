@@ -7,21 +7,24 @@ if(!socket){
 	include assets/js-cookie.js
 	include assets/push_notifications.js*/
 
-// joins the users private room
-socket.emit('join', {name: Cookies.get('id')});
-
 // only sends the notification out if on added_page, this tests if it is this page
 
-if(document.getElementById('lovelymsg')){
-	foodNotification(getNotificationContent());
-}
+
+//}
+$(document).ready(function(){
+	if(document.getElementById('lovelymsg')){
+		foodNotification(getNotificationContent());
+	}
+})
+// joins the users private room
+socket.emit('join', {name: Cookies.get('id')});
 waitForNotification();
 
 // waits for socket event and notifies user if applicatable i.e. they want it and it is for them
 
 function waitForNotification(){
 	socket.on('new_food_notification', function(notification_content){
-	   	if (Notification.permission === 'granted' && ('Notification' in  window)) {	//document.getElementById('lovelymsg') &&  add this
+	   	if (document.getElementById('lovelymsg') && Notification.permission === 'granted' && ('Notification' in  window)) {
 			var notification = new Notification('Dinno', notification_content);
 		}
 		else if(!('Notification' in window)){
