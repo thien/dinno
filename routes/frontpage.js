@@ -62,8 +62,9 @@ function getRandomRecievedMeal(userID){
 						 JOIN User 
 						 ON Meal.UserID = User.UserID
 						 WHERE Meal.RecipientID = ?
+						 AND Meal.UserID <> ?
              ORDER BY RAND()
-             LIMIT 1`,[userID],
+             LIMIT 1`,[userID, userID],
      function(error, results, fields) {
        if (error) {
 					console.log(error);
@@ -93,8 +94,9 @@ function getRandomDonatedMeal(userID){
 						 JOIN User 
 						 ON Meal.RecipientID = User.UserID
 						 WHERE Meal.UserID = ?
+					   AND Meal.RecipientID <> ?
              ORDER BY RAND()
-             LIMIT 1`,[userID],
+             LIMIT 1`,[userID, userID],
      function(error, results, fields) {
        if (error) {
 					console.log(error);
