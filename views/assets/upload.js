@@ -8,6 +8,7 @@ socket.on('sentimg', function(img_url) {
 
 socket.on('img_uploaded', function(img_url) {
     // we'll need to send the image url to the post form.
+    img_url.url = img_url.url.replace("http://", "https://");
     console.log(img_url);
 	var targetDiv = document.getElementById(img_url.id);
 	targetDiv.className += " img_upload_done";
