@@ -21,7 +21,7 @@ nav.navbar-alt.navbar-light.navbar-toggleable-md
 				if user_data.isAdmin
 					li.nav-item.dropdown
 						a#navbarAdmin.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Admin
-						.dropdown-menu(aria-labelledby='navbarAdmin')
+						.dropdown-menu(aria-labelledby='navbarAdmin').dropdown-menu-right
 							a.dropdown-item(href='/reviewreports') Review Reports
 							|  
 							a.dropdown-item(href='/manageusers') Ban/Unban Users
@@ -30,7 +30,7 @@ nav.navbar-alt.navbar-light.navbar-toggleable-md
 						img(src=user_data.mugshot).navbar-mugshot
 					.dropdown-menu.dropdown-menu-right
 						if user_data.isAdmin
-							h6.dropdown-header Hi, #{user_data.firstname} (ADMIN)
+							h6.dropdown-header Hi, #{user_data.firstname} (Admin)
 						else
 							h6.dropdown-header Hi, #{user_data.firstname}
 						a.dropdown-item(href='/profile') Profile
