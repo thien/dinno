@@ -2,22 +2,32 @@ if(!socket){
 	var socket = io();
 }
 
+//copy this onto each pug page notifications are needed: (if they aren't already included...)
+/*script
+	include assets/push_notifications.js
+	include assets/js-cookie.js*/
+socket.emit('notify_me', Cookies.get('id'));
+
 // only sends the notification out if on added_page, this tests if it is this page
 
 if(document.getElementById('lovelymsg')){
 	foodNotification(getNotificationContent());
 }
+waitForNotification();
 
 // waits for socket event and notifies user if applicatable i.e. they want it and it is for them
 
-socket.on('new_food_notification', function(notification_content){
-   	if (notification_content.userID == Cookies.get('id') && Notification.permission === 'granted' && ('Notification' in  window)) {
-		var notification = new Notification('Dinno', notification_content);
-	}
-	else if(!('Notification' in window)){
-		alert("This browser does not support desktop notification!");
-	}
-});
+function waitForNotification(){
+	socket.on('new_food_notification', function(notification_content){
+		console.log(window.location.href.substr(window.location.href.length - 3));
+	   	if (Notification.permission === 'granted' && ('Notification' in  window)) {
+			var notification = new Notification('Dinno', notification_content);
+		}
+		else if(!('Notification' in window)){
+			alert("This browser does not support desktop notification!");
+		}
+	});
+}
 
 // this checks and asks for permission to send notifications
 
@@ -50,7 +60,7 @@ function notify(){
 
 function foodNotification(notification_content){
 	socket.emit('food_added', {
-    	userID: 9,
+    	userID: Cookies.get('id'),
     	body: notification_content.body,
     	icon: notification_content.icon,
     	dir: 'ltr',

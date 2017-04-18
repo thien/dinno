@@ -222,11 +222,11 @@ function dealWithResults(req, res, param) {
                     console.log("error in insert into: "+err);
                     reject();
                 }
-                else{
+                /*else{
                     results = rows
-                }
+                }*/
             })
-            resolve(results);
+            resolve();
         },function(){
             reject();
         });

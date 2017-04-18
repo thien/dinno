@@ -139,6 +139,7 @@ $(document).ready(function(){
 		FilterData();
 		initRating();
 	});
+	waitForNotification();
 	FilterData();
 	initRating();
 });

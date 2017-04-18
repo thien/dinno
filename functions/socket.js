@@ -4,6 +4,8 @@ var dateFormat  = require('dateformat');
 var chat        = require('../functions/chat');
 var map         = require('../functions/map');
 const db        = require('../functions/database');
+//dictionary of userID : socketid pairs
+var users = {};
 
 module.exports = function Server(io, server) {
 
@@ -14,7 +16,7 @@ module.exports = function Server(io, server) {
         socket.send(socket.id);
 
         socket.on('join', function (data) {
-            socket.join(data.name); 
+            socket.join(data.name);
         });
 
         socket.on('chat message', function(msg) {
@@ -80,12 +82,19 @@ module.exports = function Server(io, server) {
             });
         });
 
+        socket.on('notify_me', function(userID){
+            users[userID] = socket.id;
+        });
+
         socket.on('food_added', function(content) {
             console.log('content: ',content);
+            users[content.userID] = socket.id;
+            console.log(users);
             getUsersSearchingForFood(content.name).then(function(hungryUsers) {
                 for (var i = 0; i<hungryUsers.length; i++) {
                     content.userID = hungryUsers[i];
-                    socket.emit('new_food_notification', content);
+                    console.log(users[hungryUsers[i]]);
+                    socket.to(users[hungryUsers[i]]).emit('new_food_notification', content);
                 }
             });
         });
