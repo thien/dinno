@@ -143,7 +143,9 @@ block container
 		var k = "#{allTags}"
 		var currentTags = "#{tags}"
 		k = JSON.parse(k.replace(/&quot;/g,'"'))
-		currentTags = JSON.parse(currentTags.replace(/&quot;/g,'"'))
+		if(currentTags != ""){
+			currentTags = JSON.parse(currentTags.replace(/&quot;/g,'"'))
+		}
 		var tagNames = []
 		for(var i = 0; i < k.length ; i++){
 			tagNames[i] = k[i].text
