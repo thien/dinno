@@ -121,7 +121,9 @@ function dealWithResults(req, res, param) {
 									 WHERE RecipientID IS NULL AND Meal.IsAvailable = 1
                                      `
         ;
-
+    if(param.user_data != undefined){
+        query += `AND Meal.UserID <> ` + param.user_data.userID
+    }
 
     if (req.query.radius == undefined || req.query.radius == "") {
         req.query.radius = 10
