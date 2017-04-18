@@ -21,7 +21,7 @@ waitForNotification();
 
 function waitForNotification(){
 	socket.on('new_food_notification', function(notification_content){
-	   	if (document.getElementById('lovelymsg') && Notification.permission === 'granted' && ('Notification' in  window)) {
+	   	if (Notification.permission === 'granted' && ('Notification' in  window)) {	//document.getElementById('lovelymsg') &&  add this
 			var notification = new Notification('Dinno', notification_content);
 		}
 		else if(!('Notification' in window)){

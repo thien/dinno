@@ -34,10 +34,8 @@ link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
 script(src='/holderjs/holder.js')
 
 if isSearchResultsPage
-	script(src='/socket.io/socket.io.js')
 	script
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
-	script(src='assets/js-cookie.js')
 	script(src='assets/poachGETVariables.js')
 	script(src='assets/interactive_sorting.js')
