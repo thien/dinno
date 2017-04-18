@@ -4,8 +4,8 @@ if(!socket){
 
 //copy this onto each pug page notifications are needed: (if they aren't already included...)
 /*script
-	include assets/push_notifications.js
-	include assets/js-cookie.js*/
+	include assets/js-cookie.js
+	include assets/push_notifications.js*/
 
 // joins the users private room
 socket.emit('join', {name: Cookies.get('id')});
@@ -21,8 +21,7 @@ waitForNotification();
 
 function waitForNotification(){
 	socket.on('new_food_notification', function(notification_content){
-		console.log(window.location.href.substr(window.location.href.length - 3));
-	   	if (Notification.permission === 'granted' && ('Notification' in  window)) {
+	   	if (document.getElementById('lovelymsg') && Notification.permission === 'granted' && ('Notification' in  window)) {
 			var notification = new Notification('Dinno', notification_content);
 		}
 		else if(!('Notification' in window)){
