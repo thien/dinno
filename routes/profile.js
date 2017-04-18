@@ -63,7 +63,7 @@ function getUserMeals(userId) {
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.UserID
-				  WHERE Meal.UserID = ? AND Meal.IsAvailable = 1`, [userId],
+				  WHERE Meal.UserID = ? AND Meal.IsAvailable = 1 AND Meal.RecipientID IS NULL`, [userId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
