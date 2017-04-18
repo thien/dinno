@@ -90,7 +90,7 @@ function updateMeal(mealData, mealId, lat, lng) {
 		location.addNewLocation(lat,lng).then(function(locationId) { 
 			db.query(`UPDATE Meal
 								SET LocationID = ?, Name = ?, BestBefore = ?, Description = ?, Image = ?, IsIngredient = ?
-								WHERE MealID = ?`, 
+								WHERE MealID = ? AND RecipientID IS NULL`, 
 							[locationId, mealData.name, bestBefore, mealData.description, mealData.image, isIngredient, mealId],
 			function(error, results, fields) {
 				if (error) {
@@ -112,7 +112,7 @@ function checkMealOwner(mealId, userId) {
 	return new Promise(function(resolve, reject) {
 		db.query(`SELECT COUNT(*) AS isOwner
 							FROM Meal
-							WHERE MealID = ? AND UserID = ?`, 
+							WHERE MealID = ? AND UserID = ? AND RecipientID IS NULL`, 
 						[mealId, userId],
 		function(error, results, fields) {
 			if (error) {
@@ -120,7 +120,7 @@ function checkMealOwner(mealId, userId) {
 				reject(error);
 			} 
 			else if (!results[0].isOwner){
-				reject(`This isn't your meal`);
+				reject(`You can't edit a meal that isn't yours or has been claimed by someone else`);
 			}
 			else {
 				resolve();

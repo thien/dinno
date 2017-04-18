@@ -98,7 +98,7 @@ function processQuery(req, res, param) {
     // dude didn't type in a thang
     // default to durham when no position given.
     req.query.lat = 54.7731;
-    req.query.lng = -1.57499;
+    req.query.lng = -1.57599;
     param.lat = req.query.lat;
     param.lng = req.query.lng;
     dealWithResults(req, res, param);
@@ -121,7 +121,9 @@ function dealWithResults(req, res, param) {
 									 WHERE RecipientID IS NULL AND Meal.IsAvailable = 1
                                      `
         ;
-
+    if(param.user_data != undefined){
+        query += `AND Meal.UserID <> ` + param.user_data.userID
+    }
 
     if (req.query.radius == undefined || req.query.radius == "") {
         req.query.radius = 10

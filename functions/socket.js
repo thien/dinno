@@ -22,6 +22,8 @@ module.exports = function Server(io, server) {
             var senderId = msg['from'];
             console.log(msg);
             chat.getSenderName(senderId).then(function(name) {
+                // default to john if not specified
+                msg.to = msg.to || 4;
                 msg.sendername = name;
                 
                 msg.day        =  dateFormat(currentTime, "dddd dS mmmm");
