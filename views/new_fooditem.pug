@@ -146,33 +146,38 @@ block container
 		var k = "#{allTags}"
 		var currentTags = "#{tags}"
 		k = JSON.parse(k.replace(/&quot;/g,'"'))
-		currentTags = JSON.parse(currentTags.replace(/&quot;/g,'"'))
+		if(currentTags != ""){
+			currentTags = JSON.parse(currentTags.replace(/&quot;/g,'"'))
+		}
 		var tagNames = []
 		for(var i = 0; i < k.length ; i++){
 			tagNames[i] = k[i].text
-			tagNames[i].value = k[i].value
 		}
 		var tags = new Bloodhound({
-			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+			datumTokenizer: Bloodhound.tokenizers.whitespace,
 			queryTokenizer: Bloodhound.tokenizers.whitespace,
-			local: k,
+			local: tagNames,
 		});
 		// deals with tags
 		tags.initialize();
 		$('input#tags').tagsinput({
 			tagClass: 'badge-danger',
-			itemValue: 'value',
-			itemText: 'text',
-			typeaheadjs: {
-				name: 'tags',
-				displayKey: 'text',
+			maxChars: 14,
+			typeaheadjs: [{
+				highlight: true,
+			},{
 				source: tags.ttAdapter()
-			},
+			}],
 			//attempted to use freeInput: false, but doesnt work, hence event handler below
 		});
+		$('input#tags').on('beforeItemAdd',function(event){
+			if(event.item.length < 3){
+				event.cancel = true
+			}
+		})
 	if edit
 		script.
 			for(var i = 0; i < currentTags.length ; i++){
-				$('input#tags').tagsinput('add',currentTags[i])
+				$('input#tags').tagsinput('add',currentTags[i].text)
 			}
 			$('input#oldTags').val($('input#tags').val())
