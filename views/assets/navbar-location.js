@@ -63,7 +63,7 @@ function coord_base_error() {
 }
 
 function printEstLocation(coord){
-    $.getJSON('http://maps.google.com/maps/api/geocode/json?latlng=' + coord, function(data){
+    $.getJSON('https://maps.google.com/maps/api/geocode/json?latlng=' + coord, function(data){
         console.log(data.results[2]);
         console.log(data.results[2].formatted_address);
         document.getElementById("navsearchbarlocation").value = data.results[2].formatted_address;
