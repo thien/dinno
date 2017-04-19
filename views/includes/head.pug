@@ -2,23 +2,26 @@
 include scripts
 //- including .html, .css, etc works
 
+meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
+
+link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
 style
 	include style.css
 
 if loggedin
 	if user_data.textSize == "1.5x"
-		include style1_5.css
+		style
+			include style1_5.css
 	else if user_data.textSize == "2x"
-		include style2.css
+		style
+			include style2.css
 		
 	if user_data.colourScheme == "Blue"
-		include styleblue.css
+		style
+			include styleblue.css
 	else if user_data.colourScheme == "Orange"
-		include styleorange.css
-
-meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
-
-link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+		style
+			include styleorange.css
 link(href='/favicon.ico', rel='icon')
 script(src='assets/jquery-ui.min.js')
 script(src='/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
