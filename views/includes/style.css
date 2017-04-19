@@ -18,6 +18,11 @@
 .block-left {
 	display: block;
 }
+
+.card-img-top {
+	max-height: 500px;
+}
+
 @media(min-width: 320px){
 
 
@@ -385,7 +390,7 @@ margin: 0px 10px 0px 0px;
 	visibility: hidden;
 }
 
-@media(max-width: 420px){
+/*@media(max-width: 420px){
 	#results_container_left {
 		display: table-cell;
 		padding: 0px;
@@ -395,19 +400,19 @@ margin: 0px 10px 0px 0px;
 		background-color: red;
 		display: table-cell;
 	}
-}
+}*/
 
 #results_container_left {
 	/*background-color: blue;*/
 	/*width: 60%;*/
-	display: table-cell;
+	/*display: table-cell;*/
 	padding: 0px;
 	margin: 0px;
 }
 #results_container_right{
 	/*width: 40%;*/
 	background-color: red;
-	display: table-cell;
+	/*display: table-cell;*/
 	/*height:calc(100% - 60px);*/
 }
 #filtering {
