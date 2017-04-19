@@ -43,7 +43,7 @@ function coord_base_success(position) {
 }
 
 function coord_base_error() {
-    $.getJSON('http://ipinfo.io', function(data){
+    $.getJSON('https://ipinfo.io', function(data){
         document.getElementById("location_text").innerHTML = data.loc + " (Est.)";
         printEstLocation(data.loc);
         console.log("ran error, est");
