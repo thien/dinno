@@ -7,7 +7,7 @@ const db = require('../functions/database');
 function login(email, pass, remember, req, res) {
 	db.query(`SELECT VerificationCode, EncryptedPass, UserID, IsSuspended
 						FROM User
-						WHERE EmailAddress = ?`, [email],
+						WHERE EmailAddress = ? AND IsVerified = 1`, [email],
 	function(error, results, fields) {
 		if (error) {
 			console.log(error);
