@@ -8,16 +8,17 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 
 		#head-nav.form-inline.mr-auto.mt-2.mt-md-0
 	
-			form(method="get" action="/search").form-inline.head-nav-container
-				input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=food)
-				input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
-				input(type='hidden', name='lat')
-				input(type='hidden', name='lng')
-				#in-the-searchbar-right
-					i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Find your location")
+			.head-nav-container
+				form(method="get" action="/search").form-inline
+					input.form-control.mr-sm-2#navsearchbar(name='food' placeholder='Search for Food' value=food)
+					input.form-control.mr-sm-2#navsearchbarlocation(name='location' placeholder='Location' value=location)
+					input(type='hidden', name='lat')
+					input(type='hidden', name='lng')
+					#in-the-searchbar-right
+						i.fa.fa-location-arrow#locationarrow(aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Find your location")
 
-				button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
-					i.fa.fa-search(aria-hidden='true')
+					button.btn.btn-outline-success.my-2.my-sm-0#navsearchbutton(type='submit') 
+						i.fa.fa-search(aria-hidden='true')
 
 			//- else
 			//- 	.mr-auto.mt-2.mt-md-0
@@ -26,10 +27,6 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 			//- 	h5 #{loggedin}
 		
 			if loggedin
-				li.nav-item
-					a.nav-link(href='/')
-						| Home 
-						span.sr-only (current)
 				li.nav-item
 					a.nav-link(href='/add') Add
 				li.nav-item

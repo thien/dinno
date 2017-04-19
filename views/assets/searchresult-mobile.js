@@ -3,6 +3,7 @@ var RHSContainer = document.getElementById('results_container_right');
 var mobileSearchContainer = document.getElementById('mobile_details_handler');
 var itemDetailsContainer = document.getElementById('search_item_details');
 var searchButtonContainer = document.getElementById('search_item_buttons');
+var searchButtonContainerContent = searchButtonContainer.innerHTML;
 var mobileResultsToggleButton = null;
 var headNavContainer = document.getElementById('head-nav').innerHTML;
 var optButton = document.getElementById('searchOptionsButton');
@@ -47,8 +48,11 @@ function mobileResultsViewHandler(){
 		google.maps.event.trigger(map, "resize");
 		map.setCenter(new google.maps.LatLng(search_location.latitude, search_location.longitude), 1);
 		// map.setCenter(marker.getPosition());
+	} 
+	else if (window.innerWidth > 420 && window.innerWidth < 992) {
+		manageTabletScreenAssets();
 	} else {
-		hideMobileAssets();
+		manageLargeScreenAssets();
 	}
 }
 
@@ -61,20 +65,68 @@ function showMobileAssets(){
 
 
 	mobileSearchContainer.style.display = "initial";
+	mobileSearchContainer.style.width = '90%';
+	mobileSearchContainer.style.left = "5%";
 	itemDetailsContainer.style.display = "none";
 	optButton.classList.remove('btn-primary');
 	filButton.classList.remove('btn-primary');
 	optButton.classList.add('btn-danger');
 	filButton.classList.add('btn-danger');
+	mobileResultsToggleButton.style.display = "initial";
 
 	// sets display results container to 100% height
 	document.getElementById('dud_spacing').style.height = '160px';
 	document.getElementById('list_results_container').style.maxHeight = '100%';
 }
 
-function hideMobileAssets(){
-	document.getElementById('dud_spacing').style.height = '0px';
-	document.getElementById('list_results_container').style.maxHeight = '65%';
+
+function manageTabletScreenAssets(){
+	document.getElementById('list_results_container').style.maxHeight = '100%';
+	optButton.classList.add('btn-primary');
+	filButton.classList.add('btn-primary');
+	optButton.classList.remove('btn-danger');
+	filButton.classList.remove('btn-danger');
+
+	LHSContainer.style.display = "initial"; 
+	RHSContainer.style.display = "initial";
+	mobileResultsToggleButton.style.display = "none";
+
+	// mobileResultsToggleButton.style.display = "none";
+	mobileSearchContainer.style.display = "initial";
+	if (window.innerWidth < 769 && window.innerWidth >= 570 ){
+		mobileSearchContainer.style.width = '95%';
+		mobileSearchContainer.style.left = "2.5%";
+		// put option buttons inline
+		document.getElementById('dud_spacing').style.height = '110px';
+
+	} else if (window.innerWidth < 570) {
+		mobileSearchContainer.style.width = '95%';
+		mobileSearchContainer.style.left = "2.5%";
+		// put option buttons inline
+		document.getElementById('dud_spacing').style.height = '200px';
+	} 
+	else {
+		mobileSearchContainer.style.width = '45%';
+		mobileSearchContainer.style.left = "2.5%";
+		document.getElementById('dud_spacing').style.height = '180px';
+		// put option buttons underneath
+	}
+	itemDetailsContainer.style.display = "none";
+	document.getElementById('head-nav').innerHTML = "";
+
+
+	if (LHSContainer.classList.contains("col-6") === false){
+		LHSContainer.classList.add("col-6");
+	}
+	if (RHSContainer.classList.contains("col-6") === false){
+		RHSContainer.classList.add("col-6");
+	}
+}
+
+function manageLargeScreenAssets(){
+	document.getElementById('dud_spacing').style.height = '200px';
+	document.getElementById('list_results_container').style.maxHeight = '100%';
+	// searchButtonContainer.innerHTML = searchButtonContainerContent;
 	optButton.classList.add('btn-primary');
 	filButton.classList.add('btn-primary');
 	optButton.classList.remove('btn-danger');
@@ -85,7 +137,7 @@ function hideMobileAssets(){
 
 	// mobileResultsToggleButton.style.display = "none";
 	mobileSearchContainer.style.display = "none";
-	itemDetailsContainer.style.display = "initial";
+	itemDetailsContainer.style.display = "block";
 	document.getElementById('head-nav').innerHTML = headNavContainer;
 
 	if (LHSContainer.classList.contains("col-6") === false){

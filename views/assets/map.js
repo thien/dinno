@@ -81,7 +81,7 @@ function updateMap(map, locations) {
         var popup = "<div class='row popup-food'>";
         loc.forEach(function(food) {
             popup += "<div class='col-md-4 map-popup-detail'>"+
-                       "<a href='/fooditem?id="+food.MealID+"'>"+ 
+                       "<a href='#"+food.MealID+"'>"+ 
                             "<img src='"+food.Image+"' class='marker-image'>"+  
                         "</a>"+
                         "<div class='popup-food-data'>"+
