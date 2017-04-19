@@ -48,6 +48,29 @@ function validateBarcode(barcode){
 	// return isNumbers.test(barcode);
 }
 
+function iterateTags(i,tags,done){
+	if(i < tags.length){
+		db.query(`SELECT Tag.TagID FROM Tag WHERE Name = ?`,[tags[i]],function(error,result,fields){
+			if(error){
+				console.log(error)
+			}else if(result.TagID != null){
+				tags[i] = result.TagID
+				iterateTags(i+1,tags,done)
+			}else{
+				db.query(`INSERT INTO Tag (TagID,Name) VALUES (0,?)`,[tags[i]],function(e,r,f){
+					if(e){
+						console.log(e)
+					}else{
+						tags[i] = r.insertId
+						iterateTags(i+1,tags,done)
+					}
+				})
+			}
+		})
+	}else{
+		done(tags)
+	}
+}
 
 function addNewMeal(mealData, userId, lat, lng,tags) {
 	return new Promise(function(resolve, reject) {
@@ -69,16 +92,18 @@ function addNewMeal(mealData, userId, lat, lng,tags) {
 					console.log(`Added meal ${mealData.name}`);
 					if(tags != ""){
 						tags = tags.split(",")
-						var query = `INSERT INTO TagMeal (TagMealID, MealID, TagID) VALUES (0,` + results.insertId + `,?)`
-						for(var i = 1; i < tags.length ; i++){
-							query += `, (0,` + results.insertId + `,?)`
-						}
-						db.query(query,tags,function(e,r,f){
-							if(e){
-								console.log(e)
-							}else{
-								console.log(r)
+						iterateTags(0,tags,function(tags){
+							var query = `INSERT INTO TagMeal (TagMealID, MealID, TagID) VALUES (0,` + results.insertId + `,?)`
+							for(var i = 1; i < tags.length ; i++){
+								query += `, (0,` + results.insertId + `,?)`
 							}
+							db.query(query,tags,function(e,r,f){
+								if(e){
+									console.log(e)
+								}else{
+									console.log(r)
+								}
+							})
 						})
 					}
 					resolve(results);
