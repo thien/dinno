@@ -1,17 +1,16 @@
-<style>
-	.navbar {
-	background-color: #4885ED !important;
-	}
-	.navbar-collapse {
-	background-color: #4885ED !important;
-	}
-	.navbar-alt-collapse {
-    background-color: transparent  !important;
-	}
-	#navsearchbar, #navsearchbutton, #navsearchbarlocation {
-    background-color: #4885ED !important;
-	}
-	h1.frontpage-logo-banner {
-    color: #4885ED !important;
-	}
-</style>
+
+.navbar {
+background-color: #4885ED !important;
+}
+.navbar-collapse {
+background-color: #4885ED !important;
+}
+.navbar-alt-collapse {
+background-color: transparent  !important;
+}
+#navsearchbar, #navsearchbutton, #navsearchbarlocation {
+background-color: #4885ED !important;
+}
+h1.frontpage-logo-banner {
+color: #4885ED !important;
+}
