@@ -20,7 +20,7 @@
 }
 
 .card-img-top {
-	max-height: 500px;
+	flex: none;
 }
 
 @media(min-width: 320px){
@@ -182,12 +182,29 @@ html, body, .container-fluid, .row { height: 100% }
 #navsearchbarlocation {
 	margin-left: -10px;
 }
-
-.modal-foot-text {
-	position: relative;
-	top: 5px;
+.tt-input {
+	width: 150%;
+}
+.tag {
+	border-radius: 3px;
+	padding: 4px 6px;
+	margin: 5px 2px;
+	white-space: nowrap;
+}
+.bootstrap-tagsinput {
+	line-height: 200%;
 }
 
+@media(min-width: 575px){
+	.modal-foot-text {
+		margin: 5px 0px 10px 10px;
+	}
+}
+@media(max-width: 575px){
+	.modal-foot-text {
+		margin: 10px 0px 10px 0px;
+	}
+}
 #navsearchbar, #navsearchbutton, #navsearchbarlocation {
 	background-color: #FF5353;
 	border: 1px solid #fff;
@@ -663,6 +680,9 @@ margin: 0px 10px 0px 0px;
 	-webkit-transition: background 0.5s ease-in-out;
     -ms-transition:     background 0.5s ease-in-out;
     transition:         background 0.5s ease-in-out;
+}
+.r-align {
+	float:right;
 }
 
 .arrowpulse{

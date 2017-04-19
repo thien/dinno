@@ -3,8 +3,13 @@ include scripts
 //- including .html, .css, etc works
 
 meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
-
 link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+link(href='/favicon.ico', rel='icon')
+link(rel='stylesheet', href='/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
+link(rel='stylesheet', href='/jquery-bar-rating/dist/themes/css-stars.css')
+link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
+link(href='/bootstrap-tagsinput/examples/assets/app.css', rel='stylesheet')
+//- style.css is to be last in order to overwrite the other stylesheets.
 style
 	include style.css
 
@@ -22,16 +27,11 @@ if loggedin
 	else if user_data.colourScheme == "Orange"
 		style
 			include styleorange.css
-link(href='/favicon.ico', rel='icon')
+
 script(src='assets/jquery-ui.min.js')
 script(src='/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
 script(src='/typeahead.js/dist/typeahead.bundle.js')
 script(src='/jquery-bar-rating/dist/jquery.barrating.min.js')
-link(rel='stylesheet', href='/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
-link(rel='stylesheet', href='/jquery-bar-rating/dist/themes/css-stars.css')
-link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
-link(href='/bootstrap-tagsinput/examples/assets/app.css', rel='stylesheet')
-
 script(src='/holderjs/holder.js')
 
 if isSearchResultsPage
@@ -40,6 +40,7 @@ if isSearchResultsPage
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
 	script(src='assets/js-cookie.js')
+	script(src='assets/functions/browsercheck.js')
 	script(src='assets/poachGETVariables.js')
 	script(src='assets/interactive_sorting.js')
 
