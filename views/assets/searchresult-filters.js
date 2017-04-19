@@ -90,4 +90,9 @@ var rangeSlider = function(){
 };
 
 rangeSlider();
+
+if (browser.name === "IE"){
+    document.getElementsByClassName("range-slider__range")[0].style.width = "100%";
+    document.getElementsByClassName("range-slider__value")[0].style.visibility = "hidden"; 
+}
 document.getElementsByClassName('range-slider__value')[0].innerHTML =  document.getElementsByClassName('range-slider__range')[0].value + "km";
