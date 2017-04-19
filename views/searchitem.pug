@@ -24,19 +24,6 @@ block container
                   label.form-check-label
                     input#inlineCheckbox2.form-check-input(type='checkbox', name='ingredient')
                     |  Ingredient
-            //- span Meal
-            //- input#meal(type='checkbox',name='meal')
-            //- span Ingredient
-            //- input#ingredient(type="checkbox",name='ingredient')
-            //- br
-
-            //- .form-group.row
-            //-   label.col-sm-2.col-form-label Radius
-            //-   .col-sm-4
-            //-     input#range(type='range',name='radius')
-            //-   .col-sm-4
-            //-     input#rangeVal(type='number' width='20px')
-            //-     span km
             .form-group.row
               label.col-sm-3.col-form-label Radius
               .col-sm-9
@@ -44,22 +31,10 @@ block container
                   input.range-slider__range(name='radius', type='range', value='5', min='0', max='50')
                   |  
                   span.range-slider__value 0
-
-            //- .form-group.row
-            //-   label.col-3.col-form-label(for='example-date-input') Radius
-            //-   .col-4
-            //-     input#range(type='range',name='radius')
-            //-   .col-2
-            //-     input#rangeVal(type='number' width='20px')
-            //-     span km
             .form-group.row
               label.col-sm-3.col-form-label Tags
               .col-sm-9
                 input#tag.form-control.tag-textbox-container(input='text',data-role='tagsinput',name='tags')
-            //- .form-group.row
-            //-   .col-sm-12
-                
-
 
           .modal-footer
             .container
@@ -73,9 +48,7 @@ block container
               
                 .col-sm-4
                   button.btn.btn-primary Update Search
-            //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-            //- |  
-            //- button.btn.btn-primary(type='button') Save changes
+
   .modal.fade#search-filters-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
     .modal-dialog(role='document')
       .modal-content
@@ -105,7 +78,6 @@ block container
     #mobile_details_handler
     .row.display-item-results-baby
       .col-6.no-float#results_container_left
-      
         #search_item_details 
           if results.food
             h1 Searching for #{results.food} 
@@ -114,8 +86,6 @@ block container
           #search_item_buttons
             button.btn.btn-primary#searchOptionsButton(data-toggle='modal', data-target='#search-options-modal') Options
             button.btn.btn-primary#searchFiltersButton(data-toggle='modal', data-target='#search-filters-modal') Filters
-
-
         #list_results_container
           #dud_spacing
           if results.food
@@ -124,17 +94,8 @@ block container
             h5#itemCountMsg Theres 100 assorted dinnos found around you! 
           .row#fooditem_results_card
             each fooditem in results.fooditems
-             .col-md-6.col-lg-4
-               a(href='/fooditem?id=' + fooditem.MealID id='fooditem_' + fooditem.MealID).card
-                 img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
-                 .card-profile-container
-                   img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
-                 .card-block
-                   h4.card-title #{fooditem.Name}
-                   p.card-text #{fooditem.Description}
-                   p.card-text
-                     small.text-muted Best before #{fooditem.BestBefore}
-
+              .col-md-6.col-lg-4
+                +fooditem_card(fooditem)
       .col-6.embed-responsive#results_container_right
         #map-canvas.embed-responsive-item  
   script(src='/assets/searchresult-mobile.js')
