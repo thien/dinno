@@ -24,6 +24,7 @@ $(document).on('click', '#locationarrow', function(){
 });
 
 function coord_base_success(position) {
+    console.log("found location successfully")
     var latitude  = position.coords.latitude.toFixed(4).toString();
     var longitude = position.coords.longitude.toFixed(4).toString();
 
@@ -43,8 +44,9 @@ function coord_base_success(position) {
 }
 
 function coord_base_error() {
+    console.log("using fallback location detection")
     $.getJSON('https://ipinfo.io', function(data){
-        document.getElementById("location_text").innerHTML = data.loc + " (Est.)";
+        document.getElementById("navsearchbarlocation").innerHTML = data.loc + " (Est.)";
         printEstLocation(data.loc);
         console.log("ran error, est");
         console.log("est location", data.loc);
@@ -53,6 +55,7 @@ function coord_base_error() {
         var latitude = res[0];
         var longitude = res[1];
 
+        var arrow = document.getElementById("locationarrow");
         arrow.classList.remove("arrowloading");
         arrow.classList.add("arrowamber");
         
@@ -68,4 +71,8 @@ function printEstLocation(coord){
         console.log(data.results[2].formatted_address);
         document.getElementById("navsearchbarlocation").value = data.results[2].formatted_address;
     })
+}
+
+if (browser.name === "IE"){
+    // document.getElementById("locationarrow").style.visibility = "hidden"; 
 }

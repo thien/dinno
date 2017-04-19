@@ -40,6 +40,7 @@ if isSearchResultsPage
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
 	script(src='assets/js-cookie.js')
+	script(src='assets/functions/browsercheck.js')
 	script(src='assets/poachGETVariables.js')
 	script(src='assets/interactive_sorting.js')
 
