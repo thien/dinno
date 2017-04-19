@@ -50,23 +50,27 @@ function validateBarcode(barcode){
 
 function iterateTags(i,tags,done){
 	if(i < tags.length){
-		db.query(`SELECT Tag.TagID FROM Tag WHERE Name = ?`,[tags[i]],function(error,result,fields){
-			if(error){
-				console.log(error)
-			}else if(result.TagID != null){
-				tags[i] = result.TagID
-				iterateTags(i+1,tags,done)
-			}else{
-				db.query(`INSERT INTO Tag (TagID,Name) VALUES (0,?)`,[tags[i]],function(e,r,f){
-					if(e){
-						console.log(e)
-					}else{
-						tags[i] = r.insertId
-						iterateTags(i+1,tags,done)
-					}
-				})
-			}
-		})
+		if(tags[i] != ""){
+			db.query(`SELECT TagID FROM Tag WHERE Name = ?`,[tags[i]],function(error,result,fields){
+				if(error){
+					console.log(error)
+				}else if(result[0] != undefined){
+					tags[i] = result[0].TagID
+					iterateTags(i+1,tags,done)
+				}else{
+					db.query(`INSERT INTO Tag (TagID,Name) VALUES (0,?)`,[tags[i]],function(e,r,f){
+						if(e){
+							console.log(e)
+						}else{
+							tags[i] = r.insertId
+							iterateTags(i+1,tags,done)
+						}
+					})
+				}
+			})
+		}else{
+			done([])
+		}
 	}else{
 		done(tags)
 	}
@@ -137,43 +141,44 @@ function updateMeal(mealData, mealId, lat, lng, oldtags,tags) {
 					console.log(`Updated meal ${mealData.name}`);
 					oldtags = oldtags.split(",")
 					tags = tags.split(",")
-
-					oldtags = oldtags.map(function(x){return parseInt(x)})
-					tags = tags.map(function(x){return parseInt(x)})
-
-					var removedTags = oldtags.filter(function(id){return tags.indexOf(id) < 0})
-					var addedTags = tags.filter(function(id){return oldtags.indexOf(id) < 0})
-
-					if(removedTags.length > 0){
-						var query = `DELETE FROM TagMeal WHERE TagID IN (?`
-						for(var i = 1 ; i < removedTags.length;i++){
-							query += `,?`
-						}
-						query += `) AND MealID = ?`
-						db.query(query,removedTags.concat([mealId]),function(e,r,f){
-							if(e){
-								console.log(e)
-							}else{
-								console.log(r)
+					iterateTags(0,oldtags,function(oldtags){
+						iterateTags(0,tags,function(tags){
+							console.log(oldtags)
+							console.log(tags)
+							var removedTags = oldtags.filter(function(id){return tags.indexOf(id) < 0})
+							var addedTags = tags.filter(function(id){return oldtags.indexOf(id) < 0})
+							if(removedTags.length > 0){
+								var query = `DELETE FROM TagMeal WHERE TagID IN (?`
+								for(var i = 1 ; i < removedTags.length;i++){
+									query += `,?`
+								}
+								query += `) AND MealID = ?`
+								db.query(query,removedTags.concat([mealId]),function(e,r,f){
+									if(e){
+										console.log(e)
+									}else{
+										console.log(r)
+									}
+								})
 							}
-						})
-					}
-					if(addedTags.length > 0){
-						var query = `INSERT INTO TagMeal (TagMealID,MealID,TagID) VALUES (0,?,?)`
-						var inserts = addedTags.map(function(x){return [mealId,x]})
-						for(var i = 1 ; i < addedTags.length;i++){
-							query += `,(0,?,?)`
-						}
-						inserts = [].concat.apply([],inserts)
-						db.query(query,inserts,function(e,r,f){
-							if(e){
-								console.log(e)
-							}else{
-								console.log(r)
+							if(addedTags.length > 0){
+								var query = `INSERT INTO TagMeal (TagMealID,MealID,TagID) VALUES (0,?,?)`
+								var inserts = addedTags.map(function(x){return [mealId,x]})
+								for(var i = 1 ; i < addedTags.length;i++){
+									query += `,(0,?,?)`
+								}
+								inserts = [].concat.apply([],inserts)
+								db.query(query,inserts,function(e,r,f){
+									if(e){
+										console.log(e)
+									}else{
+										console.log(r)
+									}
+								})
 							}
+							resolve(results);
 						})
-					}
-					resolve(results);
+					})
 				}
 			});
 
