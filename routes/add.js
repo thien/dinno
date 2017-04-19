@@ -223,10 +223,8 @@ function getMealInfo(mealId) {
 	});
 }
 
-module.exports.add_routing = function(io) {
-	var express = require('express');
-	var app = express();
-	var login = require('../functions/login');
+module.exports = function() {
+
 	app.locals.basedir = "." + '/views';
 
 	app.get('/add', function(req, res) {
@@ -357,7 +355,6 @@ module.exports.add_routing = function(io) {
 		});
 	})
 
-
 	app.post('/add', function(req, res) {
 		var param = {
 			loggedin: false,
@@ -395,14 +392,17 @@ module.exports.add_routing = function(io) {
 						image: mealData.image,
 						id: result.insertId
 					}
-
-					socket.emit('new_food_notification', {
-				    	userID: userID,
-				    	body: notification_content.body,
-				    	icon: notification_content.icon,
-				    	dir: 'ltr',
-				    	name: notification_content.name
+					var io = req.app.get('sockety');
+					io.on('connection', function(socket) {
+						socket.emit('new_food_notification', {
+					    	userID: userID,
+					    	body: notification_content.body,
+					    	icon: notification_content.icon,
+					    	dir: 'ltr',
+					    	name: notification_content.name
+						});
 					});
+
 					res.render('added_fooditem', param);
 
 				}, function(err) {

@@ -69,9 +69,10 @@ app.use('/', require('./routes/settings'));
 // food item profile
 app.use('/', require('./routes/fooditem'));  
 
+app.set('sockety', io);
+
 // add food item
-var k = require('./routes/add');
-app.use('/', k.add_routing(io));  
+app.use('/', require('./routes/add'));  
 
 // manage fooditems
 app.use('/', require('./routes/manage'));
