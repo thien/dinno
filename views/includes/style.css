@@ -177,6 +177,12 @@ html, body, .container-fluid, .row { height: 100% }
 #navsearchbarlocation {
 	margin-left: -10px;
 }
+
+.modal-foot-text {
+	position: relative;
+	top: 5px;
+}
+
 #navsearchbar, #navsearchbutton, #navsearchbarlocation {
 	background-color: #FF5353;
 	border: 1px solid #fff;
