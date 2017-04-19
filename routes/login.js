@@ -3,6 +3,7 @@ var app = express();
 var Cookies = require("cookies");
 const encrypt = require('../functions/encrypt');
 const db = require('../functions/database');
+var recommendations = require('../functions/recommendations');
 
 function login(email, pass, remember, req, res) {
 	db.query(`SELECT VerificationCode, EncryptedPass, UserID, IsSuspended
@@ -29,6 +30,16 @@ function login(email, pass, remember, req, res) {
 			var id = results[0].UserID;
 			if (theirHash == results[0].EncryptedPass && results[0].IsSuspended == 0) {
 				console.log(`Login legit`);
+				
+				recommendations.generateRandomRecommendation(id).then(function(chatdata) {
+				
+					console.log("Recommendation sent!");
+							
+				}, 
+				function(err) {
+					console.log(err);
+				});
+				
 				setLoginCookie(id, remember, req, res);
 			}
 			else if (results[0].IsSuspended == 1) {
