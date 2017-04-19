@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
 const db = require('../functions/database');
 var login = require('../functions/login');
 var location = require('../functions/location');
@@ -224,7 +223,7 @@ function getMealInfo(mealId) {
 	});
 }
 
-module.exports = function() {
+module.exports.add_routing = function(io) {
 	var express = require('express');
 	var app = express();
 	var login = require('../functions/login');
@@ -396,7 +395,14 @@ module.exports = function() {
 						image: mealData.image,
 						id: result.insertId
 					}
-					
+
+					socket.emit('new_food_notification', {
+				    	userID: userID,
+				    	body: notification_content.body,
+				    	icon: notification_content.icon,
+				    	dir: 'ltr',
+				    	name: notification_content.name
+					});
 					res.render('added_fooditem', param);
 
 				}, function(err) {

@@ -1,6 +1,4 @@
-if(!socket){
-	var socket = io();
-}
+
 
 //copy this onto each pug page notifications are needed: (if they aren't already included...)
 /*script
@@ -12,18 +10,24 @@ if(!socket){
 
 //}
 $(document).ready(function(){
+    if(!socket){
+        socket = io();
+    }
 	if(document.getElementById('lovelymsg')){
 		foodNotification(getNotificationContent());
 	}
+    console.log('joining ' + Cookies.get('id'));
+    socket.emit('join', {name: Cookies.get('id')});
+    waitForNotification();
 })
 // joins the users private room
-socket.emit('join', {name: Cookies.get('id')});
-waitForNotification();
+
 
 // waits for socket event and notifies user if applicatable i.e. they want it and it is for them
 
 function waitForNotification(){
 	socket.on('new_food_notification', function(notification_content){
+        console.log(notification_content);
 	   	if (document.getElementById('lovelymsg') && Notification.permission === 'granted' && ('Notification' in  window)) {
 			var notification = new Notification('Dinno', notification_content);
 		}

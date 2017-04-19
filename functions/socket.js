@@ -86,7 +86,7 @@ module.exports = function Server(io, server) {
             getUsersSearchingForFood(content.name).then(function(hungryUsers) {
                 for (var i = 0; i<hungryUsers.length; i++) {
                     content.userID = hungryUsers[i];
-                    console.log(content);
+                    console.log(`Received ${content} in ${content.userID}`);
                     io.sockets.in(content.userID).emit('new_food_notification', content);
                 }
             });
