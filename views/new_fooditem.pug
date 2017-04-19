@@ -162,11 +162,19 @@ block container
 		tags.initialize();
 		$('input#tags').tagsinput({
 			tagClass: 'badge-danger',
-			typeaheadjs: {
+			maxChars: 14,
+			typeaheadjs: [{
+				highlight: true,
+			},{
 				source: tags.ttAdapter()
-			},
+			}],
 			//attempted to use freeInput: false, but doesnt work, hence event handler below
 		});
+		$('input#tags').on('beforeItemAdd',function(event){
+			if(event.item.length < 3){
+				event.cancel = true
+			}
+		})
 	if edit
 		script.
 			for(var i = 0; i < currentTags.length ; i++){
