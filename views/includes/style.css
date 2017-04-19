@@ -183,11 +183,16 @@ html, body, .container-fluid, .row { height: 100% }
 	margin-left: -10px;
 }
 
-.modal-foot-text {
-	position: relative;
-	top: 5px;
+@media(min-width: 575px){
+	.modal-foot-text {
+		margin: 5px 0px 10px 10px;
+	}
 }
-
+@media(max-width: 575px){
+	.modal-foot-text {
+		margin: 10px 0px 10px 0px;
+	}
+}
 #navsearchbar, #navsearchbutton, #navsearchbarlocation {
 	background-color: #FF5353;
 	border: 1px solid #fff;
@@ -663,6 +668,9 @@ margin: 0px 10px 0px 0px;
 	-webkit-transition: background 0.5s ease-in-out;
     -ms-transition:     background 0.5s ease-in-out;
     transition:         background 0.5s ease-in-out;
+}
+.r-align {
+	float:right;
 }
 
 .arrowpulse{
