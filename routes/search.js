@@ -201,13 +201,16 @@ function dealWithResults(req, res, param) {
                     //console.log(tag)
                     param.results.tags = tag
                     console.log(param);
-                    addSearchToRecents(param.user_data.userID, param.food).then(function(results){
-                        console.log(results);
+                    if (param.loggedin) {
+                        addSearchToRecents(param.user_data.userID, param.food).then(function(results){
+                            console.log(results);
+                            res.render('searchitem', param);
+                        }, function(){
+                            res.render('searchitem', param);
+                        });
+                    } else {
                         res.render('searchitem', param);
-                    }, function(){
-                        res.render('searchitem', param);
-                    });
-                    //res.render('searchitem', param);
+                    }
                 })
             })
         }
