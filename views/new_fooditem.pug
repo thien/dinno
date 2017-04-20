@@ -95,7 +95,18 @@ block container
 								input(id="input_images" name='images' type="file" multiple="true")
 							#barcode_img_container
 								h3 Scan your barcode here
-								#barcodeContainer
+								.modal.fade#livevideo(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+									.modal-dialog(role='document')
+										.modal-content
+											.modal-header
+												h5#exampleModalLabel.modal-title Scan your barcode
+												|  
+												button.close(type='button', data-dismiss='modal', aria-label='Close')
+													span(aria-hidden='true') &times;
+											.modal-body
+												#barcodeContainer
+								button.btn.btn-primary#livevideo(data-toggle='modal', data-target='#livevideo',type='button')
+									i.fa.fa-cog(aria-hidden='true')
 								img#barcode
 								input(id="barcode_image" name='barcode' type='file' multiple="false")
 								
