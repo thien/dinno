@@ -32,9 +32,9 @@ function run() {
     }, function (err) {
         if (err) {
             console.log(err);
+            $(".livevideo").remove()
         }
         console.log("Initialization finished. Ready to start");
-        Quagga.start();
     });
     Quagga.onDetected(function (data) {
         console.log(decoded.length)
@@ -58,4 +58,6 @@ function run() {
 }
 if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     run();
+}else{
+    $(".livevideo").remove()
 }
