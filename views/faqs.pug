@@ -1,0 +1,31 @@
+extends layout
+
+block container
+
+	include includes/nav
+	.container 
+		.row
+			.col-lg-10
+				#container
+					h1 Help/FAQs
+					p.text-muted Help and questions on using the Dinno site.
+					
+					//Faqs panel
+					.panel-group
+						.panel.panel-default
+							.panel-heading
+								h4.panel-title
+									a.panellink(data-toggle="collapse" href="#collapse1") How do you add a fooditem to Dinno?
+							#collapse1.panel-collapse.collapse
+								.panel-body
+									p To add a fooditem to the system so that it can be shared with others, select <b>Add</b> on the navigation bar. Then, fill in the details for your item.
+						.panel.panel-default
+							.panel-heading
+								h4.panel-title
+									a.panellink(data-toggle="collapse" href="#collapse2") How do you view your added fooditems?
+							#collapse2.panel-collapse.collapse
+								.panel-body
+									p To view food items that you have added to Dinno, select <b>Dinnos</b> on the navigation bar. Then make sure 'Posted By You' is selected. 
+									| You should then see a list of your food items.
+						
+		
