@@ -86,7 +86,7 @@ module.exports = {
                     JOIN User
                     ON User.UserID = Chat.FromID OR User.UserID = Chat.ToID
                     WHERE Chat.FromID = ? OR Chat.ToID = ?
-                    ORDER BY Chat.TimeSent ASC
+                    ORDER BY Chat.MessageID DESC
                   ) AS msg
                   GROUP BY msg.UserID`,
                 [userId, userId], 
