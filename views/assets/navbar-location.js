@@ -2,9 +2,9 @@
 $('input[name="lat"]').val(Cookies.get('lat'));
 $('input[name="lng"]').val(Cookies.get('lng'));
 
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+//$(function () {
+//  $('[data-toggle="tooltip"]').tooltip()
+//})
 
 var arrow_loading_interval = setInterval(function(){
     $(".arrowloading").toggleClass("arrowpulse");

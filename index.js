@@ -10,9 +10,9 @@ const database = require('mysql');
 const app = express();
 const server = require('http').Server(app);
 
-//set up socket
+//set up sockets
 const io = require('socket.io')(server);
-// load socket files from functions directory
+// load socket file from functions directory
 require('./functions/socket')(io, server);
 
 // deal with port
@@ -76,10 +76,13 @@ app.use('/', require('./routes/add'));
 app.use('/', require('./routes/faqs'));  
 
 // manage fooditems
-app.use('/', require('./routes/manage')); 
+app.use('/', require('./routes/manage'));
 
 // admin
 app.use('/', require('./routes/admin'));  
+
+// push notifications
+app.use('/', require('./routes/push_notifications'));
 
 // add static assets for public access
 app.use('/assets', express.static('./views/assets'))
