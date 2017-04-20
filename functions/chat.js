@@ -79,16 +79,24 @@ module.exports = {
 
   getPreviousConversations: function(userId) {
     return new Promise(function(resolve, reject) {
-        db.query(`SELECT msg.Contents, msg.TimeSent, msg.Firstname, msg.Surname, msg.UserID, msg.ProfileImage
-                  FROM (
-                    SELECT Chat.Contents, Chat.TimeSent, User.Firstname, User.Surname, User.UserID, User.ProfileImage
-                    FROM Chat
-                    JOIN User
-                    ON User.UserID = Chat.FromID OR User.UserID = Chat.ToID
-                    WHERE Chat.FromID = ? OR Chat.ToID = ?
-                    ORDER BY Chat.MessageID DESC
-                  ) AS msg
-                  GROUP BY msg.UserID`,
+        db.query(`SELECT Chat.Contents, Chat.TimeSent, User.Firstname, User.Surname, User.UserID, User.ProfileImage
+                  FROM Chat
+                  JOIN User
+                  ON Chat.FromID = User.UserID OR Chat.ToID = User.UserID
+                  WHERE MessageID IN (
+                    SELECT MAX(MessageID)
+                    FROM (
+                        SELECT FromID As UserID, MessageID
+                        FROM Chat
+                        WHERE ToID = 4
+                      UNION
+                        SELECT ToID As UserID , MessageID 
+                        FROM Chat
+                        WHERE FromID = 4
+                    ) AS msg
+                    GROUP BY msg.UserID
+                  )
+                  GROUP BY User.UserID;`,
                 [userId, userId], 
                 function (error, results, fields) {
                   if (error) { 

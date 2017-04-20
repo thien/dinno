@@ -46,8 +46,9 @@ module.exports = function() {
 						theirId: recipientId,
 						messages: data[1],
 					};
+				
 					param.convos = data[2];
-					console.log(param.convos);
+
 					res.render('chat', param);
 
 				}, function(err) {
