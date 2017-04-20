@@ -31,6 +31,11 @@ app.engine('pug', require('pug').__express)
 app.set('view engine', 'pug')
 app.locals.basedir = __dirname + '/views';
 
+// make sure bower compoments are directed right.
+app.use(express.static(__dirname + '/bower_components'));
+app.use(express.static(__dirname + '/public'));
+app.use("/data", express.static(__dirname + '/data'));
+
 // deal with https redirect
 app.get('*',function(req,res,next){
   if(port != 8080 && req.headers['x-forwarded-proto']!='https')
