@@ -3,6 +3,7 @@ module.exports = function(){
 	var app = express();
 	app.locals.basedir = "." + '/views';
 
+	// template error handler page
 	app.get('/error', function (req, res) {
 		var params = {
 			error_message : {

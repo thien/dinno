@@ -51,16 +51,16 @@ module.exports = function Server(io, server) {
         });
 
         socket.on('imageupload', function(img_json) {
-            // console.log("upload this pls:", img);
+            // function to deal with uploading base64 images
 
             console.log("received an image to upload");
             console.log(img_json.id)
 
             // how nasty is that lol
-            var fileType = img_json.src.split('/')[1].split(';')[0];
-            
+            var fileType = img_json.src.split('/')[1].split(';')[0];   
             img_json.src = img_json.src.replace(`data:image/${fileType};base64,`, "");
 
+            // send image to imgur and retrieve a URL to return back
             upload(img_json.src, function(err, response){
             	console.log(response.data.link)
             	var resp_img = {
@@ -101,21 +101,27 @@ module.exports = function Server(io, server) {
 };
 
 function upload(file, done) {
+    // function that deals with uploading images using the Imgur API
 	var options = {
 	    url: 'https://api.imgur.com/3/upload',
 	    headers: {
 	        'Authorization': 'Client-ID d61bcbe808b131a'
 	    }
 	};
+    // variable for setting up the api call to the Imgur service.
 	var post = request.post(options, function(err, req, body) {
 	    try {
+            // return successfully.
 	        done(err, JSON.parse(body));
 	    } catch (e) {
-	    	console.log("something bad happened")
+            // theres an error; return that instead
+	    	console.log("something bad happened: ", e);
 	        done(err, body);
 	    }
 	});
+    // run the form.
 	var upload = post.form();
+    // append the files
 	upload.append('type', 'base64');
 	upload.append('image', file);
 }

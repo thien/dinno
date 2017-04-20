@@ -1,3 +1,5 @@
+// functions to generate a random listing; for testing purposes.
+
 module.exports.generateRandomListing = function(){
 	var random = {
 		"foodname": generateRandomFoodName(),
