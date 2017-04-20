@@ -286,10 +286,69 @@ html, body, .container-fluid, .row { height: 100% }
 	margin: auto;
 	width: 100%;
 }
-@media(max-width: 580px){
+
+#searchOptionsButton, #searchFiltersButton  {
+		/*float:right;*/
+		margin: 0px 5px;
+	}
+
+@media(min-width: 768px) and (max-width: 990px){
+	#searchOptionsButton, #searchFiltersButton  {
+		/*float:right;*/
+		margin-top: 10px;
+		margin-left: 0px;
+	}
+	#searchOptionsButton {
+		margin-right: 5px;
+	}
+
 	#navsearchbar, #navsearchbarlocation, #navsearchbutton {
-		font-size: 0.85em;
+		font-size: 0.83em;
 		height: 40px;
+	}
+	.head-nav-container {
+		margin: 0px 0px;
+		float: left;
+		width: 100%;
+	}
+	#navsearchbar {
+		width: 44%;
+		margin-right: 1%;
+	}
+	#navsearchbarlocation {
+		width: 38%;
+	}
+	#navsearchbutton {
+		width: 14%;
+	}
+	#in-the-searchbar-right {
+		/*right: 25px;*/
+		margin-bottom: 3px;
+		margin-right: -10px;
+	}
+}
+
+@media all and (min-width: 420px) and (max-width: 768px){
+	#searchOptionsButton, #searchFiltersButton  {
+		float:right;
+		/*position: relative;*/
+		/*bottom: 38px;*/
+	}
+	#searchOptionsButton {
+		margin-left: 5px;
+		margin-right: 0px;
+	}
+	#searchFiltersButton {
+		margin: 0px;
+	}
+	#navsearchbar, #navsearchbarlocation, #navsearchbutton {
+		font-size: 0.83em;
+		height: 40px;
+	}
+	.head-nav-container {
+		margin: 0px 0px;
+		float: left;
+		width: 80%;
 	}
 	#navsearchbar {
 		width: 44%;
@@ -299,7 +358,37 @@ html, body, .container-fluid, .row { height: 100% }
 		width: 42%;
 	}
 	#navsearchbutton {
-		width: 15%;
+		width: 10%;
+	}
+	#in-the-searchbar-right {
+		right: 33px;
+		margin-bottom: 3px;
+		margin-right: -10px;
+	}
+}
+
+@media (min-width: 420px) and (max-width: 575px){
+	#searchOptionsButton {
+		margin-bottom: 5px;
+	}
+	#navsearchbar, #navsearchbarlocation, #navsearchbutton {
+		font-size: 0.83em;
+		height: 60px;
+	}
+	.head-nav-container {
+		margin: 0px 0px;
+		float: left;
+		width: 85%;
+	}
+	#navsearchbar {
+		width: 44%;
+		margin-right: 1%;
+	}
+	#navsearchbarlocation {
+		width: 42%;
+	}
+	#navsearchbutton {
+		width: 14% !important;
 	}
 	#in-the-searchbar-right {
 		right: 25px;
@@ -309,24 +398,29 @@ html, body, .container-fluid, .row { height: 100% }
 }
 
 @media(max-width: 420px){
-	#navsearchbar, #navsearchbarlocation, #navsearchbutton {
-		margin-top: 0px;
+	#searchOptionsButton, #searchFiltersButton  {
+		/*float:right;*/
+		margin-left: 0px;
 	}
-}
-
-@media(max-width: 321px){
+	#searchOptionsButton {
+		margin-right: 5px;
+	}
 	#navsearchbar, #navsearchbarlocation, #navsearchbutton {
 		font-size: 0.7em;
+		margin-top: 0px;
 	}
 	#navsearchbar {
-		width: 110px;
+		width: 40%;
 		margin-right: 9px;
 	}
 	#navsearchbarlocation {
-		width: 105px;
+		width: 42%;
+	}
+	#navsearchbutton {
+		width: 16% !important;
 	}
 	#in-the-searchbar-right {
-		right: 25px;
+		right: 22px;
 		margin-bottom: 3px;
 		margin-right: -10px;
 	}
@@ -423,8 +517,14 @@ margin: 0px 10px 0px 0px;
 /*position: relative;*/
 }
 #search_item_details {
-	padding: 30px 10px 10px 10px;
+	padding: 30px 10px 30px 10px;
 	text-align: center;
+	width: 48%;
+	margin: 1%;
+	position: fixed;
+    z-index: 2;
+    background-color: #fff;
+    border: 1px solid #ccc;
 }
 #display_item_results {
 	width: 100%;
