@@ -95,7 +95,7 @@ block container
 								input(id="input_images" name='images' type="file" multiple="true")
 							#barcode_img_container
 								h3 Scan your barcode here
-								.modal.fade#livevideo(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+								.modal.fade.livevideo(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
 									.modal-dialog.modal-lg(role='document')
 										.modal-content
 											.modal-header
@@ -105,9 +105,11 @@ block container
 													span(aria-hidden='true') &times;
 											.modal-body
 												#barcodeContainer
-								button.btn.btn-primary#livevideo(data-toggle='modal', data-target='#livevideo',type='button')
+								button.btn.btn-primary.livevideo(data-toggle='modal', data-target='#livevideo',type='button', onclick='Quagga.start();')
 									i(aria-hidden='true') Scan barcode
+								
 								img#barcode
+								h5.livevideo Or upload an image
 								input(id="barcode_image" name='barcode' type='file' multiple="false")
 								
 								
