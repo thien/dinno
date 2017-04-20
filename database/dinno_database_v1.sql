@@ -263,7 +263,7 @@ INSERT INTO `TagMeal` (`TagMealID`,`MealID`,`TagID`) VALUES
 --
 
 CREATE TABLE `Report` (
-  `ReportID` int(11) NOT NULL AUTO_INCREMENT,
+  `ReportID` int(11) NOT NULL,
   `SenderID` int(11) NOT NULL,
   `RecipientID` int(11) NOT NULL,
   `Reason` varchar(40) NOT NULL,
@@ -287,6 +287,25 @@ INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`
 
 
 --
+-- Table structure for `Recents`
+--
+
+CREATE TABLE `Recents` (
+  `UserID` int(11) NOT NULL,
+  `Foodname` varchar(32) NOT NULL,
+  `Date` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Test data for table `Recents`
+--
+
+INSERT INTO `Recents` (`UserID`, `Foodname`, `Date`) VALUES
+(3, 'Cheese', '2017-01-01'),
+(5, 'Cheese', '2017-02-01'),
+(9, 'Cheese', '2016-12-25');
+
+--
 -- Constraints for dumped tables
 --
 
@@ -299,7 +318,7 @@ ALTER TABLE `Meal`
 
 --
 -- Constraints for table `User`
-
+--
   
 --
 -- Constraints for table `TagMeal`
@@ -322,6 +341,12 @@ ALTER TABLE `Chat`
 ALTER TABLE `Report`
   ADD CONSTRAINT `fk_Report_RecipientID` FOREIGN KEY (`RecipientID`) REFERENCES `user` (`UserID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_Report_SenderID` FOREIGN KEY (`SenderID`) REFERENCES `user` (`UserID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Recents`
+--
+ALTER TABLE `Recents`
+  ADD CONSTRAINT `fk_Recents_UserID` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON UPDATE CASCADE;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

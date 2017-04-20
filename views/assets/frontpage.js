@@ -2,19 +2,42 @@ foods = {}
 
 $.getJSON("data/random_food_list.json", function(food_list) {
     foods = food_list;
+    notify();
+    console.log(document.cookie);
     generateFoodTyper();
     setInterval(generateFoodTyper, 2000);
 });
 
-$(window).on('keydown', function(event) {
-    if(document.activeElement.id === 'phatsearchfood' || document.activeElement.id === 'phatsearchlocation' ){
-        if(event.which == 13) {
-            document.getElementById('bigsearchform').submit();
-            return false;
-        }
+function notify(){
+    if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
     }
-});
+    else if (Notification.permission === "granted") {
+        /*var options = {
+                    body: "Welcome to Dinno!",
+                    icon: "icon.jpg",
+                    dir : "ltr"
+                };
+        var notification = new Notification("Dinno",options);*/
+        //do nothing but we can send notifications!
+    }
+    else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+            if (!('permission' in Notification)) {
+                Notification.permission = permission;
+            }
 
+            if (permission === "granted") {
+                var options = {
+                    body: "Welcome to Dinno Notifications!",
+                    icon: "icon.jpg",
+                    dir : "ltr"
+                };
+                var notification = new Notification("Dinno",options);
+            }
+        });
+    }
+}
 
 function generateFoodTyper() {
     var item = getRandomFood(foods);

@@ -7,7 +7,279 @@ block container
 		include includes/register.css
 	script
 		include assets/register.js
-	
+		
+	.modal.fade#terms-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+		.modal-dialog(role='document')
+			.modal-content
+				.modal-header
+					h5#exampleModalLabel.modal-title Our Terms of Service
+					|  
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') &times;
+				.modal-body
+					h4 1.	Introduction
+					p 1.1	These terms and conditions shall govern your use of our website.
+					p 1.2	By using our website, you accept these terms and conditions in full; accordingly, if you disagree with these terms and conditions or any part of these terms and conditions, you must not use our website.
+					p 1.3	If you register with our website, submit any material to our website or use any of our website services, we will ask you to agree to these terms and conditions.
+					p 1.4	Our website uses cookies; by using our website or agreeing to these terms and conditions, you consent to our use of cookies in accordance with the terms of our privacy policy.
+					br
+					h4 2.	Credit
+					p 2.1	This document was created using a template from SEQ Legal (http://www.seqlegal.com).
+					br
+					h4 3.	Copyright notice
+					p 3.1	Copyright (c) 2017 Dinno.
+					p 3.2	Subject to the express provisions of these terms and conditions:
+					p (a)	we, together with our licensors, own and control all the copyright and other intellectual property rights in our website and the material on our website; and
+					p (b)	all the copyright and other intellectual property rights in our website and the material on our website are reserved.
+					br
+					h4 4.	Licence to use website
+					p 4.1	You may:
+					p (a)	view pages from our website in a web browser;
+					p (b)	download pages from our website for caching in a web browser;
+					p (c)	print pages from our website;
+					p (d)	use our website services by means of a web browser;
+					p 	subject to the other provisions of these terms and conditions.
+					p 4.2	Except as expressly permitted by Section 4.1 or the other provisions of these terms and conditions, you must not download any material from our website or save any such material to your computer.
+					p 4.3	You may only use our website for your own personal purposes, and you must not use our website for any other purposes.
+					p 4.4	Except as expressly permitted by these terms and conditions, you must not edit or otherwise modify any material on our website.
+					p 4.5	Unless you own or control the relevant rights in the material, you must not:
+					p (a)	republish material from our website (including republication on another website);
+					p (b)	sell, rent or sub-license material from our website;
+					p (c)	show any material from our website in public;
+					p (d)	exploit material from our website for a commercial purpose; or
+					p (e)	redistribute material from our website.
+					p 4.6	We reserve the right to restrict access to areas of our website, or indeed our whole website, at our discretion; you must not circumvent or bypass, or attempt to circumvent or bypass, any access restriction measures on our website.
+					br
+					h4 5.	Acceptable use
+					p 5.1	You must not:
+					p (a)	use our website in any way or take any action that causes, or may cause, damage to the website or impairment of the performance, availability or accessibility of the website;
+					p (b)	use our website in any way that is unlawful, illegal, fraudulent or harmful, or in connection with any unlawful, illegal, fraudulent or harmful purpose or activity;
+					p (c)	use our website to copy, store, host, transmit, send, use, publish or distribute any material which consists of (or is linked to) any spyware, computer virus, Trojan horse, worm, keystroke logger, rootkit or other malicious computer software;
+					p (d)	conduct any systematic or automated data collection activities including without limitation scraping, data mining, data extraction and data harvesting on or in relation to our website without our express written consent;
+					p (e)	access or otherwise interact with our website using any robot, spider or other automated means, except for the purpose of search engine indexing;
+					p (f)	use data collected from our website for any direct marketing activity including without limitation email marketing, SMS marketing, telemarketing and direct mailing.
+					p 5.2	You must ensure that all the information you supply to us through our website, or in relation to our website, is true, accurate, current, complete and non-misleading.
+					br
+					h4 6.	Registration and accounts
+					p 6.1	To be eligible for an account on our website under this Section 6, you must be resident or situated in the United Kingdom.
+					p 6.2	You may register for an account with our website by completing and submitting the account registration form on our website, and clicking on the verification link in the email that the website will send to you.
+					p 6.3	You must not allow any other person to use your account to access the website.
+					p 6.4	You must notify us in writing immediately if you become aware of any unauthorised use of your account.
+					p 6.5	You must not use any other person's account to access the website, unless you have that person's express permission to do so.
+					br
+					h4 7.	User login details
+					p 7.1	If you register for an account with our website, you will be asked to choose an email and password for logging into the site.
+					p 7.2	Your user ID must not be liable to mislead and must comply with the content rules set out in Section 10; you must not use your account or user ID for or in connection with the impersonation of any person. 
+					p 7.3	You must keep your password confidential.
+					p 7.4	You must notify us in writing immediately if you become aware of any disclosure of your password.
+					p 7.5	You are responsible for any activity on our website arising out of any failure to keep your password confidential, and may be held liable for any losses arising out of such a failure.
+					br
+					h4 8.	Cancellation and suspension of account
+					p 8.1	We may suspend your account at any time in our sole discretion without notice or explanation.
+					br
+					h4 9.	Your content: licence
+					p 9.1	In these terms and conditions, "your content" means all works and materials including without limitation text, graphics, images, audio material, video material, audio-visual material, scripts, software and files that you submit to us or our website for storage or publication on, processing by, or transmission via, our website.
+					p 9.2	You grant to us a worldwide, irrevocable, non-exclusive, royalty-free license to use, reproduce, store and, with your specific consent, publish your content on and in relation to this website.
+					p 9.3	You grant to us the right to sub-license the rights licensed under Section 9.2.
+					p 9.4	You grant to us the right to bring an action for infringement of the rights licensed under Section 9.2.
+					p 9.5	You hereby waive all your moral rights in your content to the maximum extent permitted by applicable law; and you warrant and represent that all other moral rights in your content have been waived to the maximum extent permitted by applicable law.
+					p 9.6	You may edit your content to the extent permitted using the editing functionality made available on our website.
+					p 9.7	Without prejudice to our other rights under these terms and conditions, if you breach any provision of these terms and conditions in any way, or if we reasonably suspect that you have breached these terms and conditions in any way, we may delete, unpublish or edit any or all of your content.
+					br
+					h4 10.	Your content: rules
+					p 10.1	You warrant and represent that your content will comply with these terms and conditions.
+					p 10.2	Your content must not be illegal or unlawful, must not infringe any person's legal rights, and must not be capable of giving rise to legal action against any person (in each case in any jurisdiction and under any applicable law).
+					p 10.3	Your content, and the use of your content by us in accordance with these terms and conditions, must not:
+					p (a)	be libellous or maliciously false;
+					p (b)	be obscene or indecent;
+					p (c)	infringe any copyright, moral right, database right, trade mark right, design right, right in passing off, or other intellectual property right;
+					p (d)	infringe any right of confidence, right of privacy or right under data protection legislation;
+					p (e)	constitute negligent advice or contain any negligent statement;
+					p (f)	constitute an incitement to commit a crime, instructions for the commission of a crime or the promotion of criminal activity;
+					p (g)	be in contempt of any court, or in breach of any court order;
+					p (h)	be in breach of racial or religious hatred or discrimination legislation;
+					p (i)	be blasphemous;
+					p (j)	be in breach of official secrets legislation;
+					p (k)	be in breach of any contractual obligation owed to any person;
+					p (l)	depict violence in an explicit, graphic or gratuitous manner;
+					p (m)	be pornographic, lewd, suggestive or sexually explicit;
+					p (n)	be untrue, false, inaccurate or misleading;
+					p (o)	consist of or contain any instructions, advice or other information which may be acted upon and could, if acted upon, cause illness, injury or death, or any other loss or damage;
+					p (p)	constitute spam;
+					p (q)	be offensive, deceptive, fraudulent, threatening, abusive, harassing, anti-social, menacing, hateful, discriminatory or inflammatory; or
+					p (r)	cause annoyance, inconvenience or needless anxiety to any person.
+					br
+					h4 11.	Limited warranties
+					p 11.1	We do not warrant or represent:
+					p (a)	the completeness or accuracy of the information published on our website;
+					p (b)	that the material on the website is up to date; or
+					p (c)	that the website or any service on the website will remain available.
+					p 11.2	We reserve the right to discontinue or alter any or all of our website services, and to stop publishing our website, at any time in our sole discretion without notice or explanation; and save to the extent expressly provided otherwise in these terms and conditions, you will not be entitled to any compensation or other payment upon the discontinuance or alteration of any website services, or if we stop publishing the website.
+					p 11.3	To the maximum extent permitted by applicable law and subject to Section 12.1, we exclude all representations and warranties relating to the subject matter of these terms and conditions, our website and the use of our website.
+					br 
+					h4 12.	Limitations and exclusions of liability
+					p 12.1	Nothing in these terms and conditions will:
+					p (a)	limit or exclude any liability for death or personal injury resulting from negligence;
+					p (b)	limit or exclude any liability for fraud or fraudulent misrepresentation;
+					p (c)	limit any liabilities in any way that is not permitted under applicable law; or
+					p (d)	exclude any liabilities that may not be excluded under applicable law.
+					p 12.2	The limitations and exclusions of liability set out in this Section 12 and elsewhere in these terms and conditions: 
+					p (a)	are subject to Section 12.1; and
+					p (b)	govern all liabilities arising under these terms and conditions or relating to the subject matter of these terms and conditions, including liabilities arising in contract, in tort (including negligence) and for breach of statutory duty, except to the extent expressly provided otherwise in these terms and conditions.
+					p 12.3	To the extent that our website and the information and services on our website are provided free of charge, we will not be liable for any loss or damage of any nature.
+					p 12.4	We will not be liable to you in respect of any losses arising out of any event or events beyond our reasonable control.
+					p 12.5	We will not be liable to you in respect of any business losses, including (without limitation) loss of or damage to profits, income, revenue, use, production, anticipated savings, business, contracts, commercial opportunities or goodwill.
+					p 12.6	We will not be liable to you in respect of any loss or corruption of any data, database or software.
+					p 12.7	We will not be liable to you in respect of any special, indirect or consequential loss or damage.
+					p 12.8	You accept that we have an interest in limiting the personal liability of our officers and employees and, having regard to that interest, you acknowledge that we are a limited liability entity; you agree that you will not bring any claim personally against our officers or employees in respect of any losses you suffer in connection with the website or these terms and conditions (this will not, of course, limit or exclude the liability of the limited liability entity itself for the acts and omissions of our officers and employees).
+					br
+					h4 13.	Breaches of these terms and conditions
+					p 13.1	Without prejudice to our other rights under these terms and conditions, if you breach these terms and conditions in any way, or if we reasonably suspect that you have breached these terms and conditions in any way, we may: 
+					p (a)	send you one or more formal warnings;
+					p (b)	temporarily suspend your access to our website;
+					p (c)	permanently prohibit you from accessing our website;
+					p 13.2	Where we suspend or prohibit or block your access to our website or a part of our website, you must not take any action to circumvent such suspension or prohibition or blocking, including without limitation creating and/or using a different account.
+					br 
+					h4 14.	Variation
+					p 14.1	We may revise these terms and conditions from time to time.
+					p 14.2	The revised terms and conditions shall apply to the use of our website from the date of publication of the revised terms and conditions on the website, and you hereby waive any right you may otherwise have to be notified of, or to consent to, revisions of these terms and conditions.
+					br
+					h4 15.	Assignment
+					p 15.1	You hereby agree that we may assign, transfer, sub-contract or otherwise deal with our rights and/or obligations under these terms and conditions. 
+					p 15.2	You may not without our prior written consent assign, transfer, sub-contract or otherwise deal with any of your rights and/or obligations under these terms and conditions. 
+					br
+					h4 16.	Severability
+					p 16.1	If a provision of these terms and conditions is determined by any court or other competent authority to be unlawful and/or unenforceable, the other provisions will continue in effect.
+					p 16.2	If any unlawful and/or unenforceable provision of these terms and conditions would be lawful or enforceable if part of it were deleted, that part will be deemed to be deleted, and the rest of the provision will continue in effect. 
+					br
+					h4 17.	Third party rights
+					p 17.1	A contract under these terms and conditions is for our benefit and your benefit, and is not intended to benefit or be enforceable by any third party.
+					p 17.2	The exercise of the parties' rights under a contract under these terms and conditions is not subject to the consent of any third party.
+					br
+					h4 18.	Entire agreement
+					p 18.1	Subject to Section 12.1, these terms and conditions, together with our privacy and non-discrimination policy, shall constitute the entire agreement between you and us in relation to your use of our website and shall supersede all previous agreements btween you and us in relation to your use of our website.
+					br
+					h4 19.	Law and jurisdiction
+					p 19.1	These terms and conditions shall be governed by and construed in accordance with English law.
+					p 19.2	Any disputes relating to these terms and conditions shall be subject to the exclusive jurisdiction of the courts of England.
+					br
+					h4 20.	Our details
+					p 20.1	This website is owned and operated by Thien Nyugen, John Jennings, Joshua Bremner, Simeon Chan and Rob Shipley
+					p 20.2	Our principal place of business is at Durham University.
+
+	.modal.fade#nondiscrim-policy-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+		.modal-dialog(role='document')
+			.modal-content
+				.modal-header
+					h5#exampleModalLabel.modal-title Our Non-Discrimination Policy
+					|  
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') &times;
+				.modal-body
+					h4 1.	Policy Statement
+					p This policy states Dinno.club’s position on discrimination. This policy applies to all Dinno employees, volunteers, members, clients, and contractors.
+					p Dinno follows an equal opportunity employment policy and employs personnel without regard to race, creed, color, ethnicity, national origin, religion, sex, sexual orientation, gender expression, age, physical or mental ability, veteran status, military obligations, and marital status.
+					p This policy also applies to internal promotions, training, opportunities for advancement, terminations, outside vendors, members and customers, service clients, use of contractors and consultants, and dealings with the general public.
+					br
+					h4 2.	Credit
+					pc This document was created using a template from Gill Foundation (https://gillfoundation.org/grants/gender-expression-toolkit/sample-nondiscrimination-policy/).
+	.modal.fade#privacy-policy-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+		.modal-dialog(role='document')
+			.modal-content
+				.modal-header
+					h5#exampleModalLabel.modal-title Our Privacy Policy
+					|  
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') &times;
+				.modal-body
+					h4 1.	Introduction
+					p 1.1	We are committed to safeguarding the privacy of our website visitors; in this policy, we explain how we will treat your personal information.
+					p 1.2	By using Dinno and agreeing to this policy, you consent to our use of cookies in accordance with the terms of this policy.
+					br
+					h4 2.	Credit
+					p 2.1	This document was created using a template from SEQ Legal (http://www.seqlegal.com).
+					br
+					h4 3.	Collecting personal information
+					p 3.1	We may collect, store and use the following kinds of personal information: 
+					p (a)	Information about your computer and about your visits to and use of this website including your IP address, geographical location, browser type and version, operating system, referral source, length of visit, page views and website navigation paths.
+					p (b)	Information that you provide to us when registering with our website including your email address.
+					p (c)	Information that you provide when completing your profile on our website including your name, profile picture and date of birth.
+					p (d)	Information that you provide to us when using the services on our website, or that is generated in the course of the use of those services including the timing, frequency and pattern of service use.
+					p (e)	Other details that you post to our website for publication on the internet including your address and description of food items.
+					br
+					h4 4.	Using personal information
+					p 4.1	Personal information submitted to us through our website will be used for the purposes specified in this policy or on the relevant pages of the website.
+					p 4.2	We may use your personal information to: 
+					p (a)	Administer our website and business;
+					p (b)	Personalise our website for you;
+					p (c)	Enable your use of the services available on our website;
+					p (d)	Send you email notifications;
+					p (e)	Keep our website secure and prevent fraud;
+					p (f)	Verify compliance with the terms and conditions governing the use of our website including monitoring private messages sent through our website private messaging service.
+					p 4.3	If you submit personal information for publication on our website, we will publish and otherwise use that information in accordance with the licence you grant to us.
+					p 4.4	We will not, without your express consent, supply your personal information to any third party for the purpose of their or any other third party's direct marketing.
+					br
+					h4 5.	Disclosing personal information
+					p 5.1	We may disclose your personal information to any of our employees, officers, insurers, professional advisers, agents, suppliers or subcontractors insofar as reasonably necessary for the purposes set out in this policy.
+					p 5.2	We may disclose your personal information to any member of our group of companies (this means our subsidiaries, our ultimate holding company and all its subsidiaries) insofar as reasonably necessary for the purposes set out in this policy.
+					p 5.3	We may disclose your personal information: 
+					p (a)	to the extent that we are required to do so by law;
+					p (b)	in connection with any ongoing or prospective legal proceedings;
+					p (c)	in order to establish, exercise or defend our legal rights (including providing information to others for the purposes of fraud prevention and reducing credit risk;
+					p (e)	To any person who we reasonably believe may apply to a court or other competent authority for disclosure of that personal information where, in our reasonable opinion, such court or authority would be reasonably likely to order disclosure of that personal information.
+					p 5.4	Except as provided in this policy, we will not provide your personal information to third parties.
+					br
+					h4 6.	Retaining personal information
+					p 6.1	This Section 7 sets out our data retention policies and procedure, which are designed to help ensure that we comply with our legal obligations in relation to the retention and deletion of personal information.
+					p 6.2	Personal information that we process for any purpose or purposes shall not be kept for longer than is necessary for that purpose or those purposes.
+					p 6.3	Notwithstanding the other provisions of this Section 7, we will retain documents (including electronic documents) containing personal data: 
+					p (a)	to the extent that we are required to do so by law;
+					p (b)	if we believe that the documents may be relevant to any ongoing or prospective legal proceedings; and
+					p (c)	in order to establish, exercise or defend our legal rights (including providing information to others for the purposes of fraud prevention and reducing credit risk).
+					br
+					h4 7.	Security of personal information
+					p 7.1	We will take reasonable technical and organisational precautions to prevent the loss, misuse or alteration of your personal information.
+					p 7.2	We will store all the personal information you provide on our secure (password- and firewall-protected) servers.
+					p 7.3	You acknowledge that the transmission of information over the internet is inherently insecure, and we cannot guarantee the security of data sent over the internet.
+					p 7.4	You are responsible for keeping the password you use for accessing our website confidential; we will not ask you for your password (except when you log in to our website).
+					br
+					h4 8.	Amendments
+					p 8.1	We may update this policy from time to time by publishing a new version on our website.
+					p 8.2	You should check this page occasionally to ensure you are happy with any changes to this policy.
+					br
+					h4 9.	Your rights
+					p 9.1	You may instruct us to provide you with any personal information we hold about you; provision of such information will be subject to: 
+					p (a)	the payment of a fee (currently fixed at GBP 10); and
+					p (b)	the supply of appropriate evidence of your identity [(for this purpose, we will usually accept a photocopy of your passport certified by a solicitor or bank plus an original copy of a utility bill showing your current address)].
+					p 9.2	We may withhold personal information that you request to the extent permitted by law.
+					p 9.3	You may instruct us at any time not to process your personal information for marketing purposes.
+					p 9.4	In practice, you will usually either expressly agree in advance to our use of your personal information for marketing purposes, or we will provide you with an opportunity to opt out of the use of your personal information for marketing purposes.
+					br
+					h4 10.	Cookies
+					p 10.1	Our website uses cookies.
+					p 10.2	A cookie is a file containing an identifier (a string of letters and numbers) that is sent by a web server to a web browser and is stored by the browser. The identifier is then sent back to the server each time the browser requests a page from the server.
+					p 10.3	Cookies may be either "persistent" cookies or "session" cookies: a persistent cookie will be stored by a web browser and will remain valid until its set expiry date, unless deleted by the user before the expiry date; a session cookie, on the other hand, will expire at the end of the user session, when the web browser is closed.
+					p 10.4	Cookies do not typically contain any information that personally identifies a user, but personal information that we store about you may be linked to the information stored in and obtained from cookies.
+					p 10.5	The names of the cookies that we use on our website, and the purposes for which they are used, are set out below:
+					p (a)	we use lat & lng to store your current position for use in locating food near to you.
+					p (b)   We use user_data to store details about the currently logged in user.
+					p 10.6	Most browsers allow you to refuse to accept cookies; for example: 
+					p (a)	in Internet Explorer (version 11) you can block cookies using the cookie handling override settings available by clicking "Tools", "Internet Options", "Privacy" and then "Advanced";
+					p (b)	in Firefox (version 47) you can block all cookies by clicking "Tools", "Options", "Privacy", selecting "Use custom settings for history" from the drop-down menu, and unticking "Accept cookies from sites"; and
+					p (c)	in Chrome (version 52), you can block all cookies by accessing the "Customise and control" menu, and clicking "Settings", "Show advanced settings" and "Content settings", and then selecting "Block sites from setting any data" under the "Cookies" heading.
+					p 10.7	Blocking all cookies will have a negative impact upon the usability of many websites.
+					p 10.8	If you block cookies, you will not be able to use all the features on our website.
+					p 10.9	You can delete cookies already stored on your computer; for example:
+					p (a)	in Internet Explorer (version 11), you must manually delete cookie files (you can find instructions for doing so at http://windows.microsoft.com/en-gb/internet-explorer/delete-manage-cookies#ie=ie-11);
+					p (b)	in Firefox (version 47), you can delete cookies by clicking "Tools", "Options" and "Privacy", then selecting "Use custom settings for history" from the drop-down menu, clicking "Show Cookies", and then clicking "Remove All Cookies"; and
+					p (c)	in Chrome (version 52), you can delete all cookies by accessing the "Customise and control" menu, and clicking "Settings", "Show advanced settings" and "Clear browsing data", and then selecting "Cookies and other site and plug-in data" before clicking "Clear browsing data".
+					p 10.10	Deleting cookies will have a negative impact on the usability of many websites.
+					br
+					h4 11.	Our details
+					p 11.1	This website is owned and operated by Thien Nyugen, John Jennings, Joshua Bremner, Simeon Chan and Rob Shipley
+					p 11.2	Our principal place of business is at Durham University.
+
+				
 	.row 
 		.col-lg-6
 			#container
@@ -67,11 +339,11 @@ block container
 						.form-group
 							p
 							| By signing up, I agree to 
-							a(href="/register") Dinno's Terms of Service
+							a.policylink(data-toggle='modal', data-target='#terms-modal') Dinno's Terms of Service
 							| , 
-							a(href="/register") Non Discrimination Policy
+							a.policylink(data-toggle='modal', data-target='#nondiscrim-policy-modal') Non Discrimination Policy
 							| , and 
-							a(href="/register") Privacy Policy
+							a.policylink(data-toggle='modal', data-target='#privacy-policy-modal') Privacy Policy
 							| .
 					if edit
 						button#btn-submit.btn.btn-primary(type='submit' value="Submit") Submit		

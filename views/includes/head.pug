@@ -34,8 +34,11 @@ script(src='/typeahead.js/dist/typeahead.bundle.js')
 script(src='/jquery-bar-rating/dist/jquery.barrating.min.js')
 script(src='/holderjs/holder.js')
 
+script(src='/socket.io/socket.io.js')
+script(src='assets/js-cookie.js')
+script(src='assets/push_notifications.js')
+
 if isSearchResultsPage
-	script(src='/socket.io/socket.io.js')
 	script
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
