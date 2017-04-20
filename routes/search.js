@@ -200,10 +200,37 @@ function dealWithResults(req, res, param) {
                     }
                     //console.log(tag)
                     param.results.tags = tag
-                    console.log(param)
-                    res.render('searchitem', param);
+                    console.log(param);
+                    addSearchToRecents(param.user_data.userID, param.food).then(function(results){
+                        console.log(results);
+                        res.render('searchitem', param);
+                    }, function(){
+                        res.render('searchitem', param);
+                    });
+                    //res.render('searchitem', param);
                 })
             })
         }
     });
+
+    function addSearchToRecents(userID, foodname){
+        return new Promise(function(){
+            console.log(userID);
+            console.log(foodname);
+            var results;
+            var myDate = new Date();
+            db.query("INSERT INTO `Recents` (`UserID`, `Foodname`, `Date`) VALUES (?, ?, ?)", [userID, foodname, myDate], function (err, rows, fields) {
+                if(err){
+                    console.log("error in insert into: "+err);
+                    reject();
+                }
+                /*else{
+                    results = rows
+                }*/
+            })
+            resolve();
+        },function(){
+            reject();
+        });
+    }
 }

@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var login = require('../functions/login');
+var Cookies = require("cookies");
 var db = require('../functions/database');
 var Cookies = require("cookies");
 
