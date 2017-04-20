@@ -31,6 +31,14 @@ app.engine('pug', require('pug').__express)
 app.set('view engine', 'pug')
 app.locals.basedir = __dirname + '/views';
 
+// deal with https redirect
+app.get('*',function(req,res,next){
+  if(port != 8080 && req.headers['x-forwarded-proto']!='https')
+    res.redirect('https://'+req.headers.host+req.url);
+  else
+    next();
+})
+
 require('./routes/api')(app,express,io); 
 
 server.listen(port, function () {
