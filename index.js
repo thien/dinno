@@ -70,7 +70,10 @@ app.use('/', require('./routes/settings'));
 app.use('/', require('./routes/fooditem'));  
 
 // add food item
-app.use('/', require('./routes/add'));  
+app.use('/', require('./routes/add'));
+
+// add help/faqs
+app.use('/', require('./routes/faqs'));  
 
 // manage fooditems
 app.use('/', require('./routes/manage'));

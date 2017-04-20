@@ -36,14 +36,15 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 					a.nav-link(href='/manage?type=others') Dinnos
 				li.nav-item
 					a.nav-link(href='/chat') Messages
+				li.nav-item
+					a.nav-link(href='/faqs') Help/FAQs
 				if user_data.isAdmin
-					li.nav-item.dropdown.nav-profile-dropdown
-						a.nav-item(data-toggle='dropdown')  
-							label.nav-link(for='admin_nav') Admin 
-						.dropdown-menu.dropdown-menu-right
-							a.dropdown-item(href='/reviewreports') Review Reports
+					li.nav-item.dropdown
+						a#navbarAdmin.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Admin
+						.dropdown-menu(aria-labelledby='navbarAdmin').dropdown-menu-right
+							a#admindropdown.dropdown-item(href='/reviewreports') Review Reports
 							|  
-							a.dropdown-item(href='/manageusers') Ban/Unban Users
+							a#admindropdown.dropdown-item(href='/manageusers') Ban/Unban Users
 				li.nav-item.dropdown.nav-profile-dropdown
 					a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-img")  
 						img(src=user_data.mugshot).navbar-mugshot
