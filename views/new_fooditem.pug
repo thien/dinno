@@ -133,7 +133,7 @@ block container
 				},function(result){
 					if (result && result.codeResult) {
 						console.log(result.codeResult.code);
-						$.get("http://eandata.com/feed/",{v:3,keycode:"C3AA45D258F231CD", mode:"json",find:result.codeResult.code},function(data){
+						$.get("/api/barcode",{code:result.codeResult.code},function(data){
 							$("input#name").val(data.product.attributes.product)
 						})
 					}

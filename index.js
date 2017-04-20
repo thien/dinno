@@ -84,6 +84,9 @@ app.use('/', require('./routes/admin'));
 // push notifications
 app.use('/', require('./routes/push_notifications'));
 
+
+app.use('/', require('./routes/barcode'));
+
 // add static assets for public access
 app.use('/assets', express.static('./views/assets'))
 

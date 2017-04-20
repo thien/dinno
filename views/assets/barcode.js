@@ -43,9 +43,9 @@ function run() {
         if (decoded.length > 50) {
             console.log(freq);
             var barcode = getMostFrequentBarcode(freq);
-            $.get("http://eandata.com/feed/", { v: 3, keycode: "C3AA45D258F231CD", mode: "json", find: barcode }, function (data) {
-                $("input#name").val(data.product.attributes.product)
-            })
+            $.get("/api/barcode",{code:barcode},function(data){
+				$("input#name").val(data.product.attributes.product)
+			})
             Quagga.stop();
         } else {
             decoded.splice(decoded.length, 0, data.codeResult.code)
