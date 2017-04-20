@@ -33,8 +33,10 @@ function run() {
         if (err) {
             console.log(err);
             $(".livevideo").remove()
+        }else{
+            console.log("Initialization finished. Ready to start");
+            Quagga.start()
         }
-        console.log("Initialization finished. Ready to start");
     });
     Quagga.onDetected(function (data) {
         console.log(decoded.length)
