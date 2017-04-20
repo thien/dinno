@@ -2,32 +2,36 @@
 include scripts
 //- including .html, .css, etc works
 
+meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
+link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+link(href='/favicon.ico', rel='icon')
+link(rel='stylesheet', href='/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
+link(rel='stylesheet', href='/jquery-bar-rating/dist/themes/css-stars.css')
+link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
+link(href='/bootstrap-tagsinput/examples/assets/app.css', rel='stylesheet')
+//- style.css is to be last in order to overwrite the other stylesheets.
 style
 	include style.css
 
 if loggedin
 	if user_data.textSize == "1.5x"
-		include style1_5.css
+		style
+			include style1_5.css
 	else if user_data.textSize == "2x"
-		include style2.css
+		style
+			include style2.css
 		
 	if user_data.colourScheme == "Blue"
-		include styleblue.css
+		style
+			include styleblue.css
 	else if user_data.colourScheme == "Orange"
-		include styleorange.css
+		style
+			include styleorange.css
 
-meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
-
-link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
-link(href='/favicon.ico', rel='icon')
 script(src='assets/jquery-ui.min.js')
 script(src='/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
 script(src='/typeahead.js/dist/typeahead.bundle.js')
 script(src='/jquery-bar-rating/dist/jquery.barrating.min.js')
-link(rel='stylesheet', href='/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
-link(rel='stylesheet', href='/jquery-bar-rating/dist/themes/css-stars.css')
-link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
-
 script(src='/holderjs/holder.js')
 
 script(src='/socket.io/socket.io.js')
@@ -38,5 +42,21 @@ if isSearchResultsPage
 	script
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
+	script(src='assets/js-cookie.js')
+	script(src='assets/functions/browsercheck.js')
 	script(src='assets/poachGETVariables.js')
 	script(src='assets/interactive_sorting.js')
+
+//- add mixins here
+
+mixin fooditem_card(fooditem)
+	a(href='fooditem?id=' + fooditem.MealID)
+		.card.fooditem-card
+			img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+			.card-profile-container
+				img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+			.card-block
+				h4.card-title #{fooditem.Name}
+				p.card-text #{fooditem.Description}
+				p.card-text
+					small.text-muted Best before #{fooditem.BestBefore}

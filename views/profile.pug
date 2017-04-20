@@ -36,25 +36,9 @@ block container
 				.row
 					each fooditem in page_data.fooditems
 						.col-md-3
-							a(href='fooditem?id=' + fooditem.MealID).card.fooditem-card
-								img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
-								.card-profile-container
-									img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
-								.card-block
-									h4.card-title #{fooditem.Name}
-									p.card-text #{fooditem.Description}
+							+fooditem_card(fooditem)
 					else
 						h5 No food :(
-								//- p.card-text
-								//- 	small.text-muted Last updated #{fooditem.last_updated} mins ago
-					//- a(href='/fooditem').card
-					//- 	img.card-img-top.img-fluid(src='https://media-cdn.tripadvisor.com/media/photo-s/04/cd/bd/99/kfc.jpg', alt='Card image cap')
-					//- 	.card-block
-					//- 		h4.card-title Card title
-					//- 		p.card-text This card has supporting text below as a natural lead-in to additional content.
-					//- 		p.card-text
-					//- 			small.text-muted Last updated 3 mins ago
-
 		//- .row
 		//- 	.hr
 		//- 	.col-md-9.reviews_container

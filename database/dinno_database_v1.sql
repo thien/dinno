@@ -145,7 +145,7 @@ ADD FULLTEXT INDEX `Name`
  `Surname` ASC);
 
 INSERT INTO `User` (`UserID`, `Firstname`, `Surname`, `EmailAddress`, `DOB`, `EncryptedPass`, `Rating`, `IsVerified`, `VerificationCode`, `LoginCode`, `ProfileImage`, `TextSize`, `ColourScheme`, `IsAdmin`, `IsSuspended`) VALUES
-(1, 'Johnny', 'Test', 'johnnytest@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL, 'https://i.imgur.com/VLT6AOi.png' , '1.5x', 'Default', 0, 0),
+(1, 'Dinno', 'RecommendationsBot', 'dinnobot@gmail.com', '2001-03-09', 'testpass', 9.9, 0, NULL, NULL, 'https://i.imgur.com/0M9FlkJ.png' , '1.5x', 'Default', 1, 0),
 (2, 'David', 'Testington', 'davidtestington@gmail.com', '1992-01-02', 'testpass',9.8, 0, NULL, NULL, 'https://i.imgur.com/VLT6AOi.png', '1.5x', 'Default', 0, 0),
 (3, 'Lucy', 'Testperson', 'lucytestperson@gmail.com', '1998-11-11', 'testpass',0.1, 0, NULL, NULL, 'https://i.imgur.com/VLT6AOi.png', '2x', 'Default', 0, 0),
 (4, 'John' , 'Jennings' , 'johnmjennings97@gmail.com', '1997-03-21',  '32afa0427b1dd0dca98da012bebbca918fc8ede9d7d4e8bc06ed019020179087',  5, 1, '230d7b0b2ddd9f7c8c237d19d3434964442e85e32eb6c1c706ff1caa2ad7cad3', '84e918d198058f007cb5f6c32c03416c5d0b0c77ebf8532e132289428af965c9', 'https://i.imgur.com/cnErTA2.jpg', '1x', 'Default', 1, 0), 

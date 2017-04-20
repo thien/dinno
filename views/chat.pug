@@ -25,7 +25,10 @@ html(lang="en")
 									img.media-object.contact_photo.sm(src=convo.ProfileImage)
 								.media-body.message-list-box
 									h5.media-heading #{convo.Firstname}
-									small #{convo.Contents}
+									if convo.Contents.length < 25 
+										small #{convo.Contents}
+									else 
+										small #{convo.Contents.substring(0,25)}...
 
 				.message-wrap.col-lg-9
 					.media.msg#chat_header
@@ -34,9 +37,9 @@ html(lang="en")
 									img.media-object#contact_photo( src=chat.profileImage)
 								.pull-left#contact_details
 									if chat.isAdmin
-										h5.media-heading #{chat.theirName} [ADMIN]
+										h5.media-heading #{chat.theirName} (Admin)
 									else if chat.isSuspended
-										h5.media-heading #{chat.theirName} [SUSPENDED]
+										h5.media-heading #{chat.theirName} (Suspended)
 									else
 										h5.media-heading #{chat.theirName}
 					.msg-wrap
@@ -65,9 +68,8 @@ html(lang="en")
 							p.text-muted This user is suspended and so cannot be messaged.
 						else
 							form(action='' onsubmit="return false")#message_send
-								.pull-left
-									input.form-control.send-message#messagebox(name="message" type='text', placeholder='Write a reply..')
-								.pull-right
+								.chat-snug
+									input.form-control.send-message-container#messagebox(name="message" type='text', placeholder='Write a reply..')
 									button.btn.btn-outline-primary#btn-message-send(type='button') 
 										i.fa.fa-paper-plane(aria-hidden='true')
 
