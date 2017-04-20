@@ -5,6 +5,19 @@ module.exports = function(app,express,io) {
 	    next();
 	});
 
+	// make sure bower compoments are directed right.
+	app.use(express.static(__dirname + '/bower_components'));
+	app.use(express.static(__dirname + '/public'));
+	app.use("/data", express.static(__dirname + '/data'));
+
+	// deal with https redirect
+	app.get('*',function(req,res,next){
+	  if(port != 8080 && req.headers['x-forwarded-proto']!='https')
+	    res.redirect('https://'+req.headers.host+req.url);
+	  else
+	    next();
+	})
+
 	// search item
 	app.use('/', require('./search'));  
 
