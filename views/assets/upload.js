@@ -1,21 +1,22 @@
-var socket = io();
 var oldName = "";
 var imgcount = 0;
 
-socket.on('sentimg', function(img_url) {
-    // we'll need to send the image url to the post form.
-});
+$(document).ready(function(){
+    socket.on('sentimg', function(img_url) {
+        // we'll need to send the image url to the post form.
+    });
 
-socket.on('img_uploaded', function(img_url) {
-    // we'll need to send the image url to the post form.
-    img_url.url = img_url.url.replace("http://", "https://");
-    console.log(img_url);
-	var targetDiv = document.getElementById(img_url.id);
-	targetDiv.className += " img_upload_done";
-	var line = '<input type="hidden" name="images[]" value="'+img_url.url+'">';
-	$( "#pictureupload" ).append( line );
-    $("#secret-image-input").val(img_url.url);
-    $("#secret-image-input").change();
+    socket.on('img_uploaded', function(img_url) {
+        // we'll need to send the image url to the post form.
+        img_url.url = img_url.url.replace("http://", "https://");
+        console.log(img_url);
+        var targetDiv = document.getElementById(img_url.id);
+        targetDiv.className += " img_upload_done";
+        var line = '<input type="hidden" name="images[]" value="'+img_url.url+'">';
+        $( "#pictureupload" ).append( line );
+        $("#secret-image-input").val(img_url.url);
+        $("#secret-image-input").change();
+    });
 });
 
 $(function() {
