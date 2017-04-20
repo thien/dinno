@@ -81,7 +81,7 @@ function showMobileAssets(){
 
 
 function manageTabletScreenAssets(){
-	document.getElementById('list_results_container').style.maxHeight = '100%';
+	document.getElementById('list_results_container').style.maxHeight = 'calc(100vh - 54px)';
 	optButton.classList.add('btn-primary');
 	filButton.classList.add('btn-primary');
 	optButton.classList.remove('btn-danger');
