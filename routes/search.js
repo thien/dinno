@@ -51,7 +51,7 @@ module.exports = function () {
 }();
 
 function iterateDistance(req, results, i, done) {
-    if (i < results.length) {
+    if (i < results.length) { //iterates through json objects finding the distance by car from search location to food
         distance.get({
             origin: "" + req.query.lat + "," + req.query.lng,
             destination: "" + results[i].Latitude + "," + results[i].Longitude,
@@ -68,7 +68,7 @@ function iterateDistance(req, results, i, done) {
         })
     } else {
         //console.log(data)
-        done(data);
+        done(data); //call callback to finish json building
     }
 }
 
@@ -121,8 +121,8 @@ function dealWithResults(req, res, param) {
 									 WHERE RecipientID IS NULL AND Meal.IsAvailable = 1
                                      `
         ;
-    if(param.user_data != undefined){
-        query += `AND Meal.UserID <> ` + param.user_data.userID
+    if(param.user_data != undefined){ //if user is logged in, don't show their own food on offer
+        query += `AND Meal.UserID <> ` + param.user_data.userID 
     }
 
     if (req.query.radius == undefined || req.query.radius == "") {
@@ -130,7 +130,7 @@ function dealWithResults(req, res, param) {
     }
     console.log(req.query.radius);
     var latDif = req.query.radius / 69
-    var longDif = req.query.radius / 69;
+    var longDif = req.query.radius / 69; //find the degree difference according to radius to find a bounding box for distance
     distance.apiKey = 'AIzaSyCRkjhwstQA0YAqgmXH0-nmrO_hJ1m6pao';
 
     console.log(req.query.food != "");
@@ -144,7 +144,7 @@ function dealWithResults(req, res, param) {
         query += " AND Meal.IsIngredient = 1"
     }
 
-    query += " AND Location.Latitude BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif))
+    query += " AND Location.Latitude BETWEEN " + (req.query.lat - latDif) + " AND " + (parseFloat(req.query.lat) + parseFloat(latDif)) //add to query limits on latitude and longitude to prevent making lots of calls to google distance api
     query += " AND Location.Longitude BETWEEN " + (req.query.lng - longDif) + " AND " + (parseFloat(req.query.lng) + parseFloat(longDif))
     //query to find all tags containing
     var tags = []
@@ -159,8 +159,8 @@ function dealWithResults(req, res, param) {
 
 
 
-    query += " GROUP BY Meal.MealID";
-    query += " HAVING COUNT(Tag.TagID) >= " + tags.length
+    query += " GROUP BY Meal.MealID"; //recompress down to unique ids from tag joining
+    query += " HAVING COUNT(Tag.TagID) >= " + tags.length //count the number of tags that match and only display those results which has enough matching tags to search 
     query += ";"
     query = mysql.format(query, req.query.food)
     console.log(query);
@@ -196,7 +196,7 @@ function dealWithResults(req, res, param) {
                     //console.log(r)
                     tag = []
                     for (var i = 0; i < r.length; i++) {
-                        tag[i] = r[i].Name
+                        tag[i] = r[i].Name //load list of tags and add to param so html can load tags for filtering
                     }
                     //console.log(tag)
                     param.results.tags = tag

@@ -130,9 +130,11 @@ block container
 					numOfWorkers: 0,
 					locate: true,
 					src: reader.result
+					//initialise decoder
 				},function(result){
 					if (result && result.codeResult) {
 						console.log(result.codeResult.code);
+						//get barcode information from the api
 						$.get("/api/barcode",{code:result.codeResult.code},function(data){
 							$("input#name").val(data.product.attributes.product)
 						})
@@ -142,26 +144,28 @@ block container
 					}
 				})
 			}, false);
-			reader.readAsDataURL(barcode)
+			reader.readAsDataURL(barcode) // convert image to data url, so can be decoded by decoder
 		})
 
-		var k = "#{allTags}"
-		var currentTags = "#{tags}"
-		k = JSON.parse(k.replace(/&quot;/g,'"'))
+		var k = "#{allTags}"				//define tags available
+		var currentTags = "#{tags}"			//define what tags item currently has
+		k = JSON.parse(k.replace(/&quot;/g,'"'))	//parse data into json
 		if(currentTags != ""){
 			currentTags = JSON.parse(currentTags.replace(/&quot;/g,'"'))
 		}
 		var tagNames = []
 		for(var i = 0; i < k.length ; i++){
 			tagNames[i] = k[i].text
-		}
+		}									//create array of available tags
 		var tags = new Bloodhound({
 			datumTokenizer: Bloodhound.tokenizers.whitespace,
 			queryTokenizer: Bloodhound.tokenizers.whitespace,
 			local: tagNames,
-		});
+		}); //create type ahead predictor
 		// deals with tags
 		tags.initialize();
+
+		//initialise input to be a tag input with type ahead predictor
 		$('input#tags').tagsinput({
 			tagClass: 'badge-danger',
 			maxChars: 14,
@@ -170,8 +174,9 @@ block container
 			},{
 				source: tags.ttAdapter()
 			}],
-			//attempted to use freeInput: false, but doesnt work, hence event handler below
 		});
+
+		//prevent item from being added if it is too short
 		$('input#tags').on('beforeItemAdd',function(event){
 			if(event.item.length < 3){
 				event.cancel = true
@@ -179,6 +184,7 @@ block container
 		})
 	if edit
 		script.
+			//if the item already has tags, then load them into the input
 			for(var i = 0; i < currentTags.length ; i++){
 				$('input#tags').tagsinput('add',currentTags[i].text)
 			}

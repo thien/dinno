@@ -10,11 +10,14 @@ module.exports = function() {
 	app.locals.basedir = "." + '/views';
 
 	app.get('/api/barcode', function(req, res) {
+		//creating an api which gets from a http source, and provides to a https requester. 
 		getJSON("http://eandata.com/feed/?v=3&keycode=C3AA45D258F231CD&mode=json&find="+req.query.code,function(error,response){
-			//console.log(response)
-			res.status(200).send(response)
+			if(error){
+				res.status(200).send(response)
+			}else{
+				res.status(200).send(error)
+			}
 		})
-
 		//{v:3,keycode:"C3AA45D258F231CD", mode:"json",find:req.code},
 	}, function(err) {
 		res.render('error', param);
