@@ -25,7 +25,10 @@ html(lang="en")
 									img.media-object.contact_photo.sm(src=convo.ProfileImage)
 								.media-body.message-list-box
 									h5.media-heading #{convo.Firstname}
-									small #{convo.Contents}
+									if convo.Contents.length < 25 
+										small #{convo.Contents}
+									else 
+										small #{convo.Contents.substring(0,25)}...
 
 				.message-wrap.col-lg-9
 					.media.msg#chat_header
