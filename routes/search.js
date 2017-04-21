@@ -97,8 +97,9 @@ function processQuery(req, res, param) {
   } else {
     // dude didn't type in a thang
     // default to durham when no position given.
-    req.query.lat = 54.7731;
-    req.query.lng = -1.57599;
+    req.query.lat = 54.7672;
+    req.query.lng = -1.57256;
+    req.query.location = "Department of Engineering & Computing Sciences, South Road, Durham";
     param.lat = req.query.lat;
     param.lng = req.query.lng;
     dealWithResults(req, res, param);
