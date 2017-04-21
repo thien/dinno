@@ -165,10 +165,10 @@ module.exports = function() {
 			var param = {
 				loggedin: false,
 			};
-			login.checkLogin(req, res).then(function (result) {
+			login.checkLogin(req, res).then(function (result) { //check login of user
 				param.loggedin = true;
 				userID = result.UserID;
-				db.query('UPDATE Meal SET Rating = ? WHERE MealID = ?', [req.body.rating,req.body.mealID], function (err, results, fields) {
+				db.query('UPDATE Meal SET Rating = ? WHERE MealID = ?', [req.body.rating,req.body.mealID], function (err, results, fields) { //set rating to what user posted
 					if (err) {
 						res.status(200).send({ success: false , error_message:err})
 					} else {

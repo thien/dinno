@@ -9,36 +9,38 @@ module.exports = function Server(io, server) {
 
     // socket.io operations
     io.on('connection', function(socket) {
-        console.log("a new human has connected")
-            // send the clients id to the client itself.
+        console.log(`New socket connection ${socket.id}`);
+        // send the clients id to the client itself.
         socket.send(socket.id);
-
+        
+        // Join a room, used for non-global messages
         socket.on('join', function (data) {
             socket.join(data.name);
         });
 
         socket.on('chat message', function(msg) {
+            // get time message was sent
             var currentTime = new Date();
             var senderId = msg['from'];
-            console.log(msg);
             chat.getSenderName(senderId).then(function(name) {
-                // default to john if not specified
-                msg.to = msg.to || 4;
+                // default to dinnobot if not specified
+                msg.to = msg.to || 1;
                 msg.sendername = name;
                 
+                // get nice date format for display
                 msg.day        =  dateFormat(currentTime, "dddd dS mmmm");
                 msg.timestamp  =  dateFormat(currentTime, "HH:MM");
 
-                
+                // send message to both users
                 io.sockets.in(msg['from']).emit('chat message', msg);
                 io.sockets.in(msg['to']).emit('chat message', msg);
                 
+                // save message in history
                 dateFormat(currentTime, "YYYY-MM-DD HH:MM:SS");
-
                 chat.saveMessage(msg.from, msg.to, msg.contents, currentTime);
                 console.log(msg)
             }, function(err) {
-
+                console.log(err)
             });
             
         });

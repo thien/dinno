@@ -88,11 +88,11 @@ module.exports = {
                     FROM (
                         SELECT FromID As UserID, MessageID
                         FROM Chat
-                        WHERE ToID = 4
+                        WHERE ToID = ?
                       UNION
                         SELECT ToID As UserID , MessageID 
                         FROM Chat
-                        WHERE FromID = 4
+                        WHERE FromID = ?
                     ) AS msg
                     GROUP BY msg.UserID
                   )
