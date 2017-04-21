@@ -11,8 +11,7 @@ block container
 					h4 Oops, there seems to be an error here.
 					p
 					| I'm not sure how you encountered this page, but here's the corresponding error message:
-
-					pre #{error_message.msg}
+					pre #{msg || error_message.msg}
 					p
 					| Let us know about this issue at 
 					a(href="mailto:errors@dinno.club")

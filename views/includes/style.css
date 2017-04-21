@@ -902,7 +902,7 @@ margin: 0px 10px 0px 0px;
 
 pre {
 	background-color: #fee;
-	display: inline-block;
+	display: block;
 	padding: 10px;
 	margin: 20px 0px !important;
 	white-space: -moz-pre-wrap;
