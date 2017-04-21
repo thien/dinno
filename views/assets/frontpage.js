@@ -68,3 +68,10 @@ function writeMagic(div, type_this){
     // console.log(demo_input.placeholder)
     next_letter();
 }
+
+var socket = io();
+
+socket.on('pdiddy', function(data){
+    console.log("fucking yes")
+    console.log(data)
+});

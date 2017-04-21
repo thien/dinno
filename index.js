@@ -25,78 +25,26 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// make sure bower compoments are directed right.
-app.use(express.static(__dirname + '/bower_components'));
-app.use(express.static(__dirname + '/public'));
-app.use("/data", express.static(__dirname + '/data'));
-
 // manage views
 app.set('views', __dirname + '/views')
 app.engine('pug', require('pug').__express)
 app.set('view engine', 'pug')
 app.locals.basedir = __dirname + '/views';
 
+// make sure bower compoments are directed right.
+app.use(express.static(__dirname + '/bower_components'));
+app.use(express.static(__dirname + '/public'));
+app.use("/data", express.static(__dirname + '/data'));
+
+// deal with https redirect
 app.get('*',function(req,res,next){
   if(port != 8080 && req.headers['x-forwarded-proto']!='https')
     res.redirect('https://'+req.headers.host+req.url);
   else
     next();
 })
-// search item
-app.use('/', require('./routes/search'));  
 
-// chat
-app.use('/', require('./routes/chat'));  
-
-// front page
-app.use('/', require('./routes/frontpage'));  
-
-// login page
-app.use('/', require('./routes/login'));  
-
-// register page
-app.use('/', require('./routes/register'));  
-
-// profile page
-app.use('/', require('./routes/profile'));
-
-// report user
-app.use('/', require('./routes/report')); 
-
-// settings
-app.use('/', require('./routes/settings'));  
-
-// food item profile
-app.use('/', require('./routes/fooditem'));  
-
-// add food item
-app.use('/', require('./routes/add'));
-
-// add help/faqs
-app.use('/', require('./routes/faqs'));  
-
-// manage fooditems
-app.use('/', require('./routes/manage'));
-
-// admin
-app.use('/', require('./routes/admin'));  
-
-// push notifications
-app.use('/', require('./routes/push_notifications'));
-
-
-app.use('/', require('./routes/barcode'));
-
-// add static assets for public access
-app.use('/assets', express.static('./views/assets'))
-
-app.use('/favicon.ico', express.static('./views/assets/icons/favicon.ico'));
-
-// add error message - THIS MUST BE THE LAST ROUTE TO BE DEFINED
-app.use('/', require('./routes/error'));
-  
-
-
+require('./routes/api')(app,express,io); 
 
 server.listen(port, function () {
     // notify user that server is running
