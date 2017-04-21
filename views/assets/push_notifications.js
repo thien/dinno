@@ -7,13 +7,6 @@ $(document).ready(function(){
     socket.emit('join', {name: Cookies.get('id')});
     console.log("joined " + Cookies.get('id'));
     waitForNotification();
-          
-    var notification = new Notification('Dinno', {
-                        body: "Some new tasty cheese is now avaiable!",
-                        icon: "https://lh4.googleusercontent.com/-dEECkoF6aw4/VUdA5mEfYjI/AAAAAAAAAo0/EYO-sFpxw0M/s562-no/11140126_849297098439890_1971095685262438904_n.jpg",
-                        dir : "ltr",
-                        name: "mealData.name",
-                    });
 })
 // joins the users private room
 
