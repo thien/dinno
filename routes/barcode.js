@@ -13,9 +13,9 @@ module.exports = function() {
 		//creating an api which gets from a http source, and provides to a https requester. 
 		getJSON("http://eandata.com/feed/?v=3&keycode=C3AA45D258F231CD&mode=json&find="+req.query.code,function(error,response){
 			if(error){
-				res.status(200).send(response)
-			}else{
 				res.status(200).send(error)
+			}else{
+				res.status(200).send(response)
 			}
 		})
 		//{v:3,keycode:"C3AA45D258F231CD", mode:"json",find:req.code},
