@@ -43,10 +43,13 @@ function run() {
         console.log(decoded.length)
         if (decoded.length > 50) {
             console.log(freq);
+            $(".modal.livevideo").modal('hide');
             var barcode = getMostFrequentBarcode(freq);
+            $("input#name").val("Searching for name...");
             $.get("/api/barcode",{code:barcode},function(data){ //query barcode api to get name of item.
                 if (data && data.product && data.product.attributes  && data.product.attributes.product) {
                     $("input#name").val(data.product.attributes.product);
+                    $("#name").keyup();
                 }
                 else {
                     $("input#name").val("No barcode info found :(");
