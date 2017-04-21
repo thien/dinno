@@ -53,7 +53,7 @@ module.exports = function () {
 function iterateDistance(req, results, i, done) {
     if (i < results.length) {
         distance.get({
-            origin: "" + req.query.lat + "," + req.query.lng,
+            origin: "" + req.query.location,
             destination: "" + results[i].Latitude + "," + results[i].Longitude,
             units: 'metric'
         }, function (err, distanceData) {
