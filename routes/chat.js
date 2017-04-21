@@ -19,7 +19,7 @@ module.exports = function() {
 
 			var cookies = new Cookies(req, res);
 			var senderId = cookies.get('id');
-			var recipientId = req.query.id || 4;
+			var recipientId = req.query.id || 1;
 
 			param.user_data = {
 				userID: senderId,
