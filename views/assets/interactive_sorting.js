@@ -15,7 +15,7 @@ sorting methods:
 function writeCardHolder(sorted){
 	var newContent = '';
 	for(var i=0; i<sorted.length; i++){
-		newContent += '<div class="col-md-6 col-lg-4"><a class="card" href="/fooditem" id="fooditem_'+sorted[i].MealID+'">'+
+		newContent += '<div class="col-md-6 col-lg-4"><a class="card" href="/fooditem?id='+sorted[i].MealID+'" id="fooditem_'+sorted[i].MealID+'">'+
 		'<img class="card-img-top img-fluid" src="'+sorted[i].Image+'" alt="Card image cap">'+
         '<div class="card-profile-container"><img class="card-userprofile-img" src="'+sorted[i].ProfileImage+'" alt="Card image cap"></div>'+
         '<div class="card-block">'+
