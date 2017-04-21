@@ -1096,10 +1096,10 @@ img.img_preview{
   border-bottom: 7px solid transparent;
   content: '';
 }
-
+/*
 @media screen and (min-width: 0px) and (max-width: 720px) {
   #barcodeContainer{ display: none; }
-}
+}*/
 
 .modal-lg {
   min-height: 100%;
