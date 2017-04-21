@@ -3,10 +3,17 @@ socket = io();
 
 //}
 $(document).ready(function(){
+    requestPermission();
     socket.emit('join', {name: Cookies.get('id')});
     console.log("joined " + Cookies.get('id'));
     waitForNotification();
-
+          
+    var notification = new Notification('Dinno', {
+                        body: "Some new tasty cheese is now avaiable!",
+                        icon: "https://lh4.googleusercontent.com/-dEECkoF6aw4/VUdA5mEfYjI/AAAAAAAAAo0/EYO-sFpxw0M/s562-no/11140126_849297098439890_1971095685262438904_n.jpg",
+                        dir : "ltr",
+                        name: "mealData.name",
+                    });
 })
 // joins the users private room
 
@@ -15,9 +22,9 @@ $(document).ready(function(){
 
 function waitForNotification(){
 	socket.on('new_food_notification', function(notification_content){
-        console.log('New notification' + notification_content);
 	   	if (!document.getElementById('lovelymsg') && Notification.permission === 'granted' && ('Notification' in  window)) {
 			var notification = new Notification('Dinno', notification_content);
+            console.log('New notification' + notification_content);
 		}
 		else if(!('Notification' in window)){
 			alert("This browser does not support desktop notification!");
@@ -27,12 +34,13 @@ function waitForNotification(){
 
 // this checks and asks for permission to send notifications
 
-function notify(){
+function requestPermission(){
     if (!("Notification" in window)) {
         alert("This browser does not support desktop notification");
     }
     else if (Notification.permission === "granted") {
         //do nothing but we can send notifications!
+        console.log("Notifications enabled");
     }
     else if (Notification.permission !== 'denied') {
         Notification.requestPermission(function (permission) {
@@ -40,14 +48,6 @@ function notify(){
                 Notification.permission = permission;
             }
 
-            if (permission === "granted") {
-                var options = {
-                    body: "Welcome to Dinno Notifications!",
-                    icon: 'http://127.0.0.1:8080/assets/dinnosaur/bw.svg',
-                    dir : "ltr"
-                };
-                var notification = new Notification("Dinno",options);
-            }
         });
     }
 }
