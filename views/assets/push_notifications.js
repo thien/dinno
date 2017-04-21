@@ -1,21 +1,12 @@
+
 socket = io();
-
-//copy this onto each pug page notifications are needed: (if they aren't already included...)
-/*script
-	include assets/js-cookie.js
-	include assets/push_notifications.js*/
-
-// only sends the notification out if on added_page, this tests if it is this page
-
 
 //}
 $(document).ready(function(){
     socket.emit('join', {name: Cookies.get('id')});
+    console.log("joined " + Cookies.get('id'));
     waitForNotification();
-	if(document.getElementById('lovelymsg')){
-		foodNotification(getNotificationContent());
-	}
-    
+
 })
 // joins the users private room
 
@@ -63,25 +54,25 @@ function notify(){
 
 // used to send the event to the server via the socket, called on the added_fooditem page
 
-function foodNotification(notification_content){
-	console.log('foodNotification' + notification_content);
-	socket.emit('food_added', {
-    	userID: Cookies.get('id'),
-    	body: notification_content.body,
-    	icon: notification_content.icon,
-    	dir: 'ltr',
-    	name: notification_content.name
-	});
-}
+// function foodNotification(notification_content){
+// 	console.log('foodNotification' + notification_content);
+// 	socket.emit('food_added', {
+//     	userID: Cookies.get('id'),
+//     	body: notification_content.body,
+//     	icon: notification_content.icon,
+//     	dir: 'ltr',
+//     	name: notification_content.name
+// 	});
+// }
 
-function getNotificationContent(){
-	var new_food = document.getElementById('smallmsg').innerHTML.split(' is now added')[0];
+// function getNotificationContent(){
+// 	var new_food = document.getElementById('smallmsg').innerHTML.split(' is now added')[0];
 	
-	var notification_content = {
-        body: "Some new tasty "+new_food+" is now avaiable!",
-        icon: document.getElementById('foodimageurl').src,
-        dir : "ltr",
-        name: new_food
-    }
-    return notification_content;
-}
+// 	var notification_content = {
+//         body: "Some new tasty "+new_food+" is now avaiable!",
+//         icon: document.getElementById('foodimageurl').src,
+//         dir : "ltr",
+//         name: new_food
+//     }
+//     return notification_content;
+// }

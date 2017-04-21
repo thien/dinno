@@ -78,7 +78,34 @@ function iterateTags(i,tags,done){
 	}
 }
 
-function addNewMeal(mealData, userId, lat, lng,tags) {
+
+function getUsersSearchingForFood(foodname){
+    console.log(foodname);
+    return new Promise(function(resolve, reject) {
+        db.query(`SELECT Recents.UserID 
+                  FROM Recents
+                  WHERE Recents.Foodname LIKE ?`, ['%'+foodname+'%'],
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                } else {
+                    var hungryUsers = [];
+                    var n = results.length;
+                    for (var i = 0; i < n; i++) {
+                        hungryUsers.push(results[i].UserID);
+                    }
+                    //get unqiue array of users
+                    /*uniqueArray = myArray.filter(function(elem, pos) {
+                        return myArray.indexOf(elem) == pos;
+                    })*/
+                    resolve(hungryUsers);
+                }
+            });
+    });
+}
+
+function addNewMeal(mealData, userId, lat, lng, tags, io) {
 	return new Promise(function(resolve, reject) {
 		var year = mealData['year'];
 		var month = mealData['month'];
@@ -96,6 +123,25 @@ function addNewMeal(mealData, userId, lat, lng,tags) {
 					reject(error);
 				} else {
 					console.log(`Added meal ${mealData.name}`);
+
+					var notification_content = {
+						body: "Some new tasty "+mealData.name+" is now avaiable!",
+						icon: mealData.image,
+						dir : "ltr",
+						name: mealData.name,
+					}
+
+          getUsersSearchingForFood( mealData.name).then(function(hungryUsers) {
+							console.log("hungry" + hungryUsers);
+              for (var i = 0; i<hungryUsers.length; i++) {
+									console.log(i);
+                  notification_content.userID = hungryUsers[i];
+                  console.log(notification_content);
+									console.log(notification_content.userID);
+                  io.sockets.in(notification_content.userID).emit('new_food_notification', notification_content);
+              }
+          });
+
 					if(tags != ""){
 						tags = tags.split(",")
 						iterateTags(0,tags,function(tags){
@@ -403,7 +449,7 @@ module.exports = function() {
 					mealData.lng = cookies.get('lng');
 				}
 
-				addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng,mealData.tags).then(function(result) {	
+				addNewMeal(mealData, result.UserID, mealData.lat, mealData.lng,mealData.tags, req.io).then(function(result) {	
 
 					param.new_item = {
 						name: mealData.name,

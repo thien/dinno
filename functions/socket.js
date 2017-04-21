@@ -84,16 +84,6 @@ module.exports = function Server(io, server) {
             });
         });
 
-        socket.on('food_added', function(content) {
-            getUsersSearchingForFood(content.name).then(function(hungryUsers) {
-                for (var i = 0; i<hungryUsers.length; i++) {
-                    content.userID = hungryUsers[i];
-                    console.log(content);
-                    io.sockets.in(content.userID).emit('new_food_notification', content);
-                }
-            });
-        });
-
         socket.on('disconnect', function() {
             console.log('A user has disconnected')
         });
@@ -126,30 +116,4 @@ function upload(file, done) {
     // append the files
 	upload.append('type', 'base64');
 	upload.append('image', file);
-}
-
-function getUsersSearchingForFood(foodname){
-    console.log(foodname);
-    return new Promise(function(resolve, reject) {
-        db.query(`SELECT Recents.UserID 
-                  FROM Recents
-                  WHERE Recents.Foodname LIKE ?`, ['%'+foodname+'%'],
-            function(error, results, fields) {
-                if (error) {
-                    console.log(error);
-                    reject(error);
-                } else {
-                    var hungryUsers = [];
-                    var n = results.length;
-                    for (var i = 0; i < n; i++) {
-                        hungryUsers.push(results[i].UserID);
-                    }
-                    //get unqiue array of users
-                    /*uniqueArray = myArray.filter(function(elem, pos) {
-                        return myArray.indexOf(elem) == pos;
-                    })*/
-                    resolve(hungryUsers);
-                }
-            });
-    });
 }

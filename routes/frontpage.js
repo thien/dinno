@@ -196,7 +196,7 @@ module.exports = function() {
 				})
 
 			}, function(err) {
-
+				console.log("hi");
 				req.io.on('connection', function(socket) {
 					socket.emit('pdiddy', "haha");
 				});
