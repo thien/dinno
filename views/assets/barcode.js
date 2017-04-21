@@ -16,8 +16,6 @@ function run() {
             type: "LiveStream",
             target: document.querySelector('#barcodeContainer'),
             constraints: {
-                width: $('#upload_img_container').width(),
-                height: $('#upload_img_container').height(),
                 facingMode: "environment", // or user
             },
             debug: true,
@@ -31,23 +29,27 @@ function run() {
             showPattern: false,
             readers: ["code_128_reader", 'ean_reader', 'ean_8_reader', 'code_39_reader', 'code_39_vin_reader', 'codabar_reader', 'upc_reader', 'upc_e_reader', 'i2of5_reader'],
         },
+        //initialise barcode decoder
     }, function (err) {
         if (err) {
             console.log(err);
+            $(".livevideo").remove()
+        }else{
+            console.log("Initialization finished. Ready to start");
+            Quagga.start()
         }
-        console.log("Initialization finished. Ready to start");
-        Quagga.start();
     });
     Quagga.onDetected(function (data) {
         console.log(decoded.length)
         if (decoded.length > 50) {
             console.log(freq);
             var barcode = getMostFrequentBarcode(freq);
-            $.get("/api/barcode",{code:barcode},function(data){
+            $.get("/api/barcode",{code:barcode},function(data){ //query barcode api to get name of item.
 				$("input#name").val(data.product.attributes.product)
 			})
             Quagga.stop();
         } else {
+            //for live detection, decoded 50 times and then decide which one is the "right" barcode
             decoded.splice(decoded.length, 0, data.codeResult.code)
             if (!freq[data.codeResult.code]) {
                 freq[data.codeResult.code] = 1;
@@ -58,4 +60,8 @@ function run() {
         }
     })
 }
-run();
+if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    run();
+}else{
+    $(".livevideo").remove()
+}
