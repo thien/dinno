@@ -51,30 +51,30 @@ function validateBarcode(barcode){
 }
 
 function iterateTags(i,tags,done){
-	if(i < tags.length){
+	if(i < tags.length){ //iterate tags to convert tags from names to ids
 		if(tags[i] != ""){
 			db.query(`SELECT TagID FROM Tag WHERE Name = ?`,[tags[i]],function(error,result,fields){
 				if(error){
 					console.log(error)
-				}else if(result[0] != undefined){
+				}else if(result[0] != undefined){ //if tag already exists in database, then return its id and swap the name with the id
 					tags[i] = result[0].TagID
-					iterateTags(i+1,tags,done)
+					iterateTags(i+1,tags,done) //do the next tag
 				}else{
-					db.query(`INSERT INTO Tag (TagID,Name) VALUES (0,?)`,[tags[i]],function(e,r,f){
+					db.query(`INSERT INTO Tag (TagID,Name) VALUES (0,?)`,[tags[i]],function(e,r,f){ //if tag doesnt exist the insert into the database
 						if(e){
 							console.log(e)
 						}else{
-							tags[i] = r.insertId
-							iterateTags(i+1,tags,done)
+							tags[i] = r.insertId //get the id of the new created tag and swaps it with the name
+							iterateTags(i+1,tags,done) //do the next tag
 						}
 					})
 				}
 			})
 		}else{
-			done([])
+			done([]) //when finished call the callback with an empty, only occurs if array of tags is "" which is when there are no tags
 		}
 	}else{
-		done(tags)
+		done(tags) //call callback with ids instead of names now
 	}
 }
 
@@ -99,7 +99,7 @@ function addNewMeal(mealData, userId, lat, lng,tags) {
 					if(tags != ""){
 						tags = tags.split(",")
 						iterateTags(0,tags,function(tags){
-							var query = `INSERT INTO TagMeal (TagMealID, MealID, TagID) VALUES (0,` + results.insertId + `,?)`
+							var query = `INSERT INTO TagMeal (TagMealID, MealID, TagID) VALUES (0,` + results.insertId + `,?)` //insert into database new tagging data 
 							for(var i = 1; i < tags.length ; i++){
 								query += `, (0,` + results.insertId + `,?)`
 							}
@@ -190,22 +190,6 @@ function updateMeal(mealData, mealId, lat, lng, oldtags,tags) {
 	});
 }
 
-function addTags(tags){
-	if(tags != ""){
-		tags = tags.split(",")
-		var query = `INSERT INTO TagMeal (TagMealID, MealID, TagID) VALUES (0,` + results.insertId + `,?)`
-		for(var i = 1; i < tags.length ; i++){
-			query += `, (0,` + results.insertId + `,?)`
-		}
-		db.query(query,tags,function(e,r,f){
-			if(e){
-				console.log(e)
-			}else{
-				console.log(r)
-			}
-		})
-	}
-}
 
 function checkMealOwner(mealId, userId) {
 	return new Promise(function(resolve, reject) {
@@ -278,7 +262,7 @@ module.exports = function() {
 				isAdmin: result.IsAdmin
 			};
 
-			db.query(`SELECT * FROM Tag`,function(error,result,fields){
+			db.query(`SELECT * FROM Tag`,function(error,result,fields){ //load tags from db to pass to html for type ahead prediction
 				param.allTags = []
 				for(var i = 0; i < result.length; i++){
 					var tag = {}
@@ -348,7 +332,7 @@ module.exports = function() {
 							}
 							param.tags = JSON.stringify(param.tags)
 						}
-						db.query(`SELECT * FROM Tag`,function(error,result,fields){
+						db.query(`SELECT * FROM Tag`,function(error,result,fields){ //load tags from db to pass to html for type ahead prediction
 							param.allTags = []
 							for(var i = 0; i < result.length; i++){
 								var tag = {}

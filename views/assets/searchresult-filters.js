@@ -13,7 +13,7 @@
     //-   },500)
     //- })
     //- console.log($("#navsearchbar").val());
-$("form#filters").append("<input type='hidden' name='food' value='" + $("#navsearchbar").val() + "'></input>")
+$("form#filters").append("<input type='hidden' name='food' value='" + $("#navsearchbar").val() + "'></input>")  //append data from navbar to this form so filtering can be done
 $("form#filters").append("<input type='hidden' name='location' value='" + $("#navsearchbarlocation").val() + "'></input>")
 
 $("form#filters").submit(function() {
@@ -34,18 +34,18 @@ $("form#filters").submit(function() {
 })
 
 $("input#range").change(function() {
-    document.getElementById("rangeVal").value = $(this).val();
+    document.getElementById("rangeVal").value = $(this).val(); //if value changes in slider then change input
 })
 
 $("input#rangeVal").change(function() {
-    document.getElementById("range").value = $(this).val();
+    document.getElementById("range").value = $(this).val(); //opposite of above
 })
 
 var tags = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     local: k
-});
+}); //create type ahead suggestion engine
 
 // deals with tags
 tags.initialize();
@@ -54,7 +54,7 @@ $('input#tag').tagsinput({
     typeaheadjs: {
         source: tags.ttAdapter()
     }
-    //attempted to use freeInput: false, but doesnt work, hence event handler below
+    //initialise input to be a tag input
 });
 $('input').on('beforeItemAdd', function(event) {
     var exists = false
@@ -62,8 +62,7 @@ $('input').on('beforeItemAdd', function(event) {
         exists = true;
     }
     event.cancel = !exists
-        // event.item: contains the item
-        // event.cancel: set to true to prevent the item getting added
+    // if tag doesnt exist in database then don't add it
 });
 
 // range slider

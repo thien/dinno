@@ -94,16 +94,13 @@ function cardEntry(item){
 			card += "<a class='btn btn-link btn-sm' href='/remove?id="+item.MealID+"'>Remove</a></div>";
 		}
 	}
-	console.log("rating:" + item.Rating)
-	if (item.Rating != null || isYours == "Others") {
+	if (item.Rating != null || isYours == "Others") { //if item is rated or belongs to someone else(not yours), then add a set of stars for rating
 		//console.log(item.Rating)
-		var classes = "rating"
-		if(isYours == "Others"){
-			console.log(item.MealID)
+		if(isYours == "Others"){ //if item doesn't belong to user, then create a form so that they can rate meals
 			card += "<form id=mealID" + item.MealID + ">"
 		}
-		
-		card += '<span><select class="' + classes + '">'
+		//create star rating appearence
+		card += '<span><select class="rating">'
 
 		for (var i = 1; i < 6; i++) {
 			if (item.Rating == i) {
@@ -114,7 +111,7 @@ function cardEntry(item){
 		}
 		card += '</select>'
 		if(isYours == "Others"){
-			if(item.Rating ==null){
+			if(item.Rating ==null){ //if item doesnt belong then complete the form with either rate or change rating according to whether it has been rated before
 				card += "<button class='rating-button' type='button''>Rate!</button></form>"
 			}else{
 				card += "<button class='rating-button' type='button''>Change rating!</button></form>"
@@ -166,21 +163,21 @@ function stringsComparison(a, b) {
 function initRating() {
 	$(".rating").barrating({
 		theme: 'css-stars',
-		readonly: (isYours != "Others")
+		readonly: (isYours != "Others") //initialise so rating are read only if item belongs to user, else can be changed if item belongs to someone else
 	})
 	$('.rating-button').on("click", function (e) {
 		console.log($(this.form).attr("id"))
-		var mealID = parseInt($(this.form).attr("id").substring(6))
-		var rating = parseInt($(this.form).find(":selected").val())
-		$(this.form).find("select").barrating("readonly",true)
+		var mealID = parseInt($(this.form).attr("id").substring(6)) //get mealid of clicked rate button
+		var rating = parseInt($(this.form).find(":selected").val()) //get value of rating
+		$(this.form).find("select").barrating("readonly",true) 		//change the value to a readonly value once button has been clicked
 		console.log("ID: " + mealID)
 		console.log("Value: " + rating)
-		$.post("/manage", { mealID: mealID, rating: rating }, function (response) {
+		$.post("/manage", { mealID: mealID, rating: rating }, function (response) { //post rating and mealid to be updated in the database
 			if (response.success) {
 				console.log("Successfully rated")
 				for (var i = 0; i < data.length; i++) {
 					console.log(data[i].MealID)
-					if (data[i].MealID == mealID) {
+					if (data[i].MealID == mealID) { //find mealid in local variable, then update it so it displays correct everytime
 						data[i].Rating = rating
 					}
 				}

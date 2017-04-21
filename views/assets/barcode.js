@@ -29,6 +29,7 @@ function run() {
             showPattern: false,
             readers: ["code_128_reader", 'ean_reader', 'ean_8_reader', 'code_39_reader', 'code_39_vin_reader', 'codabar_reader', 'upc_reader', 'upc_e_reader', 'i2of5_reader'],
         },
+        //initialise barcode decoder
     }, function (err) {
         if (err) {
             console.log(err);
@@ -43,11 +44,12 @@ function run() {
         if (decoded.length > 50) {
             console.log(freq);
             var barcode = getMostFrequentBarcode(freq);
-            $.get("/api/barcode",{code:barcode},function(data){
+            $.get("/api/barcode",{code:barcode},function(data){ //query barcode api to get name of item.
 				$("input#name").val(data.product.attributes.product)
 			})
             Quagga.stop();
         } else {
+            //for live detection, decoded 50 times and then decide which one is the "right" barcode
             decoded.splice(decoded.length, 0, data.codeResult.code)
             if (!freq[data.codeResult.code]) {
                 freq[data.codeResult.code] = 1;
