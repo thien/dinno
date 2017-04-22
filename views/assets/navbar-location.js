@@ -73,6 +73,6 @@ function printEstLocation(coord){
     })
 }
 
-if (browser.name === "IE"){
-    // document.getElementById("locationarrow").style.visibility = "hidden"; 
-}
+// if (browser.name === "IE"){
+//     // document.getElementById("locationarrow").style.visibility = "hidden"; 
+// }
