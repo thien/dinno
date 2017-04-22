@@ -10,7 +10,9 @@ $.getJSON("data/random_food_list.json", function(food_list) {
 
 function notify(){
     if (!("Notification" in window)) {
-        alert("This browser does not support desktop notification");
+        // alert("This browser does not support desktop notifications");
+        console.log("This browser doesn't support desktop notifications.");
+        // abstract; the user doesn't need to know that they can't have notifications.
     }
     else if (Notification.permission === "granted") {
         /*var options = {
@@ -72,6 +74,5 @@ function writeMagic(div, type_this){
 var socket = io();
 
 socket.on('pdiddy', function(data){
-    console.log("fucking yes")
     console.log(data)
 });
