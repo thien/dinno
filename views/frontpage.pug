@@ -3,17 +3,38 @@ html(lang="en")
   head
     title Dinno
     include includes/head
+  
+  .modal.fade#about-modal(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          h5#exampleModalLabel.modal-title About Us
+          |  
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body
+          h4 What is Dinno?
+          p Dinno is a brand-new food sharing service focused on tackling the ongoing issue of food waste in the UK. Through Dinno, you can advertise any unwanted food items ('Dinnos' as we call them) that you have around the house, and organise exchanges with any other interested foodies.
+          p In addition, you can quickly and comprehensively search for meals or ingredients in your local area, and if any look particularly appealing, you can contact the donor to claim their food for NO charges whatsoever.
+          p So not only will you be helping towards reducing food waste, but saving on food bills as well!
+          br
+          h4 The Issue of Food Waste in the UK
+          p Every year in the UK, we throw away 7 million tonnes of food – half of which is perfectly edible. Leveraging such an enormous unused food supply would not only be of great social benefit to those struggling to feed themselves, but also of economic benefit to the typical household. It is estimated that the average family loses £700 a year due directly to food waste.
+          p The main cause of food waste is preparing a larger meal than was needed. Especially when feeling hungry, having ‘eyes bigger than your stomach’ is a common mistake in the kitchen. The remaining food is quite literally good enough to eat, only lacking someone to do so. People would be quite happy to give their food away, if they could only find someone that would take it.
+
   body(style='background-image: url("' + background + '"); background-size: cover;')
     include includes/alt-nav
     #frontpage-container.jumbotron
       h1.frontpage-logo-banner dinno.club
       p
-        | Look for free food from our lovely humans.
+        | The brand-new food sharing service.
       p
         include assets/big_search
       p.center
         if tip
           a(href=tip.link) #{tip.msg}
+      if !loggedin
+        a.policylink(data-toggle='modal', data-target='#about-modal') What is <b>Dinno?</b>
     #frontpage_showcase
      .card-columns#frontpage-card-cols
       each val in backgrounds
