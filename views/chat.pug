@@ -8,22 +8,22 @@ html(lang="en")
 	body
 		include includes/nav
 		.container#chat_container
-			.row
+			.row.chat-container
 				.conversation-wrap.col-lg-3
 					form(action='' onsubmit="return false").form-inline#user-search
 						input.form-control.send-message#user-search-box(name="userSearch" type='text', placeholder='Search for a user...' autocomplete="off")
 					#user-search-results
-					each convo in convos
-						if convo.UserID != user_data.userID
-							.media.conversation(onclick="location.href='/chat?id=" + convo.UserID +"';")
-								a.pull-left(href='/chat?id=' + convo.UserID)
-									img.media-object.contact_photo.sm(src=convo.ProfileImage)
-								.media-body.message-list-box
-									h5.media-heading #{convo.Firstname}
-									if convo.Contents.length < 25 
-										small #{convo.Contents}
-									else 
-										small #{convo.Contents.substring(0,25)}...
+						each convo in convos
+							if convo.UserID != user_data.userID
+								.media.conversation(onclick="location.href='/chat?id=" + convo.UserID +"';")
+									a.profileimg-list(href='/chat?id=' + convo.UserID)
+										img.media-object.contact_photo.sm(src=convo.ProfileImage)
+									.media-body.message-list-box
+										h5.media-heading.miniprofile-chat #{convo.Firstname}
+										if convo.Contents.length < 25 
+											small #{convo.Contents}
+										else 
+											small #{convo.Contents.substring(0,25)}...
 
 				.message-wrap.col-lg-9
 					.media.msg#chat_header

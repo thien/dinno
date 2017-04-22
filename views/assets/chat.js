@@ -104,11 +104,11 @@ socket.on('user search results', function(res) {
   var users = '';
   res.forEach(function(u) {
     users +=  "<div class='media conversation user-search-result' onclick=\"location.href='/chat?id="+u.UserID+"';\">"+
-                  "<a class='pull-left' href='/chat?id="+u.UserID+"'>"+
+                  "<a class='profileimg-list' href='/chat?id="+u.UserID+"'>"+
                     "<img class='media-object contact_photo sm' src='"+u.ProfileImage+"'>"+
                   "</a>"+
                   "<div class='media-body message-list-box'>"+
-                    "<h5>"+u.Firstname+" "+u.Surname+"</h5>"+
+                    "<h5 class=' media-heading miniprofile-chat'>"+u.Firstname+" "+u.Surname+"</h5>"+
                   "</div>"+
                 "</div>";
   });
