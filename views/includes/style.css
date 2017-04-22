@@ -924,6 +924,10 @@ img.img_preview{
 	float:right;
 }
 
+.notify-container {
+	margin: 30px 3% 0px 3%;
+}
+
 .submitstars {
 	float:right;
 }

@@ -159,6 +159,12 @@ module.exports = function() {
 
 
 		}, function(err) {
+			param.alerts = {
+				warning: [],
+				info : [],
+				error : [],
+				success : ["Your data has been updated successfully."]
+			}
 			param.error_message = {
 				msg: "You need to be logged in to access this page."
 			};

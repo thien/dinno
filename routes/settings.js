@@ -87,10 +87,10 @@ module.exports = function() {
 			
 
 		}, function(err) {
-			param.error_message = {
-				msg: err
-			};
-			res.render('error', param);
+			param.alerts = {
+				error : [err]
+			}
+			res.render('login', param);
 		});
 	})
 
@@ -130,11 +130,7 @@ module.exports = function() {
 					error : [],
 					success : ["Your settings have been successfully updated."]
 				}
-				
-				console.log(param)
-				
 				res.render('settings', param);
-
 
 			}, function(err) {
 					param.error_message = {

@@ -173,12 +173,6 @@ module.exports = function() {
 				param.month = data[0].DOB.getMonth()+1;
 				param.day = dob[2];
 				param.edit =  true,
-				param.alerts = {
-					warning: [],
-					info : [],
-					error : [],
-					success : ["Your data has been updated successfully."]
-				}
 				res.render('register', param);
 
 			}, function(err) {

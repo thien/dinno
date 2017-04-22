@@ -123,10 +123,21 @@ function updateUser(userId, userData, res) {
 				console.log(`Rejected user ${userData['email']}`);
 				delete userData.password;
 				delete userData.vpassword;
+
+				userData.alerts = {
+					error : ["We're unable to update your information at this time. Please try again later."]
+				}
 				res.render('register', userData);
 			} else {
 				console.log(`Updated user ${emailAddress}`);
 				console.log(userData);
+
+				userData.alerts = {
+					warning: [],
+					info : [],
+					error : [],
+					success : ["Your information has been updated successfully."]
+				}
 				res.render('register', userData);
 			}
 		});
@@ -268,6 +279,11 @@ module.exports = function() {
 				console.log(`Rejected user ${param['email']}`);
 				delete param.password;
 				delete param.vpassword;
+				param.alerts = {
+					warning: [],
+					info : [],
+					error : ["We're unable to process your information right now, please try again later."]
+				}
 				res.render('register', param);
 			}
 
