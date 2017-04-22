@@ -5,6 +5,9 @@ const db        = require('../functions/database');
 var chat = require('../functions/chat');
 var dateFormat  = require('dateformat');
 
+//Marks all tags associated with a user as well as the meal using it for each tag.
+//Input: userId
+//Output: Array of TagId and Name
 function getUserTags(userId) {
     return new Promise(function(resolve, reject) {
         db.query(`SELECT Tag.TagID, Meal.Name
@@ -30,7 +33,11 @@ function getUserTags(userId) {
 
 
 module.exports = {
-  
+
+//Takes a user and generates a random recommendation for reducing food waste based on their tags, and  if they have no tags a random generic message is returned.
+//This message is then sent by the dinno bot to the specified user using the chat.
+//Input: userId
+//Output: chatdata
   generateRandomRecommendation: function(userId) {
     return new Promise(function(resolve, reject) {
 		
@@ -38,6 +45,7 @@ module.exports = {
 			
 			var recommendationMsg = ""
 			
+			//If they have no tags
 			if (data.length == 0) {
 				
 				//Generate random default message
@@ -64,8 +72,9 @@ module.exports = {
 				}
 				
             }
-			else{
+			else{ //If they have tags
 				
+				//Choose a random tag
 				var randTagId = Math.floor(Math.random() * data.length)
 			
 				switch(data[randTagId].TagID) {
@@ -96,6 +105,7 @@ module.exports = {
 				
 			}
 			
+			//Send the recommendation to the user.
 			var currentTime = new Date();
 			dateFormat(currentTime, "YYYY-MM-DD HH:MM:SS");
 			
