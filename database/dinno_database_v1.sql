@@ -250,7 +250,7 @@ INSERT INTO `TagMeal` (`TagMealID`,`MealID`,`TagID`) VALUES
 --
 
 CREATE TABLE `Report` (
-  `ReportID` int(11) NOT NULL,
+  `ReportID` int(11) NOT NULL AUTO_INCREMENT,
   `SenderID` int(11) NOT NULL,
   `RecipientID` int(11) NOT NULL,
   `Reason` varchar(40) NOT NULL,
