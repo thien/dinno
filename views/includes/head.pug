@@ -10,23 +10,17 @@ link(rel='stylesheet', href='/jquery-bar-rating/dist/themes/css-stars.css')
 link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
 link(href='/bootstrap-tagsinput/examples/assets/app.css', rel='stylesheet')
 //- style.css is to be last in order to overwrite the other stylesheets.
-style
-	include style.css
+link(rel='stylesheet', href='assets/style.css')
 
 if loggedin
 	if user_data.textSize == "1.5x"
-		style
-			include style1_5.css
+		link(rel='stylesheet', href='assets/style1_5.css')
 	else if user_data.textSize == "2x"
-		style
-			include style2.css
-		
+		link(rel='stylesheet', href='assets/style2.css')
 	if user_data.colourScheme == "Blue"
-		style
-			include styleblue.css
+		link(rel='stylesheet', href='assets/styleblue.css')
 	else if user_data.colourScheme == "Orange"
-		style
-			include styleorange.css
+		link(rel='stylesheet', href='assets/styleorange.css')
 
 script(src='assets/jquery-ui.min.js')
 script(src='/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
@@ -42,7 +36,6 @@ if isSearchResultsPage
 	script
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
-	script(src='assets/js-cookie.js')
 	script(src='assets/functions/browsercheck.js')
 	script(src='assets/poachGETVariables.js')
 	script(src='assets/interactive_sorting.js')
