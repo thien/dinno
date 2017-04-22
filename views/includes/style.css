@@ -919,6 +919,22 @@ img.img_preview{
 	max-width: 100px;
 }
 
+.br-wrapper, .br-theme-css-stars {
+	width: 130px;
+	float:right;
+}
+
+.submitstars {
+	float:right;
+}
+
+.yesisubmittedit {
+	padding-top: 5px;
+	padding-right: 10px;
+	float: right;
+	display: none;
+}
+
 #barcode {
 	width: 100%;
 }
