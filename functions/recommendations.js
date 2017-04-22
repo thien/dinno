@@ -99,6 +99,9 @@ module.exports = {
 					case 7: //Fruit
 						recommendationMsg = "Food Waste Recommendation of the Day: We noticed you have been giving away some fruit items (" + data[randTagId].Name + ") on Dinno. In order to reduce your food wastage, did you know canning or pickling food can increase a fruit item's shelf life for months?";
 						break;
+					case 8: //Beef
+						recommendationMsg = "Food Waste Recommendation of the Day: We noticed you have been giving away some beef items (" + data[randTagId].Name + ") on Dinno. In order to reduce your food wastage, remember that excess meat can be used in food for your or your neighbour's pet!";
+						break;	
 					default:
 						recommendationMsg = "Food Waste Recommendation of the Day: First In, First Out! When unpacking your shopping, move older products to the front of the fridge and put new products in the back. This means you'll use up the older stuff first before it expires!";
 				}
