@@ -276,9 +276,9 @@ INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`
 (1, 4, 7, 'Misleading Food Descriptions', 'Item listed as a cake, was actually a severed arm', 1),
 (2, 7, 4, 'Other', 'He has been selling non-food items on the site', 1),
 (3, 8, 7, 'Harassment', 'Used threatening language.', 0),
-(1, 7, 4, 'Misleading Food Descriptions', 'Item listed as a cake, was actually a pancake!', 1),
-(1, 8, 4, 'Harassment', 'Used threatening language.', 1),
-(1, 7, 4, 'Misleading Food Descriptions', 'Item was not as described.', 1);
+(4, 7, 4, 'Misleading Food Descriptions', 'Item listed as a cake, was actually a pancake!', 1),
+(5, 8, 4, 'Harassment', 'Used threatening language.', 1),
+(6, 7, 4, 'Misleading Food Descriptions', 'Item was not as described.', 1);
 
 
 --
