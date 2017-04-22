@@ -5,6 +5,9 @@ const db        = require('../functions/database');
 var chat = require('../functions/chat');
 var dateFormat  = require('dateformat');
 
+//Marks all tags associated with a user as well as the meal using it for each tag.
+//Input: userId
+//Output: Array of TagId and Name
 function getUserTags(userId) {
     return new Promise(function(resolve, reject) {
         db.query(`SELECT Tag.TagID, Meal.Name
@@ -30,7 +33,11 @@ function getUserTags(userId) {
 
 
 module.exports = {
-  
+
+//Takes a user and generates a random recommendation for reducing food waste based on their tags, and  if they have no tags a random generic message is returned.
+//This message is then sent by the dinno bot to the specified user using the chat.
+//Input: userId
+//Output: chatdata
   generateRandomRecommendation: function(userId) {
     return new Promise(function(resolve, reject) {
 		
@@ -38,6 +45,7 @@ module.exports = {
 			
 			var recommendationMsg = ""
 			
+			//If they have no tags
 			if (data.length == 0) {
 				
 				//Generate random default message
@@ -64,8 +72,9 @@ module.exports = {
 				}
 				
             }
-			else{
+			else{ //If they have tags
 				
+				//Choose a random tag
 				var randTagId = Math.floor(Math.random() * data.length)
 			
 				switch(data[randTagId].TagID) {
@@ -90,12 +99,16 @@ module.exports = {
 					case 7: //Fruit
 						recommendationMsg = "Food Waste Recommendation of the Day: We noticed you have been giving away some fruit items (" + data[randTagId].Name + ") on Dinno. In order to reduce your food wastage, did you know canning or pickling food can increase a fruit item's shelf life for months?";
 						break;
+					case 8: //Beef
+						recommendationMsg = "Food Waste Recommendation of the Day: We noticed you have been giving away some beef items (" + data[randTagId].Name + ") on Dinno. In order to reduce your food wastage, remember that excess meat can be used in food for your or your neighbour's pet!";
+						break;	
 					default:
 						recommendationMsg = "Food Waste Recommendation of the Day: First In, First Out! When unpacking your shopping, move older products to the front of the fridge and put new products in the back. This means you'll use up the older stuff first before it expires!";
 				}
 				
 			}
 			
+			//Send the recommendation to the user.
 			var currentTime = new Date();
 			dateFormat(currentTime, "YYYY-MM-DD HH:MM:SS");
 			

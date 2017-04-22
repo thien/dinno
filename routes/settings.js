@@ -4,6 +4,9 @@ const db = require('../functions/database');
 var login = require('../functions/login');
 var Cookies = require("cookies");
 
+//Updates the user settings from the form details on the page for the specified user (by their userId)
+//Input: settingsData, userId
+//Output: null
 function updateUserSettings(settingsData, userId) {
 	return new Promise(function(resolve, reject) {
 
@@ -25,6 +28,9 @@ function updateUserSettings(settingsData, userId) {
 	});
 }
 
+//Gets the user settings for the specified user (by their userId)
+//Input: userId
+//Output: Array containing TextSize, ColourScheme
 function getUserSettings(userId) {
     return new Promise(function(resolve, reject) {
         db.query(`SELECT TextSize, ColourScheme
@@ -54,14 +60,18 @@ module.exports = function() {
 	var login = require('../functions/login');
 	app.locals.basedir = "." + '/views';
 
+	
+	//For when the settings page is loaded.
 	app.get('/settings', function(req, res) {
 		var param = {
 			loggedin: false,
 		};
 
+		//Before loading the page check the user is logged in, if not return an error.
 		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
 			
+			//Get data about the currently logged in user.
 			param.user_data = {
 				userID: result.UserID,
 				firstname: result.Firstname,
@@ -71,7 +81,8 @@ module.exports = function() {
 				colourScheme: result.ColourScheme,
 				isAdmin: result.IsAdmin
 			};
-					
+			
+			//Render the page.
 			res.render('settings',param);
 			
 
@@ -83,12 +94,16 @@ module.exports = function() {
 		});
 	})
 
-
+	//For when the update settings button is pressed.
 	app.post('/settings', function(req, res) {
 		var param = req.body;
 		param.loggedin = false;
+		
+		//Before loading the page check the user is logged in, if not return an error.
 		login.checkLogin(req, res).then(function(result) {
 			param.loggedin = true;
+			
+			//Get data about the currently logged in user.
 			param.user_data = {
 				userID: result.UserID,
 				firstname: result.Firstname,
@@ -100,10 +115,13 @@ module.exports = function() {
 				
 			};
 			
+			//Get the form data from the page.
 			var settingsData = req.body;
 			
+			//Update the user settings in the database.
 			updateUserSettings(settingsData, param.user_data.userID).then(function(result) {	
 				
+				//Load the updated details into parameters and set a success alert before loading the page.
 				param.user_data.textSize = settingsData.textSize;
 				param.user_data.colourScheme = settingsData.colourScheme;
 				param.alerts = {
