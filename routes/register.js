@@ -272,10 +272,10 @@ module.exports = function() {
 			}
 
 		}, function(err){
-			param.error_message = {
-				msg: "You're not logged in."
-			};
-			res.render('error', param);
+			param.alerts = {
+				error : ["You'll need to log in in order to perform that action."]
+			}
+			res.render('login', param);
 		});
 		
 	})

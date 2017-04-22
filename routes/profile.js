@@ -134,10 +134,10 @@ module.exports = function() {
 				res.render('error', param);
 			});
 		}, function(err) {
-			param.error_message = {
-				msg: "You need to be logged in to access this page."
-			};
-			res.render('error', param);
+			param.alerts = {
+				error : ["You'll need to log in in order to perform that action."]
+			}
+			res.render('login', param);
 		});
 	})
 
@@ -179,7 +179,6 @@ module.exports = function() {
 					error : [],
 					success : ["Your data has been updated successfully."]
 				}
-
 				res.render('register', param);
 
 			}, function(err) {
@@ -189,10 +188,10 @@ module.exports = function() {
 				res.render('error', param);
 			});
 		}, function(err) {
-			param.error_message = {
-				msg: "You need to be logged in to access this page."
-			};
-			res.render('error', param);
+			param.alerts = {
+				error : ["You'll need to log in in order to perform that action."]
+			}
+			res.render('login', param);
 		});
 	})
 	return app;
