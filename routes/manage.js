@@ -63,15 +63,25 @@ function getReceivedMeals(userId) {
 
 function removeMeal(userId, mealId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`DELETE FROM Meal
-							WHERE UserID = ? AND MealID = ?;`, 
-							[userId, mealId],
+		db.query(`DELETE FROM TagMeal
+							WHERE MealID = ?;`, 
+							[mealId],
 			function(error, results, fields) {
 				if (error) {
 					console.log(error);
 					reject();
 				} else {
-					resolve(results);
+					db.query(`DELETE FROM Meal
+							WHERE UserID = ? AND MealID = ?;`, 
+							[userId, mealId],
+					function(error, results, fields) {
+						if (error) {
+							console.log(error);
+							reject();
+						} else {
+							resolve(results);
+						}
+					});
 				}
 			});
 	});
