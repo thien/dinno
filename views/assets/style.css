@@ -668,17 +668,15 @@ margin: 0px 10px 0px 0px;
 	width: 100vw;
 	height: 100vh;
 }
-
-.frontpage-card-cont {
-	margin: 10px 0px;
+.img-cont-frontpage {
+	margin: 0px 0px 10px 0px;
+	border-radius: 0px;
+	border: 0px solid #fff;
 }
 
 @media (min-width: 900px){
 	#frontpage-card-cols {
 	  column-count: 6;
-	}
-	.frontpage-img-card {
-		max-width: 300px;
 	}
 }
 
@@ -686,25 +684,16 @@ margin: 0px 10px 0px 0px;
 	#frontpage-card-cols {
 	  column-count: 5;
 	}
-	.frontpage-img-card {
-		max-width: 250px;
-	}
 }
 
 @media (max-width: 700px){
 	#frontpage-card-cols {
 	  column-count: 3;
 	}
-	.frontpage-img-card {
-		max-width: 200px;
-	}
 }
 @media (max-width: 400px){
 	#frontpage-card-cols {
 	  column-count: 2;
-	}
-	.frontpage-img-card {
-		max-width: 150px;
 	}
 }
 

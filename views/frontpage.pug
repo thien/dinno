@@ -35,11 +35,12 @@ html(lang="en")
           a(href=tip.link) #{tip.msg}
       if !loggedin
         a.policylink(data-toggle='modal', data-target='#about-modal') What is <b>Dinno?</b>
+    
     #frontpage_showcase
      .card-columns#frontpage-card-cols
       each val in backgrounds
-        .card
-          img.card-img-top.frontpage-img-card(src=val)
+        .card.img-cont-frontpage
+          img.card-img.img-fluid.frontpage-img-card(src=val)
     .frontpage_showcase_overlay
       
     include includes/login
