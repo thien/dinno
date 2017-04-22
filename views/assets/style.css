@@ -1,6 +1,14 @@
 /*html, body {
     height: 100%;
 }*/
+.message-payload {
+	line-height: 1.6rem;
+	font-size: 0.8rem;
+	padding-left: 0.5em;
+}
+.adminkey {
+	color:#7c6211;
+}
 #container {
 	padding: 50px;
 }

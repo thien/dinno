@@ -32,7 +32,9 @@ html(lang="en")
 									img.media-object#contact_photo( src=chat.profileImage)
 								.pull-left#contact_details
 									if chat.isAdmin
-										h5.media-heading #{chat.theirName} (Admin)
+										h5.media-heading #{chat.theirName} 
+											a(href="#")
+												i.fa.fa-key.adminkey(aria-hidden='true' data-toggle="tooltip" data-placement="top" title="Administrator")
 									else if chat.isSuspended
 										h5.media-heading #{chat.theirName} (Suspended)
 									else
@@ -55,7 +57,7 @@ html(lang="en")
 										i.fa.fa-clock-o 
 										p(style='display: inline;')      #{msg.TimeSent}
 									h5.media-heading #{msg.FromName}
-									small.col-lg-10 #{msg.Contents}
+									.message-payload.col-lg-10 #{msg.Contents}
 
 
 					.send-wrap
