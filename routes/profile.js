@@ -59,7 +59,7 @@ function getLastPostedLocation(userId) {
 
 function getUserMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.BestBefore, Meal.Image, User.ProfileImage
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.UserID
