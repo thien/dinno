@@ -5,6 +5,16 @@ function getMostFrequentBarcode(freq) {
     return mostFrequentBarcode;
 }
 
+function getOffset( el ) {
+    var _x = 0;
+    var _y = 0;
+    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+        _x += el.offsetLeft - el.scrollLeft;
+        _y += el.offsetTop - el.scrollTop;
+        el = el.offsetParent;
+    }
+    return { top: _y, left: _x };
+}
 
 function run() {
     var decoded = []
@@ -64,8 +74,14 @@ function run() {
             } else {
                 freq[data.codeResult.code] = freq[data.codeResult.code] + 1
             }
+            var vidpos = getOffset( document.getElementById('barcodeContainer') ); 
+            $(".drawingBuffer").css({left: vidpos.left, position:'absolute'});
+
             document.getElementsByClassName("drawingBuffer")[0].style["boxShadow"] = "inset 0px 0px 0px " + (decoded.length * 2) + "px rgba(65,255,72," + decoded.length / 70 + ")";
         }
     })
 }
 run();
+
+var vidpos = getOffset( document.getElementById('barcodeContainer') ); 
+$(".drawingBuffer").css({left: vidpos.left, position:'absolute'});

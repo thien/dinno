@@ -6,6 +6,22 @@ block container
 	//script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js') This has been referenced to in scripts.pug
 
 	include includes/nav
+
+	.modal.fade.livevideo(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+		.modal-dialog.modal-lg(role='document')
+			.modal-content
+				.modal-header
+					h5#exampleModalLabel.modal-title Scan your barcode
+					|  
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') &times;
+				.modal-body
+					#barcodeContainer
+					img#barcode
+					h6.livevideo Barcode decoding requires a good resolution camera
+					h5.livevideo Or upload an image
+					input(id="barcode_image" name='barcode' type='file' multiple="false")
+
 	.container 
 		form(method="post")
 			.row
@@ -19,8 +35,9 @@ block container
 							p.text-muted Add a new food item to the dinno system. Please try to fill in all listed fields.
 						.form-group
 							label(for='name') Food Name
-
 							input#name.form-control.food-name(name="name" type='foodname', placeholder='eg. Lettuce' value=name)
+							#NameScanOptionText.form-text.text-muted Alternatively, You can now 
+								a(href='#' data-toggle='modal', data-target='.livevideo',type='link') scan a barcode.
 						.form-group
 							label(for='foodtype') Food Type
 							select#foodtype.form-control(name="foodtype")
@@ -90,30 +107,11 @@ block container
 							#upload_img_container
 								img(src=image)#profilephoto
 								input(id="input_images" name='images' type="file" multiple="true")
-							#barcode_img_container
-								h3 Scan your barcode here
-								.modal.fade.livevideo(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-									.modal-dialog.modal-lg(role='document')
-										.modal-content
-											.modal-header
-												h5#exampleModalLabel.modal-title Scan your barcode
-												|  
-												button.close(type='button', data-dismiss='modal', aria-label='Close')
-													span(aria-hidden='true') &times;
-											.modal-body
-												#barcodeContainer
-								button.btn.btn-primary.livevideo(data-toggle='modal', data-target='.livevideo',type='button')
-									i(aria-hidden='true') Scan barcode
-								
-								img#barcode
-								h6.livevideo Barcode decoding requires a good resolution camera
-								h5.livevideo Or upload an image
-								input(id="barcode_image" name='barcode' type='file' multiple="false")
 								
 								
 						//- request button
 						br
-						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
+						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Submit
 					
 									
 						
