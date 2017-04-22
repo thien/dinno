@@ -927,11 +927,15 @@ img.img_preview{
 .submitstars {
 	float:right;
 }
-
-.yesisubmittedit {
+.theyratedthefood, .yesisubmittedit {
 	padding-top: 5px;
 	padding-right: 10px;
 	float: right;
+}
+.rating-stars {
+	float: right;
+}
+.yesisubmittedit {
 	display: none;
 }
 

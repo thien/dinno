@@ -98,9 +98,11 @@ function cardEntry(item){
 		//console.log(item.Rating)
 		if(isYours == "Others"){ //if item doesn't belong to user, then create a form so that they can rate meals
 			card += "<form class='submitstars' id=mealID" + item.MealID + ">"
+		} else {
+			card += '<div class="theyratedthefood" >Reviewed! <i class="fa fa-check" aria-hidden="true"></i></div>';
 		}
 		//create star rating appearence
-		card += '<select class="rating">'
+		card += '<select class="rating-stars">'
 
 		for (var i = 1; i < 6; i++) {
 			if (item.Rating == i) {
@@ -168,7 +170,7 @@ function popUpSubmitRating(){
 }
 
 function initRating() {
-	$(".rating").barrating({
+	$(".rating-stars").barrating({
 		theme: 'css-stars',
 		readonly: (isYours != "Others"), //initialise so rating are read only if item belongs to user, else can be changed if item belongs to someone else
 		onSelect: function(value, text, event) {
