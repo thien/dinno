@@ -87,7 +87,7 @@ INSERT INTO `Meal` (`MealID`, `LocationID`, `UserID`, `RecipientID`, `Name`, `Be
 (11, 1, 6, NULL,'Nan\'s Stew', '2017-03-02', 'You\'ll grow into a strong young man', 'https://i.imgur.com/9uVJuWZ.jpg',0,NULL,1),
 (12, 4, 16,   NULL,  'Bacon Sandwich',  '2019-07-16',  'An exciting collaboration between myself and the Earl of Sandwich','https://i.imgur.com/nB9yrCI.jpg'  ,0 ,NULL  ,1),
 (13, 5, 16,   NULL,  'Bacon', '2017-08-06',  'A single delicate rasher of the good stuff.','https://i.imgur.com/fbmySfW.jpg'  ,0 ,NULL  ,1),
-(14, 6, 16,   NULL,  'Bacon Burger',  '2017-11-25',  'The important bit is that there\'s bacon in it.' ,'https://i.imgur.com/Ai9Qa8z.jpg'  ,0 ,NULL  ,1),
+(14, 6, 16,   NULL,  'Bacon Burger',  '2017-11-25',  'The important bit is that theres bacon in it.' ,'https://i.imgur.com/Ai9Qa8z.jpg'  ,0 ,NULL  ,1),
 (15, 7, 10,   NULL,  'Chicken Burger',  '2017-07-05',  'Bought last night after a heavy sesh at Klute. Only ate half of it.','https://i.imgur.com/kiCpwca.jpg'  ,0 ,NULL  ,1),
 (16, 8, 4 , NULL  , 'Carbonara', '2017-06-01',  'The only thing I can actually cook' ,'https://i.imgur.com/4tinYjL.jpg'  ,0 ,NULL  ,1);
 -- --------------------------------------------------------
@@ -223,7 +223,8 @@ INSERT INTO `Tag` (`TagID`,`Name`) VALUES
 (4,'Gluten free'),
 (5,'Dairy free'),
 (6,'Nut free'),
-(7,'Fruit');
+(7,'Fruit'),
+(8,'Beef');
 
 --
 -- Test data for table `TagMeal`
@@ -243,7 +244,11 @@ INSERT INTO `TagMeal` (`TagMealID`,`MealID`,`TagID`) VALUES
 
 -- Lime
 (7,5,7),
-(8,5,6);
+(8,5,6),
+
+-- Burger
+
+(9,6,8);
 
 --
 -- Table structure for table `Report`
@@ -269,8 +274,11 @@ CREATE TABLE `Report` (
 
 INSERT INTO `Report` (`ReportID`, `SenderID`, `RecipientID`, `Reason`, `Comment`, `VerificationStatus`) VALUES
 (1, 4, 7, 'Misleading Food Descriptions', 'Item listed as a cake, was actually a severed arm', 1),
-(2, 7, 4, 'Other', 'He looked at me funny', 1),
-(3, 8, 7, 'Harassment', 'Called me a doo doo head', 0);
+(2, 7, 4, 'Other', 'He has been selling non-food items on the site', 1),
+(3, 8, 7, 'Harassment', 'Used threatening language.', 0),
+(4, 7, 4, 'Misleading Food Descriptions', 'Item listed as a cake, was actually a pancake!', 1),
+(5, 8, 4, 'Harassment', 'Used threatening language.', 1),
+(6, 7, 4, 'Misleading Food Descriptions', 'Item was not as described.', 1);
 
 
 --
