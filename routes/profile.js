@@ -108,7 +108,7 @@ module.exports = function() {
 
 			Promise.all([profileInfo, userMeals, lastLocation, reportCount]).then(function(data) {
 				param.page_data = {
-					name: `${data[0].Firstname} ${data[0].Surname}`,
+					name: `${data[0].Firstname}`,
 					age: data[0].Age,
 					userId: userId,
 					profile_photo: data[0].ProfileImage,
@@ -123,6 +123,9 @@ module.exports = function() {
 					ownProfile: !req.query.id
 				};
 
+				if (param.reportCount > 0){
+					param.page_data.isReported = true;
+				}
 				
 				
 				res.render('profile', param);
