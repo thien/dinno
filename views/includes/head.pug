@@ -30,13 +30,13 @@ link(href='/assets/style.css' rel='stylesheet')
 
 if loggedin
 	if user_data.textSize == "1.5x"
-		link(rel='stylesheet', href='/assets/style1_5.css')
+		link(href='/assets/style1_5.css', rel='stylesheet')
 	else if user_data.textSize == "2x"
-		link(rel='stylesheet', href='/assets/style2.css')
+		link(href='/assets/style2.css', rel='stylesheet')
 	if user_data.colourScheme == "Blue"
-		link(rel='stylesheet', href='/assets/styleblue.css')
+		link(href='/assets/styleblue.css', rel='stylesheet')
 	else if user_data.colourScheme == "Orange"
-		link(rel='stylesheet', href='/assets/styleorange.css')
+		link(href='/assets/styleorange.css', rel='stylesheet')
 
 script(src='/assets/jquery-ui.min.js')
 script(src='/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
