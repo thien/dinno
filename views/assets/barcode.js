@@ -43,7 +43,7 @@ function runBarcodeScanner() {
     }, function (err) {
         if (err) {
             console.log(err);
-            $(".livevideo").remove()
+            $("#barcodeContainer").remove()
         }else{
             console.log("Initialization finished. Ready to start");
             Quagga.start()
