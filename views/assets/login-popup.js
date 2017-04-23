@@ -1,3 +1,3 @@
-$('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').focus()
+$('#loginModal').on('shown.bs.modal', function () {
+  $('#example-email-input').focus()
 })
