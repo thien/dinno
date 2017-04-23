@@ -59,13 +59,25 @@ if isSearchResultsPage
 //- add mixins here
 
 mixin fooditem_card(fooditem)
-	a(href='fooditem?id=' + fooditem.MealID)
-		.card.fooditem-card(id=fooditem.MealID)
-			img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
-			.card-profile-container
-				img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
-			.card-block
-				h4.card-title #{fooditem.Name}
-				p.card-text #{fooditem.Description}
-				p.card-text
-					small.text-muted Best before #{fooditem.BestBefore}
+	if loggedin
+		a(href='fooditem?id=' + fooditem.MealID)
+			.card.fooditem-card(id=fooditem.MealID)
+				img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+				.card-profile-container
+					img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+				.card-block
+					h4.card-title #{fooditem.Name}
+					p.card-text #{fooditem.Description}
+					p.card-text
+						small.text-muted Best before #{fooditem.BestBefore}
+	else
+		a(href='/#' data-toggle='modal', data-target='#loginModal')
+			.card.fooditem-card(id=fooditem.MealID)
+				img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
+				.card-profile-container
+					img.card-userprofile-img(src=fooditem.ProfileImage, alt='Card image cap')
+				.card-block
+					h4.card-title #{fooditem.Name}
+					p.card-text #{fooditem.Description}
+					p.card-text
+						small.text-muted Best before #{fooditem.BestBefore}

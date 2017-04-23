@@ -1,10 +1,10 @@
 script
 	include /assets/login-popup.js
 // Button trigger modal
-//- button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal')
+//- button.btn.btn-primary(type='button', data-toggle='modal', data-target='#loginModal')
 //- 	| Launch demo modal
 // Modal
-#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+#loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
 	.modal-dialog(role='document')
 		.modal-content
 			form(method="post" id="login_popup_form" action="/login")
