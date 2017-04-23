@@ -38,7 +38,12 @@ function addNewUser(userData, res) {
 	var firstname = userData['forename'];
 	var surname = userData['surname'];
 	var emailAddress = userData['email'];
-	var profileImage = userData['profileImage']
+	var profileImage = userData['profileImage'];
+	console.log("registering image");
+	if (!profileImage){
+		// add placeholder image for time being
+		profileImage = "/assets/profile/placeholder.svg"
+	}
 
 	// Gets date of birth in YYYY/MM/DD format
 	var year = userData['year'];
@@ -90,7 +95,7 @@ function updateUser(userId, userData, res) {
 	var firstname = userData['forename'];
 	var surname = userData['surname'];
 	var emailAddress = userData['email'];
-	var profileImage = userData['profileImage']
+	var profileImage = userData['profileImage'];
 
 	// Gets date of birth in YYYY/MM/DD format
 	var year = userData['year'];
