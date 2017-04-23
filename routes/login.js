@@ -108,8 +108,17 @@ function setLoginCookie(id, remember, req, res) {
 				});
 				console.log(`Cookies set with expiry for ${id}!`);
 			}
-			// Redirect to frontpage
-			res.redirect('/');
+			// Redirect to the page they were on prior
+			backURL=req.header('Referer') || '/';
+			// do your thang
+			console.log("BackURL:", backURL)
+			if (backURL.includes("/login")){
+				res.redirect(backURL.replace("/login", "/"));
+			} else if (backURL.includes("/register")){
+				res.redirect(backURL.replace("/register", "/"));
+			}else {
+				res.redirect(backURL);
+			}
 		}
 	});
 }
