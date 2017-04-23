@@ -16,7 +16,7 @@ function getOffset( el ) {
     return { top: _y, left: _x };
 }
 
-function run() {
+function runBarcodeScanner() {
     var decoded = []
     var freq = {}
     // document.getElementById("barcodeContainer").style.boxShadow = "inset 0px 0px 0px 50px red";
@@ -81,7 +81,6 @@ function run() {
         }
     })
 }
-run();
 
 var vidpos = getOffset( document.getElementById('barcodeContainer') ); 
 $(".drawingBuffer").css({left: vidpos.left, position:'absolute'});

@@ -103,11 +103,11 @@ block container
 				.col-lg-4
 					#container
 						.form-group#pictureupload
-							h3 Add an Image
+							h3 Photos
 							#upload_img_container
 								img(src=image)#profilephoto
 								input(id="input_images" name='images' type="file" multiple="true")
-								
+							small.form-text.text-muted Uploading a photo increases your chances of having your food taken.
 								
 						//- request button
 						br
@@ -123,6 +123,10 @@ block container
 		include assets/js-cookie.js
 
 	script.
+		$('.livevideo').on('shown.bs.modal', function (e) {
+		    // initiate quaggaJS video placeholder on run
+		    runBarcodeScanner();
+		})
 		var b = document.getElementById("barcode_image")
 		$(b).change(function(){
 			var barcode = $("#barcode_image")[0].files[0]
