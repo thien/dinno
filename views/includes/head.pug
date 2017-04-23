@@ -60,7 +60,7 @@ if isSearchResultsPage
 
 mixin fooditem_card(fooditem)
 	if loggedin
-		a(href='fooditem?id=' + fooditem.MealID)
+		a(href='fooditem?id=' + fooditem.MealID).fooditem_linky
 			.card.fooditem-card(id=fooditem.MealID)
 				img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
 				.card-profile-container
@@ -71,7 +71,7 @@ mixin fooditem_card(fooditem)
 					p.card-text
 						small.text-muted Best before #{fooditem.BestBefore}
 	else
-		a(href='/#' data-toggle='modal', data-target='#loginModal')
+		a(href='/#' data-toggle='modal', data-target='#loginModal').fooditem_linky
 			.card.fooditem-card(id=fooditem.MealID)
 				img.card-img-top.img-fluid(src=fooditem.Image, alt='Card image cap')
 				.card-profile-container
