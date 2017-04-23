@@ -1,0 +1,41 @@
+include login
+mixin nav_rhs(user_data, loggedin)
+	ul.navbar-nav
+		//- li.nav-item
+		//- 	h5 #{loggedin}
+	
+		if loggedin
+			li.nav-item
+				a.nav-link(href='/add') Add
+			li.nav-item
+				a.nav-link(href='/manage?type=others') Dinnos
+			li.nav-item
+				a.nav-link(href='/chat') Messages
+			li.nav-item
+				a.nav-link(href='/faqs') FAQs
+			if user_data.isAdmin
+				li.nav-item.dropdown
+					a#navbarAdmin.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Admin
+					.dropdown-menu(aria-labelledby='navbarAdmin').dropdown-menu-right
+						a#admindropdown.dropdown-item(href='/reviewreports') Review Reports
+						|  
+						a#admindropdown.dropdown-item(href='/manageusers') Ban/Unban Users
+			li.nav-item.dropdown.nav-profile-dropdown
+				a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-img")  
+					img(src=user_data.mugshot).navbar-mugshot
+				.dropdown-menu.dropdown-menu-right
+					if user_data.isAdmin
+						h6.dropdown-header Hi, #{user_data.firstname} (Admin)
+					else
+						h6.dropdown-header Hi, #{user_data.firstname}
+					a.dropdown-item(href='/profile') Profile
+					|  
+					a.dropdown-item(href='/settings') Settings
+					|  
+					.dropdown-divider
+					a.dropdown-item(href='/logout') Log Out
+		else
+			li.nav-item
+				a.nav-link(href='/register') Register
+			li.nav-item
+				a.nav-link(href='/#' data-toggle='modal', data-target='#myModal') Login

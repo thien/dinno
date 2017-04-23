@@ -68,10 +68,7 @@ function showMobileAssets(){
 	mobileSearchContainer.style.width = '90%';
 	mobileSearchContainer.style.left = "5%";
 	itemDetailsContainer.style.display = "none";
-	optButton.classList.remove('btn-primary');
-	filButton.classList.remove('btn-primary');
-	optButton.classList.add('btn-danger');
-	filButton.classList.add('btn-danger');
+
 	mobileResultsToggleButton.style.display = "initial";
 
 	// sets display results container to 100% height
@@ -82,10 +79,7 @@ function showMobileAssets(){
 
 function manageTabletScreenAssets(){
 	document.getElementById('list_results_container').style.maxHeight = 'calc(100vh - 54px)';
-	optButton.classList.add('btn-primary');
-	filButton.classList.add('btn-primary');
-	optButton.classList.remove('btn-danger');
-	filButton.classList.remove('btn-danger');
+
 
 	LHSContainer.style.display = "initial"; 
 	RHSContainer.style.display = "initial";
@@ -127,10 +121,7 @@ function manageLargeScreenAssets(){
 	document.getElementById('dud_spacing').style.height = '200px';
 	document.getElementById('list_results_container').style.maxHeight = '100%';
 	// searchButtonContainer.innerHTML = searchButtonContainerContent;
-	optButton.classList.add('btn-primary');
-	filButton.classList.add('btn-primary');
-	optButton.classList.remove('btn-danger');
-	filButton.classList.remove('btn-danger');
+
 
 	LHSContainer.style.display = "initial"; 
 	RHSContainer.style.display = "initial";

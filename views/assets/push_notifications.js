@@ -20,7 +20,9 @@ function waitForNotification(){
             console.log('New notification' + notification_content);
 		}
 		else if(!('Notification' in window)){
-			alert("This browser does not support desktop notification!");
+			// alert("This browser does not support desktop notification!");
+            console.log("This browser doesn't support push notifications.");
+            // abstract; the user doesn't need to know that they can't have notifications.
 		}
 	});
 }

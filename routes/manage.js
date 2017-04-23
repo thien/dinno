@@ -240,7 +240,13 @@ module.exports = function() {
 				
 			Promise.all([cancel]).then(function(data) {
 
-				res.redirect('/manage');
+				param.alerts = {
+					warning: [],
+					info : [],
+					error : [],
+					success : ["The item has been cancelled successfully."]
+				}
+				res.render('manage', param);
 
 			},function(err) {
 				param.error_message = {

@@ -3,13 +3,27 @@ extends layout
 
 block container
 	include includes/nav
-	.col-md-6
-		#container
-			if username
-				h1 #{username}
-				h2 #{password}
-				
-			h1 Log In
+	#container 
+		.col-md-10
+			include includes/status
+			.col-md-8
+				h1 Log In
 
-			include includes/login
-			
+				form(method="post" id="form1" action="/login")
+					.modal-body
+						.form-group
+							label(for='exampleInputEmail1') Email address
+							input#example-email-input.form-control(type='email', name="user", placeholder='your@email.com')
+						.form-group
+							label(for='exampleInputEmail1') Password
+							input#example-password-input.form-control(type='password', name='pass', placeholder='Password')
+						.form-group-row
+							label.custom-control.custom-checkbox.mb-2.mr-sm-2.mb-sm-0
+								input.custom-control-input(type='checkbox' name='remember')
+								span.custom-control-indicator
+								span.custom-control-description Remember me
+						input(type='submit' value="Submit" style='display:none;')
+					.modal-footer
+						a(href="/register")
+							button.btn.btn-secondary(type='button' href='/register') Register
+						button.btn.btn-primary( type="submit" form="form1" value="Submit") Log in

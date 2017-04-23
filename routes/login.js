@@ -19,7 +19,15 @@ function login(email, pass, remember, req, res) {
 		else if (results.length == 0) {
 			var msg = 'Email address not found!';
 			console.log(msg)
-			res.render('error', {msg: msg});
+			// res.render('error', {msg: msg});
+			params = {};
+			params.alerts = {
+				warning: [],
+				info : [],
+				error : ["We don't recognise this email address and password combination. Please try again."],
+				success : []
+			}
+			res.render('login', params);
 		} 
 		else {
 			// Check password hash matches
@@ -46,8 +54,14 @@ function login(email, pass, remember, req, res) {
 			}
 			else {
 				console.log(`Failed login from ${id}`);	
-				var msg = 'Incorrect Password!';
-				res.render('error', {msg: msg});
+				params = {};
+				params.alerts = {
+					warning: [],
+					info : [],
+					error : ["We don't recognise this email address and password combination. Please try again."],
+					success : []
+				}
+				res.render('login', params);
 			}
 		}
 	});
@@ -94,8 +108,17 @@ function setLoginCookie(id, remember, req, res) {
 				});
 				console.log(`Cookies set with expiry for ${id}!`);
 			}
-			// Redirect to frontpage
-			res.redirect('/');
+			// Redirect to the page they were on prior
+			backURL=req.header('Referer') || '/';
+			// do your thang
+			console.log("BackURL:", backURL)
+			if (backURL.includes("/login")){
+				res.redirect(backURL.replace("/login", "/"));
+			} else if (backURL.includes("/register")){
+				res.redirect(backURL.replace("/register", "/"));
+			}else {
+				res.redirect(backURL);
+			}
 		}
 	});
 }
@@ -109,6 +132,17 @@ module.exports = function() {
 		// If user selected 'remember me' option
 		var remember = req.body.remember;
 		login(email, pass, remember, req, res);
+	})
+
+	app.get('/login', function(req, res) {
+		params = {};
+		// params.alerts = {
+		// 	warning: [],
+		// 	info : [],
+		// 	error : ["You'll need to log in in order to perform that action."],
+		// 	success : []
+		// }
+		res.render('login', params);
 	})
 
 	app.get('/logout', function(req, res) {

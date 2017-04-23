@@ -10,17 +10,20 @@ block container
 				img(src=page_data.profile_photo)#profilephoto
 			.col-md-6.col-lg-6
 				if page_data.isAdmin
-					h1#profile-title Hi, I'm #{page_data.name} [ADMIN]
+					h1#profile-title Hi, I'm #{page_data.name}! 
+						a(href="#")
+							i.fa.fa-key.adminkey(aria-hidden='true' data-toggle="tooltip" data-placement="top" title="Administrator")
 				else
-					h1#profile-title Hi, I'm #{page_data.name}
+					h1#profile-title Hi, I'm #{page_data.name}! 
 				h4 
-					span.badge.badge-default #{page_data.rating}
+					span.badge.badge-default #{page_data.rating} Stars
 					|	 #{page_data.user_location}
-				h6 #{page_data.age} years old
+				h6 I'm #{page_data.age} years old
 				if page_data.isSuspended
 					h6 This user has been suspended from Dinno for violating our terms of service.
 				else
-					h6 Has been reported #{page_data.reportCount} times.
+					if isReported
+						h6 I've been reported #{page_data.reportCount} times.
 					if page_data.ownProfile
 						span.chat-link-wrapper
 							a.chat-link(href='editprofile') Edit profile

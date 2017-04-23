@@ -38,7 +38,12 @@ function addNewUser(userData, res) {
 	var firstname = userData['forename'];
 	var surname = userData['surname'];
 	var emailAddress = userData['email'];
-	var profileImage = userData['profileImage']
+	var profileImage = userData['profileImage'];
+	console.log("registering image");
+	if (!profileImage){
+		// add placeholder image for time being
+		profileImage = "/assets/profile/placeholder.svg"
+	}
 
 	// Gets date of birth in YYYY/MM/DD format
 	var year = userData['year'];
@@ -90,7 +95,7 @@ function updateUser(userId, userData, res) {
 	var firstname = userData['forename'];
 	var surname = userData['surname'];
 	var emailAddress = userData['email'];
-	var profileImage = userData['profileImage']
+	var profileImage = userData['profileImage'];
 
 	// Gets date of birth in YYYY/MM/DD format
 	var year = userData['year'];
@@ -123,10 +128,21 @@ function updateUser(userId, userData, res) {
 				console.log(`Rejected user ${userData['email']}`);
 				delete userData.password;
 				delete userData.vpassword;
+
+				userData.alerts = {
+					error : ["We're unable to update your information at this time. Please try again later."]
+				}
 				res.render('register', userData);
 			} else {
 				console.log(`Updated user ${emailAddress}`);
 				console.log(userData);
+
+				userData.alerts = {
+					warning: [],
+					info : [],
+					error : [],
+					success : ["Your information has been updated successfully."]
+				}
 				res.render('register', userData);
 			}
 		});
@@ -268,14 +284,19 @@ module.exports = function() {
 				console.log(`Rejected user ${param['email']}`);
 				delete param.password;
 				delete param.vpassword;
+				param.alerts = {
+					warning: [],
+					info : [],
+					error : ["We're unable to process your information right now, please try again later."]
+				}
 				res.render('register', param);
 			}
 
 		}, function(err){
-			param.error_message = {
-				msg: "You're not logged in."
-			};
-			res.render('error', param);
+			param.alerts = {
+				error : ["You'll need to log in in order to perform that action."]
+			}
+			res.render('login', param);
 		});
 		
 	})

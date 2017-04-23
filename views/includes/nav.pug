@@ -1,4 +1,4 @@
-include login
+include nav_mixins
 
 nav.navbar.navbar-inverse.navbar-toggleable-md
 	button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarTogglerDemo02', aria-controls='navbarTogglerDemo02', aria-expanded='false', aria-label='Toggle navigation')
@@ -22,51 +22,5 @@ nav.navbar.navbar-inverse.navbar-toggleable-md
 
 			//- else
 			//- 	.mr-auto.mt-2.mt-md-0
-		ul.navbar-nav
-			//- li.nav-item
-			//- 	h5 #{loggedin}
-		
-			if loggedin
-				li.nav-item
-					a.nav-link(href='/add') Add
-				li.nav-item
-					a.nav-link(href='/manage?type=others') Dinnos
-				li.nav-item
-					a.nav-link(href='/chat') Messages
-				li.nav-item
-					a.nav-link(href='/faqs') Help/FAQs
-				if user_data.isAdmin
-					li.nav-item.dropdown
-						a#navbarAdmin.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Admin
-						.dropdown-menu(aria-labelledby='navbarAdmin').dropdown-menu-right
-							a#admindropdown.dropdown-item(href='/reviewreports') Review Reports
-							|  
-							a#admindropdown.dropdown-item(href='/manageusers') Ban/Unban Users
-				li.nav-item.dropdown.nav-profile-dropdown
-					a.dropdown-toggle.nav-profile(data-toggle='dropdown' id="dropdown-img")  
-						img(src=user_data.mugshot).navbar-mugshot
-					.dropdown-menu.dropdown-menu-right
-						if user_data.isAdmin
-							h6.dropdown-header Hi, #{user_data.firstname} (Admin)
-						else
-							h6.dropdown-header Hi, #{user_data.firstname}
-						a.dropdown-item(href='/profile') Profile
-						|  
-						a.dropdown-item(href='/settings') Settings
-						|  
-						.dropdown-divider
-						a.dropdown-item(href='/logout') Log Out
-			else
-				li.nav-item
-					a.nav-link(href='/register') Register
-				li.nav-item
-					a.nav-link(href='/#' data-toggle='modal', data-target='#myModal') Login
-
-
-			
-
-		//- form.form-inline.my-2.my-lg-0
-		//- 	input.form-control.mr-sm-2(type='text', placeholder='Search')
-		//- 	button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
-	script
-		include /assets/navbar-location.js
+		+nav_rhs(user_data, loggedin)
+	script(src='/assets/navbar-location.js')

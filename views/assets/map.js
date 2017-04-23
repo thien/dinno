@@ -97,6 +97,10 @@ function updateMap(map, locations) {
                 position: {lat: loc[0].Latitude, lng: loc[0].Longitude},
                 map: map,
                 title: loc[0].HouseNoName+' '+loc[0].Street,
+                icon: {
+                    url: "../assets/map/pin.png",
+                    scaledSize: new google.maps.Size(32, 44)
+                }
             });
 
             google.maps.event.addListener(marker, 'click', function(event) {
@@ -131,5 +135,8 @@ function updateMap(map, locations) {
         m.setMap(null);
     });
     oldMarkers = newMarkers;
+
+    var markerCluster = new MarkerClusterer(map, oldMarkers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }
 

@@ -59,7 +59,7 @@ function getLastPostedLocation(userId) {
 
 function getUserMeals(userId) {
 	return new Promise(function(resolve, reject) {
-		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.Image, User.ProfileImage
+		db.query(`SELECT Meal.MealID, Meal.Name, Meal.Description, Meal.BestBefore, Meal.Image, User.ProfileImage
 				  FROM Meal
 				  JOIN User 
 				  ON User.UserID = Meal.UserID
@@ -108,7 +108,7 @@ module.exports = function() {
 
 			Promise.all([profileInfo, userMeals, lastLocation, reportCount]).then(function(data) {
 				param.page_data = {
-					name: `${data[0].Firstname} ${data[0].Surname}`,
+					name: `${data[0].Firstname}`,
 					age: data[0].Age,
 					userId: userId,
 					profile_photo: data[0].ProfileImage,
@@ -123,6 +123,9 @@ module.exports = function() {
 					ownProfile: !req.query.id
 				};
 
+				if (param.reportCount > 0){
+					param.page_data.isReported = true;
+				}
 				
 				
 				res.render('profile', param);
@@ -134,10 +137,10 @@ module.exports = function() {
 				res.render('error', param);
 			});
 		}, function(err) {
-			param.error_message = {
-				msg: "You need to be logged in to access this page."
-			};
-			res.render('error', param);
+			param.alerts = {
+				error : ["You'll need to log in in order to perform that action."]
+			}
+			res.render('login', param);
 		});
 	})
 
@@ -173,13 +176,6 @@ module.exports = function() {
 				param.month = data[0].DOB.getMonth()+1;
 				param.day = dob[2];
 				param.edit =  true,
-				param.alerts = {
-					warning: [],
-					info : [],
-					error : [],
-					success : ["Your data has been updated successfully."]
-				}
-
 				res.render('register', param);
 
 			}, function(err) {
@@ -189,10 +185,10 @@ module.exports = function() {
 				res.render('error', param);
 			});
 		}, function(err) {
-			param.error_message = {
-				msg: "You need to be logged in to access this page."
-			};
-			res.render('error', param);
+			param.alerts = {
+				error : ["You'll need to log in in order to perform that action."]
+			}
+			res.render('login', param);
 		});
 	})
 	return app;

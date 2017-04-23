@@ -1,51 +1,61 @@
 //- including other pug works
-include scripts
+//- script(src='/javascripts/app.js')
+script(src='/jquery/dist/jquery.min.js')
+script(src='/tether/dist/js/tether.min.js')
+script(src='/bootstrap/dist/js/bootstrap.min.js')
+script(src='/js-cookie/src/js.cookie.js')
+script(src='/es6-promise/es6-promise.js')
+script
+	| ES6Promise.polyfill()
+
+//- assets
+script(src='/assets/coordinates/coordinates-basefunctions.js')
+script(src='/assets/check_active.js')
 //- including .html, .css, etc works
 
 meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0')
-link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+
+//- favicon
 link(href='/favicon.ico', rel='icon')
-link(rel='stylesheet', href='/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
-link(rel='stylesheet', href='/jquery-bar-rating/dist/themes/css-stars.css')
+
+//- stylesheets
+link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+link(href='/bootstrap-tagsinput/dist/bootstrap-tagsinput.css', rel='stylesheet')
+link(href='/jquery-bar-rating/dist/themes/css-stars.css', rel='stylesheet')
 link(href='/components-font-awesome/css/font-awesome.min.css', rel='stylesheet')
 link(href='/bootstrap-tagsinput/examples/assets/app.css', rel='stylesheet')
+link(href='/assets/quagga.css' rel='stylesheet')
+link(href='/assets/style.css' rel='stylesheet')
 //- style.css is to be last in order to overwrite the other stylesheets.
-style
-	include style.css
 
 if loggedin
 	if user_data.textSize == "1.5x"
-		style
-			include style1_5.css
+		link(rel='stylesheet', href='/assets/style1_5.css')
 	else if user_data.textSize == "2x"
-		style
-			include style2.css
-		
+		link(rel='stylesheet', href='/assets/style2.css')
 	if user_data.colourScheme == "Blue"
-		style
-			include styleblue.css
+		link(rel='stylesheet', href='/assets/styleblue.css')
 	else if user_data.colourScheme == "Orange"
-		style
-			include styleorange.css
+		link(rel='stylesheet', href='/assets/styleorange.css')
 
-script(src='assets/jquery-ui.min.js')
+script(src='/assets/jquery-ui.min.js')
 script(src='/bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
 script(src='/typeahead.js/dist/typeahead.bundle.js')
 script(src='/jquery-bar-rating/dist/jquery.barrating.min.js')
 script(src='/holderjs/holder.js')
 
 script(src='/socket.io/socket.io.js')
-script(src='assets/js-cookie.js')
-script(src='assets/push_notifications.js')
+script(src='/assets/js-cookie.js')
+script(src='/assets/push_notifications.js')
 
 if isSearchResultsPage
 	script
 		| var fooditems = !{JSON.stringify(results.fooditems).replace(/<\//g, '<\\/')};
 		| var search_location = {latitude: #{lat}, longitude: #{lng}}
-	script(src='assets/js-cookie.js')
-	script(src='assets/functions/browsercheck.js')
-	script(src='assets/poachGETVariables.js')
-	script(src='assets/interactive_sorting.js')
+		| $(function () {$('[data-toggle="tooltip"]').tooltip()});
+	script(src='/assets/functions/browsercheck.js')
+	script(src='/assets/poachGETVariables.js')
+	script(src='/assets/interactive_sorting.js')
 
 //- add mixins here
 

@@ -62,7 +62,7 @@ function cardEntry(item){
 // 					a.btn.btn-link.btn-sm(href='#') Edit
 // 					a.btn.btn-link.btn-sm(href='#') Delete
 // 					a.btn.btn-link.btn-sm(href='#') Cancel
-	var card = "<div class='container-vp'><div class='card'><div class='row man-item-entry'><div class='col-md-12'>";
+	var card = "<div id='item_"+item.MealID+"' class='container-vp'><div class='card'><div class='row man-item-entry'><div class='col-md-12'>";
 	card += "<div class='man-img-container man-block-left'><img class='cardphoto' src='"+item.Image+"'></div><div class='card-block item-details'>";
 	card += "<h4 class='card-title'>"+item.Name+"</h4>";
 	if (isYours === "Others"){
@@ -97,10 +97,12 @@ function cardEntry(item){
 	if (item.Rating != null || isYours == "Others") { //if item is rated or belongs to someone else(not yours), then add a set of stars for rating
 		//console.log(item.Rating)
 		if(isYours == "Others"){ //if item doesn't belong to user, then create a form so that they can rate meals
-			card += "<form id=mealID" + item.MealID + ">"
+			card += "<form class='submitstars' id=mealID" + item.MealID + ">"
+		} else {
+			card += '<div class="theyratedthefood" >Reviewed! <i class="fa fa-check" aria-hidden="true"></i></div>';
 		}
 		//create star rating appearence
-		card += '<span><select class="rating">'
+		card += '<select class="rating-stars">'
 
 		for (var i = 1; i < 6; i++) {
 			if (item.Rating == i) {
@@ -110,14 +112,16 @@ function cardEntry(item){
 			}
 		}
 		card += '</select>'
-		if(isYours == "Others"){
-			if(item.Rating ==null){ //if item doesnt belong then complete the form with either rate or change rating according to whether it has been rated before
-				card += "<button class='rating-button' type='button''>Rate!</button></form>"
-			}else{
-				card += "<button class='rating-button' type='button''>Change rating!</button></form>"
-			}
+		// if(isYours == "Others"){
+		// 	if(item.Rating ==null){
+		// 	//if item doesnt belong then complete the form with either rate or change rating according to whether it has been rated before
+		// 		card += "<button class='rating-button' type='button''>Rate!</button></form>"
+		// 	}else{
+		// 		card += "<button class='rating-button' type='button''>Change rating!</button></form>"
+		// 	}
 
-		}
+		// }
+		card += '<div class="yesisubmittedit" id="check_'+item.MealID+'" >Submitted, Thanks! <i class="fa fa-check" aria-hidden="true"></i></div>';
 	}
 	card += "</div></div></div>";
 
@@ -160,10 +164,57 @@ function stringsComparison(a, b) {
   return (a < b) ? -1 : (a > b) ? 1 : 0;
 }
 
+
+function popUpSubmitRating(){
+
+}
+
 function initRating() {
-	$(".rating").barrating({
+	$(".rating-stars").barrating({
 		theme: 'css-stars',
-		readonly: (isYours != "Others") //initialise so rating are read only if item belongs to user, else can be changed if item belongs to someone else
+		readonly: (isYours != "Others"), //initialise so rating are read only if item belongs to user, else can be changed if item belongs to someone else
+		onSelect: function(value, text, event) {
+		    if (typeof(event) !== 'undefined') {
+				// rating was selected by a user
+				// console.log(event.target);
+				// submit the button!
+				console.log(event);
+
+				rating = value;
+				mealID = event.target.offsetParent.parentElement.id.replace("item_", "");
+		     	// console.log($('.rating-button').attr("id"))
+				// var mealID = parseInt($('.rating-button').attr("id").substring(6)) //get mealid of clicked rate button
+				// var rating = parseInt($('.rating-button').find(":selected").val()) //get value of rating
+				// $('.rating-button').find("select").barrating("readonly",true) 		//change the value to a readonly value once button has been clicked
+				// console.log("ID: " + mealID)
+				// console.log("Value: " + rating)
+				$.post("/manage", { mealID: mealID, rating: rating }, function (response) { //post rating and mealid to be updated in the database
+					if (response.success) {
+						console.log("Successfully rated")
+						for (var i = 0; i < data.length; i++) {
+							console.log(data[i].MealID)
+							if (data[i].MealID == mealID) { //find mealid in local variable, then update it so it displays correct everytime
+								data[i].Rating = rating
+							}
+							
+							// display tick when done
+							console.log(mealID);
+							$("#check_"+mealID).css("display","inline")
+							// $("a.br-selected.br-current").tooltip();
+
+						}
+					} else {
+						console.log("Something went wrong...")
+					}
+				})
+
+		    } else {
+		      // rating was selected programmatically
+		      // by calling `set` method
+		    }
+	  }
+
+
 	})
 	$('.rating-button').on("click", function (e) {
 		console.log($(this.form).attr("id"))

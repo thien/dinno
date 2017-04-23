@@ -6,6 +6,22 @@ block container
 	//script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js') This has been referenced to in scripts.pug
 
 	include includes/nav
+
+	.modal.fade.livevideo(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+		.modal-dialog.modal-lg(role='document')
+			.modal-content
+				.modal-header
+					h5#exampleModalLabel.modal-title Scan your barcode
+					|  
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') &times;
+				.modal-body
+					#barcodeContainer
+					img#barcode
+					h6.livevideo Barcode decoding requires a good resolution camera
+					h5.livevideo Or upload an image
+					input(id="barcode_image" name='barcode' type='file' multiple="false")
+
 	.container 
 		form(method="post")
 			.row
@@ -19,8 +35,9 @@ block container
 							p.text-muted Add a new food item to the dinno system. Please try to fill in all listed fields.
 						.form-group
 							label(for='name') Food Name
-
 							input#name.form-control.food-name(name="name" type='foodname', placeholder='eg. Lettuce' value=name)
+							#NameScanOptionText.form-text.text-muted Alternatively, You can now 
+								a(href='#' data-toggle='modal', data-target='.livevideo',type='link') scan a barcode.
 						.form-group
 							label(for='foodtype') Food Type
 							select#foodtype.form-control(name="foodtype")
@@ -32,9 +49,7 @@ block container
 									option Ingredient
 						.form-group
 							label(for='description') Description
-
 							textarea#description.form-control(rows='3' maxlength="140" name="description", placeholder="eg. A nutritious head of iceberg lettuce.") #{description}
-							//- small#passwordHelpBlock.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
 						label(for='bestbefore') Best Before
 						br
 						#bestbefore.form-inline
@@ -85,38 +100,18 @@ block container
 								label.form-check-label(for='use-current-location')
 									input.form-check-input(id='use-current-location', type='checkbox' name='useCurrentLocation')
 									|  Use current location
-
 				.col-lg-4
 					#container
 						.form-group#pictureupload
-							h3 Add an Image
+							h3 Photos
 							#upload_img_container
 								img(src=image)#profilephoto
 								input(id="input_images" name='images' type="file" multiple="true")
-							#barcode_img_container
-								h3 Scan your barcode here
-								.modal.fade.livevideo(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-									.modal-dialog.modal-lg(role='document')
-										.modal-content
-											.modal-header
-												h5#exampleModalLabel.modal-title Scan your barcode
-												|  
-												button.close(type='button', data-dismiss='modal', aria-label='Close')
-													span(aria-hidden='true') &times;
-											.modal-body
-												#barcodeContainer
-								button.btn.btn-primary.livevideo(data-toggle='modal', data-target='.livevideo',type='button')
-									i(aria-hidden='true') Scan barcode
-								
-								img#barcode
-								h6.livevideo Barcode decoding requires a good resolution camera
-								h5.livevideo Or upload an image
-								input(id="barcode_image" name='barcode' type='file' multiple="false")
-								
+							small.form-text.text-muted Uploading a photo increases your chances of having your food taken.
 								
 						//- request button
 						br
-						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Add Fooditem
+						button.btn.btn-primary.btn-lg.btn-block#submitter( type='submit' value="Submit") Submit
 					
 									
 						
@@ -128,6 +123,10 @@ block container
 		include assets/js-cookie.js
 
 	script.
+		$('.livevideo').on('shown.bs.modal', function (e) {
+		    // initiate quaggaJS video placeholder on run
+		    runBarcodeScanner();
+		})
 		var b = document.getElementById("barcode_image")
 		$(b).change(function(){
 			var barcode = $("#barcode_image")[0].files[0]
