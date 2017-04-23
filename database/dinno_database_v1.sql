@@ -248,7 +248,43 @@ INSERT INTO `TagMeal` (`TagMealID`,`MealID`,`TagID`) VALUES
 
 -- Burger
 
-(9,6,8);
+(9,6,8),
+
+-- Birds
+(10,1,1),
+(11,1,5),
+(12,1,6),
+
+-- Bread
+(13,3,2),
+(14,3,3),
+(15,3,6),
+
+-- Pizza
+(16,7,6),
+
+-- Raspberries
+(17,8,7),
+(18,8,2),
+
+-- Burrito
+(19,9,8),
+
+-- Pineapple omitted, already claimed
+
+-- Nan's stew
+(20,11,2),
+(21,11,3),
+(22,11,4),
+
+-- Bacon things no tags relevant currently exists
+
+-- Chicken burger
+(23,15,1),
+(24,15,6),
+
+-- Carbonara
+(25,16,6);
 
 --
 -- Table structure for table `Report`
