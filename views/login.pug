@@ -9,7 +9,7 @@ block container
 			.col-md-8
 				h1 Log In
 
-				form(method="post" id="form1" action="/login")
+				form(method="post" id="login_form" action="/login")
 					.modal-body
 						.form-group
 							label(for='exampleInputEmail1') Email address
@@ -17,7 +17,7 @@ block container
 						.form-group
 							label(for='exampleInputEmail1') Password
 							input#example-password-input.form-control(type='password', name='pass', placeholder='Password')
-						.form-group-row
+						.form-group
 							label.custom-control.custom-checkbox.mb-2.mr-sm-2.mb-sm-0
 								input.custom-control-input(type='checkbox' name='remember')
 								span.custom-control-indicator
@@ -26,4 +26,4 @@ block container
 					.modal-footer
 						a(href="/register")
 							button.btn.btn-secondary(type='button' href='/register') Register
-						button.btn.btn-primary( type="submit" form="form1" value="Submit") Log in
+						button.btn.btn-primary( type="submit" form="login_form" value="Submit") Log in

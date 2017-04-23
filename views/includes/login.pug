@@ -1,13 +1,13 @@
 script
 	include /assets/login-popup.js
 // Button trigger modal
-//- button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal')
+//- button.btn.btn-primary(type='button', data-toggle='modal', data-target='#loginModal')
 //- 	| Launch demo modal
 // Modal
-#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+#loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
 	.modal-dialog(role='document')
 		.modal-content
-			form(method="post" id="form1" action="/login")
+			form(method="post" id="login_popup_form" action="/login")
 				.modal-header
 					h5#exampleModalLabel.modal-title Log into dinno.club
 					button.close(type='button', data-dismiss='modal', aria-label='Close')
@@ -24,8 +24,8 @@ script
 							input.custom-control-input(type='checkbox' name='remember')
 							span.custom-control-indicator
 							span.custom-control-description Remember me
-					input(type='submit' value="Submit" style='display:none;')
+					//- input(type='submit' name='submit_me' value="Submit" style='display:none;')
 				.modal-footer
 					a(href="/register")
 						button.btn.btn-secondary(type='button' href='/register') Register
-					button.btn.btn-primary( type="submit" form="form1" value="Submit") Log in
+					button.btn.btn-primary( type="submit" form="login_popup_form" value="Submit") Log in
