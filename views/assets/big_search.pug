@@ -14,3 +14,10 @@ form(method="get" action="/search")#bigsearchform
 
 		//- input#latlngfield(type='hidden', name='latlng')
 	//- p.center#location_text
+script.
+	//- safari fix
+	$("#phatsearchfood").keypress(function(e) {
+		if(e.which == 13) {
+			$( "#bigsearchform" ).submit();
+		}
+	})
