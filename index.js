@@ -1,3 +1,6 @@
+// used for analysis
+require('newrelic');
+
 // load depdendencies
 const express = require('express');
 const http = require('http');
