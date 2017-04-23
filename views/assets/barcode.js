@@ -16,7 +16,7 @@ function getOffset( el ) {
     return { top: _y, left: _x };
 }
 
-function initBarcodeScanner() {
+function runBarcodeScanner() {
     var decoded = []
     var freq = {}
     // document.getElementById("barcodeContainer").style.boxShadow = "inset 0px 0px 0px 50px red";
@@ -44,9 +44,9 @@ function initBarcodeScanner() {
         if (err) {
             console.log(err);
             $(".livevideo").remove()
-            $("#NameScanOptionText").remove()
         }else{
             console.log("Initialization finished. Ready to start");
+            Quagga.start()
         }
     });
     Quagga.onDetected(function (data) {
