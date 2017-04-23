@@ -17,7 +17,7 @@ function coord_poach_success(position) {
 }
 
 function coord_poach_error() {
-	$.getJSON('http://ipinfo.io', function(data){
+	$.getJSON('https://ipinfo.io', function(data){
 		document.getElementById("phatsearchlocation").value = data.loc + " (Est.)";
 		printEstLocation(data.loc);
 		console.log("ran error, est");
@@ -37,7 +37,7 @@ function coord_poach_error() {
 }
 
 function printEstLocation(coord){
-	$.getJSON('http://maps.google.com/maps/api/geocode/json?latlng=' + coord, function(data){
+	$.getJSON('https://maps.google.com/maps/api/geocode/json?latlng=' + coord, function(data){
 		console.log(data.results[2]);
 		console.log(data.results[2].formatted_address);
 		document.getElementById("phatsearchlocation").value = data.results[2].formatted_address;
