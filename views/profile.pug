@@ -22,8 +22,8 @@ block container
 				if page_data.isSuspended
 					h6 This user has been suspended from Dinno for violating our terms of service.
 				else
-					if isReported
-						h6 I've been reported #{page_data.reportCount} times.
+					if page_data.isReported
+						h6 Has been reported #{page_data.reportCount} times.
 					if page_data.ownProfile
 						span.chat-link-wrapper
 							a.chat-link(href='editprofile') Edit profile

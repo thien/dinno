@@ -122,11 +122,14 @@ module.exports = function() {
 					isSuspended: data[0].IsSuspended,
 					ownProfile: !req.query.id
 				};
-
-				if (param.reportCount > 0){
+				
+				console.log("reportcount = " + data[3][0].reportCount)
+				
+				if (data[3][0].reportCount > 0){
 					param.page_data.isReported = true;
 				}
 				
+				console.log(param.page_data.isReported)
 				
 				res.render('profile', param);
 

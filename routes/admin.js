@@ -261,6 +261,7 @@ module.exports = function() {
 				var currentTime = new Date();
 				dateFormat(currentTime, "YYYY-MM-DD HH:MM:SS");
 				var sendernotif = chat.saveMessage(result.UserID,senderId,"Your report (ID:"+reportId+") has been verified.",currentTime);
+				console.log("verification confirmation sent to report sender")
 				
 				//Get the number of current reports filed against the recipient.
 				var count = report.getReportCount(recipientId);
@@ -287,7 +288,7 @@ module.exports = function() {
 						});
 						
 					}
-					else if (countresult[0].reportCount >= 5){
+					else if (countresult[0][0].reportCount >= 5){
 						//After 5 reports suspend the user.
 						
 						var suspend = null
@@ -297,6 +298,7 @@ module.exports = function() {
 						Promise.all([suspend,items]).then(function(data) {
 				
 							res.redirect('/reviewreports');
+							console.log("suspended user")
 				
 						},function(err) {
 							param.error_message = {
