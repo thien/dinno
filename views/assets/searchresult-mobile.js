@@ -119,7 +119,8 @@ function manageTabletScreenAssets(){
 
 function manageLargeScreenAssets(){
 	document.getElementById('dud_spacing').style.height = '200px';
-	document.getElementById('list_results_container').style.maxHeight = '100%';
+	document.getElementById('list_results_container').style.maxHeight = 'calc(100vh - 80px)';
+	document.getElementById('list_results_container').style.overflow = 'scroll';
 	// searchButtonContainer.innerHTML = searchButtonContainerContent;
 
 
