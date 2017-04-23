@@ -208,9 +208,50 @@ module.exports = function() {
 			var mealId = req.query.id
 			var remove = removeMeal(userID, mealId);
 				
-			Promise.all([remove]).then(function(data) {
 
-				res.redirect('/manage');
+			Promise.all([remove]).then(function(dud_data) {
+				var postedclaimed = getPostedClaimedMeals(userID);
+			var postedunclaimed = getPostedUnclaimedMeals(userID);
+			var received = getReceivedMeals(userID);
+		
+				Promise.all([postedclaimed, postedunclaimed, received]).then(function(data) {
+					param.fooditems = {};
+				param.fooditems.postedclaimed = data[0];
+				param.fooditems.postedunclaimed = data[1];
+				param.fooditems.received = data[2];
+				param.user_data = {
+					userID: userID,
+					firstname: result.Firstname,
+					surname: result.Surname,
+					mugshot: result.ProfileImage,
+					textSize: result.TextSize,
+					colourScheme: result.ColourScheme,
+					isAdmin: result.IsAdmin
+				};
+				
+				if (req.query.type){
+					if (req.query.type === "others"){
+						param.defaultToggle = false;
+					} else {
+						param.defaultToggle = true;
+					}
+				}
+					param.alerts = {
+						warning: [],
+						info : [],
+						error : [],
+						success : ["The item has been cancelled successfully."]
+					}
+					res.render('manage', param);
+					// res.redirect('/manage');
+
+				},function(err) {
+					param.error_message = {
+						msg: err
+					};
+					res.render('error', param);
+				});
+				
 
 			},function(err) {
 				param.error_message = {
@@ -239,14 +280,46 @@ module.exports = function() {
 			var cancel = cancelMeal(userID, mealId);
 				
 			Promise.all([cancel]).then(function(data) {
-
-				param.alerts = {
-					warning: [],
-					info : [],
-					error : [],
-					success : ["The item has been cancelled successfully."]
+				var postedclaimed = getPostedClaimedMeals(userID);
+			var postedunclaimed = getPostedUnclaimedMeals(userID);
+			var received = getReceivedMeals(userID);
+				Promise.all([postedclaimed, postedunclaimed, received]).then(function(data) {
+					param.fooditems = {};
+				param.fooditems.postedclaimed = data[0];
+				param.fooditems.postedunclaimed = data[1];
+				param.fooditems.received = data[2];
+				param.user_data = {
+					userID: userID,
+					firstname: result.Firstname,
+					surname: result.Surname,
+					mugshot: result.ProfileImage,
+					textSize: result.TextSize,
+					colourScheme: result.ColourScheme,
+					isAdmin: result.IsAdmin
+				};
+				
+				if (req.query.type){
+					if (req.query.type === "others"){
+						param.defaultToggle = false;
+					} else {
+						param.defaultToggle = true;
+					}
 				}
-				res.render('manage', param);
+					param.alerts = {
+						warning: [],
+						info : [],
+						error : [],
+						success : ["The item has been cancelled successfully."]
+					}
+					res.render('manage', param);
+					// res.redirect('/manage');
+
+				},function(err) {
+					param.error_message = {
+						msg: err
+					};
+					res.render('error', param);
+				});
 
 			},function(err) {
 				param.error_message = {

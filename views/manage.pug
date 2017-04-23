@@ -3,32 +3,30 @@ extends layout
 block container
   script(src='/socket.io/socket.io.js')
   include includes/nav
-  include includes/status
   script.
     var fooditems = !{JSON.stringify(fooditems).replace(/<\//g, '<\\/')}
 
   .container-padder
     .col-sm-12.container-vp
       .user-fooditem-cardlist 
+        include includes/status
         h1.manage-header Manage Dinnos
         p.text-muted Edit or remove items you have added to dinno as well as any items you have claimed from others.
-
-  .row.container-padder(style='padding-right: 0px;margin-right: 0px;')
-
-    .col-lg-12.container-vp
-      .user-fooditem-cardlist#fooditemlist
-        .card
-          .card-header
-            span.manage-label Show Dinnos:
-            select.manage-select#isYours(name="isYours")
-              option(value="You") Posted by You
-              option(value="Others") Claimed by You
-            span.manage-label Sort By:
-            select.manage-select#sortBy(name="sortBy")
-              option(value="Recent") Recent
-              option(value="A-Z") A-Z
-              option(value="Expiry") Expiry
-          .card-block#itemdata
+      
+      .col-lg-12.container-vp
+        .user-fooditem-cardlist#fooditemlist
+          .card
+            .card-header
+              span.manage-label Show Dinnos:
+              select.manage-select#isYours(name="isYours")
+                option(value="You") Posted by You
+                option(value="Others") Claimed by You
+              span.manage-label Sort By:
+              select.manage-select#sortBy(name="sortBy")
+                option(value="Recent") Recent
+                option(value="A-Z") A-Z
+                option(value="Expiry") Expiry
+            .card-block#itemdata
 
   script
     include assets/manage.js
