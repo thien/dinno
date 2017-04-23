@@ -123,9 +123,10 @@ block container
 		include assets/js-cookie.js
 
 	script.
+		initBarcodeScanner();
 		$('.livevideo').on('shown.bs.modal', function (e) {
 		    // initiate quaggaJS video placeholder on run
-		    runBarcodeScanner();
+			Quagga.start()
 		})
 		var b = document.getElementById("barcode_image")
 		$(b).change(function(){
