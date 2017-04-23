@@ -639,9 +639,31 @@ margin: 0px 10px 0px 0px;
 }
 .fooditem-card {
 	margin: 10px 0px;
+	text-decoration: none;
 }
 
+a.fooditem_linky {
+	color: #c32424;
+}
+a.fooditem_linky:hover {
+	text-decoration: none;
+	color: #700c0c;
+}
 
+.fooditem-card:hover {
+	background-color: #fde1e1;
+	border-color: #ccc;
+	text-decoration: none !important;
+}
+
+.fooditem-card a {
+	text-decoration: none;
+}
+
+div.card.fooditem-card div.card-block:hover {
+	/*color: #f00;*/
+	text-decoration: none !important;
+}
 
 #user_profile_details {
 	margin-top: 50px;
