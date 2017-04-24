@@ -31,7 +31,7 @@ function waitForNotification(){
 
 function requestPermission(){
     if (!("Notification" in window)) {
-        alert("This browser does not support desktop notification");
+        console.log("This browser does not support desktop notification");
     }
     else if (Notification.permission === "granted") {
         //do nothing but we can send notifications!
